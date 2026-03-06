@@ -8,7 +8,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
-import { Scroll } from '@/components/ui/scroll-area';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import { 
   Bell, 
   CheckCircle, 
@@ -96,7 +96,7 @@ export function NotificationCenter({
             <p className="mt-2 text-sm text-muted-foreground">No notifications yet</p>
           </div>
         ) : (
-          <Scroll className="max-h-96">
+          <ScrollArea className="max-h-96">
             <div className="divide-y divide-border">
               {displayNotifications.map((notification) => (
                 <div
@@ -138,7 +138,7 @@ export function NotificationCenter({
                 </div>
               ))}
             </div>
-          </Scroll>
+          </ScrollArea>
         )}
 
         {displayNotifications.length > 0 && (
