@@ -1,12 +1,17 @@
 'use client';
 
-import { User } from 'lucide-react';
+'use client';
+
+import { User, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { NotificationCenter } from '@/components/notification-center';
 import { useNotifications } from '@/hooks/use-notifications';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import Link from 'next/link';
 
 export function Header() {
+  const [searchQuery, setSearchQuery] = useState('');
   const {
     notifications,
     unreadCount,
@@ -31,9 +36,16 @@ export function Header() {
   }, [addNotification]);
 
   return (
-    <header className="fixed right-0 top-0 z-30 flex h-16 w-[calc(100%-16rem)] items-center justify-between border-b border-border bg-background px-6">
-      <div className="text-sm text-muted-foreground">
-        Welcome back, Administrator
+    <header className="fixed right-0 top-0 z-30 flex h-16 w-[calc(100%-16rem)] items-center justify-between border-b border-border bg-background px-6 transition-all duration-300">
+      <div className="flex items-center gap-4 flex-1 max-w-md">
+        <Search className="h-4 w-4 text-muted-foreground" />
+        <Input
+          type="text"
+          placeholder="Search transactions, accounts, batches..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="h-9 border-0 bg-muted/50 placeholder:text-muted-foreground focus-visible:ring-1"
+        />
       </div>
 
       <div className="flex items-center gap-4">
@@ -46,13 +58,15 @@ export function Header() {
           onClearAll={clearAll}
         />
 
-        <Button
-          variant="ghost"
-          size="icon"
-          className="h-10 w-10 rounded-full"
-        >
-          <User className="h-5 w-5" />
-        </Button>
+        <Link href="/profile">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="h-10 w-10 rounded-full"
+          >
+            <User className="h-5 w-5" />
+          </Button>
+        </Link>
       </div>
     </header>
   );

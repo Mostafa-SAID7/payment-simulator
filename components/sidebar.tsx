@@ -10,8 +10,11 @@ import {
   History,
   Settings,
   LogOut,
+  ChevronLeft,
+  ChevronRight,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useState } from 'react';
 
 const navItems = [
   { href: '/', icon: LayoutDashboard, label: 'Dashboard' },
@@ -27,22 +30,45 @@ const bottomItems = [
 
 export function Sidebar() {
   const pathname = usePathname();
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
   return (
-    <aside className="fixed left-0 top-0 z-40 h-screen w-64 border-r border-sidebar-border bg-sidebar text-sidebar-foreground">
+    <aside className={cn(
+      'fixed left-0 top-0 z-40 h-screen border-r border-sidebar-border bg-sidebar text-sidebar-foreground transition-all duration-300',
+      isCollapsed ? 'w-20' : 'w-64'
+    )}>
       {/* Header */}
-      <div className="flex items-center gap-3 border-b border-sidebar-border px-6 py-4">
-        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-sidebar-primary">
-          <span className="text-lg font-bold text-sidebar-primary-foreground">F</span>
-        </div>
-        <div className="flex flex-col">
-          <h1 className="text-sm font-bold">FinPay</h1>
-          <p className="text-xs text-sidebar-foreground/60">Simulator</p>
-        </div>
+      <div className="flex items-center justify-between border-b border-sidebar-border px-4 py-4">
+        {!isCollapsed && (
+          <div className="flex items-center gap-3">
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-sidebar-primary">
+              <span className="text-lg font-bold text-sidebar-primary-foreground">F</span>
+            </div>
+            <div className="flex flex-col">
+              <h1 className="text-sm font-bold">FinPay</h1>
+              <p className="text-xs text-sidebar-foreground/60">Simulator</p>
+            </div>
+          </div>
+        )}
+        {isCollapsed && (
+          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-sidebar-primary">
+            <span className="text-lg font-bold text-sidebar-primary-foreground">F</span>
+          </div>
+        )}
+        <button
+          onClick={() => setIsCollapsed(!isCollapsed)}
+          className="rounded-lg p-1.5 hover:bg-sidebar-accent"
+        >
+          {isCollapsed ? (
+            <ChevronRight className="h-4 w-4" />
+          ) : (
+            <ChevronLeft className="h-4 w-4" />
+          )}
+        </button>
       </div>
 
       {/* Navigation */}
-      <nav className="flex flex-1 flex-col gap-2 px-3 py-4">
+      <nav className="flex flex-1 flex-col gap-2 px-2 py-4">
         {navItems.map((item) => {
           const Icon = item.icon;
           const isActive = pathname === item.href;
@@ -50,22 +76,23 @@ export function Sidebar() {
             <Link
               key={item.href}
               href={item.href}
+              title={isCollapsed ? item.label : ''}
               className={cn(
-                'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors',
+                'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-all duration-200',
                 isActive
-                  ? 'bg-sidebar-primary text-sidebar-primary-foreground'
-                  : 'text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground'
+                  ? 'bg-sidebar-primary text-sidebar-primary-foreground shadow-md'
+                  : 'text-sidebar-foreground hover:bg-sidebar-primary/20 hover:text-sidebar-primary'
               )}
             >
-              <Icon className="h-5 w-5" />
-              <span>{item.label}</span>
+              <Icon className="h-5 w-5 flex-shrink-0" />
+              {!isCollapsed && <span>{item.label}</span>}
             </Link>
           );
         })}
       </nav>
 
       {/* Bottom Navigation */}
-      <div className="border-t border-sidebar-border px-3 py-4">
+      <div className="border-t border-sidebar-border px-2 py-4">
         {bottomItems.map((item) => {
           const Icon = item.icon;
           const isActive = pathname === item.href;
@@ -73,21 +100,32 @@ export function Sidebar() {
             <Link
               key={item.href}
               href={item.href}
+              title={isCollapsed ? item.label : ''}
               className={cn(
-                'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors',
+                'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-all duration-200',
                 isActive
-                  ? 'bg-sidebar-primary text-sidebar-primary-foreground'
-                  : 'text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground'
+                  ? 'bg-sidebar-primary text-sidebar-primary-foreground shadow-md'
+                  : 'text-sidebar-foreground hover:bg-sidebar-primary/20 hover:text-sidebar-primary'
               )}
             >
-              <Icon className="h-5 w-5" />
-              <span>{item.label}</span>
+              <Icon className="h-5 w-5 flex-shrink-0" />
+              {!isCollapsed && <span>{item.label}</span>}
             </Link>
           );
         })}
-        <button className="mt-4 flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-sidebar-foreground transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground">
-          <LogOut className="h-5 w-5" />
-          <span>Logout</span>
+        <button
+          title="Logout"
+          onClick={() => {
+            // Handle logout
+            console.log('Logout clicked');
+          }}
+          className={cn(
+            'flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-all duration-200',
+            'text-sidebar-foreground hover:bg-sidebar-primary/20 hover:text-sidebar-primary'
+          )}
+        >
+          <LogOut className="h-5 w-5 flex-shrink-0" />
+          {!isCollapsed && <span>Logout</span>}
         </button>
       </div>
     </aside>

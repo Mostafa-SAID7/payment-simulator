@@ -98,51 +98,55 @@ export default function BatchPage() {
       </div>
 
       {!showResults ? (
-        <div className="grid gap-6 lg:grid-cols-3">
-          {/* Upload Section */}
-          <div className="lg:col-span-2">
-            <Card className="border-border">
-              <CardHeader>
-                <CardTitle>Upload Batch File</CardTitle>
-                <CardDescription>
-                  Upload a CSV file containing payment transactions
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <FileUpload onFileSelect={handleFileSelect} accept=".csv" maxSize={5242880} />
+        <div className="space-y-6">
+          {/* Upload Section - Centered */}
+          <div className="flex justify-center">
+            <div className="w-full max-w-2xl">
+              <Card className="border-border">
+                <CardHeader className="text-center">
+                  <CardTitle>Upload Batch File</CardTitle>
+                  <CardDescription className="mx-auto mt-2 max-w-md">
+                    Upload a CSV file containing payment transactions
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  <FileUpload onFileSelect={handleFileSelect} accept=".csv" maxSize={5242880} />
 
-                {selectedFile && (
-                  <div className="flex gap-3">
-                    <Button
-                      onClick={handleProcessBatch}
-                      disabled={isProcessing}
-                      className="flex-1 bg-primary hover:bg-primary/90"
-                    >
-                      {isProcessing ? 'Processing...' : 'Process Batch'}
-                    </Button>
-                    <Button
-                      variant="outline"
-                      onClick={() => setSelectedFile(null)}
-                      disabled={isProcessing}
-                    >
-                      Clear
-                    </Button>
-                  </div>
-                )}
-              </CardContent>
-            </Card>
+                  {selectedFile && (
+                    <div className="flex gap-3">
+                      <Button
+                        onClick={handleProcessBatch}
+                        disabled={isProcessing}
+                        className="flex-1 bg-primary hover:bg-primary/90"
+                      >
+                        {isProcessing ? 'Processing...' : 'Process Batch'}
+                      </Button>
+                      <Button
+                        variant="outline"
+                        onClick={() => setSelectedFile(null)}
+                        disabled={isProcessing}
+                      >
+                        Clear
+                      </Button>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            </div>
           </div>
 
           {/* Progress Section */}
           {isProcessing && (
-            <div className="lg:col-span-1">
-              <BatchProgress
-                total={progress.total}
-                processed={progress.processed}
-                successful={progress.successful}
-                failed={progress.failed}
-                status={isProcessing ? 'processing' : 'idle'}
-              />
+            <div className="flex justify-center">
+              <div className="w-full max-w-2xl">
+                <BatchProgress
+                  total={progress.total}
+                  processed={progress.processed}
+                  successful={progress.successful}
+                  failed={progress.failed}
+                  status={isProcessing ? 'processing' : 'idle'}
+                />
+              </div>
             </div>
           )}
         </div>
