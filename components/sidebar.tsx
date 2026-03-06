@@ -14,7 +14,7 @@ import {
   ChevronRight,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { useState } from 'react';
+import { useSidebar } from '@/contexts/sidebar-context';
 
 const navItems = [
   { href: '/', icon: LayoutDashboard, label: 'Dashboard' },
@@ -30,13 +30,16 @@ const bottomItems = [
 
 export function Sidebar() {
   const pathname = usePathname();
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const { isCollapsed, setIsCollapsed } = useSidebar();
 
   return (
-    <aside className={cn(
-      'fixed left-0 top-0 z-40 h-screen border-r border-sidebar-border bg-sidebar text-sidebar-foreground transition-all duration-300',
-      isCollapsed ? 'w-20' : 'w-64'
-    )}>
+    <aside
+      data-collapsed={isCollapsed}
+      className={cn(
+        'fixed left-0 top-0 z-40 h-screen border-r border-sidebar-border bg-sidebar text-sidebar-foreground transition-all duration-300',
+        isCollapsed ? 'w-20' : 'w-64'
+      )}
+    >
       {/* Header */}
       <div className="flex items-center justify-between border-b border-sidebar-border px-4 py-4">
         {!isCollapsed && (
@@ -81,7 +84,7 @@ export function Sidebar() {
                 'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-all duration-200',
                 isActive
                   ? 'bg-sidebar-primary text-sidebar-primary-foreground shadow-md'
-                  : 'text-sidebar-foreground hover:bg-sidebar-primary/20 hover:text-sidebar-primary'
+                  : 'text-sidebar-foreground hover:bg-primary/40 hover:text-primary-foreground'
               )}
             >
               <Icon className="h-5 w-5 flex-shrink-0" />
@@ -105,7 +108,7 @@ export function Sidebar() {
                 'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-all duration-200',
                 isActive
                   ? 'bg-sidebar-primary text-sidebar-primary-foreground shadow-md'
-                  : 'text-sidebar-foreground hover:bg-sidebar-primary/20 hover:text-sidebar-primary'
+                  : 'text-sidebar-foreground hover:bg-primary/40 hover:text-primary-foreground'
               )}
             >
               <Icon className="h-5 w-5 flex-shrink-0" />
@@ -121,7 +124,7 @@ export function Sidebar() {
           }}
           className={cn(
             'flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-all duration-200',
-            'text-sidebar-foreground hover:bg-sidebar-primary/20 hover:text-sidebar-primary'
+            'text-sidebar-foreground hover:bg-primary/40 hover:text-primary-foreground'
           )}
         >
           <LogOut className="h-5 w-5 flex-shrink-0" />

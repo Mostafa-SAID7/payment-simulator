@@ -96,8 +96,8 @@ export function NotificationCenter({
             <p className="mt-2 text-sm text-muted-foreground">No notifications yet</p>
           </div>
         ) : (
-          <ScrollArea className="max-h-96">
-            <div className="divide-y divide-border">
+          <ScrollArea className="h-96">
+            <div className="divide-y divide-border pr-4">
               {displayNotifications.map((notification) => (
                 <div
                   key={notification.id}

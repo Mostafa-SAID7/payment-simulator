@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { Sidebar } from '@/components/sidebar'
 import { Header } from '@/components/header'
+import { MainContent } from '@/components/main-content'
+import { SidebarProvider } from '@/contexts/sidebar-context'
 import './globals.css'
 
 const _geist = Geist({ subsets: ["latin"] });
@@ -39,11 +41,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="font-sans antialiased">
-        <Sidebar />
-        <Header />
-        <main className="ml-64 mt-16 bg-background p-6">
-          {children}
-        </main>
+        <SidebarProvider>
+          <Sidebar />
+          <Header />
+          <MainContent>
+            {children}
+          </MainContent>
+        </SidebarProvider>
         <Analytics />
       </body>
     </html>
