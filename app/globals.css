@@ -402,29 +402,6 @@
     text-transform: uppercase;
   }
 
-  .sidebar-toggle {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 1.75rem;
-    height: 1.75rem;
-    border: 1px solid transparent;
-    border-radius: 0.5rem;
-    color: color-mix(in oklch, var(--sidebar-foreground) 56%, transparent);
-    transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease;
-  }
-
-  .sidebar-toggle svg {
-    width: 0.875rem;
-    height: 0.875rem;
-  }
-
-  .sidebar-toggle:hover {
-    border-color: color-mix(in oklch, var(--sidebar-foreground) 10%, transparent);
-    background: color-mix(in oklch, var(--sidebar-foreground) 8%, transparent);
-    color: var(--sidebar-foreground);
-  }
-
   .sidebar-search {
     display: flex;
     align-items: center;
@@ -586,16 +563,6 @@
     height: 0.75rem;
     margin-left: auto;
     color: color-mix(in oklch, var(--sidebar-foreground) 62%, transparent);
-  }
-
-  [data-collapsed='true'] .sidebar-header {
-    justify-content: center;
-    padding-inline: 0.5rem;
-  }
-
-  [data-collapsed='true'] .sidebar-navigation-link {
-    justify-content: center;
-    padding-inline: 0.5rem;
   }
 
   .mobile-sidebar-overlay {
