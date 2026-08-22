@@ -122,4 +122,125 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  html,
+  .app-shell,
+  .app-shell * {
+    scrollbar-color: var(--primary) transparent;
+    scrollbar-width: thin;
+  }
+
+  .app-shell::-webkit-scrollbar,
+  .app-shell *::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  .app-shell::-webkit-scrollbar-track,
+  .app-shell *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .app-shell::-webkit-scrollbar-thumb,
+  .app-shell *::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border: 2px solid transparent;
+    border-radius: var(--radius);
+    background-clip: padding-box;
+  }
+
+  .app-shell::-webkit-scrollbar-thumb:hover,
+  .app-shell *::-webkit-scrollbar-thumb:hover {
+    background: var(--accent);
+    background-clip: padding-box;
+  }
+
+  .app-shell:focus-within,
+  .app-shell *:focus-within {
+    scrollbar-color: var(--accent) transparent;
+  }
+
+  .app-shell:focus-within::-webkit-scrollbar-thumb,
+  .app-shell *:focus-within::-webkit-scrollbar-thumb {
+    background: var(--accent);
+    background-clip: padding-box;
+  }
+
+  .app-shell:focus-visible,
+  .app-shell *:focus-visible {
+    outline-color: var(--ring);
+  }
+}
+
+@layer components {
+  .header-search {
+    min-width: 0;
+    max-width: 28rem;
+    flex: 1;
+  }
+
+  .header-actions {
+    flex-shrink: 0;
+  }
+
+  .mobile-menu-trigger {
+    display: none;
+  }
+
+  .mobile-sidebar-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 35;
+    background: color-mix(in oklch, var(--sidebar) 48%, transparent);
+  }
+
+  .header-with-collapsed-sidebar {
+    width: calc(100% - 5rem);
+  }
+
+  .header-with-expanded-sidebar {
+    width: calc(100% - 16rem);
+  }
+
+  @media (max-width: 767px) {
+    .mobile-sidebar {
+      width: 16rem !important;
+    }
+
+    .mobile-sidebar-closed {
+      transform: translateX(-100%);
+    }
+
+    .mobile-sidebar-open {
+      transform: translateX(0);
+    }
+
+    .header-with-collapsed-sidebar,
+    .header-with-expanded-sidebar {
+      width: 100%;
+    }
+
+    .mobile-menu-trigger {
+      display: inline-flex;
+    }
+
+    .app-main-content {
+      margin-left: 0 !important;
+      padding: 1rem;
+    }
+
+    .header-search {
+      gap: 0.625rem;
+    }
+
+    .header-actions {
+      gap: 0.25rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .mobile-sidebar-overlay {
+      display: none;
+    }
+  }
 }

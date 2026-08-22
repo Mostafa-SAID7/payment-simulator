@@ -1,17 +1,25 @@
 'use client';
 
-import { User, Search } from 'lucide-react';
+import { Menu, Moon, Search, Sun, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { NotificationCenter } from '@/components/notification-center';
 import { useNotifications } from '@/hooks/use-notifications';
 import { useSidebar } from '@/contexts/sidebar-context';
+import { cn } from '@/lib/utils';
+import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
 export function Header() {
   const [searchQuery, setSearchQuery] = useState('');
-  const { isCollapsed } = useSidebar();
+  const [isMounted, setIsMounted] = useState(false);
+  const { isCollapsed, setIsMobileOpen } = useSidebar();
+  const { resolvedTheme, setTheme } = useTheme();
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
   const {
     notifications,
     unreadCount,
@@ -37,21 +45,57 @@ export function Header() {
 
   return (
     <header 
-      className="fixed right-0 top-0 z-30 flex h-16 items-center justify-between border-b border-border bg-background px-6 transition-all duration-300"
-      style={{ width: isCollapsed ? 'calc(100% - 5rem)' : 'calc(100% - 16rem)' }}
+      className={cn(
+        'fixed right-0 top-0 z-30 flex h-16 items-center justify-between border-b border-border bg-background px-6 transition-all duration-300',
+        isCollapsed ? 'header-with-collapsed-sidebar' : 'header-with-expanded-sidebar'
+      )}
     >
-      <div className="flex items-center gap-4 flex-1 max-w-md">
-        <Search className="h-4 w-4 text-muted-foreground" />
+      <div className="header-search flex items-center gap-4">
+        <Button
+          type="button"
+          variant="ghost"
+          size="icon"
+          aria-label="Open navigation menu"
+          onClick={() => setIsMobileOpen(true)}
+          className="mobile-menu-trigger shrink-0"
+        >
+          <Menu className="h-5 w-5" />
+        </Button>
+        <Search className="h-4 w-4 shrink-0 text-muted-foreground" />
         <Input
           type="text"
           placeholder="Search transactions, accounts, batches..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="h-9 border-0 bg-muted/50 placeholder:text-muted-foreground focus-visible:ring-1"
+          className="h-9 min-w-0 flex-1 border-0 bg-muted/50 placeholder:text-muted-foreground focus-visible:ring-1"
         />
       </div>
 
-      <div className="flex items-center gap-4">
+      <div className="header-actions flex items-center gap-2 sm:gap-4">
+        <Button
+          type="button"
+          variant="ghost"
+          size="icon"
+          aria-label={
+            !isMounted || resolvedTheme !== 'dark'
+              ? 'Switch to dark mode'
+              : 'Switch to light mode'
+          }
+          title={
+            !isMounted || resolvedTheme !== 'dark'
+              ? 'Switch to dark mode'
+              : 'Switch to light mode'
+          }
+          disabled={!isMounted}
+          onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
+          className="theme-toggle"
+        >
+          {!isMounted || resolvedTheme !== 'dark' ? (
+            <Moon className="h-5 w-5" />
+          ) : (
+            <Sun className="h-5 w-5" />
+          )}
+        </Button>
         <NotificationCenter
           notifications={notifications}
           unreadCount={unreadCount}

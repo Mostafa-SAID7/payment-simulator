@@ -39,7 +39,7 @@ export function TransactionChart() {
                 border: '1px solid var(--color-border)',
                 borderRadius: '0.5rem',
               }}
-              formatter={(value) => `$${(value / 1000).toFixed(1)}K`}
+              formatter={(value) => `$${(Number(value) / 1000).toFixed(1)}K`}
             />
             <Line
               type="monotone"
