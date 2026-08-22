@@ -1,35 +1,47 @@
-# v0-fintech-payment-simulator
+<div align="center">
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [v0](https://v0.app).
+# FinPay — Payment Simulator
 
-## Built with v0
+**An enterprise-grade payment platform simulator for ACH, RTGS, and WPS payments.**
 
-This repository is linked to a [v0](https://v0.app) project. You can continue developing by visiting the link below -- start new chats to make changes, and v0 will push commits directly to this repo. Every merge to `main` will automatically deploy.
+Built with Next.js · React · Tailwind CSS · Recharts
 
-[Continue working on v0 →](https://v0.app/chat/projects/prj_5IJtjSnqf9yKgbiC7UZUxcV9WOhz)
+</div>
+
+---
+
+## Overview
+
+FinPay is a fintech dashboard simulator that models the core workflows of a real-world payment processing platform — from single transactions to batch file processing — with interactive analytics and a polished, responsive UI.
+
+## Core Features
+
+- **Dashboard** — Real-time metrics, transaction volume charts, and payment-type breakdowns
+- **Payments** — Initiate and track ACH, RTGS, and WPS payments
+- **Batch Processing** — Upload and process bulk payment files with progress tracking and results
+- **Transactions** — Full transaction history with filtering and status tracking
+- **Accounts** — Manage linked financial accounts
+- **Profile & Settings** — User profile and platform configuration
+
+## Tech Stack
+
+| Layer       | Technology                          |
+| ----------- | ----------------------------------- |
+| Framework   | Next.js (App Router)                |
+| UI          | React, Tailwind CSS, Radix UI      |
+| Charts      | Recharts                            |
+| Forms       | React Hook Form + Zod               |
+| Deployment  | Netlify                             |
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the app.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## License
 
-## Learn More
-
-To learn more, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-- [v0 Documentation](https://v0.app/docs) - learn about v0 and how to use it.
-
-<a href="https://v0.app/chat/api/kiro/clone/Mostafa-SAID7/v0-fintech-payment-simulator" alt="Open in Kiro"><img src="https://pdgvvgmkdvyeydso.public.blob.vercel-storage.com/open%20in%20kiro.svg?sanitize=true" /></a>
+MIT
