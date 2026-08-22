@@ -63,11 +63,12 @@ export function NotificationCenter({
         <Button
           variant="ghost"
           size="icon"
-          className="relative"
+          aria-label={`Notifications${unreadCount > 0 ? `, ${unreadCount} unread` : ''}`}
+          className="header-notification-button"
         >
-          <Bell className="h-5 w-5" />
+          <Bell />
           {unreadCount > 0 && (
-            <span className="absolute right-1 top-1 inline-flex items-center justify-center rounded-full bg-destructive px-2 py-0.5 text-xs font-medium text-destructive-foreground">
+            <span className="header-notification-count">
               {unreadCount > 9 ? '9+' : unreadCount}
             </span>
           )}

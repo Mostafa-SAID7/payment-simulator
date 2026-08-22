@@ -235,8 +235,92 @@
     flex: 1;
   }
 
+  .header-title-group {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    gap: 0.75rem;
+  }
+
+  .header-page-title {
+    margin: 0;
+    overflow: hidden;
+    color: color-mix(in oklch, var(--foreground) 86%, transparent);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    line-height: 1;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
   .header-actions {
+    display: flex;
+    align-items: center;
     flex-shrink: 0;
+    gap: 0.375rem;
+  }
+
+  .header-actions .theme-toggle,
+  .header-notification-button,
+  .header-profile-button {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 999px;
+  }
+
+  .header-actions .theme-toggle {
+    background: var(--primary);
+    color: var(--primary-foreground);
+    box-shadow: 0 0.25rem 0.75rem color-mix(in oklch, var(--primary) 32%, transparent);
+  }
+
+  .header-actions .theme-toggle:hover {
+    background: color-mix(in oklch, var(--primary) 86%, white);
+    color: var(--primary-foreground);
+  }
+
+  .header-actions .theme-toggle svg,
+  .header-notification-button svg,
+  .header-profile-button svg {
+    width: 0.875rem;
+    height: 0.875rem;
+    stroke-width: 1.7;
+  }
+
+  .header-notification-button,
+  .header-profile-button {
+    color: color-mix(in oklch, var(--foreground) 62%, transparent);
+  }
+
+  .header-notification-button:hover,
+  .header-profile-button:hover {
+    background: color-mix(in oklch, var(--foreground) 7%, transparent);
+    color: var(--foreground);
+  }
+
+  .header-notification-count {
+    position: absolute;
+    right: 0.15rem;
+    top: 0.1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0.75rem;
+    height: 0.75rem;
+    padding: 0 0.2rem;
+    border: 2px solid var(--background);
+    border-radius: 999px;
+    background: var(--destructive);
+    color: var(--destructive-foreground);
+    font-size: 0.4375rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .header-profile-link {
+    display: inline-flex;
+    border-radius: 999px;
+    background: linear-gradient(145deg, color-mix(in oklch, var(--accent) 64%, white), color-mix(in oklch, var(--primary) 54%, black));
   }
 
   .mobile-menu-trigger {
