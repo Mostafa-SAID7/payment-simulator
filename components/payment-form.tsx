@@ -157,7 +157,7 @@ export function PaymentForm() {
                 name="amount"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Amount (USD)</FormLabel>
+                    <FormLabel>Amount</FormLabel>
                     <FormControl>
                       <Input placeholder="10000.00" type="number" step="0.01" className="bg-input" {...field} />
                     </FormControl>
