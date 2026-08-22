@@ -287,8 +287,11 @@
   }
 
   .header-notification-wrapper {
-    position: relative;
+    position: relative !important;
     display: inline-flex;
+    flex: 0 0 2rem;
+    width: 2rem;
+    height: 2rem;
   }
 
   .header-notification-button:hover,
@@ -298,9 +301,10 @@
   }
 
   .header-notification-count {
-    position: absolute;
+    position: absolute !important;
     right: -0.2rem;
     top: -0.2rem;
+    z-index: 1;
     pointer-events: none;
     display: inline-flex;
     align-items: center;
