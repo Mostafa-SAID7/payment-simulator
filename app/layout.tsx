@@ -5,6 +5,7 @@ import { Sidebar } from '@/components/sidebar'
 import { Header } from '@/components/header'
 import { MainContent } from '@/components/main-content'
 import { SidebarProvider } from '@/contexts/sidebar-context'
+import { ThemeProvider } from '@/components/theme-provider'
 import './globals.css'
 
 const _geist = Geist({ subsets: ["latin"] });
@@ -30,15 +31,17 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className="app-shell font-sans antialiased">
-        <SidebarProvider>
-          <Sidebar />
-          <Header />
-          <MainContent>
-            {children}
-          </MainContent>
-        </SidebarProvider>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+          <SidebarProvider>
+            <Sidebar />
+            <Header />
+            <MainContent>
+              {children}
+            </MainContent>
+          </SidebarProvider>
+        </ThemeProvider>
         <Analytics />
       </body>
     </html>
