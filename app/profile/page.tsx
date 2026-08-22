@@ -32,7 +32,7 @@ export default function ProfilePage() {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="page-stack">
       {/* Header */}
       <div>
         <h1 className="text-3xl font-bold text-foreground">My Profile</h1>
@@ -234,7 +234,7 @@ export default function ProfilePage() {
                 }`}
               >
                 <span
-                  className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                  className={`inline-block h-4 w-4 transform rounded-full bg-background transition-transform ${
                     emailNotifications ? 'translate-x-6' : 'translate-x-1'
                   }`}
                 />
@@ -253,7 +253,7 @@ export default function ProfilePage() {
                 }`}
               >
                 <span
-                  className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                  className={`inline-block h-4 w-4 transform rounded-full bg-background transition-transform ${
                     smsNotifications ? 'translate-x-6' : 'translate-x-1'
                   }`}
                 />
@@ -269,7 +269,7 @@ export default function ProfilePage() {
                 className="relative inline-flex h-6 w-11 items-center rounded-full bg-accent transition-colors"
               >
                 <span
-                  className="inline-block h-4 w-4 transform rounded-full bg-white transition-transform translate-x-6"
+                  className="inline-block h-4 w-4 transform rounded-full bg-background transition-transform translate-x-6"
                 />
               </button>
             </div>

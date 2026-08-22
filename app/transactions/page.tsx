@@ -161,7 +161,7 @@ export default function TransactionsPage() {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="page-stack">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
@@ -192,7 +192,7 @@ export default function TransactionsPage() {
             <CardTitle className="text-sm font-medium text-muted-foreground">Completed</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-bold text-green-600">{stats.completed}</p>
+            <p className="text-2xl font-bold text-accent">{stats.completed}</p>
           </CardContent>
         </Card>
 

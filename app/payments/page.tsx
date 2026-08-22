@@ -68,7 +68,7 @@ function getStatusBadge(status: string) {
 
 export default function PaymentsPage() {
   return (
-    <div className="space-y-8">
+    <div className="page-stack">
       {/* Header */}
       <div>
         <h1 className="text-3xl font-bold text-foreground">Payments</h1>

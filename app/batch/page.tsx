@@ -77,7 +77,7 @@ export default function BatchPage() {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="page-stack">
       {/* Header */}
       <div>
         <h1 className="text-3xl font-bold text-foreground">Batch Processing</h1>
@@ -87,11 +87,11 @@ export default function BatchPage() {
       </div>
 
       {/* Info Box */}
-      <div className="flex gap-3 rounded-lg border border-yellow-200 bg-yellow-50 p-4 dark:border-yellow-900 dark:bg-yellow-950">
-        <AlertCircle className="h-5 w-5 flex-shrink-0 text-yellow-600 dark:text-yellow-400" />
+      <div className="flex gap-3 rounded-lg border border-accent/30 bg-accent/10 p-4">
+        <AlertCircle className="h-5 w-5 flex-shrink-0 text-accent" />
         <div>
-          <p className="font-medium text-yellow-900 dark:text-yellow-200">CSV Format Required</p>
-          <p className="mt-1 text-sm text-yellow-800 dark:text-yellow-300">
+          <p className="font-medium text-foreground">CSV Format Required</p>
+          <p className="mt-1 text-sm text-muted-foreground">
             Your CSV file should contain columns: recipient_name, account_number, bank_code, amount, description
           </p>
         </div>

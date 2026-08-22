@@ -209,6 +209,26 @@
 }
 
 @layer components {
+  .finance-card {
+    @apply rounded-xl border border-border/70 bg-card shadow-sm;
+  }
+
+  .finance-card-interactive {
+    @apply transition-colors hover:border-primary/30 hover:bg-card/90;
+  }
+
+  .page-stack {
+    @apply flex flex-col gap-6;
+  }
+
+  .section-heading {
+    @apply text-xl font-semibold tracking-tight text-foreground;
+  }
+
+  .section-caption {
+    @apply text-sm leading-6 text-muted-foreground;
+  }
+
   .header-search {
     min-width: 0;
     max-width: 28rem;

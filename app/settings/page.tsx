@@ -16,7 +16,7 @@ import { Lock, Bell, Users, LogOut } from 'lucide-react';
 
 export default function SettingsPage() {
   return (
-    <div className="space-y-8 max-w-2xl">
+    <div className="page-stack max-w-2xl">
       {/* Header */}
       <div>
         <h1 className="text-3xl font-bold text-foreground">Settings</h1>

@@ -110,7 +110,7 @@ export default function AccountsPage() {
   const activeAccounts = accounts.filter((acc) => acc.status === 'active').length;
 
   return (
-    <div className="space-y-8">
+    <div className="page-stack">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
