@@ -102,7 +102,7 @@ export default function BatchPage() {
           {/* Upload Section - Centered */}
           <div className="flex justify-center">
             <div className="w-full max-w-2xl">
-              <Card className="border-border">
+              <Card className="finance-card">
                 <CardHeader className="text-center">
                   <CardTitle>Upload Batch File</CardTitle>
                   <CardDescription className="mx-auto mt-2 max-w-md">

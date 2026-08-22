@@ -43,11 +43,11 @@ const recentPayments = [
 function getStatusIcon(status: string) {
   switch (status) {
     case 'completed':
-      return <CheckCircle className="h-5 w-5 text-green-500" />;
+      return <CheckCircle className="h-5 w-5 text-accent" />;
     case 'pending':
-      return <Clock className="h-5 w-5 text-yellow-500" />;
+      return <Clock className="h-5 w-5 text-chart-3" />;
     case 'failed':
-      return <XCircle className="h-5 w-5 text-red-500" />;
+      return <XCircle className="h-5 w-5 text-destructive" />;
     default:
       return null;
   }
@@ -85,7 +85,7 @@ export default function PaymentsPage() {
 
         {/* Recent Payments */}
         <div className="lg:col-span-2">
-          <Card className="border-border">
+          <Card className="finance-card">
             <CardHeader>
               <CardTitle>Recent Payments</CardTitle>
               <CardDescription>

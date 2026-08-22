@@ -59,7 +59,7 @@ export function Sidebar() {
         data-collapsed={isCollapsed}
         data-mobile-open={isMobileOpen}
         className={cn(
-          'mobile-sidebar fixed left-0 top-0 z-40 flex h-screen flex-col overflow-y-auto border-r border-sidebar-border/80 bg-sidebar text-sidebar-foreground shadow-2xl transition-all duration-300',
+          'mobile-sidebar fixed left-3 top-3 z-40 flex h-[calc(100vh-1.5rem)] flex-col overflow-y-auto rounded-2xl border border-sidebar-border/80 bg-sidebar text-sidebar-foreground shadow-2xl transition-all duration-300 md:left-4 md:top-4 md:h-[calc(100vh-2rem)]',
           isCollapsed ? 'w-20' : 'w-64',
           isMobileOpen ? 'mobile-sidebar-open' : 'mobile-sidebar-closed'
         )}
@@ -116,7 +116,7 @@ export function Sidebar() {
               aria-current={isActive ? 'page' : undefined}
               onClick={closeMobileSidebar}
               className={cn(
-                'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-all duration-200',
+                'flex items-center gap-3 rounded-md px-3 py-2 text-xs font-medium transition-all duration-200',
                 isActive
                   ? 'bg-sidebar-primary text-sidebar-primary-foreground shadow-md'
                   : 'text-sidebar-foreground hover:bg-primary/40 hover:text-primary-foreground'
@@ -142,7 +142,7 @@ export function Sidebar() {
               aria-current={isActive ? 'page' : undefined}
               onClick={closeMobileSidebar}
               className={cn(
-                'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-all duration-200',
+                'flex items-center gap-3 rounded-md px-3 py-2 text-xs font-medium transition-all duration-200',
                 isActive
                   ? 'bg-sidebar-primary text-sidebar-primary-foreground shadow-md'
                   : 'text-sidebar-foreground hover:bg-primary/40 hover:text-primary-foreground'

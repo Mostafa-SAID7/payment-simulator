@@ -44,7 +44,7 @@ export default function ProfilePage() {
       <div className="grid gap-6 lg:grid-cols-3">
         {/* Profile Information */}
         <div className="lg:col-span-2">
-          <Card>
+          <Card className="finance-card">
             <CardHeader>
               <div className="flex items-center justify-between">
                 <div>
@@ -145,14 +145,14 @@ export default function ProfilePage() {
 
         {/* Profile Summary */}
         <div className="space-y-4">
-          <Card>
+          <Card className="finance-card">
             <CardHeader>
               <CardTitle className="text-lg">Account Status</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
                 <div className="flex items-center gap-2 text-sm font-medium text-foreground">
-                  <CheckCircle2 className="h-4 w-4 text-green-600" />
+                  <CheckCircle2 className="h-4 w-4 text-accent" />
                   Account Active
                 </div>
                 <p className="mt-1 text-xs text-muted-foreground">Since Jan 15, 2024</p>
@@ -175,7 +175,7 @@ export default function ProfilePage() {
       </div>
 
       {/* Security Settings */}
-      <Card>
+      <Card className="finance-card">
         <CardHeader>
           <CardTitle>Security Settings</CardTitle>
           <CardDescription>Manage your security preferences</CardDescription>
@@ -215,7 +215,7 @@ export default function ProfilePage() {
       </Card>
 
       {/* Notification Preferences */}
-      <Card>
+      <Card className="finance-card">
         <CardHeader>
           <CardTitle>Notification Preferences</CardTitle>
           <CardDescription>Choose how you want to receive notifications</CardDescription>
@@ -278,7 +278,7 @@ export default function ProfilePage() {
       </Card>
 
       {/* API Keys */}
-      <Card>
+      <Card className="finance-card">
         <CardHeader>
           <CardTitle>API Keys</CardTitle>
           <CardDescription>Manage your API authentication keys</CardDescription>

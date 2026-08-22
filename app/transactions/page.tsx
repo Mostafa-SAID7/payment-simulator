@@ -178,7 +178,7 @@ export default function TransactionsPage() {
 
       {/* Stats Cards */}
       <div className="grid gap-4 md:grid-cols-4">
-        <Card className="border-border">
+        <Card className="finance-card">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground">Total Transactions</CardTitle>
           </CardHeader>
@@ -187,7 +187,7 @@ export default function TransactionsPage() {
           </CardContent>
         </Card>
 
-        <Card className="border-border">
+        <Card className="finance-card">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground">Completed</CardTitle>
           </CardHeader>
@@ -196,27 +196,27 @@ export default function TransactionsPage() {
           </CardContent>
         </Card>
 
-        <Card className="border-border">
+        <Card className="finance-card">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground">Pending</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-bold text-yellow-600">{stats.pending}</p>
+            <p className="text-2xl font-bold text-chart-3">{stats.pending}</p>
           </CardContent>
         </Card>
 
-        <Card className="border-border">
+        <Card className="finance-card">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground">Failed</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-bold text-red-600">{stats.failed}</p>
+            <p className="text-2xl font-bold text-destructive">{stats.failed}</p>
           </CardContent>
         </Card>
       </div>
 
       {/* Filters and Search */}
-      <Card className="border-border">
+      <Card className="finance-card">
         <CardHeader>
           <div className="flex flex-col gap-4 md:flex-row md:items-end md:gap-6">
             <div className="flex-1">
@@ -266,7 +266,7 @@ export default function TransactionsPage() {
       </Card>
 
       {/* Transactions Table */}
-      <Card className="border-border">
+      <Card className="finance-card">
         <CardContent className="pt-6">
           <div className="overflow-x-auto">
             <Table>

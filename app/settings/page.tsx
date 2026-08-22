@@ -26,7 +26,7 @@ export default function SettingsPage() {
       </div>
 
       {/* Profile Settings */}
-      <Card className="border-border">
+      <Card className="finance-card">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Users className="h-5 w-5" />
@@ -66,7 +66,7 @@ export default function SettingsPage() {
       </Card>
 
       {/* Notification Preferences */}
-      <Card className="border-border">
+      <Card className="finance-card">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Bell className="h-5 w-5" />
@@ -120,7 +120,7 @@ export default function SettingsPage() {
       </Card>
 
       {/* Security Settings */}
-      <Card className="border-border">
+      <Card className="finance-card">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Lock className="h-5 w-5" />
@@ -163,7 +163,7 @@ export default function SettingsPage() {
       </Card>
 
       {/* API Settings */}
-      <Card className="border-border">
+      <Card className="finance-card">
         <CardHeader>
           <CardTitle>API Settings</CardTitle>
           <CardDescription>Manage API keys and integrations</CardDescription>
