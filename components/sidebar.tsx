@@ -59,7 +59,7 @@ export function Sidebar() {
         data-collapsed={isCollapsed}
         data-mobile-open={isMobileOpen}
         className={cn(
-          'mobile-sidebar fixed left-0 top-0 z-40 flex h-screen flex-col overflow-y-auto border-r border-sidebar-border bg-sidebar text-sidebar-foreground transition-all duration-300',
+          'mobile-sidebar fixed left-0 top-0 z-40 flex h-screen flex-col overflow-y-auto border-r border-sidebar-border bg-sidebar text-sidebar-foreground shadow-xl transition-all duration-300',
           isCollapsed ? 'w-20' : 'w-64',
           isMobileOpen ? 'mobile-sidebar-open' : 'mobile-sidebar-closed'
         )}

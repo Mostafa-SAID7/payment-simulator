@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 
 export default function Dashboard() {
   return (
-    <div className="space-y-8">
+    <div className="flex flex-col gap-8">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
