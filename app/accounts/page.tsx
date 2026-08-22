@@ -84,9 +84,9 @@ function getStatusBadge(status: Account['status']) {
 
 function getTypeBadge(type: Account['type']) {
   const colors: Record<Account['type'], string> = {
-    business: 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200',
-    savings: 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200',
-    checking: 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200',
+    business: 'bg-secondary text-secondary-foreground',
+    savings: 'bg-accent/15 text-accent',
+    checking: 'bg-primary/15 text-primary',
   };
   return (
     <span className={`rounded-full px-3 py-1 text-xs font-medium ${colors[type]}`}>
@@ -110,7 +110,7 @@ export default function AccountsPage() {
   const activeAccounts = accounts.filter((acc) => acc.status === 'active').length;
 
   return (
-    <div className="space-y-8">
+    <div className="page-stack">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
@@ -127,7 +127,7 @@ export default function AccountsPage() {
 
       {/* Summary Cards */}
       <div className="grid gap-4 md:grid-cols-3">
-        <Card className="border-border">
+        <Card className="finance-card">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground">
               Total Balance
@@ -140,7 +140,7 @@ export default function AccountsPage() {
           </CardContent>
         </Card>
 
-        <Card className="border-border">
+        <Card className="finance-card">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground">
               Active Accounts
@@ -151,7 +151,7 @@ export default function AccountsPage() {
           </CardContent>
         </Card>
 
-        <Card className="border-border">
+        <Card className="finance-card">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground">
               Total Accounts
@@ -164,7 +164,7 @@ export default function AccountsPage() {
       </div>
 
       {/* Accounts Table */}
-      <Card className="border-border">
+      <Card className="finance-card">
         <CardHeader>
           <div className="flex items-center justify-between">
             <div>

@@ -9,7 +9,7 @@ export function MainContent({ children }: { children: React.ReactNode }) {
   return (
     <main
       className={cn(
-        'app-main-content mt-16 min-h-screen transition-all duration-300 bg-background p-6',
+        'app-main-content mt-16 min-h-screen bg-background p-3 transition-all duration-300 sm:p-5 lg:p-6 lg:pr-8',
         isCollapsed ? 'ml-20' : 'ml-64'
       )}
     >
