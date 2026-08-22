@@ -122,4 +122,36 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  html,
+  .app-shell,
+  .app-shell * {
+    scrollbar-color: var(--primary) transparent;
+    scrollbar-width: thin;
+  }
+
+  .app-shell::-webkit-scrollbar,
+  .app-shell *::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  .app-shell::-webkit-scrollbar-track,
+  .app-shell *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .app-shell::-webkit-scrollbar-thumb,
+  .app-shell *::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border: 2px solid transparent;
+    border-radius: var(--radius);
+    background-clip: padding-box;
+  }
+
+  .app-shell::-webkit-scrollbar-thumb:hover,
+  .app-shell *::-webkit-scrollbar-thumb:hover {
+    background: var(--accent);
+    background-clip: padding-box;
+  }
 }
