@@ -5,6 +5,7 @@ import { Sidebar } from '@/components/sidebar'
 import { Header } from '@/components/header'
 import { MainContent } from '@/components/main-content'
 import { SidebarProvider } from '@/contexts/sidebar-context'
+import { ThemeProvider } from '@/components/theme-provider'
 import './globals.css'
 
 const _geist = Geist({ subsets: ["latin"] });
@@ -15,21 +16,12 @@ export const metadata: Metadata = {
   description: 'Enterprise payment platform simulator for ACH, RTGS, and WPS payments',
   generator: 'v0.app',
   icons: {
-    icon: [
-      {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
-      },
-    ],
-    apple: '/apple-icon.png',
+    icon: {
+      url: '/icon.svg',
+      type: 'image/svg+xml',
+    },
+    shortcut: '/icon.svg',
+    apple: '/icon.svg',
   },
 }
 
@@ -39,15 +31,17 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body className="font-sans antialiased">
-        <SidebarProvider>
-          <Sidebar />
-          <Header />
-          <MainContent>
-            {children}
-          </MainContent>
-        </SidebarProvider>
+    <html lang="en" suppressHydrationWarning>
+      <body className="app-shell font-sans antialiased">
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+          <SidebarProvider>
+            <Sidebar />
+            <Header />
+            <MainContent>
+              {children}
+            </MainContent>
+          </SidebarProvider>
+        </ThemeProvider>
         <Analytics />
       </body>
     </html>
