@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
   ArrowUpRight,
+  CreditCard,
   History,
   LayoutDashboard,
   LogOut,
@@ -23,6 +24,7 @@ import { useSidebar } from '@/contexts/sidebar-context';
 const navItems = [
   { href: '/', icon: LayoutDashboard, label: 'Dashboard' },
   { href: '/payments', icon: Send, label: 'Payments' },
+  { href: '/cards', icon: CreditCard, label: 'Cards' },
   { href: '/batch', icon: Upload, label: 'Batch Processing' },
   { href: '/accounts', icon: Users, label: 'Accounts' },
   { href: '/transactions', icon: History, label: 'Transactions' },

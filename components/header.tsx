@@ -16,6 +16,7 @@ import Link from 'next/link';
 const pageTitles: Record<string, string> = {
   '/': 'Dashboard',
   '/payments': 'Payments',
+  '/cards': 'Cards',
   '/batch': 'Batch Processing',
   '/accounts': 'Accounts',
   '/transactions': 'Transactions',
