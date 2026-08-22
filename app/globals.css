@@ -154,4 +154,30 @@
     background: var(--accent);
     background-clip: padding-box;
   }
+
+  .app-shell:focus-within,
+  .app-shell *:focus-within {
+    scrollbar-color: var(--accent) transparent;
+  }
+
+  .app-shell:focus-within::-webkit-scrollbar-thumb,
+  .app-shell *:focus-within::-webkit-scrollbar-thumb {
+    background: var(--accent);
+    background-clip: padding-box;
+  }
+
+  .app-shell:focus-visible,
+  .app-shell *:focus-visible {
+    outline-color: var(--ring);
+  }
+}
+
+@layer components {
+  .header-with-collapsed-sidebar {
+    width: calc(100% - 5rem);
+  }
+
+  .header-with-expanded-sidebar {
+    width: calc(100% - 16rem);
+  }
 }

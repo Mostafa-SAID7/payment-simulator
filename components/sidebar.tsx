@@ -13,6 +13,7 @@ import {
   ChevronLeft,
   ChevronRight,
 } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 import { useSidebar } from '@/contexts/sidebar-context';
 
@@ -30,7 +31,12 @@ const bottomItems = [
 
 export function Sidebar() {
   const pathname = usePathname();
+  const [hydratedPathname, setHydratedPathname] = useState<string | null>(null);
   const { isCollapsed, setIsCollapsed } = useSidebar();
+
+  useEffect(() => {
+    setHydratedPathname(pathname);
+  }, [pathname]);
 
   return (
     <aside
@@ -74,7 +80,7 @@ export function Sidebar() {
       <nav className="flex flex-1 flex-col gap-2 px-2 py-4">
         {navItems.map((item) => {
           const Icon = item.icon;
-          const isActive = pathname === item.href;
+          const isActive = hydratedPathname === item.href;
           return (
             <Link
               key={item.href}
@@ -98,7 +104,7 @@ export function Sidebar() {
       <div className="border-t border-sidebar-border px-2 py-4">
         {bottomItems.map((item) => {
           const Icon = item.icon;
-          const isActive = pathname === item.href;
+          const isActive = hydratedPathname === item.href;
           return (
             <Link
               key={item.href}

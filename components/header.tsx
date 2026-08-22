@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { NotificationCenter } from '@/components/notification-center';
 import { useNotifications } from '@/hooks/use-notifications';
 import { useSidebar } from '@/contexts/sidebar-context';
+import { cn } from '@/lib/utils';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
@@ -37,8 +38,10 @@ export function Header() {
 
   return (
     <header 
-      className="fixed right-0 top-0 z-30 flex h-16 items-center justify-between border-b border-border bg-background px-6 transition-all duration-300"
-      style={{ width: isCollapsed ? 'calc(100% - 5rem)' : 'calc(100% - 16rem)' }}
+      className={cn(
+        'fixed right-0 top-0 z-30 flex h-16 items-center justify-between border-b border-border bg-background px-6 transition-all duration-300',
+        isCollapsed ? 'header-with-collapsed-sidebar' : 'header-with-expanded-sidebar'
+      )}
     >
       <div className="flex items-center gap-4 flex-1 max-w-md">
         <Search className="h-4 w-4 text-muted-foreground" />
