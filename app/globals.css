@@ -286,6 +286,10 @@
     color: color-mix(in oklch, var(--foreground) 62%, transparent);
   }
 
+  .header-notification-button {
+    position: relative;
+  }
+
   .header-notification-button:hover,
   .header-profile-button:hover {
     background: color-mix(in oklch, var(--foreground) 7%, transparent);
@@ -606,7 +610,7 @@
   }
 
   .header-with-expanded-sidebar {
-    width: calc(100% - 17rem);
+    width: calc(100% - 18rem);
   }
 
   @media (max-width: 767px) {
