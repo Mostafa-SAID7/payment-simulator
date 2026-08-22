@@ -16,6 +16,7 @@ import {
   Sparkles,
   Upload,
   Users,
+  type LucideIcon,
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
@@ -33,6 +34,28 @@ const navItems = [
 const bottomItems = [
   { href: '/settings', icon: Settings, label: 'Settings' },
 ];
+
+type SidebarNavigationLinkProps = {
+  item: { href: string; icon: LucideIcon; label: string };
+  isActive: boolean;
+  onNavigate: () => void;
+};
+
+function SidebarNavigationLink({ item, isActive, onNavigate }: SidebarNavigationLinkProps) {
+  const Icon = item.icon;
+
+  return (
+    <Link
+      href={item.href}
+      aria-current={isActive ? 'page' : undefined}
+      onClick={onNavigate}
+      className={cn('sidebar-navigation-link', isActive && 'sidebar-navigation-link-active')}
+    >
+      <Icon />
+      <span>{item.label}</span>
+    </Link>
+  );
+}
 
 export function Sidebar() {
   const pathname = usePathname();
@@ -81,22 +104,14 @@ export function Sidebar() {
 
         <nav aria-label="Primary navigation" className="sidebar-navigation">
           <p className="sidebar-section-label">Main menu</p>
-          {navItems.map((item) => {
-            const Icon = item.icon;
-            const isActive = hydratedPathname === item.href;
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                aria-current={isActive ? 'page' : undefined}
-                onClick={closeMobileSidebar}
-                className={cn('sidebar-navigation-link', isActive && 'sidebar-navigation-link-active')}
-              >
-                <Icon />
-                <span>{item.label}</span>
-              </Link>
-            );
-          })}
+          {navItems.map((item) => (
+            <SidebarNavigationLink
+              key={item.href}
+              item={item}
+              isActive={hydratedPathname === item.href}
+              onNavigate={closeMobileSidebar}
+            />
+          ))}
         </nav>
 
         <div className="sidebar-footer">
@@ -108,22 +123,14 @@ export function Sidebar() {
             </div>
             <ArrowUpRight className="sidebar-upgrade-arrow" />
           </div>
-          {bottomItems.map((item) => {
-            const Icon = item.icon;
-            const isActive = hydratedPathname === item.href;
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                aria-current={isActive ? 'page' : undefined}
-                onClick={closeMobileSidebar}
-                className={cn('sidebar-navigation-link', isActive && 'sidebar-navigation-link-active')}
-              >
-                <Icon />
-                <span>{item.label}</span>
-              </Link>
-            );
-          })}
+          {bottomItems.map((item) => (
+            <SidebarNavigationLink
+              key={item.href}
+              item={item}
+              isActive={hydratedPathname === item.href}
+              onNavigate={closeMobileSidebar}
+            />
+          ))}
           <button
             type="button"
             title="Logout"

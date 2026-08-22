@@ -229,12 +229,6 @@
     @apply text-sm leading-6 text-muted-foreground;
   }
 
-  .header-search {
-    min-width: 0;
-    max-width: 28rem;
-    flex: 1;
-  }
-
   .header-title-group {
     display: flex;
     align-items: center;
@@ -352,7 +346,7 @@
   .sidebar-header {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
     min-height: 4.5rem;
     padding: 1rem 0.875rem 0.75rem;
     border-bottom: 1px solid color-mix(in oklch, var(--sidebar-foreground) 7%, transparent);
@@ -605,10 +599,6 @@
     .app-main-content {
       margin-left: 0 !important;
       padding: 1rem;
-    }
-
-    .header-search {
-      gap: 0.625rem;
     }
 
     .header-actions {
