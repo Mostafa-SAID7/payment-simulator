@@ -21,7 +21,7 @@ const data = [
 
 export function BatchSuccessChart() {
   return (
-    <Card className="col-span-1 border-border md:col-span-2">
+    <Card className="dashboard-card col-span-1 md:col-span-2">
       <CardHeader>
         <CardTitle className="text-foreground">Batch Processing Success Rate</CardTitle>
       </CardHeader>
