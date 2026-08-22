@@ -1,19 +1,32 @@
 'use client';
 
-import { Menu, Moon, Search, Sun, User } from 'lucide-react';
+'use client';
+
+import { Menu, Moon, Sun, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { NotificationCenter } from '@/components/notification-center';
 import { useNotifications } from '@/hooks/use-notifications';
 import { useSidebar } from '@/contexts/sidebar-context';
 import { cn } from '@/lib/utils';
 import { useTheme } from 'next-themes';
+import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
+const pageTitles: Record<string, string> = {
+  '/': 'Dashboard',
+  '/payments': 'Payments',
+  '/cards': 'Cards',
+  '/batch': 'Batch Processing',
+  '/accounts': 'Accounts',
+  '/transactions': 'Transactions',
+  '/settings': 'Settings',
+  '/profile': 'Profile',
+};
+
 export function Header() {
-  const [searchQuery, setSearchQuery] = useState('');
   const [isMounted, setIsMounted] = useState(false);
+  const pathname = usePathname();
   const { isCollapsed, setIsMobileOpen } = useSidebar();
   const { resolvedTheme, setTheme } = useTheme();
 
@@ -44,13 +57,13 @@ export function Header() {
   }, [addNotification]);
 
   return (
-    <header 
+    <header
       className={cn(
-        'fixed right-0 top-0 z-30 flex h-16 items-center justify-between border-b border-border/70 bg-background/90 px-4 backdrop-blur transition-all duration-300 sm:px-6',
+        'app-header fixed right-0 top-0 z-30 flex h-16 items-center justify-between border-b border-border/70 bg-background/90 px-4 backdrop-blur transition-all duration-300 sm:px-6',
         isCollapsed ? 'header-with-collapsed-sidebar' : 'header-with-expanded-sidebar'
       )}
     >
-      <div className="header-search flex items-center gap-4">
+      <div className="header-title-group">
         <Button
           type="button"
           variant="ghost"
@@ -61,17 +74,10 @@ export function Header() {
         >
           <Menu className="h-5 w-5" />
         </Button>
-        <Search className="h-4 w-4 shrink-0 text-muted-foreground" />
-        <Input
-          type="text"
-          placeholder="Search transactions, accounts, batches..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className="h-9 min-w-0 flex-1 border-0 bg-muted/50 placeholder:text-muted-foreground focus-visible:ring-1"
-        />
+        <p className="header-page-title">{pageTitles[pathname] ?? 'FinPay'}</p>
       </div>
 
-      <div className="header-actions flex items-center gap-2 sm:gap-4">
+      <div className="header-actions">
         <Button
           type="button"
           variant="ghost"
@@ -90,11 +96,7 @@ export function Header() {
           onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
           className="theme-toggle"
         >
-          {!isMounted || resolvedTheme !== 'dark' ? (
-            <Moon className="h-5 w-5" />
-          ) : (
-            <Sun className="h-5 w-5" />
-          )}
+          {!isMounted || resolvedTheme !== 'dark' ? <Moon /> : <Sun />}
         </Button>
         <NotificationCenter
           notifications={notifications}
@@ -105,13 +107,9 @@ export function Header() {
           onClearAll={clearAll}
         />
 
-        <Link href="/profile">
-          <Button
-            variant="ghost"
-            size="icon"
-            className="h-10 w-10 rounded-full"
-          >
-            <User className="h-5 w-5" />
+        <Link href="/profile" aria-label="Open profile" className="header-profile-link">
+          <Button variant="ghost" size="icon" className="header-profile-button">
+            <User />
           </Button>
         </Link>
       </div>

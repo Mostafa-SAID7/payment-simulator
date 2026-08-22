@@ -29,7 +29,7 @@ export default function Dashboard() {
           ['New Order', '$47,255.00', Send],
           ['Refunds', '$2,425.00', Download],
         ].map(([label, value, Icon]) => (
-          <Card key={String(label)} className="dashboard-card border-border/80 bg-card/80 shadow-none">
+          <Card key={String(label)} className="dashboard-card">
             <CardContent className="flex items-center justify-between p-4"><div><p className="text-[10px] uppercase tracking-wider text-muted-foreground">{String(label)}</p><p className="mt-1 text-lg font-semibold">{String(value)}</p></div><Icon className="size-4 text-muted-foreground" /></CardContent>
           </Card>
         ))}
@@ -40,7 +40,7 @@ export default function Dashboard() {
         <PaymentTypeChart />
       </section>
 
-      <Card className="dashboard-card border-border/80 bg-card/80 shadow-none">
+      <Card className="dashboard-card">
         <CardHeader className="flex flex-row items-center justify-between border-b border-border/60 px-4 py-3"><CardTitle className="text-sm">Transaction History</CardTitle><Button variant="outline" size="sm" className="h-7 rounded-md text-[10px]">This Month <ChevronDown data-icon="inline-end" /></Button></CardHeader>
         <CardContent className="p-0"><div className="overflow-x-auto"><table className="w-full text-left text-xs"><thead className="text-[10px] uppercase tracking-wider text-muted-foreground"><tr>{['Transaction','Date','Amount','Status','Action'].map((x) => <th key={x} className="px-4 py-3 font-medium">{x}</th>)}</tr></thead><tbody>{transactions.map(([name, id, date, amount, status]) => <tr key={id} className="border-t border-border/50"><td className="px-4 py-3"><div className="flex items-center gap-3"><div className="flex size-7 items-center justify-center rounded-full bg-secondary"><CircleDollarSign className="size-3" /></div><div><p className="font-medium">{name}</p><p className="text-[9px] text-muted-foreground">{id}</p></div></div></td><td className="px-4 py-3 text-muted-foreground">{date}</td><td className="px-4 py-3 text-muted-foreground">{amount}</td><td className="px-4 py-3"><Badge variant={status === 'Successful' ? 'default' : 'secondary'} className="rounded-full text-[9px]">{status}</Badge></td><td className="px-4 py-3"><Button size="icon" variant="ghost" className="size-7"><MoreHorizontal /></Button></td></tr>)}</tbody></table></div></CardContent>
       </Card>

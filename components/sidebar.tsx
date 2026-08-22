@@ -1,17 +1,24 @@
 'use client';
 
+'use client';
+
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
+  ArrowUpRight,
+  CreditCard,
+  History,
   LayoutDashboard,
+  LogOut,
+  PanelLeftClose,
+  PanelLeftOpen,
+  Search,
   Send,
+  Settings,
+  Sparkles,
   Upload,
   Users,
-  History,
-  Settings,
-  LogOut,
-  ChevronLeft,
-  ChevronRight,
+  type LucideIcon,
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
@@ -20,6 +27,7 @@ import { useSidebar } from '@/contexts/sidebar-context';
 const navItems = [
   { href: '/', icon: LayoutDashboard, label: 'Dashboard' },
   { href: '/payments', icon: Send, label: 'Payments' },
+  { href: '/cards', icon: CreditCard, label: 'Cards' },
   { href: '/batch', icon: Upload, label: 'Batch Processing' },
   { href: '/accounts', icon: Users, label: 'Accounts' },
   { href: '/transactions', icon: History, label: 'Transactions' },
@@ -29,15 +37,34 @@ const bottomItems = [
   { href: '/settings', icon: Settings, label: 'Settings' },
 ];
 
+type SidebarNavigationLinkProps = {
+  item: { href: string; icon: LucideIcon; label: string };
+  isActive: boolean;
+  isCollapsed: boolean;
+  onNavigate: () => void;
+};
+
+function SidebarNavigationLink({ item, isActive, isCollapsed, onNavigate }: SidebarNavigationLinkProps) {
+  const Icon = item.icon;
+
+  return (
+    <Link
+      href={item.href}
+      title={isCollapsed ? item.label : undefined}
+      aria-current={isActive ? 'page' : undefined}
+      onClick={onNavigate}
+      className={cn('sidebar-navigation-link', isActive && 'sidebar-navigation-link-active')}
+    >
+      <Icon />
+      {!isCollapsed && <span>{item.label}</span>}
+    </Link>
+  );
+}
+
 export function Sidebar() {
   const pathname = usePathname();
   const [hydratedPathname, setHydratedPathname] = useState<string | null>(null);
-  const {
-    isCollapsed,
-    setIsCollapsed,
-    isMobileOpen,
-    setIsMobileOpen,
-  } = useSidebar();
+  const { isCollapsed, setIsCollapsed, isMobileOpen, setIsMobileOpen } = useSidebar();
 
   useEffect(() => {
     setHydratedPathname(pathname);
@@ -59,115 +86,87 @@ export function Sidebar() {
         data-collapsed={isCollapsed}
         data-mobile-open={isMobileOpen}
         className={cn(
-          'mobile-sidebar fixed left-3 top-3 z-40 flex h-[calc(100vh-1.5rem)] flex-col overflow-y-auto rounded-2xl border border-sidebar-border/80 bg-sidebar text-sidebar-foreground shadow-2xl transition-all duration-300 md:left-4 md:top-4 md:h-[calc(100vh-2rem)]',
+          'mobile-sidebar sidebar-shell fixed left-3 top-3 z-40 flex h-[calc(100vh-1.5rem)] flex-col overflow-y-auto rounded-2xl border border-sidebar-border/80 text-sidebar-foreground shadow-2xl transition-all duration-300 md:left-4 md:top-4 md:h-[calc(100vh-2rem)]',
           isCollapsed ? 'w-20' : 'w-64',
           isMobileOpen ? 'mobile-sidebar-open' : 'mobile-sidebar-closed'
         )}
       >
-        {/* Header */}
-        <div className="flex items-center justify-between border-b border-sidebar-border px-4 py-4">
-        {!isCollapsed && (
-          <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-sidebar-primary">
-              <span className="text-lg font-bold text-sidebar-primary-foreground">F</span>
-            </div>
-            <div className="flex flex-col">
-              <h1 className="text-sm font-bold">FinPay</h1>
-              <p className="text-xs text-sidebar-foreground/60">Simulator</p>
-            </div>
-          </div>
-        )}
-        {isCollapsed && (
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-sidebar-primary">
-            <span className="text-lg font-bold text-sidebar-primary-foreground">F</span>
-          </div>
-        )}
-        <button
-          type="button"
-          aria-label={isMobileOpen ? 'Close navigation menu' : isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-          onClick={() => {
-            if (isMobileOpen) {
-              closeMobileSidebar();
-              return;
-            }
-            setIsCollapsed(!isCollapsed);
-          }}
-          aria-expanded={isMobileOpen || !isCollapsed}
-          className="rounded-lg p-1.5 hover:bg-sidebar-accent"
-        >
-          {isCollapsed ? (
-            <ChevronRight className="h-4 w-4" />
-          ) : (
-            <ChevronLeft className="h-4 w-4" />
-          )}
-        </button>
+        <div className="sidebar-glow" aria-hidden="true" />
+        <div className="sidebar-header">
+          <Link href="/" onClick={closeMobileSidebar} className="sidebar-brand" aria-label="FinPay dashboard">
+            <span className="sidebar-brand-mark">F</span>
+            {!isCollapsed && (
+              <span className="sidebar-brand-copy">
+                <span className="sidebar-brand-name">FinPay</span>
+                <span className="sidebar-brand-subtitle">Simulator</span>
+              </span>
+            )}
+          </Link>
+          <button
+            type="button"
+            aria-label={isMobileOpen ? 'Close navigation menu' : isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+            aria-expanded={isMobileOpen || !isCollapsed}
+            onClick={() => {
+              if (isMobileOpen) {
+                closeMobileSidebar();
+                return;
+              }
+              setIsCollapsed(!isCollapsed);
+            }}
+            className="sidebar-toggle"
+          >
+            {isCollapsed ? <PanelLeftOpen /> : <PanelLeftClose />}
+          </button>
         </div>
 
-        {/* Navigation */}
-        <nav aria-label="Primary navigation" className="flex min-h-0 flex-1 flex-col gap-2 overflow-y-auto px-2 py-4">
-        {navItems.map((item) => {
-          const Icon = item.icon;
-          const isActive = hydratedPathname === item.href;
-          return (
-            <Link
+        {!isCollapsed && (
+          <button type="button" className="sidebar-search" aria-label="Search navigation">
+            <Search />
+            <span>Search</span>
+            <kbd>⌘ K</kbd>
+          </button>
+        )}
+
+        <nav aria-label="Primary navigation" className="sidebar-navigation">
+          <p className="sidebar-section-label">Main menu</p>
+          {navItems.map((item) => (
+            <SidebarNavigationLink
               key={item.href}
-              href={item.href}
-              title={isCollapsed ? item.label : ''}
-              aria-current={isActive ? 'page' : undefined}
-              onClick={closeMobileSidebar}
-              className={cn(
-                'flex items-center gap-3 rounded-md px-3 py-2 text-xs font-medium transition-all duration-200',
-                isActive
-                  ? 'bg-sidebar-primary text-sidebar-primary-foreground shadow-md'
-                  : 'text-sidebar-foreground hover:bg-primary/40 hover:text-primary-foreground'
-              )}
-            >
-              <Icon className="h-5 w-5 flex-shrink-0" />
-              {!isCollapsed && <span>{item.label}</span>}
-            </Link>
-          );
-        })}
+              item={item}
+              isActive={hydratedPathname === item.href}
+              isCollapsed={isCollapsed}
+              onNavigate={closeMobileSidebar}
+            />
+          ))}
         </nav>
 
-        {/* Bottom Navigation */}
-        <div className="border-t border-sidebar-border px-2 py-4">
-        {bottomItems.map((item) => {
-          const Icon = item.icon;
-          const isActive = hydratedPathname === item.href;
-          return (
-            <Link
+        <div className="sidebar-footer">
+          {!isCollapsed && <div className="sidebar-upgrade-card">
+            <div className="sidebar-upgrade-icon"><Sparkles /></div>
+            <div className="sidebar-upgrade-copy">
+              <p>Activate Super</p>
+              <span>Unlock more features</span>
+            </div>
+            <ArrowUpRight className="sidebar-upgrade-arrow" />
+          </div>}
+          {bottomItems.map((item) => (
+            <SidebarNavigationLink
               key={item.href}
-              href={item.href}
-              title={isCollapsed ? item.label : ''}
-              aria-current={isActive ? 'page' : undefined}
-              onClick={closeMobileSidebar}
-              className={cn(
-                'flex items-center gap-3 rounded-md px-3 py-2 text-xs font-medium transition-all duration-200',
-                isActive
-                  ? 'bg-sidebar-primary text-sidebar-primary-foreground shadow-md'
-                  : 'text-sidebar-foreground hover:bg-primary/40 hover:text-primary-foreground'
-              )}
-            >
-              <Icon className="h-5 w-5 flex-shrink-0" />
-              {!isCollapsed && <span>{item.label}</span>}
-            </Link>
-          );
-        })}
-        <button
-          type="button"
-          title="Logout"
-          aria-label="Log out"
-          onClick={() => {
-            // Handle logout
-            console.log('Logout clicked');
-          }}
-          className={cn(
-            'flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-all duration-200',
-            'text-sidebar-foreground hover:bg-primary/40 hover:text-primary-foreground'
-          )}
-        >
-          <LogOut className="h-5 w-5 flex-shrink-0" />
-          {!isCollapsed && <span>Logout</span>}
+              item={item}
+              isActive={hydratedPathname === item.href}
+              isCollapsed={isCollapsed}
+              onNavigate={closeMobileSidebar}
+            />
+          ))}
+          <button
+            type="button"
+            title="Logout"
+            aria-label="Log out"
+            onClick={() => console.log('Logout clicked')}
+            className="sidebar-navigation-link sidebar-logout"
+          >
+            <LogOut />
+            {!isCollapsed && <span>Logout</span>}
           </button>
         </div>
       </aside>
