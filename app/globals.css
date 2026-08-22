@@ -286,8 +286,9 @@
     color: color-mix(in oklch, var(--foreground) 62%, transparent);
   }
 
-  .header-notification-button {
+  .header-notification-wrapper {
     position: relative;
+    display: inline-flex;
   }
 
   .header-notification-button:hover,
@@ -298,8 +299,9 @@
 
   .header-notification-count {
     position: absolute;
-    right: 0.15rem;
-    top: 0.1rem;
+    right: -0.2rem;
+    top: -0.2rem;
+    pointer-events: none;
     display: inline-flex;
     align-items: center;
     justify-content: center;
