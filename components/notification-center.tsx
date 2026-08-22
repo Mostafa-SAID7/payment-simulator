@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import {
@@ -53,9 +53,27 @@ export function NotificationCenter({
   onClear,
   onClearAll,
 }: NotificationCenterProps) {
+  const [isMounted, setIsMounted] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   const displayNotifications = notifications.slice(0, 10);
+
+  if (!isMounted) {
+    return (
+      <Button
+        variant="ghost"
+        size="icon"
+        aria-label="Notifications"
+        className="header-notification-button"
+      >
+        <Bell />
+      </Button>
+    );
+  }
 
   return (
     <Popover open={isOpen} onOpenChange={setIsOpen}>
