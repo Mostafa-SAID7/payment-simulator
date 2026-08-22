@@ -12,7 +12,7 @@ interface BalanceCardProps {
 
 export function BalanceCard({ title, amount, change, icon }: BalanceCardProps) {
   return (
-    <Card className="border-border">
+    <Card className="border-border/70 bg-card shadow-sm transition-shadow hover:shadow-md">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
         <CardTitle className="text-sm font-medium text-foreground/60">{title}</CardTitle>
         <div className="text-accent">{icon}</div>

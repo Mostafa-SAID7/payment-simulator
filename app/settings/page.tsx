@@ -16,7 +16,7 @@ import { Lock, Bell, Users, LogOut } from 'lucide-react';
 
 export default function SettingsPage() {
   return (
-    <div className="space-y-8 max-w-2xl">
+    <div className="page-stack max-w-2xl">
       {/* Header */}
       <div>
         <h1 className="text-3xl font-bold text-foreground">Settings</h1>
@@ -26,7 +26,7 @@ export default function SettingsPage() {
       </div>
 
       {/* Profile Settings */}
-      <Card className="border-border">
+      <Card className="finance-card">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Users className="h-5 w-5" />
@@ -66,7 +66,7 @@ export default function SettingsPage() {
       </Card>
 
       {/* Notification Preferences */}
-      <Card className="border-border">
+      <Card className="finance-card">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Bell className="h-5 w-5" />
@@ -120,7 +120,7 @@ export default function SettingsPage() {
       </Card>
 
       {/* Security Settings */}
-      <Card className="border-border">
+      <Card className="finance-card">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Lock className="h-5 w-5" />
@@ -163,7 +163,7 @@ export default function SettingsPage() {
       </Card>
 
       {/* API Settings */}
-      <Card className="border-border">
+      <Card className="finance-card">
         <CardHeader>
           <CardTitle>API Settings</CardTitle>
           <CardDescription>Manage API keys and integrations</CardDescription>
