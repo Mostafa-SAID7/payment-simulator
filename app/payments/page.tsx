@@ -23,13 +23,6 @@ const paymentHistory = [
   { recipient: 'William Hirsch', id: 'PAY-8784', detail: 'Service Fee', date: '25 July 2025', amount: '$985,414.00', status: 'Paid' },
 ];
 
-const balanceBreakdown = [
-  ['USD', '$525,525.00'],
-  ['EUR', '$414,587.00'],
-  ['ETH', '$785.58.00'],
-  ['GBP', '$875,525.00'],
-];
-
 function PaymentStatusIcon({ status }: { status: string }) {
   if (status === 'Paid') {
     return <CheckCircle className="payment-status-icon payment-status-icon-paid" />;
@@ -48,7 +41,7 @@ export default function PaymentsPage() {
       <div className="payments-page-intro">
         <h1 className="payments-page-title">Payment</h1>
         <p className="payments-page-description">
-          Easily manage all your payments, invoices, and transactions with real-time analytics, customer insights,<br className="payments-description-break" /> and multi-currency support – ensuring accuracy and financial transparency.
+          Easily manage all your payments, invoices, and transactions with real-time analytics, customer insights,<br className="payments-description-break" /> and clear reporting – ensuring accuracy and financial transparency.
         </p>
       </div>
 
@@ -59,11 +52,6 @@ export default function PaymentsPage() {
               <span className="payment-title-icon"><WalletCards /></span>
               My Balance <span className="payment-info-mark">ⓘ</span>
             </CardTitle>
-            <button type="button" className="payment-currency-button">
-              <CreditCard />
-              <span>xx25</span>
-              <span aria-hidden="true">⌄</span>
-            </button>
           </CardHeader>
           <CardContent className="payment-balance-content">
             <div className="payment-balance-total">
@@ -73,14 +61,6 @@ export default function PaymentsPage() {
             <div className="payment-balance-actions">
               <Button className="payment-transfer-button"><Send /> Transfer</Button>
               <Button variant="ghost" className="payment-request-button">Request <ArrowUpRight /></Button>
-            </div>
-            <div className="payment-breakdown-grid">
-              {balanceBreakdown.map(([currency, amount]) => (
-                <div key={currency} className="payment-breakdown-item">
-                  <strong>{amount}</strong>
-                  <span>{currency}</span>
-                </div>
-              ))}
             </div>
           </CardContent>
         </Card>

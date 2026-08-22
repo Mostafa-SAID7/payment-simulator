@@ -705,7 +705,6 @@
   font-size: 0.55rem;
 }
 
-.payment-currency-button,
 .payment-period-button {
   display: inline-flex;
   align-items: center;
@@ -719,11 +718,6 @@
   line-height: 1;
 }
 
-.payment-currency-button svg {
-  width: 0.65rem;
-  height: 0.65rem;
-  color: var(--chart-3);
-}
 
 .payment-balance-content {
   display: flex;
@@ -787,44 +781,6 @@
   color: color-mix(in oklch, var(--foreground) 70%, transparent);
 }
 
-.payment-breakdown-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  margin-top: auto;
-  border-top: 1px solid color-mix(in oklch, var(--border) 70%, transparent);
-}
-
-.payment-breakdown-item {
-  display: flex;
-  min-width: 0;
-  flex-direction: column;
-  gap: 0.2rem;
-  padding: 0.55rem 0.5rem 0;
-  border-right: 1px solid color-mix(in oklch, var(--border) 58%, transparent);
-}
-
-.payment-breakdown-item:first-child {
-  padding-left: 0;
-}
-
-.payment-breakdown-item:last-child {
-  border-right: 0;
-}
-
-.payment-breakdown-item strong {
-  overflow: hidden;
-  color: color-mix(in oklch, var(--foreground) 88%, transparent);
-  font-size: 0.5625rem;
-  font-weight: 500;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.payment-breakdown-item span {
-  color: color-mix(in oklch, var(--muted-foreground) 72%, transparent);
-  font-size: 0.4375rem;
-  text-transform: uppercase;
-}
 
 .payment-metric-stack {
   display: grid;
@@ -1019,14 +975,6 @@
     display: none;
   }
 
-  .payment-breakdown-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    row-gap: 0.5rem;
-  }
-
-  .payment-breakdown-item:nth-child(2) {
-    border-right: 0;
-  }
 }
 
 .cards-page {
