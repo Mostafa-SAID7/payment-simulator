@@ -1,2 +1,5 @@
+ignoreScripts: true
 allowBuilds:
   sharp: true
+overrides:
+  sharp: '-'
