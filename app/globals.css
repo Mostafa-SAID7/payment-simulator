@@ -2049,6 +2049,1196 @@
   font-size: 0.55rem;
 }
 
+.transactions-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.transactions-summary-card {
+  min-height: 5.25rem;
+}
+
+.transactions-summary-content {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  min-width: 0;
+  padding: 0.75rem 0.875rem;
+}
+
+.transactions-summary-content > span:last-child,
+.transactions-primary-cell,
+.transactions-date-cell,
+.transactions-recipient-cell,
+.transactions-health-score > span:last-child,
+.transactions-health-list > div > span {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.transactions-summary-content small,
+.transactions-summary-content em {
+  overflow: hidden;
+  color: color-mix(in oklch, var(--muted-foreground) 78%, transparent);
+  font-size: 0.4375rem;
+  font-style: normal;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.transactions-summary-content small {
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.transactions-summary-content strong {
+  overflow: hidden;
+  color: color-mix(in oklch, var(--foreground) 92%, transparent);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.transactions-summary-icon,
+.transactions-detail-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 1.8rem;
+  height: 1.8rem;
+  border: 1px solid color-mix(in oklch, var(--primary) 22%, transparent);
+  border-radius: 0.45rem;
+  background: color-mix(in oklch, var(--primary) 8%, transparent);
+  color: color-mix(in oklch, var(--foreground) 72%, transparent);
+}
+
+.transactions-summary-icon svg,
+.transactions-detail-icon svg {
+  width: 0.85rem;
+  height: 0.85rem;
+}
+
+.transactions-summary-icon-success {
+  border-color: color-mix(in oklch, var(--chart-1) 25%, transparent);
+  background: color-mix(in oklch, var(--chart-1) 9%, transparent);
+  color: var(--chart-1);
+}
+
+.transactions-summary-icon-warning {
+  border-color: color-mix(in oklch, var(--chart-3) 28%, transparent);
+  background: color-mix(in oklch, var(--chart-3) 9%, transparent);
+  color: var(--chart-3);
+}
+
+.transactions-summary-icon-danger {
+  border-color: color-mix(in oklch, var(--destructive) 28%, transparent);
+  background: color-mix(in oklch, var(--destructive) 9%, transparent);
+  color: var(--destructive);
+}
+
+.transactions-content-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(13rem, 0.3fr);
+  align-items: start;
+  gap: 0.75rem;
+}
+
+.transactions-table-card,
+.transactions-health-card {
+  min-width: 0;
+}
+
+.transactions-table-header {
+  gap: 0.75rem;
+}
+
+.transactions-table-heading,
+.transactions-filter-bar,
+.transactions-table-meta,
+.transactions-detail-heading,
+.transactions-detail-status {
+  display: flex;
+  align-items: center;
+}
+
+.transactions-table-heading,
+.transactions-table-meta,
+.transactions-detail-status {
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+}
+
+.transactions-count-badge {
+  flex: 0 0 auto;
+  border-color: color-mix(in oklch, var(--primary) 24%, transparent);
+  color: color-mix(in oklch, var(--primary) 90%, var(--foreground));
+  font-size: 0.4375rem;
+}
+
+.transactions-filter-bar {
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  width: 100%;
+}
+
+.transactions-search-field {
+  position: relative;
+  min-width: 12rem;
+  flex: 1 1 14rem;
+}
+
+.transactions-search-field > svg {
+  position: absolute;
+  top: 50%;
+  left: 0.65rem;
+  width: 0.7rem;
+  height: 0.7rem;
+  color: var(--muted-foreground);
+  pointer-events: none;
+  transform: translateY(-50%);
+}
+
+.transactions-search-field input {
+  padding-left: 1.9rem;
+}
+
+.transactions-filter-control {
+  width: 7rem;
+  min-height: 1.75rem;
+}
+
+.transactions-clear-button {
+  height: 1.75rem;
+  gap: 0.25rem;
+  padding: 0 0.45rem;
+  color: color-mix(in oklch, var(--muted-foreground) 85%, transparent);
+  font-size: 0.5rem;
+}
+
+.transactions-clear-button svg {
+  width: 0.65rem;
+  height: 0.65rem;
+}
+
+.transactions-table-meta {
+  min-height: 2rem;
+  padding: 0.35rem 0.875rem;
+  border-top: 1px solid color-mix(in oklch, var(--border) 60%, transparent);
+  border-bottom: 1px solid color-mix(in oklch, var(--border) 60%, transparent);
+  color: color-mix(in oklch, var(--muted-foreground) 75%, transparent);
+  font-size: 0.4375rem;
+}
+
+.transactions-table-meta strong {
+  color: color-mix(in oklch, var(--foreground) 75%, transparent);
+  font-weight: 500;
+}
+
+.transactions-data-table {
+  min-width: 51rem;
+}
+
+.transactions-primary-cell strong,
+.transactions-date-cell strong,
+.transactions-recipient-cell strong {
+  overflow: hidden;
+  color: color-mix(in oklch, var(--foreground) 88%, transparent);
+  font-size: 0.5rem;
+  font-weight: 500;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.transactions-primary-cell strong {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.45rem;
+}
+
+.transactions-primary-cell small,
+.transactions-date-cell small,
+.transactions-recipient-cell small {
+  overflow: hidden;
+  color: color-mix(in oklch, var(--muted-foreground) 70%, transparent);
+  font-size: 0.4rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.transactions-recipient-cell small {
+  max-width: 11rem;
+}
+
+.transactions-type,
+.transactions-status {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  padding: 0.15rem 0.35rem;
+  border-radius: 999px;
+  font-size: 0.4rem;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.transactions-type {
+  border: 1px solid color-mix(in oklch, var(--border) 80%, transparent);
+  background: color-mix(in oklch, var(--foreground) 4%, transparent);
+  color: color-mix(in oklch, var(--muted-foreground) 88%, transparent);
+}
+
+.transactions-type-rtgs {
+  border-color: color-mix(in oklch, var(--primary) 25%, transparent);
+  background: color-mix(in oklch, var(--primary) 9%, transparent);
+  color: var(--primary);
+}
+
+.transactions-type-wps {
+  border-color: color-mix(in oklch, var(--chart-2) 25%, transparent);
+  background: color-mix(in oklch, var(--chart-2) 9%, transparent);
+  color: var(--chart-2);
+}
+
+.transactions-status-completed {
+  border-color: color-mix(in oklch, var(--chart-1) 28%, transparent);
+  background: color-mix(in oklch, var(--chart-1) 11%, transparent);
+  color: var(--chart-1);
+}
+
+.transactions-status-pending {
+  border-color: color-mix(in oklch, var(--chart-3) 28%, transparent);
+  background: color-mix(in oklch, var(--chart-3) 10%, transparent);
+  color: var(--chart-3);
+}
+
+.transactions-status-failed {
+  border-color: color-mix(in oklch, var(--destructive) 30%, transparent);
+  background: color-mix(in oklch, var(--destructive) 11%, transparent);
+  color: var(--destructive);
+}
+
+.transactions-amount {
+  color: color-mix(in oklch, var(--foreground) 88%, transparent);
+  font-size: 0.5rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.transactions-empty-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 10rem;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 1.5rem;
+  color: color-mix(in oklch, var(--muted-foreground) 78%, transparent);
+  text-align: center;
+}
+
+.transactions-empty-state svg {
+  width: 1.2rem;
+  height: 1.2rem;
+  margin-bottom: 0.2rem;
+  color: color-mix(in oklch, var(--primary) 70%, var(--muted-foreground));
+}
+
+.transactions-empty-state strong {
+  color: color-mix(in oklch, var(--foreground) 85%, transparent);
+  font-size: 0.5625rem;
+}
+
+.transactions-empty-state span {
+  font-size: 0.475rem;
+}
+
+.transactions-empty-state button {
+  margin-top: 0.35rem;
+}
+
+.transactions-health-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.transactions-health-score {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.2rem 0 0.75rem;
+  border-bottom: 1px solid color-mix(in oklch, var(--border) 65%, transparent);
+}
+
+.transactions-health-ring {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.45rem;
+  height: 2.45rem;
+  border: 1px solid color-mix(in oklch, var(--chart-1) 38%, transparent);
+  border-radius: 50%;
+  background: color-mix(in oklch, var(--chart-1) 10%, transparent);
+  color: var(--chart-1);
+  font-size: 0.6rem;
+  font-weight: 600;
+}
+
+.transactions-health-score strong,
+.transactions-health-list strong {
+  color: color-mix(in oklch, var(--foreground) 88%, transparent);
+  font-size: 0.5625rem;
+  font-weight: 600;
+}
+
+.transactions-health-score small,
+.transactions-health-list small {
+  color: color-mix(in oklch, var(--muted-foreground) 78%, transparent);
+  font-size: 0.4375rem;
+}
+
+.transactions-health-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.transactions-health-list > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.transactions-health-value-success {
+  color: var(--chart-1) !important;
+}
+
+.transactions-health-value-warning {
+  color: var(--chart-3) !important;
+}
+
+.transactions-health-value-danger {
+  color: var(--destructive) !important;
+}
+
+.transactions-health-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.15rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid color-mix(in oklch, var(--border) 65%, transparent);
+  color: color-mix(in oklch, var(--primary) 88%, var(--foreground));
+  font-size: 0.475rem;
+}
+
+.transactions-health-link svg {
+  width: 0.7rem;
+  height: 0.7rem;
+}
+
+.transactions-dialog-content {
+  max-width: 28rem;
+  gap: 1rem;
+  border-color: color-mix(in oklch, var(--border) 82%, var(--primary) 18%);
+  border-radius: 0.85rem;
+  background: color-mix(in oklch, var(--card) 96%, var(--background));
+}
+
+.transactions-dialog-content [data-slot='dialog-title'] {
+  color: color-mix(in oklch, var(--foreground) 94%, transparent);
+  font-size: 0.9rem;
+}
+
+.transactions-dialog-content [data-slot='dialog-description'] {
+  margin-top: 0.35rem;
+  color: color-mix(in oklch, var(--muted-foreground) 82%, transparent);
+  font-size: 0.55rem;
+  line-height: 1.5;
+}
+
+.transactions-detail-heading {
+  gap: 0.6rem;
+}
+
+.transactions-detail-status {
+  padding: 0.85rem;
+  border: 1px solid color-mix(in oklch, var(--primary) 18%, transparent);
+  border-radius: 0.55rem;
+  background: color-mix(in oklch, var(--primary) 6%, transparent);
+}
+
+.transactions-detail-status > span {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.transactions-detail-status small,
+.transactions-detail-grid small {
+  color: color-mix(in oklch, var(--muted-foreground) 75%, transparent);
+  font-size: 0.45rem;
+  text-transform: uppercase;
+}
+
+.transactions-detail-status > strong {
+  color: color-mix(in oklch, var(--foreground) 94%, transparent);
+  font-size: 1.15rem;
+  letter-spacing: -0.04em;
+}
+
+.transactions-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.transactions-detail-grid > div {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid color-mix(in oklch, var(--border) 60%, transparent);
+}
+
+.transactions-detail-grid strong {
+  overflow: hidden;
+  color: color-mix(in oklch, var(--foreground) 88%, transparent);
+  font-size: 0.55rem;
+  font-weight: 500;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.settings-page {
+  max-width: none;
+}
+
+.settings-layout {
+  display: grid;
+  grid-template-columns: 10rem minmax(0, 1fr);
+  align-items: start;
+  gap: 0.75rem;
+}
+
+.settings-nav-card {
+  position: sticky;
+  top: 5.5rem;
+  display: flex;
+  gap: 0.2rem;
+  padding: 0.65rem;
+  border-radius: 0.75rem;
+}
+
+.settings-nav-label {
+  padding: 0.35rem 0.45rem 0.5rem;
+  color: color-mix(in oklch, var(--muted-foreground) 66%, transparent);
+  font-size: 0.4rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.settings-nav-card a {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 1.8rem;
+  padding: 0.4rem 0.45rem;
+  border: 1px solid transparent;
+  border-radius: 0.35rem;
+  color: color-mix(in oklch, var(--muted-foreground) 84%, transparent);
+  font-size: 0.475rem;
+  text-decoration: none;
+  transition: background 150ms ease, color 150ms ease, border-color 150ms ease;
+}
+
+.settings-nav-card a:hover,
+.settings-nav-card a:focus-visible {
+  border-color: color-mix(in oklch, var(--border) 82%, transparent);
+  background: color-mix(in oklch, var(--foreground) 5%, transparent);
+  color: var(--foreground);
+  outline: none;
+}
+
+.settings-nav-card a:first-of-type {
+  border-color: color-mix(in oklch, var(--primary) 22%, transparent);
+  background: color-mix(in oklch, var(--primary) 10%, transparent);
+  color: color-mix(in oklch, var(--foreground) 92%, transparent);
+}
+
+.settings-nav-card a svg {
+  width: 0.7rem;
+  height: 0.7rem;
+  color: color-mix(in oklch, var(--muted-foreground) 84%, transparent);
+}
+
+.settings-nav-status {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+  padding: 0.55rem 0.45rem 0.25rem;
+  border-top: 1px solid color-mix(in oklch, var(--border) 60%, transparent);
+  color: var(--chart-1);
+}
+
+.settings-nav-status > svg {
+  width: 0.7rem;
+  height: 0.7rem;
+  flex: 0 0 auto;
+}
+
+.settings-nav-status span,
+.settings-profile-banner > span:nth-child(2),
+.settings-security-status > span:nth-child(2),
+.settings-session > span:nth-child(2),
+.settings-integration > span:nth-child(2),
+.settings-api-row > span:nth-child(2),
+.settings-member > span:nth-child(2),
+.settings-plan-badge > span:nth-child(2) {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.settings-nav-status span {
+  color: color-mix(in oklch, var(--foreground) 78%, transparent);
+  font-size: 0.425rem;
+  line-height: 1.35;
+}
+
+.settings-nav-status small {
+  color: color-mix(in oklch, var(--muted-foreground) 74%, transparent);
+  font-size: 0.375rem;
+}
+
+.settings-content {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.settings-feedback {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid color-mix(in oklch, var(--chart-1) 26%, transparent);
+  border-radius: 0.45rem;
+  background: color-mix(in oklch, var(--chart-1) 8%, transparent);
+  color: var(--chart-1);
+  font-size: 0.5rem;
+}
+
+.settings-feedback > svg {
+  width: 0.75rem;
+  height: 0.75rem;
+  flex: 0 0 auto;
+}
+
+.settings-feedback span {
+  flex: 1;
+}
+
+.settings-feedback button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.2rem;
+  height: 1.2rem;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.settings-feedback button svg {
+  width: 0.65rem;
+  height: 0.65rem;
+}
+
+.settings-section-card {
+  scroll-margin-top: 5.5rem;
+}
+
+.settings-section-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+}
+
+.settings-section-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 1.55rem;
+  height: 1.55rem;
+  border: 1px solid color-mix(in oklch, var(--primary) 22%, transparent);
+  border-radius: 0.4rem;
+  background: color-mix(in oklch, var(--primary) 8%, transparent);
+  color: color-mix(in oklch, var(--primary) 82%, var(--foreground));
+}
+
+.settings-section-icon svg {
+  width: 0.75rem;
+  height: 0.75rem;
+}
+
+.settings-section-header > div:last-child {
+  min-width: 0;
+}
+
+.settings-two-column {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 0.75rem;
+}
+
+.settings-profile-banner,
+.settings-security-status,
+.settings-session,
+.settings-integration,
+.settings-api-row,
+.settings-member,
+.settings-plan-badge,
+.settings-preview {
+  display: flex;
+  align-items: center;
+}
+
+.settings-profile-banner {
+  gap: 0.55rem;
+  margin-bottom: 0.85rem;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid color-mix(in oklch, var(--border) 70%, transparent);
+  border-radius: 0.5rem;
+  background: color-mix(in oklch, var(--foreground) 3%, transparent);
+}
+
+.settings-avatar,
+.settings-member-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: linear-gradient(135deg, color-mix(in oklch, var(--primary) 80%, var(--background)), color-mix(in oklch, var(--chart-2) 75%, var(--background)));
+  color: var(--primary-foreground);
+  font-size: 0.5rem;
+  font-weight: 600;
+}
+
+.settings-avatar {
+  width: 2rem;
+  height: 2rem;
+}
+
+.settings-profile-banner > span:nth-child(2) {
+  flex: 1;
+}
+
+.settings-profile-banner strong,
+.settings-security-status strong,
+.settings-session strong,
+.settings-integration strong,
+.settings-api-row strong,
+.settings-member strong,
+.settings-plan-badge strong,
+.settings-preview strong {
+  overflow: hidden;
+  color: color-mix(in oklch, var(--foreground) 88%, transparent);
+  font-size: 0.55rem;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.settings-profile-banner small,
+.settings-security-status small,
+.settings-session small,
+.settings-integration small,
+.settings-api-row small,
+.settings-member small,
+.settings-plan-badge small,
+.settings-preview small {
+  overflow: hidden;
+  color: color-mix(in oklch, var(--muted-foreground) 78%, transparent);
+  font-size: 0.425rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.settings-profile-banner [data-slot='badge'] {
+  flex: 0 0 auto;
+  font-size: 0.4rem;
+}
+
+.settings-form-grid,
+.settings-preference-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.7rem;
+}
+
+.settings-preference-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.settings-form-grid > div,
+.settings-form-stack > div,
+.settings-preference-grid > div {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.settings-page label {
+  color: color-mix(in oklch, var(--foreground) 76%, transparent);
+  font-size: 0.475rem;
+}
+
+.settings-page input,
+.settings-page button[role='combobox'] {
+  min-height: 1.8rem;
+  height: 1.8rem;
+  border-radius: 0.4rem;
+  font-size: 0.525rem;
+}
+
+.settings-form-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.settings-card-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 0.85rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid color-mix(in oklch, var(--border) 60%, transparent);
+  color: color-mix(in oklch, var(--muted-foreground) 75%, transparent);
+  font-size: 0.4375rem;
+}
+
+.settings-card-actions > div,
+.settings-danger-actions,
+.settings-api-actions,
+.settings-invite {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.settings-page .compact-secondary-button,
+.settings-page .compact-primary-button,
+.settings-page .settings-upgrade-button {
+  min-height: 1.75rem;
+  border-radius: 0.35rem;
+  font-size: 0.475rem;
+}
+
+.settings-page button svg {
+  width: 0.7rem;
+  height: 0.7rem;
+}
+
+.settings-security-status {
+  gap: 0.5rem;
+  margin-bottom: 0.8rem;
+  padding: 0.55rem;
+  border: 1px solid color-mix(in oklch, var(--chart-1) 20%, transparent);
+  border-radius: 0.45rem;
+  background: color-mix(in oklch, var(--chart-1) 6%, transparent);
+}
+
+.settings-status-icon,
+.settings-session-icon,
+.settings-api-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 1px solid color-mix(in oklch, var(--border) 72%, transparent);
+  border-radius: 0.4rem;
+  background: color-mix(in oklch, var(--background) 45%, transparent);
+  color: var(--chart-1);
+}
+
+.settings-status-icon svg,
+.settings-session-icon svg,
+.settings-api-icon svg {
+  width: 0.7rem;
+  height: 0.7rem;
+}
+
+.settings-security-status > span:nth-child(2) {
+  flex: 1;
+}
+
+.settings-success-badge {
+  border-color: color-mix(in oklch, var(--chart-1) 28%, transparent);
+  background: color-mix(in oklch, var(--chart-1) 11%, transparent);
+  color: var(--chart-1);
+  font-size: 0.4rem;
+}
+
+.settings-divider {
+  height: 1px;
+  margin: 0.8rem 0;
+  background: color-mix(in oklch, var(--border) 60%, transparent);
+}
+
+.settings-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.45rem 0;
+}
+
+.settings-row-copy {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.settings-row-copy strong {
+  color: color-mix(in oklch, var(--foreground) 86%, transparent);
+  font-size: 0.5rem;
+  font-weight: 500;
+}
+
+.settings-row-copy span {
+  color: color-mix(in oklch, var(--muted-foreground) 76%, transparent);
+  font-size: 0.425rem;
+  line-height: 1.45;
+}
+
+.settings-row [data-slot='switch'] {
+  flex: 0 0 auto;
+}
+
+.settings-row-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.settings-row-list .settings-row + .settings-row,
+.settings-data-actions .settings-row + .settings-row {
+  border-top: 1px solid color-mix(in oklch, var(--border) 52%, transparent);
+}
+
+.settings-session-list,
+.settings-integration-list,
+.settings-member-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-bottom: 0.75rem;
+}
+
+.settings-session,
+.settings-integration,
+.settings-member {
+  gap: 0.45rem;
+  padding: 0.45rem 0;
+}
+
+.settings-session > span:nth-child(2),
+.settings-integration > span:nth-child(2),
+.settings-member > span:nth-child(2) {
+  flex: 1;
+}
+
+.settings-session strong,
+.settings-integration strong,
+.settings-member strong {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.settings-session strong [data-slot='badge'],
+.settings-member [data-slot='badge'] {
+  padding: 0.12rem 0.3rem;
+  font-size: 0.35rem;
+}
+
+.settings-no-sessions {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.65rem 0;
+  color: var(--chart-1);
+  font-size: 0.475rem;
+}
+
+.settings-no-sessions svg {
+  width: 0.75rem;
+  height: 0.75rem;
+}
+
+.settings-preview {
+  gap: 0.45rem;
+  margin-top: 0.2rem;
+  padding: 0.6rem;
+  border: 1px solid color-mix(in oklch, var(--border) 65%, transparent);
+  border-radius: 0.45rem;
+  background: color-mix(in oklch, var(--foreground) 3%, transparent);
+}
+
+.settings-preview > svg {
+  width: 0.8rem;
+  height: 0.8rem;
+  color: var(--primary);
+}
+
+.settings-preference-grid .compact-filter-control {
+  width: 100%;
+}
+
+.settings-integration {
+  gap: 0.5rem;
+}
+
+.settings-integration > span:nth-child(2) {
+  flex: 1;
+}
+
+.settings-integration-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.55rem;
+  height: 1.55rem;
+  border-radius: 0.4rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.settings-integration-logo-stripe {
+  background: color-mix(in oklch, var(--primary) 15%, transparent);
+  color: var(--primary);
+}
+
+.settings-integration-logo-slack {
+  background: color-mix(in oklch, var(--chart-2) 15%, transparent);
+  color: var(--chart-2);
+}
+
+.settings-integration > [data-slot='badge'] {
+  flex: 0 0 auto;
+  padding: 0.12rem 0.3rem;
+  font-size: 0.35rem;
+}
+
+.settings-api-row {
+  gap: 0.5rem;
+}
+
+.settings-api-row > span:nth-child(2) {
+  flex: 0 0 auto;
+}
+
+.settings-api-icon {
+  color: var(--primary);
+}
+
+.settings-api-actions {
+  min-width: 0;
+  margin-left: auto;
+}
+
+.settings-api-actions code {
+  overflow: hidden;
+  max-width: 9rem;
+  padding: 0.35rem 0.45rem;
+  border: 1px solid color-mix(in oklch, var(--border) 65%, transparent);
+  border-radius: 0.3rem;
+  color: color-mix(in oklch, var(--muted-foreground) 85%, transparent);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.4rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.settings-member-avatar {
+  width: 1.55rem;
+  height: 1.55rem;
+  background: color-mix(in oklch, var(--primary) 18%, var(--background));
+  color: color-mix(in oklch, var(--primary) 88%, var(--foreground));
+  font-size: 0.4rem;
+}
+
+.settings-member .compact-row-action {
+  flex: 0 0 auto;
+}
+
+.settings-invite {
+  align-items: stretch;
+}
+
+.settings-invite input {
+  flex: 1;
+}
+
+.settings-inline-success {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin: 0.45rem 0 0;
+  color: var(--chart-1);
+  font-size: 0.425rem;
+}
+
+.settings-inline-success svg {
+  width: 0.65rem;
+  height: 0.65rem;
+}
+
+.settings-billing-card {
+  overflow: hidden;
+  border-color: color-mix(in oklch, var(--primary) 24%, var(--border));
+}
+
+.settings-plan-badge {
+  gap: 0.5rem;
+  padding: 0.6rem;
+  border: 1px solid color-mix(in oklch, var(--primary) 24%, transparent);
+  border-radius: 0.45rem;
+  background: linear-gradient(135deg, color-mix(in oklch, var(--primary) 12%, transparent), color-mix(in oklch, var(--chart-2) 6%, transparent));
+}
+
+.settings-plan-badge > span:nth-child(2) {
+  flex: 1;
+}
+
+.settings-plan-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.55rem;
+  height: 1.55rem;
+  border-radius: 50%;
+  background: color-mix(in oklch, var(--primary) 85%, var(--foreground));
+  color: var(--primary-foreground);
+}
+
+.settings-plan-icon svg {
+  width: 0.7rem;
+  height: 0.7rem;
+}
+
+.settings-plan-badge > [data-slot='badge'] {
+  font-size: 0.35rem;
+}
+
+.settings-billing-card ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  margin: 0.8rem 0;
+  padding: 0;
+  list-style: none;
+  color: color-mix(in oklch, var(--muted-foreground) 84%, transparent);
+  font-size: 0.45rem;
+}
+
+.settings-billing-card li::before {
+  margin-right: 0.35rem;
+  color: var(--chart-1);
+  content: '✓';
+}
+
+.settings-upgrade-button {
+  width: 100%;
+  border: 1px solid color-mix(in oklch, var(--primary) 28%, transparent);
+  background: linear-gradient(135deg, color-mix(in oklch, var(--primary) 86%, var(--background)), color-mix(in oklch, var(--chart-2) 76%, var(--primary)));
+  color: var(--primary-foreground);
+}
+
+.settings-upgrade-button:hover {
+  background: linear-gradient(135deg, color-mix(in oklch, var(--primary) 94%, var(--background)), color-mix(in oklch, var(--chart-2) 84%, var(--primary)));
+}
+
+.settings-danger-zone {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 0.85rem;
+  padding: 0.75rem;
+  border: 1px solid color-mix(in oklch, var(--destructive) 24%, transparent);
+  border-radius: 0.5rem;
+  background: color-mix(in oklch, var(--destructive) 5%, transparent);
+}
+
+.settings-danger-zone > div:first-child {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.settings-danger-zone strong {
+  color: color-mix(in oklch, var(--destructive) 90%, var(--foreground));
+  font-size: 0.55rem;
+}
+
+.settings-danger-zone span {
+  color: color-mix(in oklch, var(--muted-foreground) 78%, transparent);
+  font-size: 0.425rem;
+}
+
+.settings-danger-button {
+  border-color: color-mix(in oklch, var(--destructive) 32%, transparent);
+  color: var(--destructive);
+}
+
+.settings-confirm-dialog {
+  max-width: 26rem;
+  border-color: color-mix(in oklch, var(--destructive) 25%, var(--border));
+  border-radius: 0.8rem;
+}
+
+.settings-confirm-dialog [data-slot='alert-dialog-title'] {
+  font-size: 0.9rem;
+}
+
+.settings-confirm-dialog [data-slot='alert-dialog-description'] {
+  margin-top: 0.35rem;
+  font-size: 0.55rem;
+  line-height: 1.5;
+}
+
+.settings-confirm-dialog [data-slot='alert-dialog-footer'] button {
+  min-height: 1.8rem;
+  border-radius: 0.35rem;
+  font-size: 0.5rem;
+}
+
 .profile-page .grid,
 .settings-page .grid {
   gap: 0.75rem;
@@ -2127,46 +3317,119 @@
   }
 
   .batch-summary-grid,
-  .accounts-summary-grid {
+  .accounts-summary-grid,
+  .transactions-summary-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .accounts-content-grid {
+  .settings-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .settings-nav-card {
+    position: static;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.25rem;
+  }
+
+  .settings-nav-label,
+  .settings-nav-status {
+    grid-column: 1 / -1;
+  }
+
+  .settings-nav-status {
+    margin-top: 0.25rem;
+  }
+
+  .accounts-content-grid,
+  .transactions-content-grid {
     grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 767px) {
   .batch-summary-grid,
-  .accounts-summary-grid {
+  .accounts-summary-grid,
+  .transactions-summary-grid {
     grid-template-columns: 1fr;
   }
 
   .accounts-table-heading,
-  .accounts-table-meta {
+  .transactions-table-heading,
+  .transactions-table-meta,
+  .accounts-table-meta,
+  .settings-card-actions,
+  .settings-danger-zone {
     align-items: flex-start;
     flex-direction: column;
     gap: 0.45rem;
   }
 
-  .accounts-filter-bar {
+  .accounts-filter-bar,
+  .transactions-filter-bar {
     align-items: stretch;
     flex-direction: column;
   }
 
   .accounts-search-field,
   .accounts-filter-control,
-  .accounts-clear-button {
+  .accounts-clear-button,
+  .transactions-search-field,
+  .transactions-filter-control,
+  .transactions-clear-button {
     width: 100%;
   }
 
-  .accounts-clear-button {
+  .accounts-clear-button,
+  .transactions-clear-button {
     justify-content: center;
   }
 
   .accounts-form-grid,
-  .accounts-detail-grid {
+  .transactions-detail-grid,
+  .accounts-detail-grid,
+  .settings-form-grid,
+  .settings-preference-grid {
     grid-template-columns: 1fr;
+  }
+
+  .settings-nav-card {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .settings-card-actions,
+  .settings-danger-zone {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .settings-card-actions > div,
+  .settings-danger-actions,
+  .settings-api-row,
+  .settings-invite {
+    width: 100%;
+  }
+
+  .settings-card-actions > div > *,
+  .settings-danger-actions > *,
+  .settings-invite > * {
+    flex: 1;
+  }
+
+  .settings-api-row {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .settings-api-actions {
+    width: 100%;
+    margin-left: 2rem;
+  }
+
+  .settings-api-actions code {
+    flex: 1;
+    max-width: none;
   }
 
   .accounts-form-field-wide {
