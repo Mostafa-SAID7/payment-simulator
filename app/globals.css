@@ -661,14 +661,349 @@
   }
 }
 
+.dark .dashboard-grid {
+  background: radial-gradient(circle at 48% 0%, color-mix(in oklch, var(--primary) 5%, transparent), transparent 36rem);
+}
+
+.dashboard-page {
+  display: grid;
+  gap: 0.75rem;
+  padding-bottom: 1rem;
+}
+
+.dashboard-overview-grid {
+  display: grid;
+  grid-template-columns: minmax(14rem, 1.3fr) repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.dashboard-analytics-grid {
+  display: grid;
+  grid-template-columns: minmax(14rem, 0.78fr) minmax(0, 1.7fr);
+  gap: 0.75rem;
+}
+
+.dashboard-card {
+  overflow: hidden;
+  border-radius: 0.75rem;
+}
+
 .dark .dashboard-card {
   border-color: color-mix(in oklch, var(--border) 88%, var(--primary) 12%);
   background: linear-gradient(145deg, color-mix(in oklch, var(--card) 96%, var(--primary) 4%), var(--card));
   box-shadow: inset 0 1px 0 color-mix(in oklch, var(--foreground) 4%, transparent), 0 0.75rem 2rem color-mix(in oklch, var(--background) 55%, transparent);
 }
 
-.dark .dashboard-grid {
-  background: radial-gradient(circle at 48% 0%, color-mix(in oklch, var(--primary) 5%, transparent), transparent 36rem);
+.dashboard-panel-header,
+.dashboard-table-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.75rem 0.875rem 0.5rem;
+}
+
+.dashboard-panel-title {
+  color: color-mix(in oklch, var(--foreground) 88%, transparent);
+  font-size: 0.625rem;
+  font-weight: 600;
+}
+
+.dashboard-info-mark {
+  color: color-mix(in oklch, var(--foreground) 45%, transparent);
+  font-size: 0.5rem;
+}
+
+.dashboard-wallet-selector,
+.dashboard-period-selector {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.3rem 0.4rem;
+  border: 1px solid color-mix(in oklch, var(--border) 86%, var(--primary) 14%);
+  border-radius: 0.35rem;
+  background: color-mix(in oklch, var(--background) 65%, transparent);
+  color: color-mix(in oklch, var(--muted-foreground) 90%, transparent);
+  font-size: 0.4375rem;
+  line-height: 1;
+}
+
+.dashboard-wallet-selector svg,
+.dashboard-period-selector svg {
+  width: 0.55rem;
+  height: 0.55rem;
+}
+
+.dashboard-balance-card,
+.dashboard-metric-card {
+  min-height: 7rem;
+}
+
+.dashboard-balance-content {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.5rem;
+  padding: 0 0.875rem 0.875rem;
+}
+
+.dashboard-balance-amount {
+  width: 100%;
+  color: var(--foreground);
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+}
+
+.dashboard-growth-badge {
+  padding: 0.14rem 0.25rem;
+  border: 1px solid color-mix(in oklch, var(--chart-1) 30%, transparent);
+  border-radius: 0.25rem;
+  background: color-mix(in oklch, var(--chart-1) 12%, transparent);
+  color: var(--chart-1);
+  font-size: 0.4375rem;
+}
+
+.dashboard-balance-actions {
+  display: flex;
+  gap: 0.35rem;
+  margin-left: auto;
+}
+
+.dashboard-transfer-button,
+.dashboard-request-button {
+  height: 1.5rem;
+  padding-inline: 0.5rem;
+  border-radius: 0.3rem;
+  font-size: 0.5rem;
+}
+
+.dashboard-transfer-button {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+
+.dashboard-request-button {
+  color: color-mix(in oklch, var(--foreground) 72%, transparent);
+}
+
+.dashboard-transfer-button svg,
+.dashboard-request-button svg {
+  width: 0.55rem;
+  height: 0.55rem;
+}
+
+.dashboard-metric-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  padding: 0.875rem;
+}
+
+.dashboard-metric-label {
+  margin: 0;
+  color: color-mix(in oklch, var(--muted-foreground) 88%, transparent);
+  font-size: 0.4375rem;
+  text-transform: uppercase;
+}
+
+.dashboard-metric-value {
+  margin: 0.45rem 0 0;
+  color: var(--foreground);
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+.dashboard-metric-icon {
+  width: 1rem;
+  height: 1rem;
+  color: color-mix(in oklch, var(--foreground) 48%, transparent);
+  stroke-width: 1.5;
+}
+
+.dashboard-balance-details-card {
+  min-height: 18rem;
+}
+
+.dashboard-balance-chart-content {
+  padding: 0 0.75rem 0.75rem;
+}
+
+.dashboard-donut-wrap {
+  position: relative;
+}
+
+.dashboard-donut-total {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  color: color-mix(in oklch, var(--foreground) 84%, transparent);
+  font-size: 0.625rem;
+  font-weight: 500;
+}
+
+.dashboard-balance-legend {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.3rem;
+  color: color-mix(in oklch, var(--muted-foreground) 85%, transparent);
+  font-size: 0.4375rem;
+}
+
+.dashboard-balance-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.dashboard-legend-dot {
+  width: 0.35rem;
+  height: 0.35rem;
+  border-radius: 0.08rem;
+}
+
+.dashboard-legend-dot-usd { background: var(--color-chart-1); }
+.dashboard-legend-dot-euro { background: var(--color-chart-2); }
+.dashboard-legend-dot-pound { background: var(--color-chart-3); }
+.dashboard-legend-dot-dinar { background: var(--color-muted); }
+
+.dashboard-report-card {
+  min-height: 18rem;
+}
+
+.dashboard-report-content {
+  padding: 0 0.5rem 0.5rem;
+}
+
+.dashboard-transactions-card {
+  overflow: hidden;
+}
+
+.dashboard-table-content {
+  padding: 0;
+}
+
+.dashboard-table-scroll {
+  overflow-x: auto;
+}
+
+.dashboard-transactions-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: color-mix(in oklch, var(--muted-foreground) 86%, transparent);
+  font-size: 0.5rem;
+  text-align: left;
+}
+
+.dashboard-transactions-table th {
+  padding: 0.55rem 0.875rem;
+  color: color-mix(in oklch, var(--muted-foreground) 70%, transparent);
+  font-size: 0.4375rem;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.dashboard-transactions-table td {
+  padding: 0.55rem 0.875rem;
+  border-top: 1px solid color-mix(in oklch, var(--border) 62%, transparent);
+  white-space: nowrap;
+}
+
+.dashboard-transaction-name {
+  display: flex;
+  align-items: center;
+  min-width: 8rem;
+  gap: 0.5rem;
+}
+
+.dashboard-transaction-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.35rem;
+  height: 1.35rem;
+  border-radius: 50%;
+  background: color-mix(in oklch, var(--primary) 18%, var(--card));
+  color: color-mix(in oklch, var(--foreground) 70%, transparent);
+}
+
+.dashboard-transaction-avatar svg {
+  width: 0.65rem;
+  height: 0.65rem;
+}
+
+.dashboard-transaction-name > span:last-child {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.dashboard-transaction-name strong {
+  color: color-mix(in oklch, var(--foreground) 88%, transparent);
+  font-size: 0.5rem;
+  font-weight: 500;
+}
+
+.dashboard-transaction-name small {
+  color: color-mix(in oklch, var(--muted-foreground) 70%, transparent);
+  font-size: 0.4rem;
+}
+
+.dashboard-status-success,
+.dashboard-status-pending {
+  padding: 0.15rem 0.3rem;
+  border-radius: 999px;
+  font-size: 0.4rem;
+}
+
+.dashboard-status-success {
+  border-color: color-mix(in oklch, var(--chart-1) 30%, transparent);
+  background: color-mix(in oklch, var(--chart-1) 12%, transparent);
+  color: var(--chart-1);
+}
+
+.dashboard-status-pending {
+  border-color: color-mix(in oklch, var(--chart-3) 30%, transparent);
+  background: color-mix(in oklch, var(--chart-3) 12%, transparent);
+  color: var(--chart-3);
+}
+
+.dashboard-row-action {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.dashboard-row-action svg {
+  width: 0.7rem;
+  height: 0.7rem;
+}
+
+@media (max-width: 1100px) {
+  .dashboard-overview-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .dashboard-balance-card {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 767px) {
+  .dashboard-analytics-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-overview-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-balance-card {
+    grid-column: auto;
+  }
 }
 
 .payments-page {
