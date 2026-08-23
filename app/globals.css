@@ -1487,6 +1487,568 @@
   border-color: color-mix(in oklch, var(--border) 74%, transparent);
 }
 
+.accounts-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.accounts-summary-card {
+  min-height: 5.25rem;
+}
+
+.accounts-summary-content {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  min-width: 0;
+  padding: 0.75rem 0.875rem;
+}
+
+.accounts-summary-content > span:last-child {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.accounts-summary-content small,
+.accounts-summary-content em {
+  overflow: hidden;
+  color: color-mix(in oklch, var(--muted-foreground) 78%, transparent);
+  font-size: 0.4375rem;
+  font-style: normal;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.accounts-summary-content small {
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.accounts-summary-content strong {
+  overflow: hidden;
+  color: color-mix(in oklch, var(--foreground) 92%, transparent);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.accounts-summary-icon,
+.accounts-row-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  border: 1px solid color-mix(in oklch, var(--primary) 22%, transparent);
+  border-radius: 0.45rem;
+  background: color-mix(in oklch, var(--primary) 8%, transparent);
+  color: color-mix(in oklch, var(--foreground) 72%, transparent);
+}
+
+.accounts-summary-icon {
+  width: 1.8rem;
+  height: 1.8rem;
+}
+
+.accounts-summary-icon svg {
+  width: 0.85rem;
+  height: 0.85rem;
+}
+
+.accounts-summary-icon-success,
+.accounts-row-icon-savings {
+  border-color: color-mix(in oklch, var(--chart-1) 25%, transparent);
+  background: color-mix(in oklch, var(--chart-1) 9%, transparent);
+  color: var(--chart-1);
+}
+
+.accounts-summary-icon-info,
+.accounts-row-icon-checking {
+  border-color: color-mix(in oklch, var(--chart-2) 25%, transparent);
+  background: color-mix(in oklch, var(--chart-2) 9%, transparent);
+  color: var(--chart-2);
+}
+
+.accounts-summary-icon-warning {
+  border-color: color-mix(in oklch, var(--chart-3) 28%, transparent);
+  background: color-mix(in oklch, var(--chart-3) 9%, transparent);
+  color: var(--chart-3);
+}
+
+.accounts-content-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(13rem, 0.3fr);
+  align-items: start;
+  gap: 0.75rem;
+}
+
+.accounts-table-card,
+.accounts-health-card {
+  min-width: 0;
+}
+
+.accounts-table-header {
+  gap: 0.75rem;
+}
+
+.accounts-table-heading,
+.accounts-filter-bar,
+.accounts-table-meta,
+.accounts-health-score,
+.accounts-health-list > div,
+.accounts-detail-title {
+  display: flex;
+  align-items: center;
+}
+
+.accounts-table-heading,
+.accounts-table-meta {
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+}
+
+.accounts-count-badge {
+  flex: 0 0 auto;
+  border-color: color-mix(in oklch, var(--primary) 24%, transparent);
+  color: color-mix(in oklch, var(--primary) 90%, var(--foreground));
+  font-size: 0.4375rem;
+}
+
+.accounts-filter-bar {
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  width: 100%;
+}
+
+.accounts-search-field {
+  position: relative;
+  min-width: 12rem;
+  flex: 1 1 14rem;
+}
+
+.accounts-search-field > svg {
+  position: absolute;
+  top: 50%;
+  left: 0.65rem;
+  width: 0.7rem;
+  height: 0.7rem;
+  color: var(--muted-foreground);
+  pointer-events: none;
+  transform: translateY(-50%);
+}
+
+.accounts-search-field input {
+  padding-left: 1.9rem;
+}
+
+.accounts-filter-control {
+  width: 7rem;
+  min-height: 1.75rem;
+}
+
+.accounts-clear-button {
+  height: 1.75rem;
+  gap: 0.25rem;
+  padding: 0 0.45rem;
+  color: color-mix(in oklch, var(--muted-foreground) 85%, transparent);
+  font-size: 0.5rem;
+}
+
+.accounts-clear-button svg {
+  width: 0.65rem;
+  height: 0.65rem;
+}
+
+.accounts-table-meta {
+  min-height: 2rem;
+  padding: 0.35rem 0.875rem;
+  border-top: 1px solid color-mix(in oklch, var(--border) 60%, transparent);
+  border-bottom: 1px solid color-mix(in oklch, var(--border) 60%, transparent);
+  color: color-mix(in oklch, var(--muted-foreground) 75%, transparent);
+  font-size: 0.4375rem;
+}
+
+.accounts-table-meta strong {
+  color: color-mix(in oklch, var(--foreground) 75%, transparent);
+  font-weight: 500;
+}
+
+.accounts-data-table {
+  min-width: 52rem;
+}
+
+.accounts-primary-cell,
+.accounts-institution {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.accounts-primary-cell > span:last-child,
+.accounts-institution {
+  min-width: 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.15rem;
+}
+
+.accounts-row-icon {
+  width: 1.55rem;
+  height: 1.55rem;
+  border-radius: 0.4rem;
+}
+
+.accounts-row-icon svg {
+  width: 0.7rem;
+  height: 0.7rem;
+}
+
+.accounts-primary-cell strong,
+.accounts-institution strong,
+.accounts-detail-grid strong {
+  overflow: hidden;
+  color: color-mix(in oklch, var(--foreground) 88%, transparent);
+  font-size: 0.5rem;
+  font-weight: 500;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.accounts-primary-cell small,
+.accounts-institution small {
+  overflow: hidden;
+  color: color-mix(in oklch, var(--muted-foreground) 70%, transparent);
+  font-size: 0.4rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.accounts-institution strong {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.45rem;
+}
+
+.accounts-type {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.18rem 0.4rem;
+  border: 1px solid color-mix(in oklch, var(--border) 80%, transparent);
+  border-radius: 999px;
+  background: color-mix(in oklch, var(--foreground) 4%, transparent);
+  color: color-mix(in oklch, var(--muted-foreground) 88%, transparent);
+  font-size: 0.4rem;
+  white-space: nowrap;
+}
+
+.accounts-type-savings {
+  border-color: color-mix(in oklch, var(--chart-1) 25%, transparent);
+  background: color-mix(in oklch, var(--chart-1) 9%, transparent);
+  color: var(--chart-1);
+}
+
+.accounts-type-checking {
+  border-color: color-mix(in oklch, var(--primary) 25%, transparent);
+  background: color-mix(in oklch, var(--primary) 9%, transparent);
+  color: var(--primary);
+}
+
+.accounts-balance {
+  color: color-mix(in oklch, var(--foreground) 88%, transparent);
+  font-size: 0.5rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.accounts-activity {
+  color: color-mix(in oklch, var(--muted-foreground) 78%, transparent);
+  font-size: 0.4375rem;
+  white-space: nowrap;
+}
+
+.accounts-status {
+  padding: 0.15rem 0.35rem;
+  border-radius: 999px;
+  font-size: 0.4rem;
+}
+
+.accounts-status-active {
+  border-color: color-mix(in oklch, var(--chart-1) 28%, transparent);
+  background: color-mix(in oklch, var(--chart-1) 11%, transparent);
+  color: var(--chart-1);
+}
+
+.accounts-status-inactive {
+  border-color: color-mix(in oklch, var(--chart-3) 28%, transparent);
+  background: color-mix(in oklch, var(--chart-3) 10%, transparent);
+  color: var(--chart-3);
+}
+
+.accounts-row-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.1rem;
+}
+
+.accounts-empty-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 10rem;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 1.5rem;
+  color: color-mix(in oklch, var(--muted-foreground) 78%, transparent);
+  text-align: center;
+}
+
+.accounts-empty-state svg {
+  width: 1.2rem;
+  height: 1.2rem;
+  margin-bottom: 0.2rem;
+  color: color-mix(in oklch, var(--primary) 70%, var(--muted-foreground));
+}
+
+.accounts-empty-state strong {
+  color: color-mix(in oklch, var(--foreground) 85%, transparent);
+  font-size: 0.5625rem;
+}
+
+.accounts-empty-state span {
+  font-size: 0.475rem;
+}
+
+.accounts-empty-state button {
+  margin-top: 0.35rem;
+}
+
+.accounts-health-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.accounts-health-score {
+  gap: 0.6rem;
+  padding: 0.2rem 0 0.75rem;
+  border-bottom: 1px solid color-mix(in oklch, var(--border) 65%, transparent);
+}
+
+.accounts-health-ring {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  border: 1px solid color-mix(in oklch, var(--chart-1) 38%, transparent);
+  border-radius: 50%;
+  background: color-mix(in oklch, var(--chart-1) 10%, transparent);
+  color: var(--chart-1);
+}
+
+.accounts-health-ring svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.accounts-health-score > span:last-child,
+.accounts-health-list > div > span:nth-child(2) {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.accounts-health-score strong,
+.accounts-health-list strong {
+  color: color-mix(in oklch, var(--foreground) 88%, transparent);
+  font-size: 0.5625rem;
+  font-weight: 600;
+}
+
+.accounts-health-score small,
+.accounts-health-list small {
+  color: color-mix(in oklch, var(--muted-foreground) 78%, transparent);
+  font-size: 0.4375rem;
+}
+
+.accounts-health-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.accounts-health-list > div {
+  gap: 0.45rem;
+}
+
+.accounts-health-list > div > svg {
+  width: 0.7rem;
+  height: 0.7rem;
+  margin-left: auto;
+  color: var(--chart-1);
+}
+
+.accounts-health-list > div > svg.lucide-alert-circle {
+  color: var(--chart-3);
+}
+
+.accounts-health-dot {
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 999px;
+}
+
+.accounts-health-dot-success {
+  background: var(--chart-1);
+  box-shadow: 0 0 0 0.18rem color-mix(in oklch, var(--chart-1) 10%, transparent);
+}
+
+.accounts-health-dot-warning {
+  background: var(--chart-3);
+  box-shadow: 0 0 0 0.18rem color-mix(in oklch, var(--chart-3) 10%, transparent);
+}
+
+.accounts-health-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.15rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid color-mix(in oklch, var(--border) 65%, transparent);
+  color: color-mix(in oklch, var(--primary) 88%, var(--foreground));
+  font-size: 0.475rem;
+}
+
+.accounts-health-link svg {
+  width: 0.7rem;
+  height: 0.7rem;
+}
+
+.accounts-dialog-content {
+  max-width: 31rem;
+  gap: 1rem;
+  border-color: color-mix(in oklch, var(--border) 82%, var(--primary) 18%);
+  border-radius: 0.85rem;
+  background: color-mix(in oklch, var(--card) 96%, var(--background));
+}
+
+.accounts-dialog-content [data-slot='dialog-title'] {
+  color: color-mix(in oklch, var(--foreground) 94%, transparent);
+  font-size: 0.9rem;
+}
+
+.accounts-dialog-content [data-slot='dialog-description'] {
+  margin-top: 0.35rem;
+  color: color-mix(in oklch, var(--muted-foreground) 82%, transparent);
+  font-size: 0.55rem;
+  line-height: 1.5;
+}
+
+.accounts-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.accounts-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.accounts-form-field-wide {
+  grid-column: 1 / -1;
+}
+
+.accounts-form-field label {
+  color: color-mix(in oklch, var(--foreground) 78%, transparent);
+  font-size: 0.5rem;
+}
+
+.accounts-dialog-content input,
+.accounts-dialog-content button[role='combobox'] {
+  width: 100%;
+  min-height: 1.9rem;
+  height: 1.9rem;
+  border-radius: 0.4rem;
+  font-size: 0.55rem;
+}
+
+.accounts-dialog-content [data-slot='dialog-footer'] button {
+  min-height: 1.8rem;
+  border-radius: 0.4rem;
+  font-size: 0.5rem;
+}
+
+.accounts-dialog-content [data-slot='dialog-footer'] button svg {
+  width: 0.7rem;
+  height: 0.7rem;
+}
+
+.accounts-detail-dialog {
+  max-width: 27rem;
+}
+
+.accounts-detail-title {
+  gap: 0.6rem;
+}
+
+.accounts-detail-title .accounts-row-icon {
+  width: 2rem;
+  height: 2rem;
+}
+
+.accounts-detail-balance {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 0.85rem;
+  border: 1px solid color-mix(in oklch, var(--primary) 18%, transparent);
+  border-radius: 0.55rem;
+  background: color-mix(in oklch, var(--primary) 6%, transparent);
+}
+
+.accounts-detail-balance small,
+.accounts-detail-grid small {
+  color: color-mix(in oklch, var(--muted-foreground) 75%, transparent);
+  font-size: 0.45rem;
+  text-transform: uppercase;
+}
+
+.accounts-detail-balance strong {
+  color: color-mix(in oklch, var(--foreground) 94%, transparent);
+  font-size: 1.25rem;
+  letter-spacing: -0.04em;
+}
+
+.accounts-detail-balance .accounts-status {
+  align-self: flex-start;
+}
+
+.accounts-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.accounts-detail-grid > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid color-mix(in oklch, var(--border) 60%, transparent);
+}
+
+.accounts-detail-grid strong {
+  font-size: 0.55rem;
+}
+
 .profile-page .grid,
 .settings-page .grid {
   gap: 0.75rem;
@@ -1564,14 +2126,51 @@
     width: 100%;
   }
 
-  .batch-summary-grid {
+  .batch-summary-grid,
+  .accounts-summary-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .accounts-content-grid {
+    grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 767px) {
-  .batch-summary-grid {
+  .batch-summary-grid,
+  .accounts-summary-grid {
     grid-template-columns: 1fr;
+  }
+
+  .accounts-table-heading,
+  .accounts-table-meta {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+
+  .accounts-filter-bar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .accounts-search-field,
+  .accounts-filter-control,
+  .accounts-clear-button {
+    width: 100%;
+  }
+
+  .accounts-clear-button {
+    justify-content: center;
+  }
+
+  .accounts-form-grid,
+  .accounts-detail-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .accounts-form-field-wide {
+    grid-column: auto;
   }
 
   .batch-file-actions,
