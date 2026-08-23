@@ -21,6 +21,7 @@ import {
 import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 import { useSidebar } from '@/contexts/sidebar-context';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 
 const navItems = [
   { href: '/', icon: LayoutDashboard, label: 'Dashboard' },
@@ -44,22 +45,29 @@ type SidebarNavigationLinkProps = {
 
 function SidebarNavigationLink({ item, isActive, isCollapsed, onNavigate }: SidebarNavigationLinkProps) {
   const Icon = item.icon;
-
-  return (
+  const navigationLink = (
     <Link
       href={item.href}
-      title={isCollapsed ? item.label : undefined}
       aria-current={isActive ? 'page' : undefined}
       onClick={onNavigate}
       className={cn(
         'flex items-center min-h-10 gap-3 px-3 py-2 border border-transparent rounded-xl text-sidebar-foreground/50 text-xs font-medium transition-colors duration-150 hover:bg-sidebar-foreground/5 hover:text-sidebar-foreground [&_svg]:shrink-0 [&_svg]:w-4 [&_svg]:h-4 [&_svg]:stroke-[1.5]',
-        isActive && 'bg-sidebar-foreground/10 text-sidebar-foreground shadow-[inset_0_1px_0_color-mix(in_oklch,var(--color-sidebar-foreground)_5%,transparent)]',
+        isActive && 'nav-item-active text-sidebar-foreground',
         isCollapsed && 'justify-center px-2'
       )}
     >
       <Icon />
       {!isCollapsed && <span>{item.label}</span>}
     </Link>
+  );
+
+  return (
+    <Tooltip open={isCollapsed ? undefined : false}>
+      <TooltipTrigger asChild>{navigationLink}</TooltipTrigger>
+      <TooltipContent side="right" align="center" sideOffset={10}>
+        {item.label}
+      </TooltipContent>
+    </Tooltip>
   );
 }
 
@@ -164,16 +172,22 @@ export function Sidebar() {
               onNavigate={closeMobileSidebar}
             />
           ))}
-          <button
-            type="button"
-            title="Logout"
-            aria-label="Log out"
-            onClick={() => console.log('Logout clicked')}
-            className={cn("flex items-center min-h-10 gap-3 px-3 py-2 border border-transparent rounded-xl text-sidebar-foreground/50 text-xs font-medium transition-colors duration-150 hover:bg-sidebar-foreground/5 hover:text-sidebar-foreground [&_svg]:shrink-0 [&_svg]:w-4 [&_svg]:h-4 [&_svg]:stroke-[1.5]", isCollapsed && "justify-center px-2")}
-          >
-            <LogOut />
-            {!isCollapsed && <span>Logout</span>}
-          </button>
+          <Tooltip open={isCollapsed ? undefined : false}>
+            <TooltipTrigger asChild>
+              <button
+                type="button"
+                aria-label="Log out"
+                onClick={() => console.log('Logout clicked')}
+                className={cn("flex items-center min-h-10 gap-3 px-3 py-2 border border-transparent rounded-xl text-sidebar-foreground/50 text-xs font-medium transition-colors duration-150 hover:bg-sidebar-foreground/5 hover:text-sidebar-foreground [&_svg]:shrink-0 [&_svg]:w-4 [&_svg]:h-4 [&_svg]:stroke-[1.5]", isCollapsed && "justify-center px-2")}
+              >
+                <LogOut />
+                {!isCollapsed && <span>Logout</span>}
+              </button>
+            </TooltipTrigger>
+            <TooltipContent side="right" align="center" sideOffset={10}>
+              Logout
+            </TooltipContent>
+          </Tooltip>
         </div>
       </aside>
     </>
