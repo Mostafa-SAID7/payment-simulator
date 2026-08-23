@@ -22,16 +22,16 @@ export function BatchProgress({
   const percentage = total > 0 ? (processed / total) * 100 : 0;
 
   return (
-    <Card className="border-border">
-      <CardHeader>
-        <CardTitle>Processing Progress</CardTitle>
-        <CardDescription>
+    <Card className="rounded-xl border border-border/70 bg-card shadow-sm overflow-hidden">
+      <CardHeader className="px-4 pt-4 pb-3 border-b border-border/60">
+        <CardTitle className="text-sm font-semibold text-foreground">Processing Progress</CardTitle>
+        <CardDescription className="text-xs text-muted-foreground">
           {status === 'completed'
             ? 'Batch processing completed'
             : 'Monitor your batch processing in real-time'}
         </CardDescription>
       </CardHeader>
-      <CardContent className="space-y-6">
+      <CardContent className="p-4 flex flex-col gap-3">
         {/* Progress Bar */}
         <div className="space-y-2">
           <div className="flex items-center justify-between">
@@ -42,9 +42,9 @@ export function BatchProgress({
         </div>
 
         {/* Stats Grid */}
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="grid gap-3 md:grid-cols-2">
           {/* Total Transactions */}
-          <div className="rounded-lg bg-secondary/30 p-4">
+          <div className="rounded-lg bg-secondary/30 p-3">
             <div className="flex items-center justify-between">
               <span className="text-sm text-muted-foreground">Total Transactions</span>
               <Clock className="h-5 w-5 text-primary/50" />
@@ -53,30 +53,30 @@ export function BatchProgress({
           </div>
 
           {/* Processed */}
-          <div className="rounded-lg bg-secondary/30 p-4">
+          <div className="rounded-lg bg-secondary/30 p-3">
             <div className="flex items-center justify-between">
               <span className="text-sm text-muted-foreground">Processed</span>
-              <Clock className="h-5 w-5 text-yellow-500" />
+              <Clock className="h-5 w-5 text-warning" />
             </div>
             <p className="mt-1 text-2xl font-bold text-foreground">{processed}</p>
           </div>
 
           {/* Successful */}
-          <div className="rounded-lg bg-secondary/30 p-4">
+          <div className="rounded-lg bg-secondary/30 p-3">
             <div className="flex items-center justify-between">
               <span className="text-sm text-muted-foreground">Successful</span>
-              <CheckCircle className="h-5 w-5 text-green-500" />
+              <CheckCircle className="h-5 w-5 text-success" />
             </div>
-            <p className="mt-1 text-2xl font-bold text-green-600">{successful}</p>
+            <p className="mt-1 text-2xl font-bold text-success">{successful}</p>
           </div>
 
           {/* Failed */}
-          <div className="rounded-lg bg-secondary/30 p-4">
+          <div className="rounded-lg bg-secondary/30 p-3">
             <div className="flex items-center justify-between">
               <span className="text-sm text-muted-foreground">Failed</span>
-              <AlertCircle className="h-5 w-5 text-red-500" />
+              <AlertCircle className="h-5 w-5 text-destructive" />
             </div>
-            <p className="mt-1 text-2xl font-bold text-red-600">{failed}</p>
+            <p className="mt-1 text-2xl font-bold text-destructive">{failed}</p>
           </div>
         </div>
 
@@ -87,9 +87,9 @@ export function BatchProgress({
             <span
               className={
                 status === 'completed'
-                  ? 'text-green-600'
+                  ? 'text-success'
                   : status === 'processing'
-                    ? 'text-yellow-600'
+                    ? 'text-warning'
                     : 'text-muted-foreground'
               }
             >

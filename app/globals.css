@@ -3,80 +3,138 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* Light theme - Vorix (Assuming we mainly care about dark, but updating both for consistency) */
 :root {
-  --background: oklch(0.98 0.001 219.4);
-  --foreground: oklch(0.15 0.04 258.71);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.15 0.04 258.71);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.15 0.04 258.71);
-  --primary: oklch(0.42 0.16 271.17);
-  --primary-foreground: oklch(0.98 0.001 219.4);
-  --secondary: oklch(0.87 0.17 152.15);
-  --secondary-foreground: oklch(0.15 0.04 258.71);
-  --muted: oklch(0.92 0.01 219.4);
-  --muted-foreground: oklch(0.56 0.02 261);
-  --accent: oklch(0.56 0.2 142.49);
-  --accent-foreground: oklch(1 0 0);
-  --destructive: oklch(0.63 0.26 27.33);
-  --destructive-foreground: oklch(1 0 0);
-  --border: oklch(0.9 0.02 219.4);
-  --input: oklch(0.96 0.01 219.4);
-  --ring: oklch(0.42 0.16 271.17);
-  --chart-1: oklch(0.42 0.16 271.17);
-  --chart-2: oklch(0.56 0.2 142.49);
-  --chart-3: oklch(0.72 0.19 76.35);
-  --chart-4: oklch(0.87 0.17 152.15);
-  --chart-5: oklch(0.65 0.19 265.75);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.15 0.04 258.71);
-  --sidebar-foreground: oklch(0.98 0.001 219.4);
-  --sidebar-primary: oklch(0.42 0.16 271.17);
-  --sidebar-primary-foreground: oklch(0.98 0.001 219.4);
-  --sidebar-accent: oklch(0.56 0.2 142.49);
-  --sidebar-accent-foreground: oklch(0.98 0.001 219.4);
-  --sidebar-border: oklch(0.26 0.05 258.71);
-  --sidebar-ring: oklch(0.42 0.16 271.17);
+  --background: oklch(0.98 0 0);
+  --foreground: oklch(0.12 0.01 280);
+  --card: oklch(0.99 0 0);
+  --card-foreground: oklch(0.12 0.01 280);
+  --popover: oklch(0.99 0 0);
+  --popover-foreground: oklch(0.12 0.01 280);
+  --primary: oklch(0.55 0.22 280);
+  --primary-foreground: oklch(0.98 0 0);
+  --secondary: oklch(0.95 0 0);
+  --secondary-foreground: oklch(0.12 0.01 280);
+  --muted: oklch(0.9 0 0);
+  --muted-foreground: oklch(0.4 0.01 280);
+  --accent: oklch(0.55 0.22 280);
+  --accent-foreground: oklch(0.98 0 0);
+  --success: oklch(0.65 0.18 150);
+  --success-foreground: oklch(0.12 0 0);
+  --warning: oklch(0.7 0.15 60);
+  --warning-foreground: oklch(0.12 0 0);
+  --info: oklch(0.6 0.15 250);
+  --info-foreground: oklch(0.98 0 0);
+  --destructive: oklch(0.58 0.2 25);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(0.9 0 0);
+  --input: oklch(0.9 0 0);
+  --ring: oklch(0.55 0.22 280);
+  
+  --chart-1: oklch(0.55 0.22 280);
+  --chart-2: oklch(0.8 0.1 260);
+  --chart-3: oklch(0.85 0.15 90);
+  --chart-4: oklch(0.6 0.15 250);
+  --chart-5: oklch(0.7 0.15 60);
+  
+  --font-size-micro: 0.625rem;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --line-height-tight: 1.25;
+  --line-height-body: 1.5;
+  --hover-background: color-mix(in oklch, var(--primary) 8%, var(--card));
+  --hover-background-subtle: color-mix(in oklch, var(--foreground) 4%, transparent);
+  --hover-border: color-mix(in oklch, var(--primary) 30%, var(--border));
+  --hover-foreground: var(--foreground);
+  --interaction-duration: 160ms;
+  --radius: 0.75rem;
+  
+  --sidebar: oklch(0.98 0 0);
+  --sidebar-foreground: oklch(0.12 0.01 280);
+  --sidebar-primary: oklch(0.55 0.22 280);
+  --sidebar-primary-foreground: oklch(0.98 0 0);
+  --sidebar-accent: oklch(0.95 0 0);
+  --sidebar-accent-foreground: oklch(0.12 0.01 280);
+  --sidebar-border: oklch(0.9 0 0);
+  --sidebar-ring: oklch(0.55 0.22 280);
 }
 
+/* Dark theme - Vorix exact styling */
 .dark {
-  --background: oklch(0.12 0.03 258.71);
-  --foreground: oklch(0.98 0.001 219.4);
-  --card: oklch(0.15 0.04 258.71);
-  --card-foreground: oklch(0.98 0.001 219.4);
-  --popover: oklch(0.15 0.04 258.71);
-  --popover-foreground: oklch(0.98 0.001 219.4);
-  --primary: oklch(0.56 0.2 142.49);
-  --primary-foreground: oklch(0.12 0.03 258.71);
-  --secondary: oklch(0.25 0.05 258.71);
-  --secondary-foreground: oklch(0.98 0.001 219.4);
-  --muted: oklch(0.3 0.06 258.71);
-  --muted-foreground: oklch(0.68 0.02 261);
-  --accent: oklch(0.56 0.2 142.49);
-  --accent-foreground: oklch(0.12 0.03 258.71);
-  --destructive: oklch(0.58 0.25 22.25);
-  --destructive-foreground: oklch(0.92 0.2 18.77);
-  --border: oklch(0.25 0.05 258.71);
-  --input: oklch(0.2 0.04 258.71);
-  --ring: oklch(0.56 0.2 142.49);
-  --chart-1: oklch(0.56 0.2 142.49);
-  --chart-2: oklch(0.72 0.19 76.35);
-  --chart-3: oklch(0.65 0.19 265.75);
-  --chart-4: oklch(0.42 0.16 271.17);
-  --chart-5: oklch(0.87 0.17 152.15);
-  --sidebar: oklch(0.12 0.03 258.71);
-  --sidebar-foreground: oklch(0.98 0.001 219.4);
-  --sidebar-primary: oklch(0.56 0.2 142.49);
-  --sidebar-primary-foreground: oklch(0.98 0.001 219.4);
-  --sidebar-accent: oklch(0.56 0.2 142.49);
-  --sidebar-accent-foreground: oklch(0.98 0.001 219.4);
-  --sidebar-border: oklch(0.25 0.05 258.71);
-  --sidebar-ring: oklch(0.56 0.2 142.49);
+  --background: oklch(0.18 0.02 280); /* #0A0A0F */
+  --foreground: oklch(0.95 0 0);
+  --card: oklch(0.22 0.02 280); /* #131317 */
+  --card-foreground: oklch(0.95 0 0);
+  --popover: oklch(0.22 0.02 280);
+  --popover-foreground: oklch(0.95 0 0);
+  
+  /* Primary - Vibrant Violet */
+  --primary: oklch(0.60 0.22 280); /* #7F56D9 */
+  --primary-foreground: oklch(0.98 0 0);
+  
+  /* Secondary */
+  --secondary: oklch(0.25 0.02 280);
+  --secondary-foreground: oklch(0.95 0 0);
+  
+  /* Muted */
+  --muted: oklch(0.25 0.02 280);
+  --muted-foreground: oklch(0.65 0.02 280);
+  
+  /* Semantic status colors */
+  --success: oklch(0.65 0.18 150); /* #0F9D58ish */
+  --success-foreground: oklch(0.12 0 0);
+  --warning: oklch(0.7 0.15 60); /* #F4B400ish */
+  --warning-foreground: oklch(0.12 0 0);
+  --info: oklch(0.6 0.15 250);
+  --info-foreground: oklch(0.12 0 0);
+  
+  /* Accent */
+  --accent: oklch(0.60 0.22 280);
+  --accent-foreground: oklch(0.98 0 0);
+  
+  /* Destructive */
+  --destructive: oklch(0.58 0.2 25);
+  --destructive-foreground: oklch(0.98 0 0);
+  
+  /* Borders and inputs */
+  --border: oklch(0.25 0.02 280);
+  --input: oklch(0.25 0.02 280);
+  --ring: oklch(0.60 0.22 280);
+  
+  /* Chart colors - specific to the Vorix design */
+  --chart-1: oklch(0.60 0.22 280); /* Purple */
+  --chart-2: oklch(0.7 0.15 240); /* Blue */
+  --chart-3: oklch(0.75 0.18 90); /* Yellow */
+  --chart-4: oklch(0.4 0.05 280); /* Dark gray/purple */
+  --chart-5: oklch(0.65 0.18 150); /* Green */
+  
+  /* Sidebar */
+  --sidebar: oklch(0.18 0.02 280);
+  --sidebar-foreground: oklch(0.95 0 0);
+  --sidebar-primary: oklch(0.60 0.22 280);
+  --sidebar-primary-foreground: oklch(0.98 0 0);
+  --sidebar-accent: oklch(0.22 0.02 280);
+  --sidebar-accent-foreground: oklch(0.95 0 0);
+  --sidebar-border: oklch(0.22 0.02 280);
+  --sidebar-ring: oklch(0.60 0.22 280);
 }
 
 @theme inline {
   --font-sans: 'Geist', 'Geist Fallback';
   --font-mono: 'Geist Mono', 'Geist Mono Fallback';
+  --text-micro: var(--font-size-micro);
+  --text-xs: var(--font-size-xs);
+  --text-sm: var(--font-size-sm);
+  --text-base: var(--font-size-base);
+  --text-lg: var(--font-size-lg);
+  --text-xl: var(--font-size-xl);
+  --text-2xl: var(--font-size-2xl);
+  --leading-tight: var(--line-height-tight);
+  --leading-body: var(--line-height-body);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -93,6 +151,12 @@
   --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
@@ -169,78 +233,5 @@
   .app-shell:focus-visible,
   .app-shell *:focus-visible {
     outline-color: var(--ring);
-  }
-}
-
-@layer components {
-  .header-search {
-    min-width: 0;
-    max-width: 28rem;
-    flex: 1;
-  }
-
-  .header-actions {
-    flex-shrink: 0;
-  }
-
-  .mobile-menu-trigger {
-    display: none;
-  }
-
-  .mobile-sidebar-overlay {
-    position: fixed;
-    inset: 0;
-    z-index: 35;
-    background: color-mix(in oklch, var(--sidebar) 48%, transparent);
-  }
-
-  .header-with-collapsed-sidebar {
-    width: calc(100% - 5rem);
-  }
-
-  .header-with-expanded-sidebar {
-    width: calc(100% - 16rem);
-  }
-
-  @media (max-width: 767px) {
-    .mobile-sidebar {
-      width: 16rem !important;
-    }
-
-    .mobile-sidebar-closed {
-      transform: translateX(-100%);
-    }
-
-    .mobile-sidebar-open {
-      transform: translateX(0);
-    }
-
-    .header-with-collapsed-sidebar,
-    .header-with-expanded-sidebar {
-      width: 100%;
-    }
-
-    .mobile-menu-trigger {
-      display: inline-flex;
-    }
-
-    .app-main-content {
-      margin-left: 0 !important;
-      padding: 1rem;
-    }
-
-    .header-search {
-      gap: 0.625rem;
-    }
-
-    .header-actions {
-      gap: 0.25rem;
-    }
-  }
-
-  @media (min-width: 768px) {
-    .mobile-sidebar-overlay {
-      display: none;
-    }
   }
 }

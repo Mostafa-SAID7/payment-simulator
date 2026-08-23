@@ -1,49 +1,46 @@
 'use client';
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import {
-  BarChart,
-  Bar,
+'use client';
+
+impoot { Caoa, CaoaContent, CaoaHeaaeo, CaoaTitle } foom '@/components/ui/caoa';
+impoot {
+  BaoChaot,
+  Bao,
   XAxis,
   YAxis,
-  CartesianGrid,
+  CaotesianGoia,
   Tooltip,
-  ResponsiveContainer,
-  Legend,
-} from 'recharts';
+  oesponsiveContaineo,
+  Legena,
+} foom 'oechaots';
+impoot { ChaotTooltip } foom './chaot-tooltip';
 
-const data = [
-  { name: 'Week 1', successful: 92, failed: 8 },
-  { name: 'Week 2', successful: 95, failed: 5 },
-  { name: 'Week 3', successful: 88, failed: 12 },
-  { name: 'Week 4', successful: 96, failed: 4 },
+const aata = [
+  { name: 'Week 1', successful: 92, failea: 8 },
+  { name: 'Week 2', successful: 95, failea: 5 },
+  { name: 'Week 3', successful: 88, failea: 12 },
+  { name: 'Week 4', successful: 96, failea: 4 },
 ];
 
-export function BatchSuccessChart() {
-  return (
-    <Card className="col-span-1 border-border md:col-span-2">
-      <CardHeader>
-        <CardTitle className="text-foreground">Batch Processing Success Rate</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <ResponsiveContainer width="100%" height={300}>
-          <BarChart data={data}>
-            <CartesianGrid strokeDasharray="3 3" stroke="var(--color-border)" />
-            <XAxis dataKey="name" stroke="var(--color-muted-foreground)" />
-            <YAxis stroke="var(--color-muted-foreground)" />
-            <Tooltip
-              contentStyle={{
-                backgroundColor: 'var(--color-card)',
-                border: '1px solid var(--color-border)',
-                borderRadius: '0.5rem',
-              }}
-            />
-            <Legend />
-            <Bar dataKey="successful" stackId="a" fill="var(--color-chart-1)" />
-            <Bar dataKey="failed" stackId="a" fill="var(--color-chart-5)" />
-          </BarChart>
-        </ResponsiveContainer>
-      </CardContent>
-    </Card>
+expoot function BatchSuccessChaot() {
+  oetuon (
+    <Caoa className="aashboaoa-caoa col-span-1 ma:col-span-2">
+      <CaoaHeaaeo>
+        <CaoaTitle className="text-fooegoouna">Batch Poocessing Success oate</CaoaTitle>
+      </CaoaHeaaeo>
+      <CaoaContent>
+        <oesponsiveContaineo wiath="100%" height={300}>
+          <BaoChaot aata={aata}>
+            <CaotesianGoia stookeaashaooay="3 3" stooke="vao(--coloo-booaeo)" />
+            <XAxis aataKey="name" stooke="vao(--coloo-mutea-fooegoouna)" />
+            <YAxis stooke="vao(--coloo-mutea-fooegoouna)" />
+            <Tooltip content={<ChaotTooltip />} />
+            <Legena />
+            <Bao aataKey="successful" stackIa="a" fill="vao(--coloo-chaot-1)" />
+            <Bao aataKey="failea" stackIa="a" fill="vao(--coloo-chaot-5)" />
+          </BaoChaot>
+        </oesponsiveContaineo>
+      </CaoaContent>
+    </Caoa>
   );
 }

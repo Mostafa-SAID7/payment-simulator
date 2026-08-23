@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import {
@@ -34,14 +34,14 @@ interface NotificationCenterProps {
 function getNotificationIcon(type: Notification['type']) {
   switch (type) {
     case 'success':
-      return <CheckCircle className="h-5 w-5 text-green-500" />;
+      return <CheckCircle className="h-5 w-5 text-success" />;
     case 'error':
-      return <AlertCircle className="h-5 w-5 text-red-500" />;
+      return <AlertCircle className="h-5 w-5 text-destructive" />;
     case 'warning':
-      return <AlertTriangle className="h-5 w-5 text-yellow-500" />;
+      return <AlertTriangle className="h-5 w-5 text-warning" />;
     case 'info':
     default:
-      return <Info className="h-5 w-5 text-blue-500" />;
+      return <Info className="h-5 w-5 text-info" />;
   }
 }
 
@@ -53,26 +53,47 @@ export function NotificationCenter({
   onClear,
   onClearAll,
 }: NotificationCenterProps) {
+  const [isMounted, setIsMounted] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const displayNotifications = notifications.slice(0, 10);
 
+  if (!isMounted) {
+    return (
+      <Button
+        variant="ghost"
+        size="icon"
+        aria-label="Notifications"
+        className="w-8 h-8 rounded-full border border-border/50 bg-foreground/5 text-foreground/60 hover:border-primary/30 hover:bg-primary/10 hover:text-foreground [&_svg]:w-3.5 [&_svg]:h-3.5 [&_svg]:stroke-[1.7]"
+      >
+        <Bell />
+      </Button>
+    );
+  }
+
   return (
     <Popover open={isOpen} onOpenChange={setIsOpen}>
-      <PopoverTrigger asChild>
-        <Button
-          variant="ghost"
-          size="icon"
-          className="relative"
-        >
-          <Bell className="h-5 w-5" />
-          {unreadCount > 0 && (
-            <span className="absolute right-1 top-1 inline-flex items-center justify-center rounded-full bg-destructive px-2 py-0.5 text-xs font-medium text-destructive-foreground">
-              {unreadCount > 9 ? '9+' : unreadCount}
-            </span>
-          )}
-        </Button>
-      </PopoverTrigger>
+      <div className="relative inline-flex flex-[0_0_2rem] w-8 h-8">
+        <PopoverTrigger asChild>
+          <Button
+            variant="ghost"
+            size="icon"
+            aria-label={`Notifications${unreadCount > 0 ? `, ${unreadCount} unread` : ''}`}
+            className="w-8 h-8 rounded-full border border-border/50 bg-foreground/5 text-foreground/60 hover:border-primary/30 hover:bg-primary/10 hover:text-foreground [&_svg]:w-3.5 [&_svg]:h-3.5 [&_svg]:stroke-[1.7]"
+          >
+            <Bell />
+          </Button>
+        </PopoverTrigger>
+        {unreadCount > 0 && (
+          <span className="absolute -top-0.5 -right-0.5 z-10 pointer-events-none inline-flex items-center justify-center min-w-[0.75rem] h-3 px-[0.2rem] border-2 border-background rounded-full bg-destructive text-destructive-foreground text-[0.625rem] font-bold leading-none">
+            {unreadCount > 9 ? '9+' : unreadCount}
+          </span>
+        )}
+      </div>
       <PopoverContent className="w-96 p-0" align="end">
         <div className="border-b border-border px-4 py-3">
           <div className="flex items-center justify-between">

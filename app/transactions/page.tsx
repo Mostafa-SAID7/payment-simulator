@@ -1,26 +1,14 @@
 'use client';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
+import { AlertCircle, ArrowUpRight, CheckCircle2, Clock3, Eye, FileText, Search, X, ChevronDown, Download } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table';
-import { Badge } from '@/components/ui/badge';
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
-import { Search, Filter, Download, Eye } from 'lucide-react';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { cn } from '@/lib/utils';
 
 interface Transaction {
   id: string;
@@ -35,284 +23,396 @@ interface Transaction {
 }
 
 const mockTransactions: Transaction[] = [
-  {
-    id: 'TXN-2024-001',
-    date: '2024-03-05',
-    time: '14:32:15',
-    recipient: 'Acme Corporation',
-    amount: 25000,
-    type: 'ACH',
-    status: 'completed',
-    reference: 'INV-2024-001',
-    description: 'Invoice payment',
-  },
-  {
-    id: 'TXN-2024-002',
-    date: '2024-03-05',
-    time: '13:15:42',
-    recipient: 'Tech Solutions Inc',
-    amount: 50000,
-    type: 'RTGS',
-    status: 'completed',
-    reference: 'INV-2024-002',
-    description: 'Service delivery',
-  },
-  {
-    id: 'TXN-2024-003',
-    date: '2024-03-05',
-    time: '11:20:08',
-    recipient: 'Global Enterprises',
-    amount: 75000,
-    type: 'WPS',
-    status: 'completed',
-    reference: 'INV-2024-003',
-  },
-  {
-    id: 'TXN-2024-004',
-    date: '2024-03-04',
-    time: '16:45:33',
-    recipient: 'Local Business LLC',
-    amount: 15000,
-    type: 'ACH',
-    status: 'failed',
-    reference: 'INV-2024-004',
-    description: 'Payment failed - invalid account',
-  },
-  {
-    id: 'TXN-2024-005',
-    date: '2024-03-04',
-    time: '15:10:22',
-    recipient: 'Startup Ventures',
-    amount: 30000,
-    type: 'RTGS',
-    status: 'pending',
-    reference: 'INV-2024-005',
-    description: 'Processing',
-  },
-  {
-    id: 'TXN-2024-006',
-    date: '2024-03-04',
-    time: '10:55:47',
-    recipient: 'Enterprise Solutions',
-    amount: 100000,
-    type: 'WPS',
-    status: 'completed',
-    reference: 'INV-2024-006',
-  },
-  {
-    id: 'TXN-2024-007',
-    date: '2024-03-03',
-    time: '14:20:11',
-    recipient: 'Business Partners Co',
-    amount: 45000,
-    type: 'ACH',
-    status: 'completed',
-    reference: 'INV-2024-007',
-  },
-  {
-    id: 'TXN-2024-008',
-    date: '2024-03-03',
-    time: '09:30:55',
-    recipient: 'Corporate Services',
-    amount: 60000,
-    type: 'RTGS',
-    status: 'completed',
-    reference: 'INV-2024-008',
-  },
+  { id: 'TXN-2024-001', date: '2024-03-05', time: '14:32:15', recipient: 'Acme Corporation', amount: 25000, type: 'ACH', status: 'completed', reference: 'INV-2024-001', description: 'Invoice payment' },
+  { id: 'TXN-2024-002', date: '2024-03-05', time: '13:15:42', recipient: 'Tech Solutions Inc', amount: 50000, type: 'RTGS', status: 'completed', reference: 'INV-2024-002', description: 'Service delivery' },
+  { id: 'TXN-2024-003', date: '2024-03-05', time: '11:20:08', recipient: 'Global Enterprises', amount: 75000, type: 'WPS', status: 'completed', reference: 'INV-2024-003', description: 'Monthly settlement' },
+  { id: 'TXN-2024-004', date: '2024-03-04', time: '16:45:33', recipient: 'Local Business LLC', amount: 15000, type: 'ACH', status: 'failed', reference: 'INV-2024-004', description: 'Payment failed - invalid account' },
+  { id: 'TXN-2024-005', date: '2024-03-04', time: '15:10:22', recipient: 'Startup Ventures', amount: 30000, type: 'RTGS', status: 'pending', reference: 'INV-2024-005', description: 'Processing' },
+  { id: 'TXN-2024-006', date: '2024-03-04', time: '10:55:47', recipient: 'Enterprise Solutions', amount: 100000, type: 'WPS', status: 'completed', reference: 'INV-2024-006', description: 'Invoice payment' },
+  { id: 'TXN-2024-007', date: '2024-03-03', time: '14:20:11', recipient: 'Business Partners Co', amount: 45000, type: 'ACH', status: 'completed', reference: 'INV-2024-007', description: 'Vendor payment' },
+  { id: 'TXN-2024-008', date: '2024-03-03', time: '09:30:55', recipient: 'Corporate Services', amount: 60000, type: 'RTGS', status: 'completed', reference: 'INV-2024-008', description: 'Service delivery' },
 ];
 
+const currencyFormatter = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 2 });
+
+function formatCurrency(amount: number) {
+  return currencyFormatter.format(amount);
+}
+
 function getStatusBadge(status: Transaction['status']) {
-  const variants: Record<Transaction['status'], 'default' | 'secondary' | 'destructive' | 'outline'> = {
-    completed: 'default',
-    pending: 'secondary',
-    failed: 'destructive',
+  const styles: Record<Transaction['status'], string> = {
+    completed: 'border-success/40 text-success',
+    pending: 'border-warning/40 text-warning',
+    failed: 'border-destructive/40 text-destructive',
   };
-  const labels: Record<Transaction['status'], string> = {
-    completed: 'Completed',
-    pending: 'Pending',
-    failed: 'Failed',
-  };
-  return <Badge variant={variants[status]}>{labels[status]}</Badge>;
+  
+  const labels = { completed: 'Completed', pending: 'Pending', failed: 'Failed' };
+  
+  return (
+    <Badge variant="outline" className={cn("rounded-full px-3 py-0.5 text-[9px] font-medium border bg-transparent uppercase tracking-wider", styles[status])}>
+      {labels[status]}
+    </Badge>
+  );
+}
+
+function getTypeBadge(type: Transaction['type']) {
+  return (
+    <span className="inline-flex items-center px-2 py-0.5 rounded-md bg-secondary/30 text-foreground/70 border border-border/20 text-[10px] font-medium tracking-wide">
+      {type}
+    </span>
+  );
 }
 
 export default function TransactionsPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [filterType, setFilterType] = useState('all');
   const [filterStatus, setFilterStatus] = useState('all');
-  const [transactions] = useState<Transaction[]>(mockTransactions);
+  const [selectedTransaction, setSelectedTransaction] = useState<Transaction | null>(null);
 
-  const filteredTransactions = transactions.filter((txn) => {
-    const matchesSearch =
-      txn.recipient.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      txn.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      txn.reference.toLowerCase().includes(searchTerm.toLowerCase());
-
-    const matchesType = filterType === 'all' || txn.type === filterType;
-    const matchesStatus = filterStatus === 'all' || txn.status === filterStatus;
-
-    return matchesSearch && matchesType && matchesStatus;
-  });
+  const filteredTransactions = useMemo(() => {
+    const query = searchTerm.trim().toLowerCase();
+    return mockTransactions.filter((transaction) => {
+      const matchesSearch = !query || [transaction.recipient, transaction.id, transaction.reference, transaction.description ?? ''].some((value) => value.toLowerCase().includes(query));
+      const matchesType = filterType === 'all' || transaction.type === filterType;
+      const matchesStatus = filterStatus === 'all' || transaction.status === filterStatus;
+      return matchesSearch && matchesType && matchesStatus;
+    });
+  }, [filterStatus, filterType, searchTerm]);
 
   const stats = {
-    total: transactions.length,
-    completed: transactions.filter((t) => t.status === 'completed').length,
-    pending: transactions.filter((t) => t.status === 'pending').length,
-    failed: transactions.filter((t) => t.status === 'failed').length,
+    total: mockTransactions.length,
+    completed: mockTransactions.filter((transaction) => transaction.status === 'completed').length,
+    pending: mockTransactions.filter((transaction) => transaction.status === 'pending').length,
+    failed: mockTransactions.filter((transaction) => transaction.status === 'failed').length,
   };
+  
+  const totalVolume = mockTransactions.reduce((sum, transaction) => sum + transaction.amount, 0);
+  const completedVolume = mockTransactions.filter((transaction) => transaction.status === 'completed').reduce((sum, transaction) => sum + transaction.amount, 0);
+  const hasFilters = Boolean(searchTerm || filterType !== 'all' || filterStatus !== 'all');
+
+  function clearFilters() {
+    setSearchTerm('');
+    setFilterType('all');
+    setFilterStatus('all');
+  }
+
+  function exportTransactions() {
+    const rows = filteredTransactions.map((transaction) => [transaction.id, transaction.date, transaction.time, transaction.recipient, transaction.type, transaction.amount, transaction.status, transaction.reference, transaction.description ?? '']);
+    const csv = [['Transaction ID', 'Date', 'Time', 'Recipient', 'Type', 'Amount', 'Status', 'Reference', 'Description'], ...rows].map((row) => row.map((value) => `"${String(value).replaceAll('"', '""')}"`).join(',')).join('\n');
+    const url = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8;' }));
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'finpay-transactions.csv';
+    link.click();
+    URL.revokeObjectURL(url);
+  }
 
   return (
-    <div className="space-y-8">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold text-foreground">Transaction History</h1>
-          <p className="mt-1 text-sm text-muted-foreground">
-            View and manage all payment transactions
-          </p>
-        </div>
-        <Button variant="outline" className="gap-2">
-          <Download className="h-4 w-4" />
-          Export
-        </Button>
-      </div>
+    <div className="flex flex-col gap-5 pb-6 mt-20 md:mt-24 px-4 md:px-8 max-w-[1600px] mx-auto w-full">
 
-      {/* Stats Cards */}
-      <div className="grid gap-4 md:grid-cols-4">
-        <Card className="border-border">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-muted-foreground">Total Transactions</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-2xl font-bold text-foreground">{stats.total}</p>
-          </CardContent>
-        </Card>
-
-        <Card className="border-border">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-muted-foreground">Completed</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-2xl font-bold text-green-600">{stats.completed}</p>
-          </CardContent>
-        </Card>
-
-        <Card className="border-border">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-muted-foreground">Pending</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-2xl font-bold text-yellow-600">{stats.pending}</p>
-          </CardContent>
-        </Card>
-
-        <Card className="border-border">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-muted-foreground">Failed</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-2xl font-bold text-red-600">{stats.failed}</p>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Filters and Search */}
-      <Card className="border-border">
-        <CardHeader>
-          <div className="flex flex-col gap-4 md:flex-row md:items-end md:gap-6">
-            <div className="flex-1">
-              <label className="text-sm font-medium text-foreground">Search</label>
-              <div className="relative mt-2">
-                <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                <Input
-                  placeholder="Search by recipient, ID, or reference..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10"
-                />
-              </div>
+      {/* Top Stats Row */}
+      <section className="grid grid-cols-2 lg:grid-cols-4 gap-4" aria-label="Transaction overview">
+        <Card className="rounded-[1.25rem] bg-[#131317] border border-border/30 shadow-none overflow-hidden flex flex-col justify-center">
+          <CardContent className="p-5 flex items-center gap-4">
+            <div className="w-10 h-10 rounded-xl border border-border/20 bg-foreground/5 flex items-center justify-center shrink-0">
+              <FileText className="w-4 h-4 text-foreground/70" />
             </div>
+            <div className="flex flex-col gap-0.5">
+              <span className="text-[10px] font-semibold text-foreground/40 tracking-widest uppercase">Total Transactions</span>
+              <span className="text-[17px] font-bold text-foreground">
+                {stats.total} <span className="text-foreground/50 text-[10px] font-medium tracking-wide normal-case ml-1">({formatCurrency(totalVolume)})</span>
+              </span>
+            </div>
+          </CardContent>
+        </Card>
+        
+        <Card className="rounded-[1.25rem] bg-[#131317] border border-border/30 shadow-none overflow-hidden flex flex-col justify-center">
+          <CardContent className="p-5 flex items-center gap-4">
+            <div className="w-10 h-10 rounded-xl border border-success/20 bg-success/10 flex items-center justify-center shrink-0">
+              <CheckCircle2 className="w-4 h-4 text-success" />
+            </div>
+            <div className="flex flex-col gap-0.5">
+              <span className="text-[10px] font-semibold text-foreground/40 tracking-widest uppercase">Completed</span>
+              <span className="text-[17px] font-bold text-foreground">
+                {stats.completed} <span className="text-foreground/50 text-[10px] font-medium tracking-wide normal-case ml-1">({formatCurrency(completedVolume)})</span>
+              </span>
+            </div>
+          </CardContent>
+        </Card>
+        
+        <Card className="rounded-[1.25rem] bg-[#131317] border border-border/30 shadow-none overflow-hidden flex flex-col justify-center">
+          <CardContent className="p-5 flex items-center gap-4">
+            <div className="w-10 h-10 rounded-xl border border-warning/20 bg-warning/10 flex items-center justify-center shrink-0">
+              <Clock3 className="w-4 h-4 text-warning" />
+            </div>
+            <div className="flex flex-col gap-0.5">
+              <span className="text-[10px] font-semibold text-foreground/40 tracking-widest uppercase">Pending</span>
+              <span className="text-[17px] font-bold text-foreground">
+                {stats.pending} <span className="text-foreground/50 text-[10px] font-medium tracking-wide normal-case ml-1">transactions</span>
+              </span>
+            </div>
+          </CardContent>
+        </Card>
+        
+        <Card className="rounded-[1.25rem] bg-[#131317] border border-border/30 shadow-none overflow-hidden flex flex-col justify-center">
+          <CardContent className="p-5 flex items-center gap-4">
+            <div className="w-10 h-10 rounded-xl border border-destructive/20 bg-destructive/10 flex items-center justify-center shrink-0">
+              <AlertCircle className="w-4 h-4 text-destructive" />
+            </div>
+            <div className="flex flex-col gap-0.5">
+              <span className="text-[10px] font-semibold text-foreground/40 tracking-widest uppercase">Failed</span>
+              <span className="text-[17px] font-bold text-foreground">
+                {stats.failed} <span className="text-foreground/50 text-[10px] font-medium tracking-wide normal-case ml-1">requires review</span>
+              </span>
+            </div>
+          </CardContent>
+        </Card>
+      </section>
 
-            <div className="w-full md:w-48">
-              <label className="text-sm font-medium text-foreground">Payment Type</label>
+      {/* Main Content Area */}
+      <section className="grid grid-cols-1 xl:grid-cols-[1fr_320px] gap-4" aria-label="Transaction operations">
+        
+        {/* Main Table Card */}
+        <Card className="rounded-[1.25rem] bg-[#131317] border border-border/30 shadow-none overflow-hidden">
+          <CardHeader className="flex flex-col gap-4 px-6 pt-6 pb-4 border-b border-border/10">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+              <div className="flex items-center gap-1.5">
+                <CardTitle className="text-[13px] font-medium text-foreground/90">All Transactions</CardTitle>
+                <span className="inline-flex items-center justify-center w-3.5 h-3.5 rounded-full border border-border/50 text-muted-foreground text-[8px] cursor-help">i</span>
+                <Badge variant="outline" className="ml-2 text-[9px] px-2 py-0.5 rounded-md border-border/40 text-foreground/60">{filteredTransactions.length} results</Badge>
+              </div>
+              
+              <Button variant="outline" size="sm" className="h-8 text-[11px] gap-2 rounded-lg bg-[#1A1A1F] border-border/40 text-foreground/70 hover:bg-foreground/5" onClick={exportTransactions}>
+                <Download className="w-3.5 h-3.5" /> Export CSV
+              </Button>
+            </div>
+            
+            <div className="flex flex-wrap items-center gap-3">
+              <div className="flex items-center gap-2 flex-1 min-w-[200px] relative [&_svg]:absolute [&_svg]:left-3 [&_svg]:w-4 [&_svg]:h-4 [&_svg]:text-muted-foreground [&_input]:pl-9">
+                <Search />
+                <Input aria-label="Search transactions" placeholder="Search recipient, ID, or reference..." value={searchTerm} onChange={(event) => setSearchTerm(event.target.value)} className="h-9 text-[11px] bg-[#1A1A1F] border-border/40 rounded-lg placeholder:text-muted-foreground/50 text-foreground" />
+              </div>
               <Select value={filterType} onValueChange={setFilterType}>
-                <SelectTrigger className="mt-2">
-                  <SelectValue />
+                <SelectTrigger className="h-9 text-[11px] w-auto min-w-[120px] bg-[#1A1A1F] border-border/40 rounded-lg">
+                  <SelectValue placeholder="Payment type" />
                 </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Types</SelectItem>
+                <SelectContent className="bg-[#131317] border-border/30 text-[11px]">
+                  <SelectItem value="all">All types</SelectItem>
                   <SelectItem value="ACH">ACH</SelectItem>
                   <SelectItem value="RTGS">RTGS</SelectItem>
                   <SelectItem value="WPS">WPS</SelectItem>
                 </SelectContent>
               </Select>
-            </div>
-
-            <div className="w-full md:w-48">
-              <label className="text-sm font-medium text-foreground">Status</label>
               <Select value={filterStatus} onValueChange={setFilterStatus}>
-                <SelectTrigger className="mt-2">
-                  <SelectValue />
+                <SelectTrigger className="h-9 text-[11px] w-auto min-w-[120px] bg-[#1A1A1F] border-border/40 rounded-lg">
+                  <SelectValue placeholder="Status" />
                 </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Statuses</SelectItem>
+                <SelectContent className="bg-[#131317] border-border/30 text-[11px]">
+                  <SelectItem value="all">All statuses</SelectItem>
                   <SelectItem value="completed">Completed</SelectItem>
                   <SelectItem value="pending">Pending</SelectItem>
                   <SelectItem value="failed">Failed</SelectItem>
                 </SelectContent>
               </Select>
+              {hasFilters && (
+                <Button variant="ghost" size="sm" className="h-9 text-[11px] text-foreground/50 hover:text-foreground hover:bg-foreground/5 px-3" onClick={clearFilters}>
+                  <X className="w-3.5 h-3.5 mr-1.5" /> Clear
+                </Button>
+              )}
             </div>
-          </div>
-        </CardHeader>
-      </Card>
+          </CardHeader>
+          
+          <CardContent className="p-0">
+            <div className="overflow-x-auto">
+              <table className="w-full text-[11px]">
+                <thead>
+                  <tr className="border-b border-border/10 [&_th]:px-6 [&_th]:py-4 [&_th]:text-left [&_th]:font-medium [&_th]:text-foreground/40">
+                    <th className="w-48">Transaction</th>
+                    <th>Date & Time</th>
+                    <th>Recipient</th>
+                    <th>Type</th>
+                    <th>Amount</th>
+                    <th className="w-24">Status</th>
+                    <th className="text-right w-16">View</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredTransactions.map((transaction, index) => (
+                    <tr key={transaction.id} className={`hover:bg-foreground/5 transition-colors [&_td]:px-6 [&_td]:py-4 ${index !== filteredTransactions.length - 1 ? 'border-b border-border/5' : ''}`}>
+                      <td>
+                        <div className="flex flex-col gap-0.5">
+                          <strong className="font-semibold text-foreground/90">{transaction.id}</strong>
+                          <span className="text-foreground/40 text-[9px]">{transaction.reference}</span>
+                        </div>
+                      </td>
+                      <td>
+                        <div className="flex flex-col gap-0.5">
+                          <strong className="text-foreground/80">{transaction.date}</strong>
+                          <span className="text-foreground/40 text-[9px] flex items-center gap-1"><Clock3 className="w-2.5 h-2.5" /> {transaction.time}</span>
+                        </div>
+                      </td>
+                      <td>
+                        <div className="flex flex-col gap-0.5">
+                          <strong className="text-foreground/80">{transaction.recipient}</strong>
+                          <span className="text-foreground/40 text-[9px]">{transaction.description}</span>
+                        </div>
+                      </td>
+                      <td>{getTypeBadge(transaction.type)}</td>
+                      <td><strong className="font-semibold text-foreground/90">{formatCurrency(transaction.amount)}</strong></td>
+                      <td>{getStatusBadge(transaction.status)}</td>
+                      <td className="text-right">
+                        <Button variant="ghost" size="icon" className="w-7 h-7 rounded-md text-foreground/40 hover:text-foreground hover:bg-foreground/10 border border-border/20" aria-label={`View ${transaction.id}`} onClick={() => setSelectedTransaction(transaction)}>
+                          <Eye className="w-3.5 h-3.5" />
+                        </Button>
+                      </td>
+                    </tr>
+                  ))}
+                  
+                  {filteredTransactions.length === 0 && (
+                    <tr>
+                      <td colSpan={7} className="py-12">
+                        <div className="flex flex-col items-center gap-3 text-center">
+                          <div className="w-12 h-12 rounded-full bg-foreground/5 flex items-center justify-center mb-2">
+                            <Search className="w-5 h-5 text-foreground/30" />
+                          </div>
+                          <strong className="text-[13px] font-medium text-foreground/70">No transactions found</strong>
+                          <span className="text-foreground/40 text-xs">Try adjusting your filters or search term.</span>
+                          {hasFilters && (
+                            <Button variant="outline" size="sm" className="mt-2 h-8 text-[11px] bg-[#1A1A1F] border-border/40" onClick={clearFilters}>
+                              Clear filters
+                            </Button>
+                          )}
+                        </div>
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </CardContent>
+        </Card>
 
-      {/* Transactions Table */}
-      <Card className="border-border">
-        <CardContent className="pt-6">
-          <div className="overflow-x-auto">
-            <Table>
-              <TableHeader>
-                <TableRow className="border-border hover:bg-transparent">
-                  <TableHead>Transaction ID</TableHead>
-                  <TableHead>Date & Time</TableHead>
-                  <TableHead>Recipient</TableHead>
-                  <TableHead>Type</TableHead>
-                  <TableHead className="text-right">Amount</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead>Reference</TableHead>
-                  <TableHead className="w-12">Action</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {filteredTransactions.map((transaction) => (
-                  <TableRow key={transaction.id} className="border-border hover:bg-secondary/50">
-                    <TableCell className="font-medium text-foreground">{transaction.id}</TableCell>
-                    <TableCell className="text-sm text-muted-foreground">
-                      <div>{transaction.date}</div>
-                      <div className="text-xs">{transaction.time}</div>
-                    </TableCell>
-                    <TableCell className="text-foreground">{transaction.recipient}</TableCell>
-                    <TableCell>
-                      <Badge variant="outline">{transaction.type}</Badge>
-                    </TableCell>
-                    <TableCell className="text-right font-semibold text-foreground">
-                      ${(transaction.amount / 1000).toFixed(1)}K
-                    </TableCell>
-                    <TableCell>{getStatusBadge(transaction.status)}</TableCell>
-                    <TableCell className="text-sm text-muted-foreground">
-                      {transaction.reference}
-                    </TableCell>
-                    <TableCell>
-                      <Button variant="ghost" size="icon" className="h-8 w-8">
-                        <Eye className="h-4 w-4" />
-                      </Button>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </div>
-        </CardContent>
-      </Card>
+        {/* Right Sidebar */}
+        <Card className="rounded-[1.25rem] bg-[#131317] border border-border/30 shadow-none overflow-hidden h-fit">
+          <CardHeader className="px-6 pt-6 pb-4 border-b border-border/10">
+            <CardTitle className="text-[13px] font-medium text-foreground/90 flex items-center gap-1.5">
+              Settlement Health
+              <span className="inline-flex items-center justify-center w-3.5 h-3.5 rounded-full border border-border/50 text-muted-foreground text-[8px] cursor-help ml-1">i</span>
+            </CardTitle>
+            <CardDescription className="text-[10px] text-muted-foreground mt-1">A quick view of payment reliability</CardDescription>
+          </CardHeader>
+          <CardContent className="p-6 flex flex-col gap-6">
+            <div className="flex items-center gap-4">
+              <span className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-success/10 text-success font-bold text-lg border border-success/20 shrink-0">
+                {Math.round((stats.completed / stats.total) * 100)}%
+              </span>
+              <div className="flex flex-col gap-0.5">
+                <strong className="text-xs font-semibold text-foreground/90">Healthy throughput</strong>
+                <span className="text-[10px] text-foreground/40 leading-tight">Completion rate across all payments</span>
+              </div>
+            </div>
+            
+            <div className="flex flex-col gap-4 border-t border-border/10 pt-5">
+              <div className="flex items-center justify-between">
+                <div className="flex flex-col gap-0.5">
+                  <strong className="text-[11px] font-medium text-foreground/80 flex items-center gap-1.5"><div className="w-2 h-2 rounded-full bg-success/50"></div> Completed</strong>
+                  <span className="text-[9px] text-foreground/40">{stats.completed} transactions</span>
+                </div>
+                <strong className="text-xs text-success">{Math.round((stats.completed / stats.total) * 100)}%</strong>
+              </div>
+              
+              <div className="flex items-center justify-between">
+                <div className="flex flex-col gap-0.5">
+                  <strong className="text-[11px] font-medium text-foreground/80 flex items-center gap-1.5"><div className="w-2 h-2 rounded-full bg-warning/50"></div> Pending</strong>
+                  <span className="text-[9px] text-foreground/40">Awaiting settlement</span>
+                </div>
+                <strong className="text-xs text-warning">{stats.pending}</strong>
+              </div>
+              
+              <div className="flex items-center justify-between">
+                <div className="flex flex-col gap-0.5">
+                  <strong className="text-[11px] font-medium text-foreground/80 flex items-center gap-1.5"><div className="w-2 h-2 rounded-full bg-destructive/50"></div> Failed</strong>
+                  <span className="text-[9px] text-foreground/40">Requires review</span>
+                </div>
+                <strong className="text-xs text-destructive">{stats.failed}</strong>
+              </div>
+            </div>
+            
+            <div className="mt-2 pt-5 border-t border-border/10">
+              <div className="flex items-center justify-between text-[11px] text-primary hover:text-primary/80 cursor-pointer group transition-colors">
+                <span className="font-medium">Review failed payments</span>
+                <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </section>
+
+      {/* Transaction Details Dialog */}
+      <Dialog open={Boolean(selectedTransaction)} onOpenChange={(open) => !open && setSelectedTransaction(null)}>
+        <DialogContent className="max-w-md bg-[#131317] border border-border/30 rounded-[1.25rem] shadow-xl p-0 overflow-hidden">
+          {selectedTransaction && (
+            <>
+              <DialogHeader className="p-6 pb-4 border-b border-border/10 bg-[#1A1A1F]/50">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0">
+                    <FileText className="w-5 h-5 text-primary" />
+                  </div>
+                  <div className="flex flex-col gap-1 mt-1">
+                    <DialogTitle className="text-lg tracking-tight text-foreground/90">{selectedTransaction.id}</DialogTitle>
+                    <DialogDescription className="text-xs text-foreground/50">{selectedTransaction.description ?? 'Payment transaction details'}</DialogDescription>
+                  </div>
+                </div>
+              </DialogHeader>
+              
+              <div className="p-6 flex flex-col gap-6">
+                <div className="flex items-center justify-between py-4 px-5 rounded-xl border border-border/20 bg-[#1A1A1F]">
+                  <div className="flex flex-col gap-1">
+                    <span className="text-[10px] text-foreground/50 uppercase tracking-wider font-medium">Status</span>
+                    {getStatusBadge(selectedTransaction.status)}
+                  </div>
+                  <div className="flex flex-col items-end gap-1">
+                    <span className="text-[10px] text-foreground/50 uppercase tracking-wider font-medium">Amount</span>
+                    <strong className="text-xl font-bold text-foreground">{formatCurrency(selectedTransaction.amount)}</strong>
+                  </div>
+                </div>
+                
+                <div className="grid grid-cols-2 gap-y-6 gap-x-4">
+                  <div className="flex flex-col gap-1.5">
+                    <span className="text-[10px] text-foreground/40 uppercase tracking-wider font-medium">Recipient</span>
+                    <strong className="text-sm font-semibold text-foreground/90">{selectedTransaction.recipient}</strong>
+                  </div>
+                  <div className="flex flex-col gap-1.5">
+                    <span className="text-[10px] text-foreground/40 uppercase tracking-wider font-medium">Reference</span>
+                    <strong className="text-sm font-semibold text-foreground/90">{selectedTransaction.reference}</strong>
+                  </div>
+                  <div className="flex flex-col gap-1.5">
+                    <span className="text-[10px] text-foreground/40 uppercase tracking-wider font-medium">Payment type</span>
+                    <div>{getTypeBadge(selectedTransaction.type)}</div>
+                  </div>
+                  <div className="flex flex-col gap-1.5">
+                    <span className="text-[10px] text-foreground/40 uppercase tracking-wider font-medium">Processed at</span>
+                    <div className="flex items-center gap-1.5">
+                      <Clock3 className="w-3.5 h-3.5 text-foreground/40" />
+                      <strong className="text-xs font-semibold text-foreground/80">{selectedTransaction.date}</strong>
+                      <span className="text-xs text-foreground/40">·</span>
+                      <span className="text-xs text-foreground/60">{selectedTransaction.time}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <DialogFooter className="p-6 pt-0 border-t-0 sm:justify-end">
+                <DialogClose asChild>
+                  <Button className="w-full sm:w-auto px-6 h-9 text-xs font-medium bg-[#1A1A1F] border border-border/30 hover:bg-foreground/10 text-foreground/80 rounded-lg">
+                    Close
+                  </Button>
+                </DialogClose>
+              </DialogFooter>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

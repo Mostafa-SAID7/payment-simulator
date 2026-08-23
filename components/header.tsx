@@ -1,19 +1,30 @@
 'use client';
 
-import { Menu, Moon, Search, Sun, User } from 'lucide-react';
+import { Menu, Moon, Sun, Settings } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { NotificationCenter } from '@/components/notification-center';
 import { useNotifications } from '@/hooks/use-notifications';
 import { useSidebar } from '@/contexts/sidebar-context';
 import { cn } from '@/lib/utils';
 import { useTheme } from 'next-themes';
+import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
+const pageTitles: Record<string, string> = {
+  '/': 'Dashboard',
+  '/payments': 'Payments',
+  '/cards': 'Cards',
+  '/transactions': 'Transactions',
+  '/taxes': 'Taxes',
+  '/users': 'Users',
+  '/settings': 'Settings',
+  '/profile': 'Profile',
+};
+
 export function Header() {
-  const [searchQuery, setSearchQuery] = useState('');
   const [isMounted, setIsMounted] = useState(false);
+  const pathname = usePathname();
   const { isCollapsed, setIsMobileOpen } = useSidebar();
   const { resolvedTheme, setTheme } = useTheme();
 
@@ -44,75 +55,74 @@ export function Header() {
   }, [addNotification]);
 
   return (
-    <header 
+    <header
       className={cn(
-        'fixed right-0 top-0 z-30 flex h-16 items-center justify-between border-b border-border bg-background px-6 transition-all duration-300',
-        isCollapsed ? 'header-with-collapsed-sidebar' : 'header-with-expanded-sidebar'
+        'fixed z-30 flex h-20 items-center justify-between px-4 transition-all duration-300 md:px-8 md:top-0 left-0 right-0 top-0 md:left-auto',
+        isCollapsed ? 'md:w-[calc(100%-6rem)]' : 'md:w-[calc(100%-18.5rem)]'
       )}
     >
-      <div className="header-search flex items-center gap-4">
+      <div className="flex items-center min-w-0 gap-2.5">
         <Button
           type="button"
           variant="ghost"
           size="icon"
           aria-label="Open navigation menu"
           onClick={() => setIsMobileOpen(true)}
-          className="mobile-menu-trigger shrink-0"
+          className="md:hidden flex border border-border/50 rounded-full shrink-0"
         >
           <Menu className="h-5 w-5" />
         </Button>
-        <Search className="h-4 w-4 shrink-0 text-muted-foreground" />
-        <Input
-          type="text"
-          placeholder="Search transactions, accounts, batches..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className="h-9 min-w-0 flex-1 border-0 bg-muted/50 placeholder:text-muted-foreground focus-visible:ring-1"
-        />
+        <h1 className="text-xl font-semibold text-foreground tracking-tight">
+          {pageTitles[pathname] ?? 'Vorix'}
+        </h1>
       </div>
 
-      <div className="header-actions flex items-center gap-2 sm:gap-4">
-        <Button
-          type="button"
-          variant="ghost"
-          size="icon"
-          aria-label={
-            !isMounted || resolvedTheme !== 'dark'
-              ? 'Switch to dark mode'
-              : 'Switch to light mode'
-          }
-          title={
-            !isMounted || resolvedTheme !== 'dark'
-              ? 'Switch to dark mode'
-              : 'Switch to light mode'
-          }
-          disabled={!isMounted}
-          onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
-          className="theme-toggle"
-        >
-          {!isMounted || resolvedTheme !== 'dark' ? (
-            <Moon className="h-5 w-5" />
-          ) : (
-            <Sun className="h-5 w-5" />
-          )}
-        </Button>
-        <NotificationCenter
-          notifications={notifications}
-          unreadCount={unreadCount}
-          onMarkAsRead={markAsRead}
-          onMarkAllAsRead={markAllAsRead}
-          onClear={clearNotification}
-          onClearAll={clearAll}
-        />
-
-        <Link href="/profile">
-          <Button
-            variant="ghost"
-            size="icon"
-            className="h-10 w-10 rounded-full"
+      <div className="flex items-center shrink-0 gap-3 bg-secondary/40 rounded-full p-1.5 border border-border/50 backdrop-blur-sm">
+        <div className="flex items-center gap-1 bg-background/50 rounded-full p-1">
+          <button
+            type="button"
+            aria-label="Switch to dark mode"
+            disabled={!isMounted}
+            onClick={() => setTheme('dark')}
+            className={cn("w-8 h-8 rounded-full flex items-center justify-center transition-colors [&_svg]:w-4 [&_svg]:h-4", resolvedTheme === 'dark' ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground")}
           >
-            <User className="h-5 w-5" />
-          </Button>
+            <Moon />
+          </button>
+          <button
+            type="button"
+            aria-label="Switch to light mode"
+            disabled={!isMounted}
+            onClick={() => setTheme('light')}
+            className={cn("w-8 h-8 rounded-full flex items-center justify-center transition-colors [&_svg]:w-4 [&_svg]:h-4", resolvedTheme === 'light' ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground")}
+          >
+            <Sun />
+          </button>
+        </div>
+
+        <Link href="/settings" className="w-9 h-9 rounded-full flex items-center justify-center bg-background/50 text-muted-foreground hover:text-foreground hover:bg-background/80 transition-colors [&_svg]:w-4 [&_svg]:h-4">
+          <Settings />
+        </Link>
+        
+        <div className="relative">
+          <NotificationCenter
+            notifications={notifications}
+            unreadCount={unreadCount}
+            onMarkAsRead={markAsRead}
+            onMarkAllAsRead={markAllAsRead}
+            onClear={clearNotification}
+            onClearAll={clearAll}
+          />
+        </div>
+
+        <Link
+          href="/profile"
+          aria-label="Open profile"
+          className="ml-1 w-9 h-9 rounded-full overflow-hidden border-2 border-border/50 hover:border-primary/50 transition-colors"
+        >
+          {/* Default placeholder avatar */}
+          <div className="w-full h-full bg-gradient-to-br from-primary/80 to-accent/80 flex items-center justify-center text-primary-foreground font-semibold text-xs">
+            JD
+          </div>
         </Link>
       </div>
     </header>
