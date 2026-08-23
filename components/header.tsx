@@ -59,7 +59,7 @@ export function Header() {
   return (
     <header
       className={cn(
-        'app-header fixed right-3 top-3 z-30 flex h-16 items-center justify-between rounded-2xl border border-border/70 bg-background/90 px-4 shadow-sm backdrop-blur transition-all duration-300 sm:right-4 sm:top-4 sm:px-5',
+        'app-header header-shell fixed right-3 top-3 z-30 flex h-16 items-center justify-between rounded-2xl border border-border/70 bg-background/90 px-4 shadow-sm backdrop-blur transition-all duration-300 sm:right-4 sm:top-4 sm:px-5',
         isCollapsed ? 'header-with-collapsed-sidebar' : 'header-with-expanded-sidebar'
       )}
     >
