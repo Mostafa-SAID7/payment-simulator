@@ -56,7 +56,7 @@ export function BatchProgress({
           <div className="batch-stat-tile rounded-lg bg-secondary/30 p-3">
             <div className="flex items-center justify-between">
               <span className="text-sm text-muted-foreground">Processed</span>
-              <Clock className="h-5 w-5 text-yellow-500" />
+              <Clock className="h-5 w-5 text-warning" />
             </div>
             <p className="mt-1 text-2xl font-bold text-foreground">{processed}</p>
           </div>
@@ -65,18 +65,18 @@ export function BatchProgress({
           <div className="batch-stat-tile rounded-lg bg-secondary/30 p-3">
             <div className="flex items-center justify-between">
               <span className="text-sm text-muted-foreground">Successful</span>
-              <CheckCircle className="h-5 w-5 text-green-500" />
+              <CheckCircle className="h-5 w-5 text-success" />
             </div>
-            <p className="mt-1 text-2xl font-bold text-green-600">{successful}</p>
+            <p className="mt-1 text-2xl font-bold text-success">{successful}</p>
           </div>
 
           {/* Failed */}
           <div className="batch-stat-tile rounded-lg bg-secondary/30 p-3">
             <div className="flex items-center justify-between">
               <span className="text-sm text-muted-foreground">Failed</span>
-              <AlertCircle className="h-5 w-5 text-red-500" />
+              <AlertCircle className="h-5 w-5 text-destructive" />
             </div>
-            <p className="mt-1 text-2xl font-bold text-red-600">{failed}</p>
+            <p className="mt-1 text-2xl font-bold text-destructive">{failed}</p>
           </div>
         </div>
 
@@ -87,9 +87,9 @@ export function BatchProgress({
             <span
               className={
                 status === 'completed'
-                  ? 'text-green-600'
+                  ? 'text-success'
                   : status === 'processing'
-                    ? 'text-yellow-600'
+                    ? 'text-warning'
                     : 'text-muted-foreground'
               }
             >

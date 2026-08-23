@@ -29,8 +29,16 @@
   --accent: oklch(0.58 0.23 142);
   --accent-foreground: oklch(0.99 0.0 0);
   
+  /* Semantic status colors */
+  --success: oklch(0.52 0.17 145);
+  --success-foreground: oklch(0.99 0 0);
+  --warning: oklch(0.68 0.16 78);
+  --warning-foreground: oklch(0.2 0.04 78);
+  --info: oklch(0.56 0.15 235);
+  --info-foreground: oklch(0.99 0 0);
+
   /* Destructive - Red tones */
-  --destructive: oklch(0.62 0.27 25);
+  --destructive: oklch(0.58 0.2 25);
   --destructive-foreground: oklch(0.99 0.0 0);
   
   /* Borders and inputs */
@@ -46,6 +54,24 @@
   --chart-5: oklch(0.72 0.16 280);
   
   /* Sidebar styling */
+  /* Typography scale — shared by every shell and feature component */
+  --font-size-micro: 0.625rem;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --line-height-tight: 1.25;
+  --line-height-body: 1.5;
+
+  /* Shared interaction system */
+  --hover-background: color-mix(in oklch, var(--primary) 8%, var(--card));
+  --hover-background-subtle: color-mix(in oklch, var(--foreground) 4%, transparent);
+  --hover-border: color-mix(in oklch, var(--primary) 30%, var(--border));
+  --hover-foreground: var(--foreground);
+  --interaction-duration: 160ms;
+
   --radius: 0.75rem;
   --sidebar: oklch(0.23 0.08 260);
   --sidebar-foreground: oklch(0.99 0.0 0);
@@ -67,9 +93,9 @@
   --popover: oklch(0.085 0.035 260);
   --popover-foreground: oklch(0.93 0.015 260);
   
-  /* Primary - Navy adjusted for dark theme */
-  --primary: oklch(0.63 0.25 292);
-  --primary-foreground: oklch(0.98 0.01 260);
+  /* Primary - same navy/green system in dark mode */
+  --primary: oklch(0.58 0.16 150);
+  --primary-foreground: oklch(0.12 0.03 150);
   
   /* Secondary */
   --secondary: oklch(0.1 0.035 260);
@@ -79,9 +105,17 @@
   --muted: oklch(0.125 0.04 260);
   --muted-foreground: oklch(0.55 0.02 260);
   
+  /* Semantic status colors */
+  --success: oklch(0.72 0.17 145);
+  --success-foreground: oklch(0.12 0.03 145);
+  --warning: oklch(0.8 0.15 82);
+  --warning-foreground: oklch(0.16 0.04 82);
+  --info: oklch(0.72 0.14 235);
+  --info-foreground: oklch(0.12 0.03 235);
+
   /* Accent remains green */
-  --accent: oklch(0.7 0.24 292);
-  --accent-foreground: oklch(0.08 0.03 260);
+  --accent: oklch(0.72 0.17 145);
+  --accent-foreground: oklch(0.12 0.03 145);
   
   /* Destructive */
   --destructive: oklch(0.58 0.25 22);
@@ -90,29 +124,38 @@
   /* Borders and inputs */
   --border: oklch(0.115 0.035 260);
   --input: oklch(0.095 0.03 260);
-  --ring: oklch(0.68 0.23 292);
-  
-  /* Chart colors adjusted for dark background */
-  --chart-1: oklch(0.63 0.25 292);
-  --chart-2: oklch(0.47 0.19 292);
-  --chart-3: oklch(0.74 0.18 55);
-  --chart-4: oklch(0.58 0.2 205);
-  --chart-5: oklch(0.78 0.18 70);
+  --ring: oklch(0.72 0.17 145);
 
-  /* Sidebar styling */
+  /* Chart colors - shared green, navy, red, amber, and blue system */
+  --chart-1: oklch(0.72 0.17 145);
+  --chart-2: oklch(0.65 0.12 245);
+  --chart-3: oklch(0.7 0.18 78);
+  --chart-4: oklch(0.68 0.16 235);
+  --chart-5: oklch(0.68 0.2 25);
+
+  /* Sidebar - Dark */
   --sidebar: oklch(0.045 0.025 260);
   --sidebar-foreground: oklch(0.9 0.015 260);
-  --sidebar-primary: oklch(0.66 0.24 292);
-  --sidebar-primary-foreground: oklch(0.98 0.01 260);
-  --sidebar-accent: oklch(0.66 0.24 292);
-  --sidebar-accent-foreground: oklch(0.98 0.01 260);
+  --sidebar-primary: oklch(0.72 0.17 145);
+  --sidebar-primary-foreground: oklch(0.12 0.03 145);
+  --sidebar-accent: oklch(0.72 0.17 145);
+  --sidebar-accent-foreground: oklch(0.12 0.03 145);
   --sidebar-border: oklch(0.1 0.035 260);
-  --sidebar-ring: oklch(0.68 0.23 292);
+  --sidebar-ring: oklch(0.72 0.17 145);
 }
 
 @theme inline {
   --font-sans: 'Geist', 'Geist Fallback';
   --font-mono: 'Geist Mono', 'Geist Mono Fallback';
+  --text-micro: var(--font-size-micro);
+  --text-xs: var(--font-size-xs);
+  --text-sm: var(--font-size-sm);
+  --text-base: var(--font-size-base);
+  --text-lg: var(--font-size-lg);
+  --text-xl: var(--font-size-xl);
+  --text-2xl: var(--font-size-2xl);
+  --leading-tight: var(--line-height-tight);
+  --leading-body: var(--line-height-body);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -129,6 +172,12 @@
   --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
@@ -214,7 +263,13 @@
   }
 
   .finance-card-interactive {
-    @apply transition-colors hover:border-primary/30 hover:bg-card/90;
+    border-color: var(--border);
+    transition: background-color var(--interaction-duration) ease, border-color var(--interaction-duration) ease, color var(--interaction-duration) ease;
+  }
+
+  .finance-card-interactive:hover {
+    border-color: var(--hover-border);
+    background: var(--hover-background);
   }
 
   .page-stack {
@@ -249,7 +304,7 @@
     margin: 0;
     overflow: hidden;
     color: color-mix(in oklch, var(--foreground) 88%, transparent);
-    font-size: 0.75rem;
+    font-size: var(--font-size-xs);
     font-weight: 600;
     letter-spacing: -0.01em;
     line-height: 1;
@@ -347,7 +402,7 @@
     border-radius: 999px;
     background: var(--destructive);
     color: var(--destructive-foreground);
-    font-size: 0.4375rem;
+    font-size: var(--font-size-micro);
     font-weight: 700;
     line-height: 1;
   }
@@ -423,7 +478,7 @@
     border: 1px solid transparent;
     border-radius: 0.5rem;
     color: color-mix(in oklch, var(--sidebar-foreground) 56%, transparent);
-    transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease;
+    transition: background-color var(--interaction-duration) ease, border-color var(--interaction-duration) ease, color var(--interaction-duration) ease;
   }
 
   .sidebar-toggle svg {
@@ -455,7 +510,7 @@
     border-radius: 0.625rem;
     background: linear-gradient(145deg, color-mix(in oklch, var(--sidebar-foreground) 24%, transparent), color-mix(in oklch, var(--sidebar-primary) 24%, transparent));
     color: var(--sidebar-foreground);
-    font-size: 0.875rem;
+    font-size: var(--font-size-sm);
     font-weight: 700;
     box-shadow: 0 0.5rem 1.5rem color-mix(in oklch, var(--sidebar-primary) 16%, transparent);
   }
@@ -468,7 +523,7 @@
   }
 
   .sidebar-brand-name {
-    font-size: 0.875rem;
+    font-size: var(--font-size-sm);
     font-weight: 700;
     letter-spacing: -0.02em;
   }
@@ -476,7 +531,7 @@
   .sidebar-brand-subtitle {
     margin-top: 0.2rem;
     color: color-mix(in oklch, var(--sidebar-foreground) 52%, transparent);
-    font-size: 0.625rem;
+    font-size: var(--font-size-micro);
     letter-spacing: 0.04em;
     text-transform: uppercase;
   }
@@ -493,7 +548,7 @@
     border-radius: 0.625rem;
     background: color-mix(in oklch, var(--sidebar-foreground) 5%, transparent);
     color: color-mix(in oklch, var(--sidebar-foreground) 50%, transparent);
-    font-size: 0.625rem;
+    font-size: var(--font-size-micro);
     text-align: left;
     transition: border-color 160ms ease, background-color 160ms ease;
   }
@@ -511,7 +566,7 @@
   .sidebar-search kbd {
     margin-left: auto;
     color: color-mix(in oklch, var(--sidebar-foreground) 34%, transparent);
-    font-size: 0.5rem;
+    font-size: var(--font-size-micro);
   }
 
   .sidebar-navigation {
@@ -527,7 +582,7 @@
   .sidebar-section-label {
     margin: 0 0.5rem 0.375rem;
     color: color-mix(in oklch, var(--sidebar-foreground) 38%, transparent);
-    font-size: 0.5625rem;
+    font-size: var(--font-size-micro);
     font-weight: 600;
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -542,9 +597,9 @@
     border: 1px solid transparent;
     border-radius: 0.625rem;
     color: color-mix(in oklch, var(--sidebar-foreground) 57%, transparent);
-    font-size: 0.6875rem;
+    font-size: var(--font-size-micro);
     font-weight: 500;
-    transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease;
+    transition: background-color var(--interaction-duration) ease, border-color var(--interaction-duration) ease, color var(--interaction-duration) ease;
   }
 
   .sidebar-navigation-link svg {
@@ -627,13 +682,13 @@
   .sidebar-upgrade-copy p {
     margin: 0;
     color: var(--sidebar-foreground);
-    font-size: 0.625rem;
+    font-size: var(--font-size-micro);
     font-weight: 600;
   }
 
   .sidebar-upgrade-copy span {
     color: color-mix(in oklch, var(--sidebar-foreground) 48%, transparent);
-    font-size: 0.5rem;
+    font-size: var(--font-size-micro);
     white-space: nowrap;
   }
 
@@ -671,14 +726,21 @@
 
   @media (max-width: 767px) {
     .mobile-sidebar {
-      width: 16rem !important;
+      left: 0;
+      width: min(16rem, calc(100vw - 1rem)) !important;
+      max-width: calc(100vw - 1rem);
+      transition: transform 220ms ease, visibility 220ms ease;
     }
 
     .mobile-sidebar-closed {
+      visibility: hidden;
+      pointer-events: none;
       transform: translateX(-100%);
     }
 
     .mobile-sidebar-open {
+      visibility: visible;
+      pointer-events: auto;
       transform: translateX(0);
     }
 
@@ -755,13 +817,13 @@
 
 .dashboard-panel-title {
   color: color-mix(in oklch, var(--foreground) 88%, transparent);
-  font-size: 0.625rem;
+  font-size: var(--font-size-micro);
   font-weight: 600;
 }
 
 .dashboard-info-mark {
   color: color-mix(in oklch, var(--foreground) 45%, transparent);
-  font-size: 0.5rem;
+  font-size: var(--font-size-micro);
 }
 
 .dashboard-wallet-selector,
@@ -774,7 +836,7 @@
   border-radius: 0.35rem;
   background: color-mix(in oklch, var(--background) 65%, transparent);
   color: color-mix(in oklch, var(--muted-foreground) 90%, transparent);
-  font-size: 0.4375rem;
+  font-size: var(--font-size-micro);
   line-height: 1;
 }
 
@@ -800,7 +862,7 @@
 .dashboard-balance-amount {
   width: 100%;
   color: var(--foreground);
-  font-size: 1.1rem;
+  font-size: var(--font-size-lg);
   font-weight: 600;
   letter-spacing: -0.04em;
 }
@@ -811,7 +873,7 @@
   border-radius: 0.25rem;
   background: color-mix(in oklch, var(--chart-1) 12%, transparent);
   color: var(--chart-1);
-  font-size: 0.4375rem;
+  font-size: var(--font-size-micro);
 }
 
 .dashboard-balance-actions {
@@ -825,7 +887,7 @@
   height: 1.5rem;
   padding-inline: 0.5rem;
   border-radius: 0.3rem;
-  font-size: 0.5rem;
+  font-size: var(--font-size-micro);
 }
 
 .dashboard-transfer-button {
@@ -854,14 +916,14 @@
 .dashboard-metric-label {
   margin: 0;
   color: color-mix(in oklch, var(--muted-foreground) 88%, transparent);
-  font-size: 0.4375rem;
+  font-size: var(--font-size-micro);
   text-transform: uppercase;
 }
 
 .dashboard-metric-value {
   margin: 0.45rem 0 0;
   color: var(--foreground);
-  font-size: 0.8125rem;
+  font-size: var(--font-size-sm);
   font-weight: 600;
 }
 
@@ -892,7 +954,7 @@
   justify-content: center;
   pointer-events: none;
   color: color-mix(in oklch, var(--foreground) 84%, transparent);
-  font-size: 0.625rem;
+  font-size: var(--font-size-micro);
   font-weight: 500;
 }
 
@@ -901,7 +963,7 @@
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0.3rem;
   color: color-mix(in oklch, var(--muted-foreground) 85%, transparent);
-  font-size: 0.4375rem;
+  font-size: var(--font-size-micro);
 }
 
 .dashboard-balance-legend span {
@@ -929,6 +991,58 @@
   padding: 0 0.5rem 0.5rem;
 }
 
+.chart-tooltip {
+  min-width: 7rem;
+  padding: 0.625rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--popover);
+  color: var(--popover-foreground);
+  box-shadow: 0 0.5rem 1.5rem color-mix(in oklch, var(--foreground) 14%, transparent);
+  font-size: var(--font-size-xs);
+  line-height: var(--line-height-body);
+}
+
+.chart-tooltip-label {
+  margin: 0 0 0.375rem;
+  color: var(--muted-foreground);
+  font-size: var(--font-size-micro);
+  font-weight: 500;
+}
+
+.chart-tooltip-values {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.chart-tooltip-row,
+.chart-tooltip-name {
+  display: flex;
+  align-items: center;
+}
+
+.chart-tooltip-row {
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.chart-tooltip-name {
+  gap: 0.375rem;
+  color: var(--muted-foreground);
+}
+
+.chart-tooltip-dot {
+  width: 0.375rem;
+  height: 0.375rem;
+  border-radius: 999px;
+}
+
+.chart-tooltip-value {
+  color: var(--popover-foreground);
+  font-weight: 600;
+}
+
 .dashboard-transactions-card {
   overflow: hidden;
 }
@@ -945,14 +1059,14 @@
   width: 100%;
   border-collapse: collapse;
   color: color-mix(in oklch, var(--muted-foreground) 86%, transparent);
-  font-size: 0.5rem;
+  font-size: var(--font-size-micro);
   text-align: left;
 }
 
 .dashboard-transactions-table th {
   padding: 0.55rem 0.875rem;
   color: color-mix(in oklch, var(--muted-foreground) 70%, transparent);
-  font-size: 0.4375rem;
+  font-size: var(--font-size-micro);
   font-weight: 500;
   text-transform: uppercase;
 }
@@ -994,20 +1108,20 @@
 
 .dashboard-transaction-name strong {
   color: color-mix(in oklch, var(--foreground) 88%, transparent);
-  font-size: 0.5rem;
+  font-size: var(--font-size-micro);
   font-weight: 500;
 }
 
 .dashboard-transaction-name small {
   color: color-mix(in oklch, var(--muted-foreground) 70%, transparent);
-  font-size: 0.4rem;
+  font-size: var(--font-size-micro);
 }
 
 .dashboard-status-success,
 .dashboard-status-pending {
   padding: 0.15rem 0.3rem;
   border-radius: 999px;
-  font-size: 0.4rem;
+  font-size: var(--font-size-micro);
 }
 
 .dashboard-status-success {
@@ -1056,72 +1170,6 @@
   }
 }
 
-.page-header {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 1.5rem;
-  min-height: 3.5rem;
-  padding: 0 0.25rem 0.75rem;
-  border-bottom: 1px solid color-mix(in oklch, var(--border) 60%, transparent);
-}
-
-.page-header-copy {
-  min-width: 0;
-  flex: 1 1 auto;
-}
-
-.page-header-title {
-  display: flex;
-  align-items: center;
-  margin: 0;
-  overflow: hidden;
-  color: var(--foreground);
-  font-size: 1.25rem;
-  font-weight: 600;
-  letter-spacing: -0.035em;
-  line-height: 1.1;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.page-header-title::before {
-  width: 0.35rem;
-  height: 0.35rem;
-  margin-right: 0.5rem;
-  border-radius: 999px;
-  background: var(--primary);
-  box-shadow: 0 0 0 0.25rem color-mix(in oklch, var(--primary) 11%, transparent);
-  content: '';
-}
-
-.page-header-description {
-  max-width: 48rem;
-  margin: 0.5rem 0 0;
-  overflow: hidden;
-  color: color-mix(in oklch, var(--muted-foreground) 82%, transparent);
-  font-size: 0.625rem;
-  line-height: 1.6;
-}
-
-.page-header-actions {
-  display: flex;
-  align-items: center;
-  flex: 0 0 auto;
-  gap: 0.5rem;
-  padding-bottom: 0.05rem;
-}
-
-.page-header-actions > button,
-.page-header-actions > a {
-  box-shadow: 0 0.35rem 0.9rem color-mix(in oklch, var(--background) 22%, transparent);
-}
-
-.page-header-actions svg {
-  width: 0.75rem;
-  height: 0.75rem;
-}
-
 .compact-route-page {
   gap: 1rem;
 }
@@ -1133,7 +1181,7 @@
 .compact-page-title {
   margin: 0;
   color: var(--foreground);
-  font-size: 1.25rem;
+  font-size: var(--font-size-xl);
   font-weight: 600;
   letter-spacing: -0.03em;
 }
@@ -1142,7 +1190,7 @@
 .compact-panel-description {
   margin: 0.4rem 0 0;
   color: color-mix(in oklch, var(--muted-foreground) 82%, transparent);
-  font-size: 0.625rem;
+  font-size: var(--font-size-micro);
   line-height: 1.6;
 }
 
@@ -1150,7 +1198,7 @@
 .compact-secondary-button {
   height: 1.75rem;
   border-radius: 0.35rem;
-  font-size: 0.5625rem;
+  font-size: var(--font-size-micro);
 }
 
 .compact-card,
@@ -1172,7 +1220,7 @@
 
 .compact-metric-label {
   color: color-mix(in oklch, var(--muted-foreground) 88%, transparent);
-  font-size: 0.5rem;
+  font-size: var(--font-size-micro);
   letter-spacing: 0.02em;
   text-transform: uppercase;
 }
@@ -1180,13 +1228,13 @@
 .compact-metric-value {
   margin: 0.4rem 0 0;
   color: var(--foreground);
-  font-size: 1rem;
+  font-size: var(--font-size-base);
   font-weight: 600;
 }
 
 .compact-panel-title {
   color: color-mix(in oklch, var(--foreground) 88%, transparent);
-  font-size: 0.6875rem;
+  font-size: var(--font-size-micro);
   font-weight: 600;
 }
 
@@ -1208,14 +1256,14 @@
 .compact-filter-control {
   height: 1.75rem;
   border-radius: 0.35rem;
-  font-size: 0.5625rem;
+  font-size: var(--font-size-micro);
 }
 
 .compact-data-table {
   min-width: 44rem;
   border-collapse: collapse;
   color: color-mix(in oklch, var(--muted-foreground) 84%, transparent);
-  font-size: 0.5rem;
+  font-size: var(--font-size-micro);
   text-align: left;
 }
 
@@ -1223,7 +1271,7 @@
   height: auto;
   padding: 0.55rem 0.75rem;
   color: color-mix(in oklch, var(--muted-foreground) 70%, transparent);
-  font-size: 0.4375rem;
+  font-size: var(--font-size-micro);
   font-weight: 500;
   text-transform: uppercase;
 }
@@ -1232,26 +1280,26 @@
   padding: 0.6rem 0.75rem;
   border-top: 1px solid color-mix(in oklch, var(--border) 62%, transparent);
   border-bottom: 0;
-  font-size: 0.5rem;
+  font-size: var(--font-size-micro);
 }
 
 .compact-data-table [data-slot='table-row'] {
   border-bottom: 0;
 }
 
-.compact-data-table [data-slot='table-row']:hover {
-  background: color-mix(in oklch, var(--foreground) 4%, transparent);
-}
+  .compact-data-table [data-slot='table-row']:hover {
+    background: var(--hover-background-subtle);
+  }
 
 .compact-primary-cell p:first-child {
   color: color-mix(in oklch, var(--foreground) 88%, transparent);
-  font-size: 0.5rem;
+  font-size: var(--font-size-micro);
 }
 
 .compact-primary-cell p:last-child {
   margin-top: 0.15rem;
   color: color-mix(in oklch, var(--muted-foreground) 70%, transparent);
-  font-size: 0.4rem;
+  font-size: var(--font-size-micro);
 }
 
 .compact-row-action {
@@ -1269,7 +1317,7 @@
 .compact-status-danger {
   padding: 0.15rem 0.35rem;
   border-radius: 999px;
-  font-size: 0.4rem;
+  font-size: var(--font-size-micro);
 }
 
 .compact-status-success {
@@ -1330,7 +1378,7 @@
 .batch-summary-content small {
   overflow: hidden;
   color: color-mix(in oklch, var(--muted-foreground) 80%, transparent);
-  font-size: 0.4375rem;
+  font-size: var(--font-size-micro);
   text-overflow: ellipsis;
   text-transform: uppercase;
   white-space: nowrap;
@@ -1339,7 +1387,7 @@
 .batch-summary-content strong {
   overflow: hidden;
   color: color-mix(in oklch, var(--foreground) 90%, transparent);
-  font-size: 0.625rem;
+  font-size: var(--font-size-micro);
   font-weight: 600;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -1375,7 +1423,7 @@
   border-radius: 0.4rem;
   background: color-mix(in oklch, var(--primary) 6%, transparent);
   color: color-mix(in oklch, var(--foreground) 76%, transparent);
-  font-size: 0.5rem;
+  font-size: var(--font-size-micro);
 }
 
 .batch-inline-status svg,
@@ -1407,7 +1455,7 @@
   flex: 0 0 auto;
   border-color: color-mix(in oklch, var(--primary) 24%, transparent);
   color: color-mix(in oklch, var(--primary) 90%, var(--foreground));
-  font-size: 0.4375rem;
+  font-size: var(--font-size-micro);
 }
 
 .batch-preview-table {
@@ -1435,12 +1483,12 @@
 }
 
 .batch-format-note p:first-child {
-  font-size: 0.5625rem;
+  font-size: var(--font-size-micro);
 }
 
 .batch-format-note p:last-child {
   margin-top: 0.25rem;
-  font-size: 0.5rem;
+  font-size: var(--font-size-micro);
   line-height: 1.5;
 }
 
@@ -1458,12 +1506,12 @@
 }
 
 .batch-page .batch-stat-tile span {
-  font-size: 0.5rem;
+  font-size: var(--font-size-micro);
 }
 
 .batch-page .batch-stat-tile p {
   margin-top: 0.35rem;
-  font-size: 1rem;
+  font-size: var(--font-size-base);
 }
 
 .batch-page .batch-stat-tile svg {
@@ -1473,13 +1521,13 @@
 
 .batch-page .compact-settings-card [data-slot='card-title'] {
   color: color-mix(in oklch, var(--foreground) 88%, transparent);
-  font-size: 0.6875rem;
+  font-size: var(--font-size-micro);
 }
 
 .batch-page .compact-settings-card [data-slot='card-description'] {
   margin-top: 0.3rem;
   color: color-mix(in oklch, var(--muted-foreground) 82%, transparent);
-  font-size: 0.5rem;
+  font-size: var(--font-size-micro);
   line-height: 1.5;
 }
 
@@ -1516,7 +1564,7 @@
 .accounts-summary-content em {
   overflow: hidden;
   color: color-mix(in oklch, var(--muted-foreground) 78%, transparent);
-  font-size: 0.4375rem;
+  font-size: var(--font-size-micro);
   font-style: normal;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -1530,7 +1578,7 @@
 .accounts-summary-content strong {
   overflow: hidden;
   color: color-mix(in oklch, var(--foreground) 92%, transparent);
-  font-size: 0.75rem;
+  font-size: var(--font-size-xs);
   font-weight: 600;
   letter-spacing: -0.02em;
   text-overflow: ellipsis;
@@ -1616,7 +1664,7 @@
   flex: 0 0 auto;
   border-color: color-mix(in oklch, var(--primary) 24%, transparent);
   color: color-mix(in oklch, var(--primary) 90%, var(--foreground));
-  font-size: 0.4375rem;
+  font-size: var(--font-size-micro);
 }
 
 .accounts-filter-bar {
@@ -1656,7 +1704,7 @@
   gap: 0.25rem;
   padding: 0 0.45rem;
   color: color-mix(in oklch, var(--muted-foreground) 85%, transparent);
-  font-size: 0.5rem;
+  font-size: var(--font-size-micro);
 }
 
 .accounts-clear-button svg {
@@ -1670,7 +1718,7 @@
   border-top: 1px solid color-mix(in oklch, var(--border) 60%, transparent);
   border-bottom: 1px solid color-mix(in oklch, var(--border) 60%, transparent);
   color: color-mix(in oklch, var(--muted-foreground) 75%, transparent);
-  font-size: 0.4375rem;
+  font-size: var(--font-size-micro);
 }
 
 .accounts-table-meta strong {
@@ -1713,7 +1761,7 @@
 .accounts-detail-grid strong {
   overflow: hidden;
   color: color-mix(in oklch, var(--foreground) 88%, transparent);
-  font-size: 0.5rem;
+  font-size: var(--font-size-micro);
   font-weight: 500;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -1723,14 +1771,14 @@
 .accounts-institution small {
   overflow: hidden;
   color: color-mix(in oklch, var(--muted-foreground) 70%, transparent);
-  font-size: 0.4rem;
+  font-size: var(--font-size-micro);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .accounts-institution strong {
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: 0.45rem;
+  font-size: var(--font-size-micro);
 }
 
 .accounts-type {
@@ -1741,7 +1789,7 @@
   border-radius: 999px;
   background: color-mix(in oklch, var(--foreground) 4%, transparent);
   color: color-mix(in oklch, var(--muted-foreground) 88%, transparent);
-  font-size: 0.4rem;
+  font-size: var(--font-size-micro);
   white-space: nowrap;
 }
 
@@ -1759,21 +1807,21 @@
 
 .accounts-balance {
   color: color-mix(in oklch, var(--foreground) 88%, transparent);
-  font-size: 0.5rem;
+  font-size: var(--font-size-micro);
   font-weight: 600;
   white-space: nowrap;
 }
 
 .accounts-activity {
   color: color-mix(in oklch, var(--muted-foreground) 78%, transparent);
-  font-size: 0.4375rem;
+  font-size: var(--font-size-micro);
   white-space: nowrap;
 }
 
 .accounts-status {
   padding: 0.15rem 0.35rem;
   border-radius: 999px;
-  font-size: 0.4rem;
+  font-size: var(--font-size-micro);
 }
 
 .accounts-status-active {
@@ -1815,11 +1863,11 @@
 
 .accounts-empty-state strong {
   color: color-mix(in oklch, var(--foreground) 85%, transparent);
-  font-size: 0.5625rem;
+  font-size: var(--font-size-micro);
 }
 
 .accounts-empty-state span {
-  font-size: 0.475rem;
+  font-size: var(--font-size-micro);
 }
 
 .accounts-empty-state button {
@@ -1866,14 +1914,14 @@
 .accounts-health-score strong,
 .accounts-health-list strong {
   color: color-mix(in oklch, var(--foreground) 88%, transparent);
-  font-size: 0.5625rem;
+  font-size: var(--font-size-micro);
   font-weight: 600;
 }
 
 .accounts-health-score small,
 .accounts-health-list small {
   color: color-mix(in oklch, var(--muted-foreground) 78%, transparent);
-  font-size: 0.4375rem;
+  font-size: var(--font-size-micro);
 }
 
 .accounts-health-list {
@@ -1921,7 +1969,7 @@
   padding-top: 0.75rem;
   border-top: 1px solid color-mix(in oklch, var(--border) 65%, transparent);
   color: color-mix(in oklch, var(--primary) 88%, var(--foreground));
-  font-size: 0.475rem;
+  font-size: var(--font-size-micro);
 }
 
 .accounts-health-link svg {
@@ -1939,13 +1987,13 @@
 
 .accounts-dialog-content [data-slot='dialog-title'] {
   color: color-mix(in oklch, var(--foreground) 94%, transparent);
-  font-size: 0.9rem;
+  font-size: var(--font-size-base);
 }
 
 .accounts-dialog-content [data-slot='dialog-description'] {
   margin-top: 0.35rem;
   color: color-mix(in oklch, var(--muted-foreground) 82%, transparent);
-  font-size: 0.55rem;
+  font-size: var(--font-size-micro);
   line-height: 1.5;
 }
 
@@ -1967,7 +2015,7 @@
 
 .accounts-form-field label {
   color: color-mix(in oklch, var(--foreground) 78%, transparent);
-  font-size: 0.5rem;
+  font-size: var(--font-size-micro);
 }
 
 .accounts-dialog-content input,
@@ -1976,13 +2024,13 @@
   min-height: 1.9rem;
   height: 1.9rem;
   border-radius: 0.4rem;
-  font-size: 0.55rem;
+  font-size: var(--font-size-micro);
 }
 
 .accounts-dialog-content [data-slot='dialog-footer'] button {
   min-height: 1.8rem;
   border-radius: 0.4rem;
-  font-size: 0.5rem;
+  font-size: var(--font-size-micro);
 }
 
 .accounts-dialog-content [data-slot='dialog-footer'] button svg {
@@ -2016,13 +2064,13 @@
 .accounts-detail-balance small,
 .accounts-detail-grid small {
   color: color-mix(in oklch, var(--muted-foreground) 75%, transparent);
-  font-size: 0.45rem;
+  font-size: var(--font-size-micro);
   text-transform: uppercase;
 }
 
 .accounts-detail-balance strong {
   color: color-mix(in oklch, var(--foreground) 94%, transparent);
-  font-size: 1.25rem;
+  font-size: var(--font-size-xl);
   letter-spacing: -0.04em;
 }
 
@@ -2046,7 +2094,7 @@
 }
 
 .accounts-detail-grid strong {
-  font-size: 0.55rem;
+  font-size: var(--font-size-micro);
 }
 
 .transactions-summary-grid {
@@ -2083,7 +2131,7 @@
 .transactions-summary-content em {
   overflow: hidden;
   color: color-mix(in oklch, var(--muted-foreground) 78%, transparent);
-  font-size: 0.4375rem;
+  font-size: var(--font-size-micro);
   font-style: normal;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -2097,7 +2145,7 @@
 .transactions-summary-content strong {
   overflow: hidden;
   color: color-mix(in oklch, var(--foreground) 92%, transparent);
-  font-size: 0.75rem;
+  font-size: var(--font-size-xs);
   font-weight: 600;
   letter-spacing: -0.02em;
   text-overflow: ellipsis;
@@ -2179,7 +2227,7 @@
   flex: 0 0 auto;
   border-color: color-mix(in oklch, var(--primary) 24%, transparent);
   color: color-mix(in oklch, var(--primary) 90%, var(--foreground));
-  font-size: 0.4375rem;
+  font-size: var(--font-size-micro);
 }
 
 .transactions-filter-bar {
@@ -2219,7 +2267,7 @@
   gap: 0.25rem;
   padding: 0 0.45rem;
   color: color-mix(in oklch, var(--muted-foreground) 85%, transparent);
-  font-size: 0.5rem;
+  font-size: var(--font-size-micro);
 }
 
 .transactions-clear-button svg {
@@ -2233,7 +2281,7 @@
   border-top: 1px solid color-mix(in oklch, var(--border) 60%, transparent);
   border-bottom: 1px solid color-mix(in oklch, var(--border) 60%, transparent);
   color: color-mix(in oklch, var(--muted-foreground) 75%, transparent);
-  font-size: 0.4375rem;
+  font-size: var(--font-size-micro);
 }
 
 .transactions-table-meta strong {
@@ -2250,7 +2298,7 @@
 .transactions-recipient-cell strong {
   overflow: hidden;
   color: color-mix(in oklch, var(--foreground) 88%, transparent);
-  font-size: 0.5rem;
+  font-size: var(--font-size-micro);
   font-weight: 500;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -2258,7 +2306,7 @@
 
 .transactions-primary-cell strong {
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: 0.45rem;
+  font-size: var(--font-size-micro);
 }
 
 .transactions-primary-cell small,
@@ -2266,7 +2314,7 @@
 .transactions-recipient-cell small {
   overflow: hidden;
   color: color-mix(in oklch, var(--muted-foreground) 70%, transparent);
-  font-size: 0.4rem;
+  font-size: var(--font-size-micro);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -2282,7 +2330,7 @@
   width: fit-content;
   padding: 0.15rem 0.35rem;
   border-radius: 999px;
-  font-size: 0.4rem;
+  font-size: var(--font-size-micro);
   line-height: 1;
   white-space: nowrap;
 }
@@ -2325,7 +2373,7 @@
 
 .transactions-amount {
   color: color-mix(in oklch, var(--foreground) 88%, transparent);
-  font-size: 0.5rem;
+  font-size: var(--font-size-micro);
   font-weight: 600;
   white-space: nowrap;
 }
@@ -2351,11 +2399,11 @@
 
 .transactions-empty-state strong {
   color: color-mix(in oklch, var(--foreground) 85%, transparent);
-  font-size: 0.5625rem;
+  font-size: var(--font-size-micro);
 }
 
 .transactions-empty-state span {
-  font-size: 0.475rem;
+  font-size: var(--font-size-micro);
 }
 
 .transactions-empty-state button {
@@ -2386,21 +2434,21 @@
   border-radius: 50%;
   background: color-mix(in oklch, var(--chart-1) 10%, transparent);
   color: var(--chart-1);
-  font-size: 0.6rem;
+  font-size: var(--font-size-xs);
   font-weight: 600;
 }
 
 .transactions-health-score strong,
 .transactions-health-list strong {
   color: color-mix(in oklch, var(--foreground) 88%, transparent);
-  font-size: 0.5625rem;
+  font-size: var(--font-size-micro);
   font-weight: 600;
 }
 
 .transactions-health-score small,
 .transactions-health-list small {
   color: color-mix(in oklch, var(--muted-foreground) 78%, transparent);
-  font-size: 0.4375rem;
+  font-size: var(--font-size-micro);
 }
 
 .transactions-health-list {
@@ -2436,7 +2484,7 @@
   padding-top: 0.75rem;
   border-top: 1px solid color-mix(in oklch, var(--border) 65%, transparent);
   color: color-mix(in oklch, var(--primary) 88%, var(--foreground));
-  font-size: 0.475rem;
+  font-size: var(--font-size-micro);
 }
 
 .transactions-health-link svg {
@@ -2454,13 +2502,13 @@
 
 .transactions-dialog-content [data-slot='dialog-title'] {
   color: color-mix(in oklch, var(--foreground) 94%, transparent);
-  font-size: 0.9rem;
+  font-size: var(--font-size-base);
 }
 
 .transactions-dialog-content [data-slot='dialog-description'] {
   margin-top: 0.35rem;
   color: color-mix(in oklch, var(--muted-foreground) 82%, transparent);
-  font-size: 0.55rem;
+  font-size: var(--font-size-micro);
   line-height: 1.5;
 }
 
@@ -2485,13 +2533,13 @@
 .transactions-detail-status small,
 .transactions-detail-grid small {
   color: color-mix(in oklch, var(--muted-foreground) 75%, transparent);
-  font-size: 0.45rem;
+  font-size: var(--font-size-micro);
   text-transform: uppercase;
 }
 
 .transactions-detail-status > strong {
   color: color-mix(in oklch, var(--foreground) 94%, transparent);
-  font-size: 1.15rem;
+  font-size: var(--font-size-lg);
   letter-spacing: -0.04em;
 }
 
@@ -2513,7 +2561,7 @@
 .transactions-detail-grid strong {
   overflow: hidden;
   color: color-mix(in oklch, var(--foreground) 88%, transparent);
-  font-size: 0.55rem;
+  font-size: var(--font-size-micro);
   font-weight: 500;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -2542,7 +2590,7 @@
 .settings-nav-label {
   padding: 0.35rem 0.45rem 0.5rem;
   color: color-mix(in oklch, var(--muted-foreground) 66%, transparent);
-  font-size: 0.4rem;
+  font-size: var(--font-size-micro);
   font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -2557,15 +2605,15 @@
   border: 1px solid transparent;
   border-radius: 0.35rem;
   color: color-mix(in oklch, var(--muted-foreground) 84%, transparent);
-  font-size: 0.475rem;
+  font-size: var(--font-size-micro);
   text-decoration: none;
   transition: background 150ms ease, color 150ms ease, border-color 150ms ease;
 }
 
-.settings-nav-card a:hover,
-.settings-nav-card a:focus-visible {
-  border-color: color-mix(in oklch, var(--border) 82%, transparent);
-  background: color-mix(in oklch, var(--foreground) 5%, transparent);
+  .settings-nav-card a:hover,
+  .settings-nav-card a:focus-visible {
+    border-color: var(--hover-border);
+    background: var(--hover-background-subtle);
   color: var(--foreground);
   outline: none;
 }
@@ -2614,13 +2662,13 @@
 
 .settings-nav-status span {
   color: color-mix(in oklch, var(--foreground) 78%, transparent);
-  font-size: 0.425rem;
+  font-size: var(--font-size-micro);
   line-height: 1.35;
 }
 
 .settings-nav-status small {
   color: color-mix(in oklch, var(--muted-foreground) 74%, transparent);
-  font-size: 0.375rem;
+  font-size: var(--font-size-micro);
 }
 
 .settings-content {
@@ -2639,7 +2687,7 @@
   border-radius: 0.45rem;
   background: color-mix(in oklch, var(--chart-1) 8%, transparent);
   color: var(--chart-1);
-  font-size: 0.5rem;
+  font-size: var(--font-size-micro);
 }
 
 .settings-feedback > svg {
@@ -2738,7 +2786,7 @@
   border-radius: 50%;
   background: linear-gradient(135deg, color-mix(in oklch, var(--primary) 80%, var(--background)), color-mix(in oklch, var(--chart-2) 75%, var(--background)));
   color: var(--primary-foreground);
-  font-size: 0.5rem;
+  font-size: var(--font-size-micro);
   font-weight: 600;
 }
 
@@ -2761,7 +2809,7 @@
 .settings-preview strong {
   overflow: hidden;
   color: color-mix(in oklch, var(--foreground) 88%, transparent);
-  font-size: 0.55rem;
+  font-size: var(--font-size-micro);
   font-weight: 600;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -2777,14 +2825,14 @@
 .settings-preview small {
   overflow: hidden;
   color: color-mix(in oklch, var(--muted-foreground) 78%, transparent);
-  font-size: 0.425rem;
+  font-size: var(--font-size-micro);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .settings-profile-banner [data-slot='badge'] {
   flex: 0 0 auto;
-  font-size: 0.4rem;
+  font-size: var(--font-size-micro);
 }
 
 .settings-form-grid,
@@ -2809,7 +2857,7 @@
 
 .settings-page label {
   color: color-mix(in oklch, var(--foreground) 76%, transparent);
-  font-size: 0.475rem;
+  font-size: var(--font-size-micro);
 }
 
 .settings-page input,
@@ -2817,7 +2865,7 @@
   min-height: 1.8rem;
   height: 1.8rem;
   border-radius: 0.4rem;
-  font-size: 0.525rem;
+  font-size: var(--font-size-micro);
 }
 
 .settings-form-stack {
@@ -2835,7 +2883,7 @@
   padding-top: 0.75rem;
   border-top: 1px solid color-mix(in oklch, var(--border) 60%, transparent);
   color: color-mix(in oklch, var(--muted-foreground) 75%, transparent);
-  font-size: 0.4375rem;
+  font-size: var(--font-size-micro);
 }
 
 .settings-card-actions > div,
@@ -2852,7 +2900,7 @@
 .settings-page .settings-upgrade-button {
   min-height: 1.75rem;
   border-radius: 0.35rem;
-  font-size: 0.475rem;
+  font-size: var(--font-size-micro);
 }
 
 .settings-page button svg {
@@ -2899,7 +2947,7 @@
   border-color: color-mix(in oklch, var(--chart-1) 28%, transparent);
   background: color-mix(in oklch, var(--chart-1) 11%, transparent);
   color: var(--chart-1);
-  font-size: 0.4rem;
+  font-size: var(--font-size-micro);
 }
 
 .settings-divider {
@@ -2925,13 +2973,13 @@
 
 .settings-row-copy strong {
   color: color-mix(in oklch, var(--foreground) 86%, transparent);
-  font-size: 0.5rem;
+  font-size: var(--font-size-micro);
   font-weight: 500;
 }
 
 .settings-row-copy span {
   color: color-mix(in oklch, var(--muted-foreground) 76%, transparent);
-  font-size: 0.425rem;
+  font-size: var(--font-size-micro);
   line-height: 1.45;
 }
 
@@ -2983,7 +3031,7 @@
 .settings-session strong [data-slot='badge'],
 .settings-member [data-slot='badge'] {
   padding: 0.12rem 0.3rem;
-  font-size: 0.35rem;
+  font-size: var(--font-size-micro);
 }
 
 .settings-no-sessions {
@@ -2992,7 +3040,7 @@
   gap: 0.4rem;
   padding: 0.65rem 0;
   color: var(--chart-1);
-  font-size: 0.475rem;
+  font-size: var(--font-size-micro);
 }
 
 .settings-no-sessions svg {
@@ -3034,7 +3082,7 @@
   width: 1.55rem;
   height: 1.55rem;
   border-radius: 0.4rem;
-  font-size: 0.7rem;
+  font-size: var(--font-size-xs);
   font-weight: 700;
 }
 
@@ -3051,7 +3099,7 @@
 .settings-integration > [data-slot='badge'] {
   flex: 0 0 auto;
   padding: 0.12rem 0.3rem;
-  font-size: 0.35rem;
+  font-size: var(--font-size-micro);
 }
 
 .settings-api-row {
@@ -3079,7 +3127,7 @@
   border-radius: 0.3rem;
   color: color-mix(in oklch, var(--muted-foreground) 85%, transparent);
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: 0.4rem;
+  font-size: var(--font-size-micro);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -3089,7 +3137,7 @@
   height: 1.55rem;
   background: color-mix(in oklch, var(--primary) 18%, var(--background));
   color: color-mix(in oklch, var(--primary) 88%, var(--foreground));
-  font-size: 0.4rem;
+  font-size: var(--font-size-micro);
 }
 
 .settings-member .compact-row-action {
@@ -3110,7 +3158,7 @@
   gap: 0.3rem;
   margin: 0.45rem 0 0;
   color: var(--chart-1);
-  font-size: 0.425rem;
+  font-size: var(--font-size-micro);
 }
 
 .settings-inline-success svg {
@@ -3152,7 +3200,7 @@
 }
 
 .settings-plan-badge > [data-slot='badge'] {
-  font-size: 0.35rem;
+  font-size: var(--font-size-micro);
 }
 
 .settings-billing-card ul {
@@ -3163,7 +3211,7 @@
   padding: 0;
   list-style: none;
   color: color-mix(in oklch, var(--muted-foreground) 84%, transparent);
-  font-size: 0.45rem;
+  font-size: var(--font-size-micro);
 }
 
 .settings-billing-card li::before {
@@ -3204,12 +3252,12 @@
 
 .settings-danger-zone strong {
   color: color-mix(in oklch, var(--destructive) 90%, var(--foreground));
-  font-size: 0.55rem;
+  font-size: var(--font-size-micro);
 }
 
 .settings-danger-zone span {
   color: color-mix(in oklch, var(--muted-foreground) 78%, transparent);
-  font-size: 0.425rem;
+  font-size: var(--font-size-micro);
 }
 
 .settings-danger-button {
@@ -3224,19 +3272,19 @@
 }
 
 .settings-confirm-dialog [data-slot='alert-dialog-title'] {
-  font-size: 0.9rem;
+  font-size: var(--font-size-base);
 }
 
 .settings-confirm-dialog [data-slot='alert-dialog-description'] {
   margin-top: 0.35rem;
-  font-size: 0.55rem;
+  font-size: var(--font-size-micro);
   line-height: 1.5;
 }
 
 .settings-confirm-dialog [data-slot='alert-dialog-footer'] button {
   min-height: 1.8rem;
   border-radius: 0.35rem;
-  font-size: 0.5rem;
+  font-size: var(--font-size-micro);
 }
 
 .profile-page {
@@ -3252,7 +3300,7 @@
   border-radius: 0.45rem;
   background: color-mix(in oklch, var(--chart-1) 8%, transparent);
   color: var(--chart-1);
-  font-size: 0.5rem;
+  font-size: var(--font-size-micro);
 }
 
 .profile-feedback > svg { width: 0.75rem; height: 0.75rem; flex: 0 0 auto; }
@@ -3270,16 +3318,16 @@
 .profile-hero-identity, .profile-hero-stats, .profile-hero-identity > span:last-child, .profile-hero-stats > span, .profile-status-banner, .profile-security-banner, .profile-setting-row, .profile-activity-item, .profile-section-header, .profile-card-actions, .profile-card-actions > div { display: flex; align-items: center; }
 .profile-hero-identity { gap: 0.75rem; min-width: 0; }
 .profile-hero-identity > span:last-child { align-items: flex-start; min-width: 0; flex-direction: column; gap: 0.3rem; }
-.profile-hero-avatar { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 auto; width: 3.5rem; height: 3.5rem; border: 3px solid color-mix(in oklch, var(--background) 65%, transparent); border-radius: 50%; background: linear-gradient(135deg, color-mix(in oklch, var(--primary) 84%, var(--background)), color-mix(in oklch, var(--chart-2) 78%, var(--background))); color: var(--primary-foreground); font-size: 0.9rem; font-weight: 600; box-shadow: 0 0.5rem 1.4rem color-mix(in oklch, var(--primary) 14%, transparent); }
-.profile-hero-identity strong { overflow: hidden; color: color-mix(in oklch, var(--foreground) 96%, transparent); font-size: 1rem; font-weight: 600; letter-spacing: -0.03em; text-overflow: ellipsis; white-space: nowrap; }
-.profile-hero-identity small { overflow: hidden; color: color-mix(in oklch, var(--muted-foreground) 82%, transparent); font-size: 0.5rem; text-overflow: ellipsis; white-space: nowrap; }
-.profile-hero-identity em { display: inline-flex; align-items: center; gap: 0.3rem; color: var(--chart-1); font-size: 0.45rem; font-style: normal; }
+.profile-hero-avatar { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 auto; width: 3.5rem; height: 3.5rem; border: 3px solid color-mix(in oklch, var(--background) 65%, transparent); border-radius: 50%; background: linear-gradient(135deg, color-mix(in oklch, var(--primary) 84%, var(--background)), color-mix(in oklch, var(--chart-2) 78%, var(--background))); color: var(--primary-foreground); font-size: var(--font-size-base); font-weight: 600; box-shadow: 0 0.5rem 1.4rem color-mix(in oklch, var(--primary) 14%, transparent); }
+.profile-hero-identity strong { overflow: hidden; color: color-mix(in oklch, var(--foreground) 96%, transparent); font-size: var(--font-size-base); font-weight: 600; letter-spacing: -0.03em; text-overflow: ellipsis; white-space: nowrap; }
+.profile-hero-identity small { overflow: hidden; color: color-mix(in oklch, var(--muted-foreground) 82%, transparent); font-size: var(--font-size-micro); text-overflow: ellipsis; white-space: nowrap; }
+.profile-hero-identity em { display: inline-flex; align-items: center; gap: 0.3rem; color: var(--chart-1); font-size: var(--font-size-micro); font-style: normal; }
 .profile-online-dot { width: 0.35rem; height: 0.35rem; border-radius: 50%; background: var(--chart-1); box-shadow: 0 0 0 0.15rem color-mix(in oklch, var(--chart-1) 12%, transparent); }
 .profile-hero-stats { flex-wrap: wrap; gap: 1.2rem; }
 .profile-hero-stats > span { align-items: flex-start; flex-direction: column; gap: 0.3rem; min-width: 5.5rem; }
 .profile-hero-stats > span + span { padding-left: 1.2rem; border-left: 1px solid color-mix(in oklch, var(--border) 72%, transparent); }
-.profile-hero-stats small, .profile-status-list span { color: color-mix(in oklch, var(--muted-foreground) 76%, transparent); font-size: 0.425rem; text-transform: uppercase; }
-.profile-hero-stats strong, .profile-status-list strong { color: color-mix(in oklch, var(--foreground) 88%, transparent); font-size: 0.55rem; font-weight: 600; }
+.profile-hero-stats small, .profile-status-list span { color: color-mix(in oklch, var(--muted-foreground) 76%, transparent); font-size: var(--font-size-micro); text-transform: uppercase; }
+.profile-hero-stats strong, .profile-status-list strong { color: color-mix(in oklch, var(--foreground) 88%, transparent); font-size: var(--font-size-micro); font-weight: 600; }
 .profile-success-text { color: var(--chart-1) !important; }
 
 .profile-main-grid { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(15rem, 0.8fr); align-items: start; gap: 0.75rem; }
@@ -3293,11 +3341,11 @@
 
 .profile-form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.7rem; }
 .profile-form-grid > div, .profile-password-form > div { display: flex; min-width: 0; flex-direction: column; gap: 0.35rem; }
-.profile-page label { color: color-mix(in oklch, var(--foreground) 76%, transparent); font-size: 0.475rem; }
-.profile-page input { min-height: 1.8rem; height: 1.8rem; border-radius: 0.4rem; font-size: 0.525rem; }
-.profile-card-actions { justify-content: space-between; gap: 1rem; margin-top: 0.85rem; padding-top: 0.75rem; border-top: 1px solid color-mix(in oklch, var(--border) 60%, transparent); color: color-mix(in oklch, var(--muted-foreground) 75%, transparent); font-size: 0.4375rem; }
+.profile-page label { color: color-mix(in oklch, var(--foreground) 76%, transparent); font-size: var(--font-size-micro); }
+.profile-page input { min-height: 1.8rem; height: 1.8rem; border-radius: 0.4rem; font-size: var(--font-size-micro); }
+.profile-card-actions { justify-content: space-between; gap: 1rem; margin-top: 0.85rem; padding-top: 0.75rem; border-top: 1px solid color-mix(in oklch, var(--border) 60%, transparent); color: color-mix(in oklch, var(--muted-foreground) 75%, transparent); font-size: var(--font-size-micro); }
 .profile-card-actions > div { gap: 0.4rem; }
-.profile-page .compact-primary-button, .profile-page .compact-secondary-button { min-height: 1.75rem; border-radius: 0.35rem; font-size: 0.475rem; }
+.profile-page .compact-primary-button, .profile-page .compact-secondary-button { min-height: 1.75rem; border-radius: 0.35rem; font-size: var(--font-size-micro); }
 .profile-page button svg { width: 0.7rem; height: 0.7rem; }
 
 .profile-status-card .profile-section-header { padding-bottom: 0.45rem; }
@@ -3305,20 +3353,20 @@
 .profile-status-icon, .profile-security-icon { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 auto; width: 1.5rem; height: 1.5rem; border-radius: 50%; background: color-mix(in oklch, var(--chart-1) 13%, transparent); color: var(--chart-1); }
 .profile-status-icon svg, .profile-security-icon svg { width: 0.75rem; height: 0.75rem; }
 .profile-status-banner > span:nth-child(2), .profile-security-banner > span:nth-child(2) { display: flex; min-width: 0; flex: 1; flex-direction: column; gap: 0.2rem; }
-.profile-status-banner strong, .profile-security-banner strong { color: color-mix(in oklch, var(--foreground) 88%, transparent); font-size: 0.55rem; font-weight: 600; }
-.profile-status-banner small, .profile-security-banner small { color: color-mix(in oklch, var(--muted-foreground) 78%, transparent); font-size: 0.425rem; }
+.profile-status-banner strong, .profile-security-banner strong { color: color-mix(in oklch, var(--foreground) 88%, transparent); font-size: var(--font-size-micro); font-weight: 600; }
+.profile-status-banner small, .profile-security-banner small { color: color-mix(in oklch, var(--muted-foreground) 78%, transparent); font-size: var(--font-size-micro); }
 .profile-status-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; margin: 0.85rem 0; }
 .profile-status-list > div { display: flex; min-width: 0; flex-direction: column; gap: 0.25rem; }
 .profile-full-button { width: 100%; }
 .profile-security-banner { margin-bottom: 0.7rem; }
-.profile-security-score { color: var(--chart-1); font-size: 0.6rem; font-weight: 600; }
+.profile-security-score { color: var(--chart-1); font-size: var(--font-size-xs); font-weight: 600; }
 
 .profile-setting-list { display: flex; flex-direction: column; }
 .profile-setting-row { justify-content: space-between; gap: 1rem; padding: 0.6rem 0; }
 .profile-setting-row + .profile-setting-row { border-top: 1px solid color-mix(in oklch, var(--border) 52%, transparent); }
 .profile-setting-row > span { display: flex; min-width: 0; flex-direction: column; gap: 0.2rem; }
-.profile-setting-row strong { color: color-mix(in oklch, var(--foreground) 86%, transparent); font-size: 0.5rem; font-weight: 500; }
-.profile-setting-row small { color: color-mix(in oklch, var(--muted-foreground) 76%, transparent); font-size: 0.425rem; line-height: 1.45; }
+.profile-setting-row strong { color: color-mix(in oklch, var(--foreground) 86%, transparent); font-size: var(--font-size-micro); font-weight: 500; }
+.profile-setting-row small { color: color-mix(in oklch, var(--muted-foreground) 76%, transparent); font-size: var(--font-size-micro); line-height: 1.45; }
 .profile-setting-row button { flex: 0 0 auto; }
 .profile-activity-card { overflow: hidden; }
 .profile-activity-action { gap: 0.25rem; }
@@ -3331,14 +3379,14 @@
 .profile-activity-icon-success { border-color: color-mix(in oklch, var(--chart-1) 24%, transparent); color: var(--chart-1); }
 .profile-activity-icon-primary { border-color: color-mix(in oklch, var(--primary) 24%, transparent); color: var(--primary); }
 .profile-activity-icon-muted { color: color-mix(in oklch, var(--muted-foreground) 84%, transparent); }
-.profile-activity-item strong { color: color-mix(in oklch, var(--foreground) 86%, transparent); font-size: 0.5rem; font-weight: 500; }
-.profile-activity-item small, .profile-activity-item time { color: color-mix(in oklch, var(--muted-foreground) 76%, transparent); font-size: 0.425rem; }
+.profile-activity-item strong { color: color-mix(in oklch, var(--foreground) 86%, transparent); font-size: var(--font-size-micro); font-weight: 500; }
+.profile-activity-item small, .profile-activity-item time { color: color-mix(in oklch, var(--muted-foreground) 76%, transparent); font-size: var(--font-size-micro); }
 .profile-activity-item time { flex: 0 0 auto; }
 .profile-dialog-content { max-width: 27rem; gap: 1rem; border-color: color-mix(in oklch, var(--border) 82%, var(--primary) 18%); border-radius: 0.85rem; background: color-mix(in oklch, var(--card) 96%, var(--background)); }
-.profile-dialog-content [data-slot='dialog-title'] { color: color-mix(in oklch, var(--foreground) 94%, transparent); font-size: 0.9rem; }
-.profile-dialog-content [data-slot='dialog-description'] { margin-top: 0.35rem; color: color-mix(in oklch, var(--muted-foreground) 82%, transparent); font-size: 0.55rem; line-height: 1.5; }
+.profile-dialog-content [data-slot='dialog-title'] { color: color-mix(in oklch, var(--foreground) 94%, transparent); font-size: var(--font-size-base); }
+.profile-dialog-content [data-slot='dialog-description'] { margin-top: 0.35rem; color: color-mix(in oklch, var(--muted-foreground) 82%, transparent); font-size: var(--font-size-micro); line-height: 1.5; }
 .profile-password-form { display: flex; flex-direction: column; gap: 0.7rem; }
-.profile-dialog-content [data-slot='dialog-footer'] button { min-height: 1.8rem; border-radius: 0.4rem; font-size: 0.5rem; }
+.profile-dialog-content [data-slot='dialog-footer'] button { min-height: 1.8rem; border-radius: 0.4rem; font-size: var(--font-size-micro); }
 
 .profile-page .grid,
 .settings-page .grid {
@@ -3359,7 +3407,7 @@
 
 .profile-page label,
 .settings-page label {
-  font-size: 0.5625rem;
+  font-size: var(--font-size-micro);
 }
 
 .profile-page input,
@@ -3368,12 +3416,12 @@
   min-height: 1.75rem;
   height: 1.75rem;
   border-radius: 0.35rem;
-  font-size: 0.5625rem;
+  font-size: var(--font-size-micro);
 }
 
 .profile-page .compact-settings-card p,
 .settings-page .compact-settings-card p {
-  font-size: 0.5625rem;
+  font-size: var(--font-size-micro);
 }
 
 .profile-page .compact-settings-card p.text-sm,
@@ -3381,7 +3429,7 @@
 .profile-page .compact-settings-card [data-slot='card-description'],
 .settings-page .compact-settings-card [data-slot='card-description'] {
   color: color-mix(in oklch, var(--muted-foreground) 82%, transparent);
-  font-size: 0.5rem;
+  font-size: var(--font-size-micro);
   line-height: 1.5;
 }
 
@@ -3389,7 +3437,7 @@
 .settings-page .compact-settings-card button {
   min-height: 1.75rem;
   border-radius: 0.35rem;
-  font-size: 0.5rem;
+  font-size: var(--font-size-micro);
 }
 
 .profile-page .compact-settings-card .border-b,
@@ -3549,28 +3597,8 @@
     width: 100%;
   }
 
-  .page-header {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 0.75rem;
-    min-height: 0;
-    padding-bottom: 0.75rem;
-  }
-
-  .page-header-description {
-    white-space: normal;
-  }
-
-  .page-header-actions {
-    width: 100%;
-  }
-
-  .page-header-actions > * {
-    width: 100%;
-  }
-
   .compact-page-title {
-    font-size: 1.1rem;
+    font-size: var(--font-size-lg);
   }
 
   .compact-page-intro.flex {
@@ -3591,7 +3619,7 @@
 .payments-page-title {
   margin: 0;
   color: var(--foreground);
-  font-size: 1.25rem;
+  font-size: var(--font-size-xl);
   font-weight: 600;
   letter-spacing: -0.03em;
 }
@@ -3599,7 +3627,7 @@
 .payments-page-description {
   margin: 0.4rem 0 0;
   color: color-mix(in oklch, var(--muted-foreground) 82%, transparent);
-  font-size: 0.625rem;
+  font-size: var(--font-size-micro);
   line-height: 1.6;
 }
 
@@ -3627,7 +3655,7 @@
   align-items: center;
   gap: 0.35rem;
   color: color-mix(in oklch, var(--foreground) 90%, transparent);
-  font-size: 0.6875rem;
+  font-size: var(--font-size-micro);
   font-weight: 600;
 }
 
@@ -3649,7 +3677,7 @@
 
 .payment-info-mark {
   color: color-mix(in oklch, var(--foreground) 45%, transparent);
-  font-size: 0.55rem;
+  font-size: var(--font-size-micro);
 }
 
 .payment-period-button {
@@ -3661,7 +3689,7 @@
   border-radius: 0.35rem;
   background: color-mix(in oklch, var(--background) 62%, transparent);
   color: color-mix(in oklch, var(--muted-foreground) 88%, transparent);
-  font-size: 0.5rem;
+  font-size: var(--font-size-micro);
   line-height: 1;
 }
 
@@ -3682,7 +3710,7 @@
 
 .payment-balance-total strong {
   color: var(--foreground);
-  font-size: 1.15rem;
+  font-size: var(--font-size-lg);
   font-weight: 600;
   letter-spacing: -0.04em;
 }
@@ -3693,7 +3721,7 @@
   border-radius: 0.3rem;
   background: color-mix(in oklch, var(--chart-1) 12%, transparent);
   color: var(--chart-1);
-  font-size: 0.4375rem;
+  font-size: var(--font-size-micro);
   font-weight: 500;
 }
 
@@ -3707,7 +3735,7 @@
 .payment-request-button {
   height: 1.75rem;
   border-radius: 0.35rem;
-  font-size: 0.5625rem;
+  font-size: var(--font-size-micro);
 }
 
 .payment-transfer-button {
@@ -3768,13 +3796,13 @@
 
 .payment-metric-card span {
   color: color-mix(in oklch, var(--muted-foreground) 78%, transparent);
-  font-size: 0.5rem;
+  font-size: var(--font-size-micro);
   text-transform: uppercase;
 }
 
 .payment-metric-card strong {
   color: color-mix(in oklch, var(--foreground) 90%, transparent);
-  font-size: 0.75rem;
+  font-size: var(--font-size-xs);
   font-weight: 500;
 }
 
@@ -3808,14 +3836,14 @@
   width: 100%;
   border-collapse: collapse;
   color: color-mix(in oklch, var(--muted-foreground) 84%, transparent);
-  font-size: 0.5rem;
+  font-size: var(--font-size-micro);
   text-align: left;
 }
 
 .payment-history-table th {
   padding: 0.65rem 0.75rem;
   color: color-mix(in oklch, var(--muted-foreground) 70%, transparent);
-  font-size: 0.4375rem;
+  font-size: var(--font-size-micro);
   font-weight: 500;
   text-transform: uppercase;
 }
@@ -3842,7 +3870,7 @@
   border-radius: 0.35rem;
   background: linear-gradient(145deg, var(--chart-4), var(--primary));
   color: var(--foreground);
-  font-size: 0.4rem;
+  font-size: var(--font-size-micro);
   font-weight: 700;
 }
 
@@ -3854,13 +3882,13 @@
 
 .payment-member-cell strong {
   color: color-mix(in oklch, var(--foreground) 86%, transparent);
-  font-size: 0.5rem;
+  font-size: var(--font-size-micro);
   font-weight: 500;
 }
 
 .payment-member-cell span {
   color: color-mix(in oklch, var(--muted-foreground) 66%, transparent);
-  font-size: 0.4rem;
+  font-size: var(--font-size-micro);
 }
 
 .payment-status-badge {
@@ -3870,7 +3898,7 @@
   padding: 0.18rem 0.35rem;
   border: 1px solid transparent;
   border-radius: 999px;
-  font-size: 0.4rem;
+  font-size: var(--font-size-micro);
 }
 
 .payment-status-icon {
@@ -3915,7 +3943,7 @@
 
 @media (max-width: 767px) {
   .payments-page-description {
-    font-size: 0.625rem;
+    font-size: var(--font-size-micro);
   }
 
   .payments-description-break {
@@ -3935,7 +3963,7 @@
 .cards-page-title {
   margin: 0;
   color: var(--foreground);
-  font-size: 1.25rem;
+  font-size: var(--font-size-xl);
   font-weight: 600;
   letter-spacing: -0.03em;
 }
@@ -3943,7 +3971,7 @@
 .cards-page-description {
   margin: 0.4rem 0 0;
   color: color-mix(in oklch, var(--muted-foreground) 82%, transparent);
-  font-size: 0.625rem;
+  font-size: var(--font-size-micro);
   line-height: 1.6;
 }
 
@@ -4029,13 +4057,13 @@
 .saved-card-number {
   margin: 0;
   color: color-mix(in oklch, white 86%, transparent);
-  font-size: 0.65rem;
+  font-size: var(--font-size-xs);
   letter-spacing: 0.09em;
 }
 
 .saved-card-footer {
   color: color-mix(in oklch, white 65%, transparent);
-  font-size: 0.4375rem;
+  font-size: var(--font-size-micro);
   text-transform: uppercase;
 }
 
@@ -4048,7 +4076,7 @@
   border-color: color-mix(in oklch, var(--border) 70%, transparent);
   background: color-mix(in oklch, var(--card) 80%, transparent);
   color: color-mix(in oklch, var(--foreground) 76%, transparent);
-  font-size: 0.5625rem;
+  font-size: var(--font-size-micro);
   transition: border-color 160ms ease, background-color 160ms ease;
 }
 
@@ -4086,13 +4114,13 @@
   align-items: center;
   gap: 0.3rem;
   color: color-mix(in oklch, var(--foreground) 88%, transparent);
-  font-size: 0.6875rem;
+  font-size: var(--font-size-micro);
   font-weight: 600;
 }
 
 .cards-info-mark {
   color: color-mix(in oklch, var(--foreground) 44%, transparent);
-  font-size: 0.55rem;
+  font-size: var(--font-size-micro);
 }
 
 .cards-period-button,
@@ -4104,7 +4132,7 @@
   border-radius: 0.35rem;
   background: color-mix(in oklch, var(--background) 60%, transparent);
   color: color-mix(in oklch, var(--muted-foreground) 84%, transparent);
-  font-size: 0.5rem;
+  font-size: var(--font-size-micro);
   line-height: 1;
 }
 
@@ -4136,7 +4164,7 @@
 
 .cards-activity-day {
   color: color-mix(in oklch, var(--muted-foreground) 72%, transparent);
-  font-size: 0.4375rem;
+  font-size: var(--font-size-micro);
 }
 
 .cards-activity-item {
@@ -4155,7 +4183,7 @@
   height: 1.35rem;
   border-radius: 0.3rem;
   color: white;
-  font-size: 0.4rem;
+  font-size: var(--font-size-micro);
   font-weight: 700;
 }
 
@@ -4183,7 +4211,7 @@
   overflow: hidden;
   margin: 0;
   color: color-mix(in oklch, var(--muted-foreground) 74%, transparent);
-  font-size: 0.4375rem;
+  font-size: var(--font-size-micro);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -4199,7 +4227,7 @@
   gap: 0.25rem;
   margin-top: 0.22rem;
   color: color-mix(in oklch, var(--muted-foreground) 60%, transparent);
-  font-size: 0.4rem;
+  font-size: var(--font-size-micro);
 }
 
 .cards-activity-dot {
@@ -4225,14 +4253,14 @@
   width: 100%;
   border-collapse: collapse;
   color: color-mix(in oklch, var(--muted-foreground) 84%, transparent);
-  font-size: 0.5rem;
+  font-size: var(--font-size-micro);
   text-align: left;
 }
 
 .cards-transactions-table th {
   padding: 0.55rem 0.75rem;
   color: color-mix(in oklch, var(--muted-foreground) 70%, transparent);
-  font-size: 0.4375rem;
+  font-size: var(--font-size-micro);
   font-weight: 500;
   text-transform: uppercase;
 }
@@ -4272,7 +4300,7 @@
   padding: 0.15rem 0.35rem;
   border: 1px solid transparent;
   border-radius: 999px;
-  font-size: 0.4rem;
+  font-size: var(--font-size-micro);
 }
 
 .cards-transaction-status-credit {
@@ -4309,7 +4337,7 @@
 
 @media (max-width: 767px) {
   .cards-page-description {
-    font-size: 0.625rem;
+    font-size: var(--font-size-micro);
   }
 
   .cards-description-break {

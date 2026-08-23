@@ -98,14 +98,14 @@ export function BatchResults({ results, batchName }: BatchResultsProps) {
                     <div className="flex items-center gap-2">
                       {result.status === 'success' ? (
                         <>
-                          <CheckCircle className="h-4 w-4 text-green-500" />
+                          <CheckCircle className="h-4 w-4 text-success" />
                           <Badge variant="outline" className="compact-status-success">
                             Success
                           </Badge>
                         </>
                       ) : (
                         <>
-                          <XCircle className="h-4 w-4 text-red-500" />
+                          <XCircle className="h-4 w-4 text-destructive" />
                           <Badge variant="outline" className="compact-status-danger">Failed</Badge>
                         </>
                       )}

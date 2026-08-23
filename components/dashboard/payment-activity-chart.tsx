@@ -10,6 +10,7 @@ import {
   YAxis,
 } from 'recharts';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { ChartTooltip } from './chart-tooltip';
 
 const activityData = [
   { month: 'Jan', amount: 42000 },
@@ -47,7 +48,7 @@ export function PaymentActivityChart() {
             <CartesianGrid vertical={false} stroke="var(--color-border)" strokeDasharray="2 4" />
             <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{ fill: 'var(--color-muted-foreground)', fontSize: 8 }} />
             <YAxis axisLine={false} tickLine={false} tick={{ fill: 'var(--color-muted-foreground)', fontSize: 8 }} tickFormatter={(value) => `$${value / 1000}K`} />
-            <Tooltip />
+            <Tooltip content={<ChartTooltip />} />
             <Area type="monotone" dataKey="amount" stroke="var(--color-chart-1)" strokeWidth={2} fill="url(#paymentActivityFill)" />
           </AreaChart>
         </ResponsiveContainer>
