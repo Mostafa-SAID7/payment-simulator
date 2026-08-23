@@ -1,15 +1,14 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { AlertCircle, ArrowUpRight, CheckCircle2, Clock3, Download, Eye, FileText, Search, X } from 'lucide-react';
-import { PageHeader } from '@/components/page-header';
+import { AlertCircle, ArrowUpRight, CheckCircle2, Clock3, Eye, FileText, Search, X, ChevronDown, Download } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { cn } from '@/lib/utils';
 
 interface Transaction {
   id: string;
@@ -41,13 +40,27 @@ function formatCurrency(amount: number) {
 }
 
 function getStatusBadge(status: Transaction['status']) {
+  const styles: Record<Transaction['status'], string> = {
+    completed: 'border-success/40 text-success',
+    pending: 'border-warning/40 text-warning',
+    failed: 'border-destructive/40 text-destructive',
+  };
+  
   const labels = { completed: 'Completed', pending: 'Pending', failed: 'Failed' };
-  const variants: Record<Transaction['status'], 'default' | 'secondary' | 'destructive'> = { completed: 'default', pending: 'secondary', failed: 'destructive' };
-  return <Badge variant={variants[status]} className={`transactions-status transactions-status-${status}`}>{labels[status]}</Badge>;
+  
+  return (
+    <Badge variant="outline" className={cn("rounded-full px-3 py-0.5 text-[9px] font-medium border bg-transparent uppercase tracking-wider", styles[status])}>
+      {labels[status]}
+    </Badge>
+  );
 }
 
 function getTypeBadge(type: Transaction['type']) {
-  return <span className={`transactions-type transactions-type-${type.toLowerCase()}`}>{type}</span>;
+  return (
+    <span className="inline-flex items-center px-2 py-0.5 rounded-md bg-secondary/30 text-foreground/70 border border-border/20 text-[10px] font-medium tracking-wide">
+      {type}
+    </span>
+  );
 }
 
 export default function TransactionsPage() {
@@ -72,8 +85,8 @@ export default function TransactionsPage() {
     pending: mockTransactions.filter((transaction) => transaction.status === 'pending').length,
     failed: mockTransactions.filter((transaction) => transaction.status === 'failed').length,
   };
+  
   const totalVolume = mockTransactions.reduce((sum, transaction) => sum + transaction.amount, 0);
-  const filteredVolume = filteredTransactions.reduce((sum, transaction) => sum + transaction.amount, 0);
   const completedVolume = mockTransactions.filter((transaction) => transaction.status === 'completed').reduce((sum, transaction) => sum + transaction.amount, 0);
   const hasFilters = Boolean(searchTerm || filterType !== 'all' || filterStatus !== 'all');
 
@@ -95,60 +108,309 @@ export default function TransactionsPage() {
   }
 
   return (
-    <div className="transactions-page page-stack compact-route-page">
-      <PageHeader title="Transaction History" description="Review payment activity, settlement status, and transaction details in one place" actions={<Button variant="outline" size="sm" className="compact-secondary-button gap-2" onClick={exportTransactions}><Download />Export CSV</Button>} />
+    <div className="flex flex-col gap-5 pb-6 mt-20 md:mt-24 px-4 md:px-8 max-w-[1600px] mx-auto w-full">
 
-      <section className="transactions-summary-grid" aria-label="Transaction overview">
-        <Card className="dashboard-card transactions-summary-card"><CardContent className="transactions-summary-content"><span className="transactions-summary-icon transactions-summary-icon-primary"><FileText /></span><span><small>Total transactions</small><strong>{stats.total}</strong><em>{formatCurrency(totalVolume)} total volume</em></span></CardContent></Card>
-        <Card className="dashboard-card transactions-summary-card"><CardContent className="transactions-summary-content"><span className="transactions-summary-icon transactions-summary-icon-success"><CheckCircle2 /></span><span><small>Completed</small><strong>{stats.completed}</strong><em>{formatCurrency(completedVolume)} settled</em></span></CardContent></Card>
-        <Card className="dashboard-card transactions-summary-card"><CardContent className="transactions-summary-content"><span className="transactions-summary-icon transactions-summary-icon-warning"><Clock3 /></span><span><small>Pending review</small><strong>{stats.pending}</strong><em>Awaiting settlement</em></span></CardContent></Card>
-        <Card className="dashboard-card transactions-summary-card"><CardContent className="transactions-summary-content"><span className="transactions-summary-icon transactions-summary-icon-danger"><AlertCircle /></span><span><small>Failed</small><strong>{stats.failed}</strong><em>Requires attention</em></span></CardContent></Card>
+      {/* Top Stats Row */}
+      <section className="grid grid-cols-2 lg:grid-cols-4 gap-4" aria-label="Transaction overview">
+        <Card className="rounded-[1.25rem] bg-[#131317] border border-border/30 shadow-none overflow-hidden flex flex-col justify-center">
+          <CardContent className="p-5 flex items-center gap-4">
+            <div className="w-10 h-10 rounded-xl border border-border/20 bg-foreground/5 flex items-center justify-center shrink-0">
+              <FileText className="w-4 h-4 text-foreground/70" />
+            </div>
+            <div className="flex flex-col gap-0.5">
+              <span className="text-[10px] font-semibold text-foreground/40 tracking-widest uppercase">Total Transactions</span>
+              <span className="text-[17px] font-bold text-foreground">
+                {stats.total} <span className="text-foreground/50 text-[10px] font-medium tracking-wide normal-case ml-1">({formatCurrency(totalVolume)})</span>
+              </span>
+            </div>
+          </CardContent>
+        </Card>
+        
+        <Card className="rounded-[1.25rem] bg-[#131317] border border-border/30 shadow-none overflow-hidden flex flex-col justify-center">
+          <CardContent className="p-5 flex items-center gap-4">
+            <div className="w-10 h-10 rounded-xl border border-success/20 bg-success/10 flex items-center justify-center shrink-0">
+              <CheckCircle2 className="w-4 h-4 text-success" />
+            </div>
+            <div className="flex flex-col gap-0.5">
+              <span className="text-[10px] font-semibold text-foreground/40 tracking-widest uppercase">Completed</span>
+              <span className="text-[17px] font-bold text-foreground">
+                {stats.completed} <span className="text-foreground/50 text-[10px] font-medium tracking-wide normal-case ml-1">({formatCurrency(completedVolume)})</span>
+              </span>
+            </div>
+          </CardContent>
+        </Card>
+        
+        <Card className="rounded-[1.25rem] bg-[#131317] border border-border/30 shadow-none overflow-hidden flex flex-col justify-center">
+          <CardContent className="p-5 flex items-center gap-4">
+            <div className="w-10 h-10 rounded-xl border border-warning/20 bg-warning/10 flex items-center justify-center shrink-0">
+              <Clock3 className="w-4 h-4 text-warning" />
+            </div>
+            <div className="flex flex-col gap-0.5">
+              <span className="text-[10px] font-semibold text-foreground/40 tracking-widest uppercase">Pending</span>
+              <span className="text-[17px] font-bold text-foreground">
+                {stats.pending} <span className="text-foreground/50 text-[10px] font-medium tracking-wide normal-case ml-1">transactions</span>
+              </span>
+            </div>
+          </CardContent>
+        </Card>
+        
+        <Card className="rounded-[1.25rem] bg-[#131317] border border-border/30 shadow-none overflow-hidden flex flex-col justify-center">
+          <CardContent className="p-5 flex items-center gap-4">
+            <div className="w-10 h-10 rounded-xl border border-destructive/20 bg-destructive/10 flex items-center justify-center shrink-0">
+              <AlertCircle className="w-4 h-4 text-destructive" />
+            </div>
+            <div className="flex flex-col gap-0.5">
+              <span className="text-[10px] font-semibold text-foreground/40 tracking-widest uppercase">Failed</span>
+              <span className="text-[17px] font-bold text-foreground">
+                {stats.failed} <span className="text-foreground/50 text-[10px] font-medium tracking-wide normal-case ml-1">requires review</span>
+              </span>
+            </div>
+          </CardContent>
+        </Card>
       </section>
 
-      <section className="transactions-content-grid" aria-label="Transaction operations">
-        <Card className="dashboard-card compact-table-card transactions-table-card">
-          <CardHeader className="compact-card-header transactions-table-header">
-            <div className="transactions-table-heading"><div><CardTitle className="compact-panel-title">All transactions</CardTitle><CardDescription className="compact-panel-description">Search, filter, and inspect every payment record</CardDescription></div><Badge variant="outline" className="transactions-count-badge">{filteredTransactions.length} shown</Badge></div>
-            <div className="transactions-filter-bar">
-              <div className="transactions-search-field"><Search /><Input aria-label="Search transactions" placeholder="Search recipient, ID, or reference..." value={searchTerm} onChange={(event) => setSearchTerm(event.target.value)} className="compact-input" /></div>
-              <Select value={filterType} onValueChange={setFilterType}><SelectTrigger className="compact-filter-control transactions-filter-control"><SelectValue placeholder="Payment type" /></SelectTrigger><SelectContent><SelectItem value="all">All types</SelectItem><SelectItem value="ACH">ACH</SelectItem><SelectItem value="RTGS">RTGS</SelectItem><SelectItem value="WPS">WPS</SelectItem></SelectContent></Select>
-              <Select value={filterStatus} onValueChange={setFilterStatus}><SelectTrigger className="compact-filter-control transactions-filter-control"><SelectValue placeholder="Status" /></SelectTrigger><SelectContent><SelectItem value="all">All statuses</SelectItem><SelectItem value="completed">Completed</SelectItem><SelectItem value="pending">Pending</SelectItem><SelectItem value="failed">Failed</SelectItem></SelectContent></Select>
-              {hasFilters && <Button variant="ghost" size="sm" className="transactions-clear-button" onClick={clearFilters}><X />Clear</Button>}
+      {/* Main Content Area */}
+      <section className="grid grid-cols-1 xl:grid-cols-[1fr_320px] gap-4" aria-label="Transaction operations">
+        
+        {/* Main Table Card */}
+        <Card className="rounded-[1.25rem] bg-[#131317] border border-border/30 shadow-none overflow-hidden">
+          <CardHeader className="flex flex-col gap-4 px-6 pt-6 pb-4 border-b border-border/10">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+              <div className="flex items-center gap-1.5">
+                <CardTitle className="text-[13px] font-medium text-foreground/90">All Transactions</CardTitle>
+                <span className="inline-flex items-center justify-center w-3.5 h-3.5 rounded-full border border-border/50 text-muted-foreground text-[8px] cursor-help">i</span>
+                <Badge variant="outline" className="ml-2 text-[9px] px-2 py-0.5 rounded-md border-border/40 text-foreground/60">{filteredTransactions.length} results</Badge>
+              </div>
+              
+              <Button variant="outline" size="sm" className="h-8 text-[11px] gap-2 rounded-lg bg-[#1A1A1F] border-border/40 text-foreground/70 hover:bg-foreground/5" onClick={exportTransactions}>
+                <Download className="w-3.5 h-3.5" /> Export CSV
+              </Button>
+            </div>
+            
+            <div className="flex flex-wrap items-center gap-3">
+              <div className="flex items-center gap-2 flex-1 min-w-[200px] relative [&_svg]:absolute [&_svg]:left-3 [&_svg]:w-4 [&_svg]:h-4 [&_svg]:text-muted-foreground [&_input]:pl-9">
+                <Search />
+                <Input aria-label="Search transactions" placeholder="Search recipient, ID, or reference..." value={searchTerm} onChange={(event) => setSearchTerm(event.target.value)} className="h-9 text-[11px] bg-[#1A1A1F] border-border/40 rounded-lg placeholder:text-muted-foreground/50 text-foreground" />
+              </div>
+              <Select value={filterType} onValueChange={setFilterType}>
+                <SelectTrigger className="h-9 text-[11px] w-auto min-w-[120px] bg-[#1A1A1F] border-border/40 rounded-lg">
+                  <SelectValue placeholder="Payment type" />
+                </SelectTrigger>
+                <SelectContent className="bg-[#131317] border-border/30 text-[11px]">
+                  <SelectItem value="all">All types</SelectItem>
+                  <SelectItem value="ACH">ACH</SelectItem>
+                  <SelectItem value="RTGS">RTGS</SelectItem>
+                  <SelectItem value="WPS">WPS</SelectItem>
+                </SelectContent>
+              </Select>
+              <Select value={filterStatus} onValueChange={setFilterStatus}>
+                <SelectTrigger className="h-9 text-[11px] w-auto min-w-[120px] bg-[#1A1A1F] border-border/40 rounded-lg">
+                  <SelectValue placeholder="Status" />
+                </SelectTrigger>
+                <SelectContent className="bg-[#131317] border-border/30 text-[11px]">
+                  <SelectItem value="all">All statuses</SelectItem>
+                  <SelectItem value="completed">Completed</SelectItem>
+                  <SelectItem value="pending">Pending</SelectItem>
+                  <SelectItem value="failed">Failed</SelectItem>
+                </SelectContent>
+              </Select>
+              {hasFilters && (
+                <Button variant="ghost" size="sm" className="h-9 text-[11px] text-foreground/50 hover:text-foreground hover:bg-foreground/5 px-3" onClick={clearFilters}>
+                  <X className="w-3.5 h-3.5 mr-1.5" /> Clear
+                </Button>
+              )}
             </div>
           </CardHeader>
-          <CardContent className="compact-card-content p-0">
-            <div className="transactions-table-meta"><span>{hasFilters ? `Showing ${filteredTransactions.length} of ${mockTransactions.length} transactions` : 'Latest payment activity'}</span><strong>{formatCurrency(filteredVolume)} visible volume</strong></div>
+          
+          <CardContent className="p-0">
             <div className="overflow-x-auto">
-              <Table className="compact-data-table transactions-data-table">
-                <TableHeader><TableRow className="border-border hover:bg-transparent"><TableHead>Transaction</TableHead><TableHead>Date & time</TableHead><TableHead>Recipient</TableHead><TableHead>Type</TableHead><TableHead className="text-right">Amount</TableHead><TableHead>Status</TableHead><TableHead className="w-12 text-right">View</TableHead></TableRow></TableHeader>
-                <TableBody>{filteredTransactions.map((transaction) => <TableRow key={transaction.id} className="border-border">
-                  <TableCell><div className="transactions-primary-cell"><strong>{transaction.id}</strong><small>{transaction.reference}</small></div></TableCell>
-                  <TableCell><div className="transactions-date-cell"><strong>{transaction.date}</strong><small>{transaction.time}</small></div></TableCell>
-                  <TableCell><div className="transactions-recipient-cell"><strong>{transaction.recipient}</strong><small>{transaction.description}</small></div></TableCell>
-                  <TableCell>{getTypeBadge(transaction.type)}</TableCell>
-                  <TableCell className="text-right"><strong className="transactions-amount">{formatCurrency(transaction.amount)}</strong></TableCell>
-                  <TableCell>{getStatusBadge(transaction.status)}</TableCell>
-                  <TableCell><Button variant="ghost" size="icon-sm" className="compact-row-action" aria-label={`View ${transaction.id}`} onClick={() => setSelectedTransaction(transaction)}><Eye /></Button></TableCell>
-                </TableRow>)}</TableBody>
-              </Table>
-              {filteredTransactions.length === 0 && <div className="transactions-empty-state"><Search /><strong>No transactions match your filters</strong><span>Try another search or clear the active filters.</span>{hasFilters && <Button variant="outline" size="sm" className="compact-secondary-button" onClick={clearFilters}>Clear filters</Button>}</div>}
+              <table className="w-full text-[11px]">
+                <thead>
+                  <tr className="border-b border-border/10 [&_th]:px-6 [&_th]:py-4 [&_th]:text-left [&_th]:font-medium [&_th]:text-foreground/40">
+                    <th className="w-48">Transaction</th>
+                    <th>Date & Time</th>
+                    <th>Recipient</th>
+                    <th>Type</th>
+                    <th>Amount</th>
+                    <th className="w-24">Status</th>
+                    <th className="text-right w-16">View</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredTransactions.map((transaction, index) => (
+                    <tr key={transaction.id} className={`hover:bg-foreground/5 transition-colors [&_td]:px-6 [&_td]:py-4 ${index !== filteredTransactions.length - 1 ? 'border-b border-border/5' : ''}`}>
+                      <td>
+                        <div className="flex flex-col gap-0.5">
+                          <strong className="font-semibold text-foreground/90">{transaction.id}</strong>
+                          <span className="text-foreground/40 text-[9px]">{transaction.reference}</span>
+                        </div>
+                      </td>
+                      <td>
+                        <div className="flex flex-col gap-0.5">
+                          <strong className="text-foreground/80">{transaction.date}</strong>
+                          <span className="text-foreground/40 text-[9px] flex items-center gap-1"><Clock3 className="w-2.5 h-2.5" /> {transaction.time}</span>
+                        </div>
+                      </td>
+                      <td>
+                        <div className="flex flex-col gap-0.5">
+                          <strong className="text-foreground/80">{transaction.recipient}</strong>
+                          <span className="text-foreground/40 text-[9px]">{transaction.description}</span>
+                        </div>
+                      </td>
+                      <td>{getTypeBadge(transaction.type)}</td>
+                      <td><strong className="font-semibold text-foreground/90">{formatCurrency(transaction.amount)}</strong></td>
+                      <td>{getStatusBadge(transaction.status)}</td>
+                      <td className="text-right">
+                        <Button variant="ghost" size="icon" className="w-7 h-7 rounded-md text-foreground/40 hover:text-foreground hover:bg-foreground/10 border border-border/20" aria-label={`View ${transaction.id}`} onClick={() => setSelectedTransaction(transaction)}>
+                          <Eye className="w-3.5 h-3.5" />
+                        </Button>
+                      </td>
+                    </tr>
+                  ))}
+                  
+                  {filteredTransactions.length === 0 && (
+                    <tr>
+                      <td colSpan={7} className="py-12">
+                        <div className="flex flex-col items-center gap-3 text-center">
+                          <div className="w-12 h-12 rounded-full bg-foreground/5 flex items-center justify-center mb-2">
+                            <Search className="w-5 h-5 text-foreground/30" />
+                          </div>
+                          <strong className="text-[13px] font-medium text-foreground/70">No transactions found</strong>
+                          <span className="text-foreground/40 text-xs">Try adjusting your filters or search term.</span>
+                          {hasFilters && (
+                            <Button variant="outline" size="sm" className="mt-2 h-8 text-[11px] bg-[#1A1A1F] border-border/40" onClick={clearFilters}>
+                              Clear filters
+                            </Button>
+                          )}
+                        </div>
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
             </div>
           </CardContent>
         </Card>
 
-        <Card className="dashboard-card compact-settings-card transactions-health-card">
-          <CardHeader className="compact-card-header"><CardTitle className="compact-panel-title">Settlement health</CardTitle><CardDescription className="compact-panel-description">A quick view of payment reliability</CardDescription></CardHeader>
-          <CardContent className="compact-card-content transactions-health-content">
-            <div className="transactions-health-score"><span className="transactions-health-ring">{Math.round((stats.completed / stats.total) * 100)}%</span><span><strong>Healthy throughput</strong><small>Completion rate across all payments</small></span></div>
-            <div className="transactions-health-list"><div><span><strong>Completed</strong><small>{stats.completed} transactions</small></span><strong className="transactions-health-value-success">{Math.round((stats.completed / stats.total) * 100)}%</strong></div><div><span><strong>Pending</strong><small>Awaiting settlement</small></span><strong className="transactions-health-value-warning">{stats.pending}</strong></div><div><span><strong>Failed</strong><small>Requires review</small></span><strong className="transactions-health-value-danger">{stats.failed}</strong></div></div>
-            <div className="transactions-health-link"><span>Review failed payments</span><ArrowUpRight /></div>
+        {/* Right Sidebar */}
+        <Card className="rounded-[1.25rem] bg-[#131317] border border-border/30 shadow-none overflow-hidden h-fit">
+          <CardHeader className="px-6 pt-6 pb-4 border-b border-border/10">
+            <CardTitle className="text-[13px] font-medium text-foreground/90 flex items-center gap-1.5">
+              Settlement Health
+              <span className="inline-flex items-center justify-center w-3.5 h-3.5 rounded-full border border-border/50 text-muted-foreground text-[8px] cursor-help ml-1">i</span>
+            </CardTitle>
+            <CardDescription className="text-[10px] text-muted-foreground mt-1">A quick view of payment reliability</CardDescription>
+          </CardHeader>
+          <CardContent className="p-6 flex flex-col gap-6">
+            <div className="flex items-center gap-4">
+              <span className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-success/10 text-success font-bold text-lg border border-success/20 shrink-0">
+                {Math.round((stats.completed / stats.total) * 100)}%
+              </span>
+              <div className="flex flex-col gap-0.5">
+                <strong className="text-xs font-semibold text-foreground/90">Healthy throughput</strong>
+                <span className="text-[10px] text-foreground/40 leading-tight">Completion rate across all payments</span>
+              </div>
+            </div>
+            
+            <div className="flex flex-col gap-4 border-t border-border/10 pt-5">
+              <div className="flex items-center justify-between">
+                <div className="flex flex-col gap-0.5">
+                  <strong className="text-[11px] font-medium text-foreground/80 flex items-center gap-1.5"><div className="w-2 h-2 rounded-full bg-success/50"></div> Completed</strong>
+                  <span className="text-[9px] text-foreground/40">{stats.completed} transactions</span>
+                </div>
+                <strong className="text-xs text-success">{Math.round((stats.completed / stats.total) * 100)}%</strong>
+              </div>
+              
+              <div className="flex items-center justify-between">
+                <div className="flex flex-col gap-0.5">
+                  <strong className="text-[11px] font-medium text-foreground/80 flex items-center gap-1.5"><div className="w-2 h-2 rounded-full bg-warning/50"></div> Pending</strong>
+                  <span className="text-[9px] text-foreground/40">Awaiting settlement</span>
+                </div>
+                <strong className="text-xs text-warning">{stats.pending}</strong>
+              </div>
+              
+              <div className="flex items-center justify-between">
+                <div className="flex flex-col gap-0.5">
+                  <strong className="text-[11px] font-medium text-foreground/80 flex items-center gap-1.5"><div className="w-2 h-2 rounded-full bg-destructive/50"></div> Failed</strong>
+                  <span className="text-[9px] text-foreground/40">Requires review</span>
+                </div>
+                <strong className="text-xs text-destructive">{stats.failed}</strong>
+              </div>
+            </div>
+            
+            <div className="mt-2 pt-5 border-t border-border/10">
+              <div className="flex items-center justify-between text-[11px] text-primary hover:text-primary/80 cursor-pointer group transition-colors">
+                <span className="font-medium">Review failed payments</span>
+                <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              </div>
+            </div>
           </CardContent>
         </Card>
       </section>
 
+      {/* Transaction Details Dialog */}
       <Dialog open={Boolean(selectedTransaction)} onOpenChange={(open) => !open && setSelectedTransaction(null)}>
-        <DialogContent className="transactions-dialog-content">
-          {selectedTransaction && <><DialogHeader><div className="transactions-detail-heading"><span className="transactions-detail-icon"><FileText /></span><span><DialogTitle>{selectedTransaction.id}</DialogTitle><DialogDescription>{selectedTransaction.description ?? 'Payment transaction details'}</DialogDescription></span></div></DialogHeader><div className="transactions-detail-status"><span><small>Transaction status</small>{getStatusBadge(selectedTransaction.status)}</span><strong>{formatCurrency(selectedTransaction.amount)}</strong></div><div className="transactions-detail-grid"><div><small>Recipient</small><strong>{selectedTransaction.recipient}</strong></div><div><small>Reference</small><strong>{selectedTransaction.reference}</strong></div><div><small>Payment type</small><strong>{selectedTransaction.type}</strong></div><div><small>Processed at</small><strong>{selectedTransaction.date} · {selectedTransaction.time}</strong></div></div><DialogFooter><DialogClose asChild><Button className="compact-primary-button">Done</Button></DialogClose></DialogFooter></>}
+        <DialogContent className="max-w-md bg-[#131317] border border-border/30 rounded-[1.25rem] shadow-xl p-0 overflow-hidden">
+          {selectedTransaction && (
+            <>
+              <DialogHeader className="p-6 pb-4 border-b border-border/10 bg-[#1A1A1F]/50">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0">
+                    <FileText className="w-5 h-5 text-primary" />
+                  </div>
+                  <div className="flex flex-col gap-1 mt-1">
+                    <DialogTitle className="text-lg tracking-tight text-foreground/90">{selectedTransaction.id}</DialogTitle>
+                    <DialogDescription className="text-xs text-foreground/50">{selectedTransaction.description ?? 'Payment transaction details'}</DialogDescription>
+                  </div>
+                </div>
+              </DialogHeader>
+              
+              <div className="p-6 flex flex-col gap-6">
+                <div className="flex items-center justify-between py-4 px-5 rounded-xl border border-border/20 bg-[#1A1A1F]">
+                  <div className="flex flex-col gap-1">
+                    <span className="text-[10px] text-foreground/50 uppercase tracking-wider font-medium">Status</span>
+                    {getStatusBadge(selectedTransaction.status)}
+                  </div>
+                  <div className="flex flex-col items-end gap-1">
+                    <span className="text-[10px] text-foreground/50 uppercase tracking-wider font-medium">Amount</span>
+                    <strong className="text-xl font-bold text-foreground">{formatCurrency(selectedTransaction.amount)}</strong>
+                  </div>
+                </div>
+                
+                <div className="grid grid-cols-2 gap-y-6 gap-x-4">
+                  <div className="flex flex-col gap-1.5">
+                    <span className="text-[10px] text-foreground/40 uppercase tracking-wider font-medium">Recipient</span>
+                    <strong className="text-sm font-semibold text-foreground/90">{selectedTransaction.recipient}</strong>
+                  </div>
+                  <div className="flex flex-col gap-1.5">
+                    <span className="text-[10px] text-foreground/40 uppercase tracking-wider font-medium">Reference</span>
+                    <strong className="text-sm font-semibold text-foreground/90">{selectedTransaction.reference}</strong>
+                  </div>
+                  <div className="flex flex-col gap-1.5">
+                    <span className="text-[10px] text-foreground/40 uppercase tracking-wider font-medium">Payment type</span>
+                    <div>{getTypeBadge(selectedTransaction.type)}</div>
+                  </div>
+                  <div className="flex flex-col gap-1.5">
+                    <span className="text-[10px] text-foreground/40 uppercase tracking-wider font-medium">Processed at</span>
+                    <div className="flex items-center gap-1.5">
+                      <Clock3 className="w-3.5 h-3.5 text-foreground/40" />
+                      <strong className="text-xs font-semibold text-foreground/80">{selectedTransaction.date}</strong>
+                      <span className="text-xs text-foreground/40">·</span>
+                      <span className="text-xs text-foreground/60">{selectedTransaction.time}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <DialogFooter className="p-6 pt-0 border-t-0 sm:justify-end">
+                <DialogClose asChild>
+                  <Button className="w-full sm:w-auto px-6 h-9 text-xs font-medium bg-[#1A1A1F] border border-border/30 hover:bg-foreground/10 text-foreground/80 rounded-lg">
+                    Close
+                  </Button>
+                </DialogClose>
+              </DialogFooter>
+            </>
+          )}
         </DialogContent>
       </Dialog>
     </div>

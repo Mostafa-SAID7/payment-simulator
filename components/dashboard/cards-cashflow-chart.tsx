@@ -29,12 +29,12 @@ const cashflowData = [
 
 export function CardsCashflowChart() {
   return (
-    <Card className="dashboard-card cards-cashflow-card">
-      <CardHeader className="cards-panel-header">
-        <CardTitle className="cards-panel-title">Cashflow <span className="cards-info-mark">ⓘ</span></CardTitle>
-        <button type="button" className="cards-period-button">Last Month⌄</button>
+    <Card className="rounded-xl border border-border/70 bg-card shadow-sm overflow-hidden">
+      <CardHeader className="flex flex-row items-center justify-between pb-3">
+        <CardTitle className="text-xs font-semibold text-foreground/80">Cashflow <span className="inline-flex items-center justify-center w-4 h-4 rounded-full border border-border/50 text-muted-foreground text-[10px] cursor-help">ⓘ</span></CardTitle>
+        <button type="button" className="flex items-center gap-1 px-2 py-1 rounded-md border border-border/50 text-xs text-muted-foreground hover:bg-secondary/50 transition-colors">Last Month⌄</button>
       </CardHeader>
-      <CardContent className="cards-chart-content">
+      <CardContent className="p-0">
         <ResponsiveContainer width="100%" height={175}>
           <AreaChart data={cashflowData} margin={{ top: 12, right: 5, left: -22, bottom: 0 }}>
             <defs>

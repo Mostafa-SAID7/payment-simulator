@@ -1,7 +1,5 @@
 'use client';
 
-'use client';
-
 import { useEffect, useState, useRef } from 'react';
 import { Upload, File, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -74,7 +72,7 @@ export function FileUpload({ onFileSelect, accept = '.csv', maxSize = 5242880, r
   };
 
   return (
-    <div className="batch-upload space-y-3">
+    <div className="flex flex-col gap-3">
       <div
         onDragEnter={handleDragEnter}
         onDragLeave={handleDragLeave}
@@ -113,8 +111,8 @@ export function FileUpload({ onFileSelect, accept = '.csv', maxSize = 5242880, r
       )}
 
       {selectedFile && (
-        <Card className="dashboard-card compact-selected-file">
-          <CardContent className="compact-card-content flex items-center justify-between">
+        <Card className="rounded-xl border border-border/70 bg-card shadow-sm overflow-hidden">
+          <CardContent className="p-3 flex items-center justify-between">
             <div className="flex items-center gap-3">
               <File className="h-5 w-5 text-primary" />
               <div>

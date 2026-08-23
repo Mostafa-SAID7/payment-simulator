@@ -29,14 +29,14 @@ const activityData = [
 
 export function PaymentActivityChart() {
   return (
-    <Card className="dashboard-card payment-activity-card">
-      <CardHeader className="payment-panel-header">
-        <CardTitle className="payment-panel-title">
-          Payment Activity <span className="payment-info-mark">ⓘ</span>
+    <Card className="rounded-xl border border-border/70 bg-card shadow-sm overflow-hidden">
+      <CardHeader className="flex flex-row items-center justify-between pb-3">
+        <CardTitle className="text-xs font-semibold text-foreground/80">
+          Payment Activity <span className="inline-flex items-center justify-center w-4 h-4 rounded-full border border-border/50 text-muted-foreground text-[10px] cursor-help">ⓘ</span>
         </CardTitle>
-        <button type="button" className="payment-period-button">This Year⌄</button>
+        <button type="button" className="flex items-center gap-1 px-2 py-1 rounded-md border border-border/50 text-xs text-muted-foreground hover:bg-secondary/50 transition-colors">This Year⌄</button>
       </CardHeader>
-      <CardContent className="payment-chart-content">
+      <CardContent className="p-0">
         <ResponsiveContainer width="100%" height={190}>
           <AreaChart data={activityData} margin={{ top: 10, right: 4, left: -20, bottom: 0 }}>
             <defs>

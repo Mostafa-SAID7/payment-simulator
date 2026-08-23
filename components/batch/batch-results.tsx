@@ -54,12 +54,12 @@ export function BatchResults({ results, batchName }: BatchResultsProps) {
   const failedCount = results.filter((r) => r.status === 'failed').length;
 
   return (
-    <Card className="dashboard-card compact-table-card">
-      <CardHeader className="compact-card-header">
+    <Card className="rounded-xl border border-border/70 bg-card shadow-sm overflow-hidden">
+      <CardHeader className="px-4 pt-4 pb-3 border-b border-border/60">
         <div className="flex items-center justify-between">
           <div>
-            <CardTitle>Batch Results</CardTitle>
-            <CardDescription>
+            <CardTitle className="text-sm font-semibold text-foreground">Batch Results</CardTitle>
+            <CardDescription className="text-xs text-muted-foreground">
               {successCount} successful, {failedCount} failed out of {results.length} transactions
             </CardDescription>
           </div>
@@ -67,16 +67,16 @@ export function BatchResults({ results, batchName }: BatchResultsProps) {
             variant="outline"
             size="sm"
             onClick={handleExport}
-            className="gap-2"
+            className="gap-2 h-8 text-xs"
           >
             <Download className="h-4 w-4" />
             Export CSV
           </Button>
         </div>
       </CardHeader>
-      <CardContent className="compact-card-content p-0">
+      <CardContent className="p-0">
         <div className="overflow-x-auto">
-          <Table className="compact-data-table">
+          <Table className="w-full text-xs">
             <TableHeader>
               <TableRow className="border-border hover:bg-transparent">
                 <TableHead>ID</TableHead>
@@ -99,14 +99,14 @@ export function BatchResults({ results, batchName }: BatchResultsProps) {
                       {result.status === 'success' ? (
                         <>
                           <CheckCircle className="h-4 w-4 text-success" />
-                          <Badge variant="outline" className="compact-status-success">
+                          <Badge variant="outline" className="bg-success/10 text-success border-success/30 text-[10px]">
                             Success
                           </Badge>
                         </>
                       ) : (
                         <>
                           <XCircle className="h-4 w-4 text-destructive" />
-                          <Badge variant="outline" className="compact-status-danger">Failed</Badge>
+                          <Badge variant="outline" className="bg-destructive/10 text-destructive border-destructive/30 text-[10px]">Failed</Badge>
                         </>
                       )}
                     </div>

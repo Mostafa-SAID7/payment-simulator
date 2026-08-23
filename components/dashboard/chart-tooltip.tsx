@@ -9,16 +9,16 @@ export function ChartTooltip({ active, payload, label }: ChartTooltipProps) {
   if (!active || !payload?.length) return null;
 
   return (
-    <div className="chart-tooltip">
-      <p className="chart-tooltip-label">{label}</p>
-      <div className="chart-tooltip-values">
+    <div className="rounded-lg border border-border/70 bg-popover px-3 py-2 shadow-lg text-xs">
+      <p className="mb-1.5 font-semibold text-foreground">{label}</p>
+      <div className="flex flex-col gap-1">
         {payload.map((entry) => (
-          <div className="chart-tooltip-row" key={String(entry.dataKey ?? entry.name)}>
-            <span className="chart-tooltip-name">
-              <span className="chart-tooltip-dot" style={{ backgroundColor: entry.color }} />
+          <div className="flex items-center justify-between gap-4" key={String(entry.dataKey ?? entry.name)}>
+            <span className="flex items-center gap-1.5 text-muted-foreground">
+              <span className="inline-block w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: entry.color }} />
               {entry.name ?? entry.dataKey}
             </span>
-            <span className="chart-tooltip-value">
+            <span className="font-semibold text-foreground">
               {typeof entry.value === 'number' ? entry.value.toLocaleString() : String(entry.value)}
             </span>
           </div>

@@ -68,7 +68,7 @@ export function NotificationCenter({
         variant="ghost"
         size="icon"
         aria-label="Notifications"
-        className="header-notification-button"
+        className="w-8 h-8 rounded-full border border-border/50 bg-foreground/5 text-foreground/60 hover:border-primary/30 hover:bg-primary/10 hover:text-foreground [&_svg]:w-3.5 [&_svg]:h-3.5 [&_svg]:stroke-[1.7]"
       >
         <Bell />
       </Button>
@@ -77,19 +77,19 @@ export function NotificationCenter({
 
   return (
     <Popover open={isOpen} onOpenChange={setIsOpen}>
-      <div className="header-notification-wrapper">
+      <div className="relative inline-flex flex-[0_0_2rem] w-8 h-8">
         <PopoverTrigger asChild>
           <Button
             variant="ghost"
             size="icon"
             aria-label={`Notifications${unreadCount > 0 ? `, ${unreadCount} unread` : ''}`}
-            className="header-notification-button"
+            className="w-8 h-8 rounded-full border border-border/50 bg-foreground/5 text-foreground/60 hover:border-primary/30 hover:bg-primary/10 hover:text-foreground [&_svg]:w-3.5 [&_svg]:h-3.5 [&_svg]:stroke-[1.7]"
           >
             <Bell />
           </Button>
         </PopoverTrigger>
         {unreadCount > 0 && (
-          <span className="header-notification-count">
+          <span className="absolute -top-0.5 -right-0.5 z-10 pointer-events-none inline-flex items-center justify-center min-w-[0.75rem] h-3 px-[0.2rem] border-2 border-background rounded-full bg-destructive text-destructive-foreground text-[0.625rem] font-bold leading-none">
             {unreadCount > 9 ? '9+' : unreadCount}
           </span>
         )}

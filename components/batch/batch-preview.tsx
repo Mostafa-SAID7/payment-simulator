@@ -15,19 +15,19 @@ export interface BatchPreviewRow {
 
 export function BatchPreview({ rows }: { rows: BatchPreviewRow[] }) {
   return (
-    <Card className="dashboard-card compact-table-card batch-preview-card">
-      <CardHeader className="compact-card-header">
-        <div className="batch-preview-heading">
+    <Card className="rounded-xl border border-border/70 bg-card shadow-sm overflow-hidden">
+      <CardHeader className="px-4 pt-4 pb-3 border-b border-border/60">
+        <div className="flex items-start justify-between gap-2">
           <div>
-            <CardTitle className="compact-panel-title">Transaction Preview</CardTitle>
-            <p className="compact-panel-description">Review the records detected in your CSV before processing.</p>
+            <CardTitle className="text-sm font-semibold text-foreground">Transaction Preview</CardTitle>
+            <p className="text-xs text-muted-foreground mt-0.5">Review the records detected in your CSV before processing.</p>
           </div>
-          <Badge variant="outline" className="batch-preview-count">{rows.length} records</Badge>
+          <Badge variant="outline" className="text-[10px] shrink-0">{rows.length} records</Badge>
         </div>
       </CardHeader>
-      <CardContent className="compact-card-content p-0">
+      <CardContent className="p-0">
         <div className="overflow-x-auto">
-          <Table className="compact-data-table batch-preview-table">
+          <Table className="w-full text-xs">
             <TableHeader>
               <TableRow>
                 <TableHead>Line</TableHead>
@@ -41,8 +41,8 @@ export function BatchPreview({ rows }: { rows: BatchPreviewRow[] }) {
             <TableBody>
               {rows.map((row) => (
                 <TableRow key={row.lineNumber}>
-                  <TableCell className="batch-preview-line">{row.lineNumber}</TableCell>
-                  <TableCell className="batch-preview-recipient">{row.recipient}</TableCell>
+                  <TableCell className="text-muted-foreground tabular-nums">{row.lineNumber}</TableCell>
+                  <TableCell className="font-medium text-foreground">{row.recipient}</TableCell>
                   <TableCell>{row.accountNumber}</TableCell>
                   <TableCell>{row.bankCode}</TableCell>
                   <TableCell className="text-right">${row.amount.toLocaleString('en-US', { minimumFractionDigits: 2 })}</TableCell>
