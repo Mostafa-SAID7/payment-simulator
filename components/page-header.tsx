@@ -15,7 +15,7 @@ export function PageHeader({ title, description, actions, className }: PageHeade
         <h1 className="flex min-w-0 items-center truncate text-xl font-semibold leading-tight tracking-tight text-foreground before:mr-2 before:size-1.5 before:shrink-0 before:rounded-full before:bg-primary before:shadow-[0_0_0_4px_color-mix(in_oklch,var(--primary)_11%,transparent)] md:text-xl">
           {title}
         </h1>
-        {description && <p className="mt-2 max-w-3xl truncate text-[0.625rem] leading-relaxed text-muted-foreground/85 md:text-sm">{description}</p>}
+        {description && <p className="mt-2 max-w-3xl text-sm leading-relaxed text-muted-foreground/85">{description}</p>}
       </div>
       {actions && <div className="flex w-full shrink-0 items-center gap-2 md:w-auto">{actions}</div>}
     </header>
