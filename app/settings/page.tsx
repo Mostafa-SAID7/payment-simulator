@@ -16,25 +16,25 @@ import { Lock, Bell, Users, LogOut } from 'lucide-react';
 
 export default function SettingsPage() {
   return (
-    <div className="page-stack max-w-2xl">
+    <div className="settings-page page-stack max-w-2xl compact-route-page">
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold text-foreground">Settings</h1>
-        <p className="mt-1 text-sm text-muted-foreground">
+        <h1 className="compact-page-title">Settings</h1>
+        <p className="compact-page-description">
           Manage your account and preferences
         </p>
       </div>
 
       {/* Profile Settings */}
-      <Card className="finance-card">
-        <CardHeader>
+      <Card className="dashboard-card compact-settings-card">
+        <CardHeader className="compact-card-header">
           <CardTitle className="flex items-center gap-2">
             <Users className="h-5 w-5" />
             Profile Settings
           </CardTitle>
           <CardDescription>Update your account information</CardDescription>
         </CardHeader>
-        <CardContent className="space-y-4">
+        <CardContent className="compact-card-content space-y-3">
           <div className="grid gap-4 md:grid-cols-2">
             <div className="space-y-2">
               <Label htmlFor="firstname">First Name</Label>
@@ -66,15 +66,15 @@ export default function SettingsPage() {
       </Card>
 
       {/* Notification Preferences */}
-      <Card className="finance-card">
-        <CardHeader>
+      <Card className="dashboard-card compact-settings-card">
+        <CardHeader className="compact-card-header">
           <CardTitle className="flex items-center gap-2">
             <Bell className="h-5 w-5" />
             Notifications
           </CardTitle>
           <CardDescription>Configure notification preferences</CardDescription>
         </CardHeader>
-        <CardContent className="space-y-4">
+        <CardContent className="compact-card-content space-y-3">
           <div className="flex items-center justify-between rounded-lg border border-border p-3">
             <div>
               <p className="font-medium text-foreground">Payment Alerts</p>
@@ -120,15 +120,15 @@ export default function SettingsPage() {
       </Card>
 
       {/* Security Settings */}
-      <Card className="finance-card">
-        <CardHeader>
+      <Card className="dashboard-card compact-settings-card">
+        <CardHeader className="compact-card-header">
           <CardTitle className="flex items-center gap-2">
             <Lock className="h-5 w-5" />
             Security
           </CardTitle>
           <CardDescription>Manage your security settings</CardDescription>
         </CardHeader>
-        <CardContent className="space-y-4">
+        <CardContent className="compact-card-content space-y-3">
           <div className="space-y-2">
             <Label htmlFor="current-password">Current Password</Label>
             <Input id="current-password" type="password" placeholder="••••••••" />
@@ -163,12 +163,12 @@ export default function SettingsPage() {
       </Card>
 
       {/* API Settings */}
-      <Card className="finance-card">
-        <CardHeader>
+      <Card className="dashboard-card compact-settings-card">
+        <CardHeader className="compact-card-header">
           <CardTitle>API Settings</CardTitle>
           <CardDescription>Manage API keys and integrations</CardDescription>
         </CardHeader>
-        <CardContent className="space-y-4">
+        <CardContent className="compact-card-content space-y-3">
           <div className="rounded-lg border border-border p-3 bg-secondary/30">
             <p className="font-medium text-foreground mb-2">API Key</p>
             <div className="flex gap-2">
@@ -188,8 +188,8 @@ export default function SettingsPage() {
       </Card>
 
       {/* Danger Zone */}
-      <Card className="border-destructive bg-destructive/5">
-        <CardHeader>
+      <Card className="dashboard-card compact-settings-card border-destructive/50">
+        <CardHeader className="compact-card-header">
           <CardTitle className="text-destructive">Danger Zone</CardTitle>
           <CardDescription>Irreversible actions</CardDescription>
         </CardHeader>

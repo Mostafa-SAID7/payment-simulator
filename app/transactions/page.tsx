@@ -163,63 +163,63 @@ export default function TransactionsPage() {
   };
 
   return (
-    <div className="page-stack">
+    <div className="transactions-page page-stack compact-route-page">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-foreground">Transaction History</h1>
-          <p className="mt-1 text-sm text-muted-foreground">
+          <h1 className="compact-page-title">Transaction History</h1>
+          <p className="compact-page-description">
             View and manage all payment transactions
           </p>
         </div>
-        <Button variant="outline" className="gap-2">
+        <Button variant="outline" size="sm" className="compact-secondary-button gap-2">
           <Download className="h-4 w-4" />
           Export
         </Button>
       </div>
 
       {/* Stats Cards */}
-      <div className="grid gap-4 md:grid-cols-4">
-        <Card className="finance-card">
-          <CardHeader className="pb-2">
+      <div className="transactions-stats-grid grid gap-3 md:grid-cols-4">
+        <Card className="dashboard-card compact-card">
+          <CardHeader className="compact-card-header pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground">Total Transactions</CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="compact-card-content">
             <p className="text-2xl font-bold text-foreground">{stats.total}</p>
           </CardContent>
         </Card>
 
-        <Card className="finance-card">
-          <CardHeader className="pb-2">
+        <Card className="dashboard-card compact-card">
+          <CardHeader className="compact-card-header pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground">Completed</CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="compact-card-content">
             <p className="text-2xl font-bold text-accent">{stats.completed}</p>
           </CardContent>
         </Card>
 
-        <Card className="finance-card">
-          <CardHeader className="pb-2">
+        <Card className="dashboard-card compact-card">
+          <CardHeader className="compact-card-header pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground">Pending</CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="compact-card-content">
             <p className="text-2xl font-bold text-chart-3">{stats.pending}</p>
           </CardContent>
         </Card>
 
-        <Card className="finance-card">
-          <CardHeader className="pb-2">
+        <Card className="dashboard-card compact-card">
+          <CardHeader className="compact-card-header pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground">Failed</CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="compact-card-content">
             <p className="text-2xl font-bold text-destructive">{stats.failed}</p>
           </CardContent>
         </Card>
       </div>
 
       {/* Filters and Search */}
-      <Card className="finance-card">
-        <CardHeader>
+      <Card className="dashboard-card compact-card">
+        <CardHeader className="compact-card-header">
           <div className="flex flex-col gap-4 md:flex-row md:items-end md:gap-6">
             <div className="flex-1">
               <label className="text-sm font-medium text-foreground">Search</label>
@@ -229,7 +229,7 @@ export default function TransactionsPage() {
                   placeholder="Search by recipient, ID, or reference..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10"
+                  className="compact-input pl-10"
                 />
               </div>
             </div>
@@ -237,7 +237,7 @@ export default function TransactionsPage() {
             <div className="w-full md:w-48">
               <label className="text-sm font-medium text-foreground">Payment Type</label>
               <Select value={filterType} onValueChange={setFilterType}>
-                <SelectTrigger className="mt-2">
+                <SelectTrigger className="compact-filter-control mt-2">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -252,7 +252,7 @@ export default function TransactionsPage() {
             <div className="w-full md:w-48">
               <label className="text-sm font-medium text-foreground">Status</label>
               <Select value={filterStatus} onValueChange={setFilterStatus}>
-                <SelectTrigger className="mt-2">
+                <SelectTrigger className="compact-filter-control mt-2">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -268,10 +268,10 @@ export default function TransactionsPage() {
       </Card>
 
       {/* Transactions Table */}
-      <Card className="finance-card">
-        <CardContent className="pt-6">
+      <Card className="dashboard-card compact-card">
+        <CardContent className="compact-card-content p-0">
           <div className="overflow-x-auto">
-            <Table>
+            <Table className="compact-data-table">
               <TableHeader>
                 <TableRow className="border-border hover:bg-transparent">
                   <TableHead>Transaction ID</TableHead>
@@ -304,7 +304,7 @@ export default function TransactionsPage() {
                       {transaction.reference}
                     </TableCell>
                     <TableCell>
-                      <Button variant="ghost" size="icon" className="h-8 w-8">
+                      <Button variant="ghost" size="icon" className="compact-row-action h-8 w-8">
                         <Eye className="h-4 w-4" />
                       </Button>
                     </TableCell>

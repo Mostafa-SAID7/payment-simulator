@@ -1,5 +1,7 @@
 'use client';
 
+'use client';
+
 import { useState } from 'react';
 import { FileUpload } from '@/components/batch/file-upload';
 import { BatchProgress } from '@/components/batch/batch-progress';
@@ -77,17 +79,17 @@ export default function BatchPage() {
   };
 
   return (
-    <div className="page-stack">
+    <div className="batch-page page-stack compact-route-page">
       {/* Header */}
-      <div>
-        <h1 className="text-3xl font-bold text-foreground">Batch Processing</h1>
-        <p className="mt-1 text-sm text-muted-foreground">
+      <div className="compact-page-intro">
+        <h1 className="compact-page-title">Batch Processing</h1>
+        <p className="compact-page-description">
           Process multiple payments at once with CSV file upload
         </p>
       </div>
 
       {/* Info Box */}
-      <div className="flex gap-3 rounded-lg border border-accent/30 bg-accent/10 p-4">
+      <div className="batch-format-note flex gap-3 rounded-lg border border-accent/30 bg-accent/10 p-4">
         <AlertCircle className="h-5 w-5 flex-shrink-0 text-accent" />
         <div>
           <p className="font-medium text-foreground">CSV Format Required</p>
@@ -98,18 +100,18 @@ export default function BatchPage() {
       </div>
 
       {!showResults ? (
-        <div className="space-y-6">
+        <div className="batch-workflow space-y-3">
           {/* Upload Section - Centered */}
           <div className="flex justify-center">
             <div className="w-full max-w-2xl">
-              <Card className="finance-card">
-                <CardHeader className="text-center">
+              <Card className="dashboard-card compact-settings-card">
+                <CardHeader className="compact-card-header text-center">
                   <CardTitle>Upload Batch File</CardTitle>
                   <CardDescription className="mx-auto mt-2 max-w-md">
                     Upload a CSV file containing payment transactions
                   </CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-6">
+                <CardContent className="compact-card-content space-y-3">
                   <FileUpload onFileSelect={handleFileSelect} accept=".csv" maxSize={5242880} />
 
                   {selectedFile && (
@@ -151,7 +153,7 @@ export default function BatchPage() {
           )}
         </div>
       ) : (
-        <div className="space-y-6">
+        <div className="batch-workflow space-y-3">
           <BatchProgress
             total={progress.total}
             processed={progress.processed}
@@ -163,7 +165,7 @@ export default function BatchPage() {
           <BatchResults results={results} batchName={selectedFile?.name || 'batch'} />
 
           <div className="flex gap-3">
-            <Button onClick={handleReset} className="bg-primary hover:bg-primary/90">
+            <Button size="sm" onClick={handleReset} className="compact-primary-button bg-primary hover:bg-primary/90">
               Process Another Batch
             </Button>
             <Button variant="outline">View Audit Log</Button>

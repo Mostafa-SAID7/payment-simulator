@@ -1,5 +1,7 @@
 'use client';
 
+'use client';
+
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -110,70 +112,70 @@ export default function AccountsPage() {
   const activeAccounts = accounts.filter((acc) => acc.status === 'active').length;
 
   return (
-    <div className="page-stack">
+    <div className="accounts-page page-stack compact-route-page">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-foreground">Accounts</h1>
-          <p className="mt-1 text-sm text-muted-foreground">
+          <h1 className="compact-page-title">Accounts</h1>
+          <p className="compact-page-description">
             Manage payment and settlement accounts
           </p>
         </div>
-        <Button className="gap-2 bg-primary hover:bg-primary/90">
+        <Button size="sm" className="compact-primary-button gap-2 bg-primary hover:bg-primary/90">
           <Plus className="h-4 w-4" />
           Add Account
         </Button>
       </div>
 
       {/* Summary Cards */}
-      <div className="grid gap-4 md:grid-cols-3">
-        <Card className="finance-card">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-muted-foreground">
+      <div className="accounts-summary-grid grid gap-3 md:grid-cols-3">
+        <Card className="dashboard-card compact-card">
+          <CardHeader className="compact-card-header pb-2">
+            <CardTitle className="compact-metric-label text-sm font-medium text-muted-foreground">
               Total Balance
             </CardTitle>
           </CardHeader>
-          <CardContent>
-            <p className="text-2xl font-bold text-foreground">
+          <CardContent className="compact-card-content">
+            <p className="compact-metric-value text-2xl font-bold text-foreground">
               ${(totalBalance / 1000000).toFixed(1)}M
             </p>
           </CardContent>
         </Card>
 
-        <Card className="finance-card">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-muted-foreground">
+        <Card className="dashboard-card compact-card">
+          <CardHeader className="compact-card-header pb-2">
+            <CardTitle className="compact-metric-label text-sm font-medium text-muted-foreground">
               Active Accounts
             </CardTitle>
           </CardHeader>
-          <CardContent>
-            <p className="text-2xl font-bold text-foreground">{activeAccounts}</p>
+          <CardContent className="compact-card-content">
+            <p className="compact-metric-value text-2xl font-bold text-foreground">{activeAccounts}</p>
           </CardContent>
         </Card>
 
-        <Card className="finance-card">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-muted-foreground">
+        <Card className="dashboard-card compact-card">
+          <CardHeader className="compact-card-header pb-2">
+            <CardTitle className="compact-metric-label text-sm font-medium text-muted-foreground">
               Total Accounts
             </CardTitle>
           </CardHeader>
-          <CardContent>
-            <p className="text-2xl font-bold text-foreground">{accounts.length}</p>
+          <CardContent className="compact-card-content">
+            <p className="compact-metric-value text-2xl font-bold text-foreground">{accounts.length}</p>
           </CardContent>
         </Card>
       </div>
 
       {/* Accounts Table */}
-      <Card className="finance-card">
-        <CardHeader>
-          <div className="flex items-center justify-between">
+      <Card className="dashboard-card compact-table-card">
+        <CardHeader className="compact-card-header">
+          <div className="compact-table-header flex items-center justify-between">
             <div>
-              <CardTitle>Accounts List</CardTitle>
-              <CardDescription>
+              <CardTitle className="compact-panel-title">Accounts List</CardTitle>
+              <CardDescription className="compact-panel-description">
                 All your payment and settlement accounts
               </CardDescription>
             </div>
-            <div className="relative w-64">
+            <div className="compact-search-field relative w-64">
               <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
               <Input
                 placeholder="Search accounts..."
@@ -184,9 +186,9 @@ export default function AccountsPage() {
             </div>
           </div>
         </CardHeader>
-        <CardContent>
+        <CardContent className="compact-card-content p-0">
           <div className="overflow-x-auto">
-            <Table>
+            <Table className="compact-data-table">
               <TableHeader>
                 <TableRow className="border-border hover:bg-transparent">
                   <TableHead>Account Name</TableHead>
@@ -219,11 +221,11 @@ export default function AccountsPage() {
                       {account.lastActivity}
                     </TableCell>
                     <TableCell>
-                      <div className="flex items-center gap-2">
-                        <Button variant="ghost" size="icon" className="h-8 w-8">
+                      <div className="flex items-center gap-1">
+                        <Button variant="ghost" size="icon" className="compact-row-action h-8 w-8">
                           <Edit2 className="h-4 w-4" />
                         </Button>
-                        <Button variant="ghost" size="icon" className="h-8 w-8">
+                        <Button variant="ghost" size="icon" className="compact-row-action h-8 w-8">
                           <Trash2 className="h-4 w-4 text-destructive" />
                         </Button>
                       </div>

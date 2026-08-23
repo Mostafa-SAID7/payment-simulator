@@ -1,5 +1,7 @@
 'use client';
 
+'use client';
+
 import { useState, useRef } from 'react';
 import { Upload, File, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -65,14 +67,14 @@ export function FileUpload({ onFileSelect, accept = '.csv', maxSize = 5242880 }:
   };
 
   return (
-    <div className="space-y-4">
+    <div className="batch-upload space-y-3">
       <div
         onDragEnter={handleDragEnter}
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
         onClick={() => fileInputRef.current?.click()}
         className={cn(
-          'relative flex cursor-pointer items-center justify-center rounded-lg border-2 border-dashed px-6 py-12 transition-colors',
+          'batch-dropzone relative flex cursor-pointer items-center justify-center rounded-lg border-2 border-dashed px-6 py-9 transition-colors',
           isDragging
             ? 'border-primary bg-primary/10'
             : 'border-border bg-secondary/30 hover:bg-secondary/50'
@@ -88,8 +90,8 @@ export function FileUpload({ onFileSelect, accept = '.csv', maxSize = 5242880 }:
         />
 
         <div className="text-center">
-          <Upload className="mx-auto h-12 w-12 text-primary/50" />
-          <p className="mt-2 font-medium text-foreground">Drag and drop your file</p>
+          <Upload className="mx-auto h-8 w-8 text-primary/50" />
+          <p className="mt-2 text-xs font-medium text-foreground">Drag and drop your file</p>
           <p className="text-sm text-muted-foreground">or click to select</p>
           <p className="mt-1 text-xs text-muted-foreground">
             {accept === '.csv' ? 'CSV files up to 5MB' : `${accept} files up to ${(maxSize / 1024 / 1024).toFixed(0)}MB`}
@@ -104,8 +106,8 @@ export function FileUpload({ onFileSelect, accept = '.csv', maxSize = 5242880 }:
       )}
 
       {selectedFile && (
-        <Card className="border-border">
-          <CardContent className="flex items-center justify-between pt-6">
+        <Card className="dashboard-card compact-selected-file">
+          <CardContent className="compact-card-content flex items-center justify-between">
             <div className="flex items-center gap-3">
               <File className="h-5 w-5 text-primary" />
               <div>

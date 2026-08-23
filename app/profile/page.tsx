@@ -1,5 +1,7 @@
 'use client';
 
+'use client';
+
 import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -32,11 +34,11 @@ export default function ProfilePage() {
   };
 
   return (
-    <div className="page-stack">
+    <div className="profile-page page-stack compact-route-page">
       {/* Header */}
-      <div>
-        <h1 className="text-3xl font-bold text-foreground">My Profile</h1>
-        <p className="mt-1 text-sm text-muted-foreground">
+      <div className="compact-page-intro">
+        <h1 className="compact-page-title">My Profile</h1>
+        <p className="compact-page-description">
           Manage your account settings and preferences
         </p>
       </div>
@@ -44,8 +46,8 @@ export default function ProfilePage() {
       <div className="grid gap-6 lg:grid-cols-3">
         {/* Profile Information */}
         <div className="lg:col-span-2">
-          <Card className="finance-card">
-            <CardHeader>
+          <Card className="dashboard-card compact-settings-card">
+            <CardHeader className="compact-card-header">
               <div className="flex items-center justify-between">
                 <div>
                   <CardTitle>Personal Information</CardTitle>
@@ -65,7 +67,7 @@ export default function ProfilePage() {
                 </Button>
               </div>
             </CardHeader>
-            <CardContent className="space-y-6">
+            <CardContent className="compact-card-content space-y-3">
               <div className="grid gap-4 md:grid-cols-2">
                 <div>
                   <label className="text-sm font-medium text-foreground">First Name</label>
@@ -144,9 +146,9 @@ export default function ProfilePage() {
         </div>
 
         {/* Profile Summary */}
-        <div className="space-y-4">
-          <Card className="finance-card">
-            <CardHeader>
+        <div className="space-y-3">
+          <Card className="dashboard-card compact-settings-card">
+            <CardHeader className="compact-card-header">
               <CardTitle className="text-lg">Account Status</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -175,13 +177,13 @@ export default function ProfilePage() {
       </div>
 
       {/* Security Settings */}
-      <Card className="finance-card">
-        <CardHeader>
+      <Card className="dashboard-card compact-settings-card">
+        <CardHeader className="compact-card-header">
           <CardTitle>Security Settings</CardTitle>
           <CardDescription>Manage your security preferences</CardDescription>
         </CardHeader>
-        <CardContent className="space-y-6">
-          <div className="space-y-4">
+        <CardContent className="compact-card-content space-y-3">
+          <div className="space-y-3">
             <div className="flex items-center justify-between border-b border-border pb-4">
               <div>
                 <p className="font-medium text-foreground">Two-Factor Authentication</p>
@@ -215,13 +217,13 @@ export default function ProfilePage() {
       </Card>
 
       {/* Notification Preferences */}
-      <Card className="finance-card">
-        <CardHeader>
+      <Card className="dashboard-card compact-settings-card">
+        <CardHeader className="compact-card-header">
           <CardTitle>Notification Preferences</CardTitle>
           <CardDescription>Choose how you want to receive notifications</CardDescription>
         </CardHeader>
-        <CardContent className="space-y-6">
-          <div className="space-y-4">
+        <CardContent className="compact-card-content space-y-3">
+          <div className="space-y-3">
             <div className="flex items-center justify-between border-b border-border pb-4">
               <div>
                 <p className="font-medium text-foreground">Email Notifications</p>
@@ -278,13 +280,13 @@ export default function ProfilePage() {
       </Card>
 
       {/* API Keys */}
-      <Card className="finance-card">
-        <CardHeader>
+      <Card className="dashboard-card compact-settings-card">
+        <CardHeader className="compact-card-header">
           <CardTitle>API Keys</CardTitle>
           <CardDescription>Manage your API authentication keys</CardDescription>
         </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
+        <CardContent className="compact-card-content">
+          <div className="space-y-3">
             <div className="flex items-center justify-between rounded-lg border border-border bg-muted/30 p-4">
               <div>
                 <p className="font-mono text-sm text-foreground">pk_live_5bJdX9aMp2kLqRsx***</p>
@@ -298,8 +300,8 @@ export default function ProfilePage() {
       </Card>
 
       {/* Danger Zone */}
-      <Card className="border-destructive/50">
-        <CardHeader>
+      <Card className="dashboard-card compact-settings-card border-destructive/50">
+        <CardHeader className="compact-card-header">
           <CardTitle className="text-destructive">Danger Zone</CardTitle>
         </CardHeader>
         <CardContent className="flex items-center justify-between gap-4 rounded-lg border border-destructive/20 bg-destructive/5 p-4">

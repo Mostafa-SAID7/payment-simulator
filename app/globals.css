@@ -1006,6 +1006,296 @@
   }
 }
 
+.compact-route-page {
+  gap: 1rem;
+}
+
+.compact-page-intro {
+  padding: 0 0.25rem 0.5rem;
+}
+
+.compact-page-title {
+  margin: 0;
+  color: var(--foreground);
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+.compact-page-description,
+.compact-panel-description {
+  margin: 0.4rem 0 0;
+  color: color-mix(in oklch, var(--muted-foreground) 82%, transparent);
+  font-size: 0.625rem;
+  line-height: 1.6;
+}
+
+.compact-primary-button,
+.compact-secondary-button {
+  height: 1.75rem;
+  border-radius: 0.35rem;
+  font-size: 0.5625rem;
+}
+
+.compact-card,
+.compact-settings-card,
+.compact-table-card,
+.compact-metric-card {
+  overflow: hidden;
+  border-radius: 0.75rem;
+}
+
+.compact-card-header {
+  gap: 0.5rem;
+  padding: 0.75rem 0.875rem 0.5rem;
+}
+
+.compact-card-content {
+  padding: 0 0.875rem 0.875rem;
+}
+
+.compact-metric-label {
+  color: color-mix(in oklch, var(--muted-foreground) 88%, transparent);
+  font-size: 0.5rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.compact-metric-value {
+  margin: 0.4rem 0 0;
+  color: var(--foreground);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.compact-panel-title {
+  color: color-mix(in oklch, var(--foreground) 88%, transparent);
+  font-size: 0.6875rem;
+  font-weight: 600;
+}
+
+.compact-table-header {
+  width: 100%;
+}
+
+.compact-search-field {
+  width: min(16rem, 100%);
+}
+
+.compact-search-field svg {
+  width: 0.75rem;
+  height: 0.75rem;
+}
+
+.compact-search-field input,
+.compact-input,
+.compact-filter-control {
+  height: 1.75rem;
+  border-radius: 0.35rem;
+  font-size: 0.5625rem;
+}
+
+.compact-data-table {
+  min-width: 44rem;
+  border-collapse: collapse;
+  color: color-mix(in oklch, var(--muted-foreground) 84%, transparent);
+  font-size: 0.5rem;
+  text-align: left;
+}
+
+.compact-data-table [data-slot='table-head'] {
+  height: auto;
+  padding: 0.55rem 0.75rem;
+  color: color-mix(in oklch, var(--muted-foreground) 70%, transparent);
+  font-size: 0.4375rem;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.compact-data-table [data-slot='table-cell'] {
+  padding: 0.6rem 0.75rem;
+  border-top: 1px solid color-mix(in oklch, var(--border) 62%, transparent);
+  border-bottom: 0;
+  font-size: 0.5rem;
+}
+
+.compact-data-table [data-slot='table-row'] {
+  border-bottom: 0;
+}
+
+.compact-data-table [data-slot='table-row']:hover {
+  background: color-mix(in oklch, var(--foreground) 4%, transparent);
+}
+
+.compact-primary-cell p:first-child {
+  color: color-mix(in oklch, var(--foreground) 88%, transparent);
+  font-size: 0.5rem;
+}
+
+.compact-primary-cell p:last-child {
+  margin-top: 0.15rem;
+  color: color-mix(in oklch, var(--muted-foreground) 70%, transparent);
+  font-size: 0.4rem;
+}
+
+.compact-row-action {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.compact-row-action svg {
+  width: 0.7rem;
+  height: 0.7rem;
+}
+
+.compact-data-table .rounded-full,
+.compact-status-success,
+.compact-status-danger {
+  padding: 0.15rem 0.35rem;
+  border-radius: 999px;
+  font-size: 0.4rem;
+}
+
+.compact-status-success {
+  border-color: color-mix(in oklch, var(--chart-1) 28%, transparent);
+  background: color-mix(in oklch, var(--chart-1) 11%, transparent);
+  color: var(--chart-1);
+}
+
+.compact-status-danger {
+  border-color: color-mix(in oklch, var(--destructive) 30%, transparent);
+  background: color-mix(in oklch, var(--destructive) 11%, transparent);
+  color: var(--destructive);
+}
+
+.batch-format-note {
+  border-color: color-mix(in oklch, var(--accent) 28%, transparent);
+  background: color-mix(in oklch, var(--accent) 8%, transparent);
+  padding: 0.75rem;
+}
+
+.batch-format-note svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.batch-format-note p:first-child {
+  font-size: 0.5625rem;
+}
+
+.batch-format-note p:last-child {
+  margin-top: 0.25rem;
+  font-size: 0.5rem;
+  line-height: 1.5;
+}
+
+.batch-upload {
+  width: 100%;
+}
+
+.batch-dropzone {
+  border-color: color-mix(in oklch, var(--primary) 32%, var(--border));
+  background: color-mix(in oklch, var(--primary) 5%, var(--card));
+}
+
+.batch-stat-tile {
+  border: 1px solid color-mix(in oklch, var(--border) 74%, transparent);
+}
+
+.compact-selected-file {
+  border-color: color-mix(in oklch, var(--border) 74%, transparent);
+}
+
+.profile-page .grid,
+.settings-page .grid {
+  gap: 0.75rem;
+}
+
+.profile-page .compact-settings-card [data-slot='card-header'],
+.settings-page .compact-settings-card [data-slot='card-header'],
+.batch-page .compact-settings-card [data-slot='card-header'] {
+  padding: 0.75rem 0.875rem 0.5rem;
+}
+
+.profile-page .compact-settings-card [data-slot='card-content'],
+.settings-page .compact-settings-card [data-slot='card-content'],
+.batch-page .compact-settings-card [data-slot='card-content'] {
+  padding: 0 0.875rem 0.875rem;
+}
+
+.profile-page label,
+.settings-page label {
+  font-size: 0.5625rem;
+}
+
+.profile-page input,
+.settings-page input,
+.settings-page button[role='combobox'] {
+  min-height: 1.75rem;
+  height: 1.75rem;
+  border-radius: 0.35rem;
+  font-size: 0.5625rem;
+}
+
+.profile-page .compact-settings-card p,
+.settings-page .compact-settings-card p {
+  font-size: 0.5625rem;
+}
+
+.profile-page .compact-settings-card p.text-sm,
+.settings-page .compact-settings-card p.text-sm,
+.profile-page .compact-settings-card [data-slot='card-description'],
+.settings-page .compact-settings-card [data-slot='card-description'] {
+  color: color-mix(in oklch, var(--muted-foreground) 82%, transparent);
+  font-size: 0.5rem;
+  line-height: 1.5;
+}
+
+.profile-page .compact-settings-card button,
+.settings-page .compact-settings-card button {
+  min-height: 1.75rem;
+  border-radius: 0.35rem;
+  font-size: 0.5rem;
+}
+
+.profile-page .compact-settings-card .border-b,
+.settings-page .compact-settings-card .border-b {
+  padding-bottom: 0.75rem;
+}
+
+.profile-page .compact-settings-card .border-t,
+.settings-page .compact-settings-card .border-t {
+  padding-top: 0.75rem;
+}
+
+.profile-page .compact-settings-card .rounded-lg,
+.settings-page .compact-settings-card .rounded-lg {
+  border-radius: 0.5rem;
+}
+
+@media (max-width: 900px) {
+  .compact-table-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .compact-search-field {
+    width: 100%;
+  }
+}
+
+@media (max-width: 767px) {
+  .compact-page-title {
+    font-size: 1.1rem;
+  }
+
+  .compact-page-intro.flex {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+}
+
 .payments-page {
   gap: 1rem;
 }
