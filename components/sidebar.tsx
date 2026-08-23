@@ -94,13 +94,13 @@ export function Sidebar() {
           !isMobileOpen && 'max-md:invisible max-md:pointer-events-none max-md:-translate-x-full'
         )}
       >
-        {/* Vorix Top Glow */}
+        {/* FinPay Top Glow */}
         <div className="absolute inset-x-0 top-0 h-48 z-0 pointer-events-none bg-[radial-gradient(circle_at_80%_-20%,color-mix(in_oklch,var(--color-primary)_40%,transparent),transparent_70%)]" aria-hidden="true" />
         
         <div className={cn("relative z-10 flex items-center justify-between min-h-[5rem] p-5 pb-3 gap-2", isCollapsed && "justify-center px-2")}>
-          <Link href="/" onClick={closeMobileSidebar} className={cn("inline-flex items-center min-w-0 gap-2 text-sidebar-foreground", isCollapsed && "hidden")} aria-label="Vorix dashboard">
+          <Link href="/" onClick={closeMobileSidebar} className={cn("inline-flex items-center min-w-0 gap-2 text-sidebar-foreground", isCollapsed && "hidden")} aria-label="FinPay dashboard">
             <span className="text-xl font-bold tracking-tight flex items-center gap-1.5">
-              Vorix
+              FinPay
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-sidebar-foreground/80"><path d="M12 19V5"/><path d="M5 12l7-7 7 7"/></svg>
             </span>
           </Link>
