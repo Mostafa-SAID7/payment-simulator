@@ -66,7 +66,7 @@ export function Header() {
     <header
       className={cn(
         'fixed inset-x-2 top-2 z-30 isolate flex h-20 items-center justify-between overflow-hidden rounded-2xl border border-border/50 bg-background/75 px-2 shadow-[var(--shadow-lg)] backdrop-blur-xl transition-all duration-300 sm:px-4 md:inset-x-auto md:right-3 md:top-3 md:px-6 lg:px-8 md:left-auto',
-        isCollapsed ? 'md:w-[calc(100%-6rem)]' : 'md:w-[calc(100%-18.5rem)]'
+        isCollapsed ? 'md:left-[7rem] md:w-auto' : 'md:left-[19rem] md:w-auto'
       )}
     >
       <div className="absolute inset-0 pointer-events-none">
