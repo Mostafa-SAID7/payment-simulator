@@ -3239,6 +3239,107 @@
   font-size: 0.5rem;
 }
 
+.profile-page {
+  max-width: none;
+}
+
+.profile-feedback {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid color-mix(in oklch, var(--chart-1) 26%, transparent);
+  border-radius: 0.45rem;
+  background: color-mix(in oklch, var(--chart-1) 8%, transparent);
+  color: var(--chart-1);
+  font-size: 0.5rem;
+}
+
+.profile-feedback > svg { width: 0.75rem; height: 0.75rem; flex: 0 0 auto; }
+.profile-feedback span { flex: 1; }
+.profile-feedback button { display: inline-flex; align-items: center; justify-content: center; width: 1.2rem; height: 1.2rem; border: 0; background: transparent; color: inherit; cursor: pointer; }
+.profile-feedback button svg { width: 0.65rem; height: 0.65rem; }
+
+.profile-hero-card {
+  overflow: hidden;
+  border-color: color-mix(in oklch, var(--border) 82%, var(--primary) 18%);
+  background: linear-gradient(120deg, color-mix(in oklch, var(--card) 95%, var(--primary) 5%), color-mix(in oklch, var(--card) 98%, var(--chart-2) 2%));
+}
+
+.profile-hero-content { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; min-height: 6.5rem; padding: 1rem 1.1rem; }
+.profile-hero-identity, .profile-hero-stats, .profile-hero-identity > span:last-child, .profile-hero-stats > span, .profile-status-banner, .profile-security-banner, .profile-setting-row, .profile-activity-item, .profile-section-header, .profile-card-actions, .profile-card-actions > div { display: flex; align-items: center; }
+.profile-hero-identity { gap: 0.75rem; min-width: 0; }
+.profile-hero-identity > span:last-child { align-items: flex-start; min-width: 0; flex-direction: column; gap: 0.3rem; }
+.profile-hero-avatar { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 auto; width: 3.5rem; height: 3.5rem; border: 3px solid color-mix(in oklch, var(--background) 65%, transparent); border-radius: 50%; background: linear-gradient(135deg, color-mix(in oklch, var(--primary) 84%, var(--background)), color-mix(in oklch, var(--chart-2) 78%, var(--background))); color: var(--primary-foreground); font-size: 0.9rem; font-weight: 600; box-shadow: 0 0.5rem 1.4rem color-mix(in oklch, var(--primary) 14%, transparent); }
+.profile-hero-identity strong { overflow: hidden; color: color-mix(in oklch, var(--foreground) 96%, transparent); font-size: 1rem; font-weight: 600; letter-spacing: -0.03em; text-overflow: ellipsis; white-space: nowrap; }
+.profile-hero-identity small { overflow: hidden; color: color-mix(in oklch, var(--muted-foreground) 82%, transparent); font-size: 0.5rem; text-overflow: ellipsis; white-space: nowrap; }
+.profile-hero-identity em { display: inline-flex; align-items: center; gap: 0.3rem; color: var(--chart-1); font-size: 0.45rem; font-style: normal; }
+.profile-online-dot { width: 0.35rem; height: 0.35rem; border-radius: 50%; background: var(--chart-1); box-shadow: 0 0 0 0.15rem color-mix(in oklch, var(--chart-1) 12%, transparent); }
+.profile-hero-stats { flex-wrap: wrap; gap: 1.2rem; }
+.profile-hero-stats > span { align-items: flex-start; flex-direction: column; gap: 0.3rem; min-width: 5.5rem; }
+.profile-hero-stats > span + span { padding-left: 1.2rem; border-left: 1px solid color-mix(in oklch, var(--border) 72%, transparent); }
+.profile-hero-stats small, .profile-status-list span { color: color-mix(in oklch, var(--muted-foreground) 76%, transparent); font-size: 0.425rem; text-transform: uppercase; }
+.profile-hero-stats strong, .profile-status-list strong { color: color-mix(in oklch, var(--foreground) 88%, transparent); font-size: 0.55rem; font-weight: 600; }
+.profile-success-text { color: var(--chart-1) !important; }
+
+.profile-main-grid { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(15rem, 0.8fr); align-items: start; gap: 0.75rem; }
+.profile-two-column { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; gap: 0.75rem; }
+.profile-section-card { scroll-margin-top: 5.5rem; }
+.profile-section-header { align-items: flex-start; gap: 0.55rem; }
+.profile-section-icon { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 auto; width: 1.55rem; height: 1.55rem; border: 1px solid color-mix(in oklch, var(--primary) 22%, transparent); border-radius: 0.4rem; background: color-mix(in oklch, var(--primary) 8%, transparent); color: color-mix(in oklch, var(--primary) 82%, var(--foreground)); }
+.profile-section-icon svg { width: 0.75rem; height: 0.75rem; }
+.profile-section-heading { min-width: 0; }
+.profile-section-header > :last-child:not(.profile-section-heading) { margin-left: auto; }
+
+.profile-form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.7rem; }
+.profile-form-grid > div, .profile-password-form > div { display: flex; min-width: 0; flex-direction: column; gap: 0.35rem; }
+.profile-page label { color: color-mix(in oklch, var(--foreground) 76%, transparent); font-size: 0.475rem; }
+.profile-page input { min-height: 1.8rem; height: 1.8rem; border-radius: 0.4rem; font-size: 0.525rem; }
+.profile-card-actions { justify-content: space-between; gap: 1rem; margin-top: 0.85rem; padding-top: 0.75rem; border-top: 1px solid color-mix(in oklch, var(--border) 60%, transparent); color: color-mix(in oklch, var(--muted-foreground) 75%, transparent); font-size: 0.4375rem; }
+.profile-card-actions > div { gap: 0.4rem; }
+.profile-page .compact-primary-button, .profile-page .compact-secondary-button { min-height: 1.75rem; border-radius: 0.35rem; font-size: 0.475rem; }
+.profile-page button svg { width: 0.7rem; height: 0.7rem; }
+
+.profile-status-card .profile-section-header { padding-bottom: 0.45rem; }
+.profile-status-banner, .profile-security-banner { gap: 0.5rem; padding: 0.6rem; border: 1px solid color-mix(in oklch, var(--chart-1) 20%, transparent); border-radius: 0.45rem; background: color-mix(in oklch, var(--chart-1) 6%, transparent); }
+.profile-status-icon, .profile-security-icon { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 auto; width: 1.5rem; height: 1.5rem; border-radius: 50%; background: color-mix(in oklch, var(--chart-1) 13%, transparent); color: var(--chart-1); }
+.profile-status-icon svg, .profile-security-icon svg { width: 0.75rem; height: 0.75rem; }
+.profile-status-banner > span:nth-child(2), .profile-security-banner > span:nth-child(2) { display: flex; min-width: 0; flex: 1; flex-direction: column; gap: 0.2rem; }
+.profile-status-banner strong, .profile-security-banner strong { color: color-mix(in oklch, var(--foreground) 88%, transparent); font-size: 0.55rem; font-weight: 600; }
+.profile-status-banner small, .profile-security-banner small { color: color-mix(in oklch, var(--muted-foreground) 78%, transparent); font-size: 0.425rem; }
+.profile-status-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; margin: 0.85rem 0; }
+.profile-status-list > div { display: flex; min-width: 0; flex-direction: column; gap: 0.25rem; }
+.profile-full-button { width: 100%; }
+.profile-security-banner { margin-bottom: 0.7rem; }
+.profile-security-score { color: var(--chart-1); font-size: 0.6rem; font-weight: 600; }
+
+.profile-setting-list { display: flex; flex-direction: column; }
+.profile-setting-row { justify-content: space-between; gap: 1rem; padding: 0.6rem 0; }
+.profile-setting-row + .profile-setting-row { border-top: 1px solid color-mix(in oklch, var(--border) 52%, transparent); }
+.profile-setting-row > span { display: flex; min-width: 0; flex-direction: column; gap: 0.2rem; }
+.profile-setting-row strong { color: color-mix(in oklch, var(--foreground) 86%, transparent); font-size: 0.5rem; font-weight: 500; }
+.profile-setting-row small { color: color-mix(in oklch, var(--muted-foreground) 76%, transparent); font-size: 0.425rem; line-height: 1.45; }
+.profile-setting-row button { flex: 0 0 auto; }
+.profile-activity-card { overflow: hidden; }
+.profile-activity-action { gap: 0.25rem; }
+.profile-activity-list { display: flex; flex-direction: column; }
+.profile-activity-item { gap: 0.55rem; padding: 0.6rem 0; }
+.profile-activity-item + .profile-activity-item { border-top: 1px solid color-mix(in oklch, var(--border) 52%, transparent); }
+.profile-activity-item > span:nth-child(2) { display: flex; min-width: 0; flex: 1; flex-direction: column; gap: 0.2rem; }
+.profile-activity-icon { display: inline-flex; align-items: center; justify-content: center; width: 1.5rem; height: 1.5rem; border: 1px solid color-mix(in oklch, var(--border) 70%, transparent); border-radius: 0.4rem; background: color-mix(in oklch, var(--foreground) 4%, transparent); }
+.profile-activity-icon svg { width: 0.7rem; height: 0.7rem; }
+.profile-activity-icon-success { border-color: color-mix(in oklch, var(--chart-1) 24%, transparent); color: var(--chart-1); }
+.profile-activity-icon-primary { border-color: color-mix(in oklch, var(--primary) 24%, transparent); color: var(--primary); }
+.profile-activity-icon-muted { color: color-mix(in oklch, var(--muted-foreground) 84%, transparent); }
+.profile-activity-item strong { color: color-mix(in oklch, var(--foreground) 86%, transparent); font-size: 0.5rem; font-weight: 500; }
+.profile-activity-item small, .profile-activity-item time { color: color-mix(in oklch, var(--muted-foreground) 76%, transparent); font-size: 0.425rem; }
+.profile-activity-item time { flex: 0 0 auto; }
+.profile-dialog-content { max-width: 27rem; gap: 1rem; border-color: color-mix(in oklch, var(--border) 82%, var(--primary) 18%); border-radius: 0.85rem; background: color-mix(in oklch, var(--card) 96%, var(--background)); }
+.profile-dialog-content [data-slot='dialog-title'] { color: color-mix(in oklch, var(--foreground) 94%, transparent); font-size: 0.9rem; }
+.profile-dialog-content [data-slot='dialog-description'] { margin-top: 0.35rem; color: color-mix(in oklch, var(--muted-foreground) 82%, transparent); font-size: 0.55rem; line-height: 1.5; }
+.profile-password-form { display: flex; flex-direction: column; gap: 0.7rem; }
+.profile-dialog-content [data-slot='dialog-footer'] button { min-height: 1.8rem; border-radius: 0.4rem; font-size: 0.5rem; }
+
 .profile-page .grid,
 .settings-page .grid {
   gap: 0.75rem;

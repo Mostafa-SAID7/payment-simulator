@@ -1,316 +1,97 @@
 'use client';
 
-'use client';
-
-import { useState } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { AlertCircle, CheckCircle2 } from 'lucide-react';
+import type { ReactNode } from 'react';
+import { useMemo, useState } from 'react';
+import { Activity, Bell, Check, CheckCircle2, Clock3, KeyRound, Lock, LogOut, Pencil, Save, ShieldCheck, UserRound, Users, X } from 'lucide-react';
 import { PageHeader } from '@/components/page-header';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Switch } from '@/components/ui/switch';
+
+const initialProfile = { firstName: 'John', lastName: 'Administrator', email: 'admin@finpay.com', phone: '+1 (555) 123-4567', company: 'FinPay Corp', title: 'Payment Administrator' };
+const initialNotifications = { paymentUpdates: true, batchAlerts: true, securityAlerts: true, weeklyDigest: false };
+const recentActivity = [
+  { icon: CheckCircle2, title: 'Completed a batch payment', description: '8 transactions processed successfully', time: 'Today, 2:32 PM', tone: 'success' },
+  { icon: KeyRound, title: 'Security settings updated', description: 'Two-factor authentication was enabled', time: 'Yesterday, 9:14 AM', tone: 'primary' },
+  { icon: Users, title: 'Joined FinPay workspace', description: 'Your administrator account was created', time: 'Jan 15, 2024', tone: 'muted' },
+];
+
+type Profile = typeof initialProfile;
+type Notifications = typeof initialNotifications;
+
+function ProfileSectionHeader({ icon: Icon, title, description, action }: { icon: typeof UserRound; title: string; description: string; action?: ReactNode }) {
+  return <CardHeader className="compact-card-header profile-section-header"><div className="profile-section-icon"><Icon /></div><div className="profile-section-heading"><CardTitle className="compact-panel-title">{title}</CardTitle><CardDescription className="compact-panel-description">{description}</CardDescription></div>{action}</CardHeader>;
+}
+
+function ProfileSettingRow({ title, description, children }: { title: string; description: string; children: ReactNode }) {
+  return <div className="profile-setting-row"><span><strong>{title}</strong><small>{description}</small></span>{children}</div>;
+}
 
 export default function ProfilePage() {
-  const [isEditing, setIsEditing] = useState(false);
-  const [profile, setProfile] = useState({
-    firstName: 'John',
-    lastName: 'Administrator',
-    email: 'admin@finpay.com',
-    phone: '+1 (555) 123-4567',
-    company: 'FinPay Corp',
-    title: 'Payment Administrator',
-  });
-
+  const [profile, setProfile] = useState<Profile>(initialProfile);
+  const [savedProfile, setSavedProfile] = useState<Profile>(initialProfile);
+  const [notifications, setNotifications] = useState<Notifications>(initialNotifications);
   const [twoFactorEnabled, setTwoFactorEnabled] = useState(true);
-  const [emailNotifications, setEmailNotifications] = useState(true);
-  const [smsNotifications, setSmsNotifications] = useState(false);
+  const [sessions, setSessions] = useState(2);
+  const [passwordDialogOpen, setPasswordDialogOpen] = useState(false);
+  const [feedback, setFeedback] = useState('');
 
-  const handleProfileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setProfile((prev) => ({ ...prev, [name]: value }));
-  };
+  const profileDirty = useMemo(() => JSON.stringify(profile) !== JSON.stringify(savedProfile), [profile, savedProfile]);
+  const initials = `${profile.firstName[0] ?? ''}${profile.lastName[0] ?? ''}`;
 
-  const handleSaveProfile = () => {
-    setIsEditing(false);
-    console.log('Profile saved:', profile);
-  };
+  function updateProfile(field: keyof Profile, value: string) {
+    setProfile((current) => ({ ...current, [field]: value }));
+    setFeedback('');
+  }
+
+  function saveProfile() {
+    setSavedProfile(profile);
+    setFeedback('Profile changes saved successfully.');
+  }
+
+  function cancelProfile() {
+    setProfile(savedProfile);
+    setFeedback('');
+  }
+
+  function updateNotification(field: keyof Notifications, value: boolean) {
+    setNotifications((current) => ({ ...current, [field]: value }));
+    setFeedback('Notification preferences updated.');
+  }
+
+  function changePassword() {
+    setPasswordDialogOpen(false);
+    setFeedback('Password updated successfully.');
+  }
 
   return (
     <div className="profile-page page-stack compact-route-page">
-      {/* Header */}
-      <PageHeader
-        title="My Profile"
-        description="Manage your account settings and preferences"
-      />
+      <PageHeader title="My Profile" description="Manage your identity, security, and personal workspace preferences" actions={<Button variant="outline" size="sm" className="compact-secondary-button gap-2" onClick={() => document.getElementById('profile-information')?.scrollIntoView({ behavior: 'smooth' })}><Pencil />Edit profile</Button>} />
 
-      <div className="grid gap-6 lg:grid-cols-3">
-        {/* Profile Information */}
-        <div className="lg:col-span-2">
-          <Card className="dashboard-card compact-settings-card">
-            <CardHeader className="compact-card-header">
-              <div className="flex items-center justify-between">
-                <div>
-                  <CardTitle>Personal Information</CardTitle>
-                  <CardDescription>Update your profile details</CardDescription>
-                </div>
-                <Button
-                  variant={isEditing ? 'default' : 'outline'}
-                  onClick={() => {
-                    if (isEditing) {
-                      handleSaveProfile();
-                    } else {
-                      setIsEditing(true);
-                    }
-                  }}
-                >
-                  {isEditing ? 'Save Changes' : 'Edit Profile'}
-                </Button>
-              </div>
-            </CardHeader>
-            <CardContent className="compact-card-content space-y-3">
-              <div className="grid gap-4 md:grid-cols-2">
-                <div>
-                  <label className="text-sm font-medium text-foreground">First Name</label>
-                  <Input
-                    type="text"
-                    name="firstName"
-                    value={profile.firstName}
-                    onChange={handleProfileChange}
-                    disabled={!isEditing}
-                    className="mt-2"
-                  />
-                </div>
-                <div>
-                  <label className="text-sm font-medium text-foreground">Last Name</label>
-                  <Input
-                    type="text"
-                    name="lastName"
-                    value={profile.lastName}
-                    onChange={handleProfileChange}
-                    disabled={!isEditing}
-                    className="mt-2"
-                  />
-                </div>
-              </div>
+      {feedback && <div className="profile-feedback" role="status"><CheckCircle2 /><span>{feedback}</span><button type="button" aria-label="Dismiss notification" onClick={() => setFeedback('')}><X /></button></div>}
 
-              <div>
-                <label className="text-sm font-medium text-foreground">Email Address</label>
-                <Input
-                  type="email"
-                  name="email"
-                  value={profile.email}
-                  onChange={handleProfileChange}
-                  disabled={!isEditing}
-                  className="mt-2"
-                />
-              </div>
+      <Card className="dashboard-card profile-hero-card">
+        <CardContent className="profile-hero-content"><div className="profile-hero-identity"><span className="profile-hero-avatar">{initials}</span><span><strong>{profile.firstName} {profile.lastName}</strong><small>{profile.title} · {profile.company}</small><em><span className="profile-online-dot" />Active account</em></span></div><div className="profile-hero-stats"><span><small>Member since</small><strong>Jan 15, 2024</strong></span><span><small>Workspace role</small><strong>Administrator</strong></span><span><small>Security score</small><strong className="profile-success-text">92 / 100</strong></span></div></CardContent>
+      </Card>
 
-              <div>
-                <label className="text-sm font-medium text-foreground">Phone Number</label>
-                <Input
-                  type="tel"
-                  name="phone"
-                  value={profile.phone}
-                  onChange={handleProfileChange}
-                  disabled={!isEditing}
-                  className="mt-2"
-                />
-              </div>
+      <div className="profile-main-grid">
+        <Card id="profile-information" className="dashboard-card compact-settings-card profile-section-card"><ProfileSectionHeader icon={UserRound} title="Personal information" description="Update the details associated with your account" /><CardContent className="compact-card-content"><div className="profile-form-grid"><div><Label htmlFor="profile-first-name">First name</Label><Input id="profile-first-name" value={profile.firstName} onChange={(event) => updateProfile('firstName', event.target.value)} className="compact-input" /></div><div><Label htmlFor="profile-last-name">Last name</Label><Input id="profile-last-name" value={profile.lastName} onChange={(event) => updateProfile('lastName', event.target.value)} className="compact-input" /></div><div><Label htmlFor="profile-email">Email address</Label><Input id="profile-email" type="email" value={profile.email} onChange={(event) => updateProfile('email', event.target.value)} className="compact-input" /></div><div><Label htmlFor="profile-phone">Phone number</Label><Input id="profile-phone" value={profile.phone} onChange={(event) => updateProfile('phone', event.target.value)} className="compact-input" /></div><div><Label htmlFor="profile-company">Company</Label><Input id="profile-company" value={profile.company} onChange={(event) => updateProfile('company', event.target.value)} className="compact-input" /></div><div><Label htmlFor="profile-title">Job title</Label><Input id="profile-title" value={profile.title} onChange={(event) => updateProfile('title', event.target.value)} className="compact-input" /></div></div><div className="profile-card-actions"><span>{profileDirty ? 'Unsaved profile changes' : 'Profile information is current'}</span><div><Button variant="outline" className="compact-secondary-button" onClick={cancelProfile} disabled={!profileDirty}>Cancel</Button><Button className="compact-primary-button gap-2" onClick={saveProfile} disabled={!profileDirty}><Save />Save changes</Button></div></div></CardContent></Card>
 
-              <div className="grid gap-4 md:grid-cols-2">
-                <div>
-                  <label className="text-sm font-medium text-foreground">Company</label>
-                  <Input
-                    type="text"
-                    name="company"
-                    value={profile.company}
-                    onChange={handleProfileChange}
-                    disabled={!isEditing}
-                    className="mt-2"
-                  />
-                </div>
-                <div>
-                  <label className="text-sm font-medium text-foreground">Job Title</label>
-                  <Input
-                    type="text"
-                    name="title"
-                    value={profile.title}
-                    onChange={handleProfileChange}
-                    disabled={!isEditing}
-                    className="mt-2"
-                  />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Profile Summary */}
-        <div className="space-y-3">
-          <Card className="dashboard-card compact-settings-card">
-            <CardHeader className="compact-card-header">
-              <CardTitle className="text-lg">Account Status</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div>
-                <div className="flex items-center gap-2 text-sm font-medium text-foreground">
-                  <CheckCircle2 className="h-4 w-4 text-accent" />
-                  Account Active
-                </div>
-                <p className="mt-1 text-xs text-muted-foreground">Since Jan 15, 2024</p>
-              </div>
-              <div className="border-t border-border pt-4">
-                <div className="text-sm text-muted-foreground">
-                  <p className="font-medium text-foreground">Member Since</p>
-                  <p className="mt-1">January 15, 2024</p>
-                </div>
-              </div>
-              <div className="border-t border-border pt-4">
-                <div className="text-sm text-muted-foreground">
-                  <p className="font-medium text-foreground">Role</p>
-                  <p className="mt-1">Administrator</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
+        <Card className="dashboard-card compact-settings-card profile-status-card"><ProfileSectionHeader icon={ShieldCheck} title="Account status" description="Your account is ready for secure payments" /><CardContent className="compact-card-content"><div className="profile-status-banner"><span className="profile-status-icon"><CheckCircle2 /></span><span><strong>Account active</strong><small>All payment features are available</small></span></div><div className="profile-status-list"><div><span>Verification</span><strong>Complete</strong></div><div><span>Plan</span><strong>Super plan</strong></div><div><span>Workspace</span><strong>FinPay Corp</strong></div><div><span>Last sign in</span><strong>Today, 2:30 PM</strong></div></div><Button variant="outline" className="compact-secondary-button profile-full-button" onClick={() => document.getElementById('security-preferences')?.scrollIntoView({ behavior: 'smooth' })}>Review security</Button></CardContent></Card>
       </div>
 
-      {/* Security Settings */}
-      <Card className="dashboard-card compact-settings-card">
-        <CardHeader className="compact-card-header">
-          <CardTitle>Security Settings</CardTitle>
-          <CardDescription>Manage your security preferences</CardDescription>
-        </CardHeader>
-        <CardContent className="compact-card-content space-y-3">
-          <div className="space-y-3">
-            <div className="flex items-center justify-between border-b border-border pb-4">
-              <div>
-                <p className="font-medium text-foreground">Two-Factor Authentication</p>
-                <p className="text-sm text-muted-foreground mt-1">Add an extra layer of security</p>
-              </div>
-              <Button
-                variant={twoFactorEnabled ? 'default' : 'outline'}
-                onClick={() => setTwoFactorEnabled(!twoFactorEnabled)}
-              >
-                {twoFactorEnabled ? 'Enabled' : 'Enable'}
-              </Button>
-            </div>
+      <div className="profile-two-column">
+        <Card id="security-preferences" className="dashboard-card compact-settings-card profile-section-card"><ProfileSectionHeader icon={Lock} title="Security preferences" description="Keep your account and payments protected" /><CardContent className="compact-card-content"><div className="profile-security-banner"><span className="profile-security-icon"><ShieldCheck /></span><span><strong>Strong security posture</strong><small>Two-factor authentication is active</small></span><span className="profile-security-score">92%</span></div><div className="profile-setting-list"><ProfileSettingRow title="Two-factor authentication" description="Require a code when signing in"><Switch checked={twoFactorEnabled} onCheckedChange={(checked) => { setTwoFactorEnabled(checked); setFeedback(checked ? 'Two-factor authentication enabled.' : 'Two-factor authentication disabled.'); }} aria-label="Toggle two-factor authentication" /></ProfileSettingRow><ProfileSettingRow title="Password" description="Last changed 30 days ago"><Button variant="outline" className="compact-secondary-button" onClick={() => setPasswordDialogOpen(true)}>Change</Button></ProfileSettingRow><ProfileSettingRow title="Active sessions" description={`${sessions} devices currently signed in`}><Button variant="outline" className="compact-secondary-button gap-2" onClick={() => { setSessions(1); setFeedback('All other sessions have been signed out.'); }} disabled={sessions < 2}><LogOut />Sign out others</Button></ProfileSettingRow></div></CardContent></Card>
 
-            <div className="flex items-center justify-between border-b border-border pb-4">
-              <div>
-                <p className="font-medium text-foreground">Change Password</p>
-                <p className="text-sm text-muted-foreground mt-1">Update your password regularly</p>
-              </div>
-              <Button variant="outline">Change</Button>
-            </div>
+        <Card className="dashboard-card compact-settings-card profile-section-card"><ProfileSectionHeader icon={Bell} title="Notification preferences" description="Choose which updates you receive" /><CardContent className="compact-card-content profile-setting-list"><ProfileSettingRow title="Payment updates" description="Successful payments and transfers"><Switch checked={notifications.paymentUpdates} onCheckedChange={(checked) => updateNotification('paymentUpdates', checked)} aria-label="Toggle payment updates" /></ProfileSettingRow><ProfileSettingRow title="Batch alerts" description="When a batch finishes processing"><Switch checked={notifications.batchAlerts} onCheckedChange={(checked) => updateNotification('batchAlerts', checked)} aria-label="Toggle batch alerts" /></ProfileSettingRow><ProfileSettingRow title="Security alerts" description="Sign-ins and access changes"><Switch checked={notifications.securityAlerts} onCheckedChange={(checked) => updateNotification('securityAlerts', checked)} aria-label="Toggle security alerts" /></ProfileSettingRow><ProfileSettingRow title="Weekly digest" description="A summary of workspace activity"><Switch checked={notifications.weeklyDigest} onCheckedChange={(checked) => updateNotification('weeklyDigest', checked)} aria-label="Toggle weekly digest" /></ProfileSettingRow></CardContent></Card>
+      </div>
 
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="font-medium text-foreground">Active Sessions</p>
-                <p className="text-sm text-muted-foreground mt-1">Manage your active sessions</p>
-              </div>
-              <Button variant="outline">Manage</Button>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+      <Card className="dashboard-card compact-settings-card profile-activity-card"><ProfileSectionHeader icon={Activity} title="Recent account activity" description="A timeline of important events from your workspace" action={<Button variant="ghost" className="compact-secondary-button profile-activity-action"><Clock3 />View all</Button>} /><CardContent className="compact-card-content"><div className="profile-activity-list">{recentActivity.map((item) => { const Icon = item.icon; return <div className="profile-activity-item" key={item.title}><span className={`profile-activity-icon profile-activity-icon-${item.tone}`}><Icon /></span><span><strong>{item.title}</strong><small>{item.description}</small></span><time>{item.time}</time></div>; })}</div></CardContent></Card>
 
-      {/* Notification Preferences */}
-      <Card className="dashboard-card compact-settings-card">
-        <CardHeader className="compact-card-header">
-          <CardTitle>Notification Preferences</CardTitle>
-          <CardDescription>Choose how you want to receive notifications</CardDescription>
-        </CardHeader>
-        <CardContent className="compact-card-content space-y-3">
-          <div className="space-y-3">
-            <div className="flex items-center justify-between border-b border-border pb-4">
-              <div>
-                <p className="font-medium text-foreground">Email Notifications</p>
-                <p className="text-sm text-muted-foreground mt-1">Receive payment updates via email</p>
-              </div>
-              <button
-                onClick={() => setEmailNotifications(!emailNotifications)}
-                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                  emailNotifications ? 'bg-accent' : 'bg-muted'
-                }`}
-              >
-                <span
-                  className={`inline-block h-4 w-4 transform rounded-full bg-background transition-transform ${
-                    emailNotifications ? 'translate-x-6' : 'translate-x-1'
-                  }`}
-                />
-              </button>
-            </div>
-
-            <div className="flex items-center justify-between border-b border-border pb-4">
-              <div>
-                <p className="font-medium text-foreground">SMS Notifications</p>
-                <p className="text-sm text-muted-foreground mt-1">Critical alerts via SMS</p>
-              </div>
-              <button
-                onClick={() => setSmsNotifications(!smsNotifications)}
-                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                  smsNotifications ? 'bg-accent' : 'bg-muted'
-                }`}
-              >
-                <span
-                  className={`inline-block h-4 w-4 transform rounded-full bg-background transition-transform ${
-                    smsNotifications ? 'translate-x-6' : 'translate-x-1'
-                  }`}
-                />
-              </button>
-            </div>
-
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="font-medium text-foreground">Batch Processing Alerts</p>
-                <p className="text-sm text-muted-foreground mt-1">Notify when batch processing completes</p>
-              </div>
-              <button
-                className="relative inline-flex h-6 w-11 items-center rounded-full bg-accent transition-colors"
-              >
-                <span
-                  className="inline-block h-4 w-4 transform rounded-full bg-background transition-transform translate-x-6"
-                />
-              </button>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* API Keys */}
-      <Card className="dashboard-card compact-settings-card">
-        <CardHeader className="compact-card-header">
-          <CardTitle>API Keys</CardTitle>
-          <CardDescription>Manage your API authentication keys</CardDescription>
-        </CardHeader>
-        <CardContent className="compact-card-content">
-          <div className="space-y-3">
-            <div className="flex items-center justify-between rounded-lg border border-border bg-muted/30 p-4">
-              <div>
-                <p className="font-mono text-sm text-foreground">pk_live_5bJdX9aMp2kLqRsx***</p>
-                <p className="text-xs text-muted-foreground mt-1">Created 30 days ago</p>
-              </div>
-              <Button variant="ghost" size="sm">Revoke</Button>
-            </div>
-            <Button variant="outline" className="w-full">Generate New Key</Button>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Danger Zone */}
-      <Card className="dashboard-card compact-settings-card border-destructive/50">
-        <CardHeader className="compact-card-header">
-          <CardTitle className="text-destructive">Danger Zone</CardTitle>
-        </CardHeader>
-        <CardContent className="flex items-center justify-between gap-4 rounded-lg border border-destructive/20 bg-destructive/5 p-4">
-          <div>
-            <p className="font-medium text-foreground">Delete Account</p>
-            <p className="text-sm text-muted-foreground mt-1">Permanently delete your account and all data</p>
-          </div>
-          <Button variant="destructive">Delete Account</Button>
-        </CardContent>
-      </Card>
+      <Dialog open={passwordDialogOpen} onOpenChange={setPasswordDialogOpen}><DialogContent className="profile-dialog-content"><DialogHeader><DialogTitle>Change password</DialogTitle><DialogDescription>Choose a strong password you do not use anywhere else.</DialogDescription></DialogHeader><div className="profile-password-form"><div><Label htmlFor="profile-current-password">Current password</Label><Input id="profile-current-password" type="password" placeholder="••••••••••" className="compact-input" /></div><div><Label htmlFor="profile-new-password">New password</Label><Input id="profile-new-password" type="password" placeholder="At least 8 characters" className="compact-input" /></div><div><Label htmlFor="profile-confirm-password">Confirm new password</Label><Input id="profile-confirm-password" type="password" placeholder="Repeat your new password" className="compact-input" /></div></div><DialogFooter><DialogClose asChild><Button variant="outline" className="compact-secondary-button">Cancel</Button></DialogClose><Button className="compact-primary-button" onClick={changePassword}>Update password</Button></DialogFooter></DialogContent></Dialog>
     </div>
   );
 }
