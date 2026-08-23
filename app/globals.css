@@ -65,6 +65,13 @@
   --line-height-tight: 1.25;
   --line-height-body: 1.5;
 
+  /* Shared interaction system */
+  --hover-background: color-mix(in oklch, var(--primary) 8%, var(--card));
+  --hover-background-subtle: color-mix(in oklch, var(--foreground) 4%, transparent);
+  --hover-border: color-mix(in oklch, var(--primary) 30%, var(--border));
+  --hover-foreground: var(--foreground);
+  --interaction-duration: 160ms;
+
   --radius: 0.75rem;
   --sidebar: oklch(0.23 0.08 260);
   --sidebar-foreground: oklch(0.99 0.0 0);
@@ -256,7 +263,13 @@
   }
 
   .finance-card-interactive {
-    @apply transition-colors hover:border-primary/30 hover:bg-card/90;
+    border-color: var(--border);
+    transition: background-color var(--interaction-duration) ease, border-color var(--interaction-duration) ease, color var(--interaction-duration) ease;
+  }
+
+  .finance-card-interactive:hover {
+    border-color: var(--hover-border);
+    background: var(--hover-background);
   }
 
   .page-stack {
@@ -465,7 +478,7 @@
     border: 1px solid transparent;
     border-radius: 0.5rem;
     color: color-mix(in oklch, var(--sidebar-foreground) 56%, transparent);
-    transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease;
+    transition: background-color var(--interaction-duration) ease, border-color var(--interaction-duration) ease, color var(--interaction-duration) ease;
   }
 
   .sidebar-toggle svg {
@@ -586,7 +599,7 @@
     color: color-mix(in oklch, var(--sidebar-foreground) 57%, transparent);
     font-size: var(--font-size-micro);
     font-weight: 500;
-    transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease;
+    transition: background-color var(--interaction-duration) ease, border-color var(--interaction-duration) ease, color var(--interaction-duration) ease;
   }
 
   .sidebar-navigation-link svg {
@@ -1222,9 +1235,9 @@
   border-bottom: 0;
 }
 
-.compact-data-table [data-slot='table-row']:hover {
-  background: color-mix(in oklch, var(--foreground) 4%, transparent);
-}
+  .compact-data-table [data-slot='table-row']:hover {
+    background: var(--hover-background-subtle);
+  }
 
 .compact-primary-cell p:first-child {
   color: color-mix(in oklch, var(--foreground) 88%, transparent);
@@ -2545,10 +2558,10 @@
   transition: background 150ms ease, color 150ms ease, border-color 150ms ease;
 }
 
-.settings-nav-card a:hover,
-.settings-nav-card a:focus-visible {
-  border-color: color-mix(in oklch, var(--border) 82%, transparent);
-  background: color-mix(in oklch, var(--foreground) 5%, transparent);
+  .settings-nav-card a:hover,
+  .settings-nav-card a:focus-visible {
+    border-color: var(--hover-border);
+    background: var(--hover-background-subtle);
   color: var(--foreground);
   outline: none;
 }
