@@ -3,7 +3,7 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* Light theme - Vorix (Assuming we mainly care about dark, but updating both for consistency) */
+/* Light theme - FinPay (Assuming we mainly care about dark, but updating both for consistency) */
 :root {
   --background: oklch(0.98 0 0);
   --foreground: oklch(0.12 0.01 280);
@@ -63,7 +63,7 @@
   --sidebar-ring: oklch(0.55 0.22 280);
 }
 
-/* Dark theme - Vorix exact styling */
+/* Dark theme - FinPay exact styling */
 .dark {
   --background: oklch(0.18 0.02 280); /* #0A0A0F */
   --foreground: oklch(0.95 0 0);
@@ -105,7 +105,7 @@
   --input: oklch(0.25 0.02 280);
   --ring: oklch(0.60 0.22 280);
   
-  /* Chart colors - specific to the Vorix design */
+  /* Chart colors - specific to the FinPay design */
   --chart-1: oklch(0.60 0.22 280); /* Purple */
   --chart-2: oklch(0.7 0.15 240); /* Blue */
   --chart-3: oklch(0.75 0.18 90); /* Yellow */
