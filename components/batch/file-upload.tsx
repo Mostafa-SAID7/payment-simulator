@@ -2,7 +2,7 @@
 
 'use client';
 
-import { useState, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { Upload, File, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -12,13 +12,20 @@ interface FileUploadProps {
   onFileSelect: (file: File) => void;
   accept?: string;
   maxSize?: number; // in bytes
+  resetSignal?: number;
 }
 
-export function FileUpload({ onFileSelect, accept = '.csv', maxSize = 5242880 }: FileUploadProps) {
+export function FileUpload({ onFileSelect, accept = '.csv', maxSize = 5242880, resetSignal = 0 }: FileUploadProps) {
   const [isDragging, setIsDragging] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [error, setError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    setSelectedFile(null);
+    setError(null);
+    if (fileInputRef.current) fileInputRef.current.value = '';
+  }, [resetSignal]);
 
   const handleDragEnter = (e: React.DragEvent) => {
     e.preventDefault();

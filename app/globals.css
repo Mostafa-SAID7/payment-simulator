@@ -1284,6 +1284,145 @@
   color: var(--destructive);
 }
 
+.batch-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.batch-summary-card {
+  min-height: 4.5rem;
+}
+
+.batch-summary-content {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  height: 100%;
+  padding: 0.75rem 0.875rem;
+}
+
+.batch-summary-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 1.7rem;
+  height: 1.7rem;
+  border: 1px solid color-mix(in oklch, var(--primary) 24%, transparent);
+  border-radius: 0.45rem;
+  background: color-mix(in oklch, var(--primary) 9%, transparent);
+  color: color-mix(in oklch, var(--foreground) 74%, transparent);
+}
+
+.batch-summary-icon svg {
+  width: 0.85rem;
+  height: 0.85rem;
+}
+
+.batch-summary-content > span:last-child {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.batch-summary-content small {
+  overflow: hidden;
+  color: color-mix(in oklch, var(--muted-foreground) 80%, transparent);
+  font-size: 0.4375rem;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.batch-summary-content strong {
+  overflow: hidden;
+  color: color-mix(in oklch, var(--foreground) 90%, transparent);
+  font-size: 0.625rem;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.batch-file-actions,
+.batch-result-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.batch-file-actions button,
+.batch-result-actions button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.batch-file-actions svg,
+.batch-result-actions svg {
+  width: 0.7rem;
+  height: 0.7rem;
+}
+
+.batch-inline-status,
+.batch-validation-error {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid color-mix(in oklch, var(--primary) 20%, transparent);
+  border-radius: 0.4rem;
+  background: color-mix(in oklch, var(--primary) 6%, transparent);
+  color: color-mix(in oklch, var(--foreground) 76%, transparent);
+  font-size: 0.5rem;
+}
+
+.batch-inline-status svg,
+.batch-validation-error svg {
+  width: 0.75rem;
+  height: 0.75rem;
+  flex: 0 0 auto;
+}
+
+.batch-validation-error {
+  border-color: color-mix(in oklch, var(--destructive) 30%, transparent);
+  background: color-mix(in oklch, var(--destructive) 8%, transparent);
+  color: var(--destructive);
+}
+
+.batch-preview-card {
+  min-width: 0;
+}
+
+.batch-preview-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+}
+
+.batch-preview-count {
+  flex: 0 0 auto;
+  border-color: color-mix(in oklch, var(--primary) 24%, transparent);
+  color: color-mix(in oklch, var(--primary) 90%, var(--foreground));
+  font-size: 0.4375rem;
+}
+
+.batch-preview-table {
+  min-width: 52rem;
+}
+
+.batch-preview-line {
+  color: color-mix(in oklch, var(--muted-foreground) 62%, transparent);
+}
+
+.batch-preview-recipient {
+  color: color-mix(in oklch, var(--foreground) 88%, transparent);
+  font-weight: 500;
+}
+
 .batch-format-note {
   border-color: color-mix(in oklch, var(--accent) 28%, transparent);
   background: color-mix(in oklch, var(--accent) 8%, transparent);
@@ -1316,6 +1455,32 @@
 
 .batch-stat-tile {
   border: 1px solid color-mix(in oklch, var(--border) 74%, transparent);
+}
+
+.batch-page .batch-stat-tile span {
+  font-size: 0.5rem;
+}
+
+.batch-page .batch-stat-tile p {
+  margin-top: 0.35rem;
+  font-size: 1rem;
+}
+
+.batch-page .batch-stat-tile svg {
+  width: 0.8rem;
+  height: 0.8rem;
+}
+
+.batch-page .compact-settings-card [data-slot='card-title'] {
+  color: color-mix(in oklch, var(--foreground) 88%, transparent);
+  font-size: 0.6875rem;
+}
+
+.batch-page .compact-settings-card [data-slot='card-description'] {
+  margin-top: 0.3rem;
+  color: color-mix(in oklch, var(--muted-foreground) 82%, transparent);
+  font-size: 0.5rem;
+  line-height: 1.5;
 }
 
 .compact-selected-file {
@@ -1398,9 +1563,29 @@
   .compact-search-field {
     width: 100%;
   }
+
+  .batch-summary-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 767px) {
+  .batch-summary-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .batch-file-actions,
+  .batch-result-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .batch-file-actions button,
+  .batch-result-actions button {
+    justify-content: center;
+    width: 100%;
+  }
+
   .page-header {
     align-items: flex-start;
     flex-direction: column;
