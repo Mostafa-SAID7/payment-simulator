@@ -65,12 +65,12 @@ export function Header() {
   return (
     <header
       className={cn(
-        'fixed inset-x-2 top-2 z-30 isolate flex h-20 items-center justify-between overflow-hidden rounded-2xl border border-border/60 bg-background/55 px-2 shadow-[var(--shadow-lg)] backdrop-blur-2xl backdrop-saturate-150 transition-all duration-300 sm:px-4 md:inset-x-auto md:right-3 md:top-3 md:px-6 lg:px-8 md:left-auto',
+        'fixed inset-x-2 top-2 z-30 isolate flex h-20 items-center justify-between overflow-hidden rounded-2xl border border-border/60 bg-background/90 px-2 shadow-[var(--shadow-lg)] backdrop-blur-2xl backdrop-saturate-150 transition-all duration-300 sm:px-4 md:inset-x-auto md:right-3 md:top-3 md:px-6 lg:px-8 md:left-auto',
         isCollapsed ? 'md:left-[7rem] md:w-auto' : 'md:left-[19rem] md:w-auto'
       )}
     >
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute inset-0 bg-gradient-to-b from-background/15 via-transparent to-background/10" />
+        <div className="absolute inset-0 bg-background/80 backdrop-blur-md" />
         <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-border/60 to-transparent" />
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-border/20 to-transparent" />
       </div>
