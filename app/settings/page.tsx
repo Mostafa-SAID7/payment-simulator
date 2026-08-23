@@ -13,17 +13,16 @@ import {
 } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
 import { Lock, Bell, Users, LogOut } from 'lucide-react';
+import { PageHeader } from '@/components/page-header';
 
 export default function SettingsPage() {
   return (
     <div className="settings-page page-stack max-w-2xl compact-route-page">
       {/* Header */}
-      <div>
-        <h1 className="compact-page-title">Settings</h1>
-        <p className="compact-page-description">
-          Manage your account and preferences
-        </p>
-      </div>
+      <PageHeader
+        title="Settings"
+        description="Manage your account and preferences"
+      />
 
       {/* Profile Settings */}
       <Card className="dashboard-card compact-settings-card">

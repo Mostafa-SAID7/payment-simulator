@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { PageHeader } from '@/components/page-header';
 import { Badge } from '@/components/ui/badge';
 import { TransactionChart } from '@/components/dashboard/transaction-chart';
 import { PaymentTypeChart } from '@/components/dashboard/payment-type-chart';
@@ -27,6 +28,10 @@ const transactions = [
 export default function Dashboard() {
   return (
     <div className="dashboard-page">
+      <PageHeader
+        title="Dashboard"
+        description="Overview of your payment activity and account performance"
+      />
       <section className="dashboard-overview-grid" aria-label="Account overview">
         <Card className="dashboard-card dashboard-balance-card">
           <CardHeader className="dashboard-panel-header">

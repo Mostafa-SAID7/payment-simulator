@@ -9,6 +9,7 @@ import { BatchResults } from '@/components/batch/batch-results';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { AlertCircle } from 'lucide-react';
+import { PageHeader } from '@/components/page-header';
 
 interface BatchResult {
   id: string;
@@ -81,12 +82,10 @@ export default function BatchPage() {
   return (
     <div className="batch-page page-stack compact-route-page">
       {/* Header */}
-      <div className="compact-page-intro">
-        <h1 className="compact-page-title">Batch Processing</h1>
-        <p className="compact-page-description">
-          Process multiple payments at once with CSV file upload
-        </p>
-      </div>
+      <PageHeader
+        title="Batch Processing"
+        description="Process multiple payments at once with CSV file upload"
+      />
 
       {/* Info Box */}
       <div className="batch-format-note flex gap-3 rounded-lg border border-accent/30 bg-accent/10 p-4">

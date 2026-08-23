@@ -7,6 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { AlertCircle, CheckCircle2 } from 'lucide-react';
+import { PageHeader } from '@/components/page-header';
 
 export default function ProfilePage() {
   const [isEditing, setIsEditing] = useState(false);
@@ -36,12 +37,10 @@ export default function ProfilePage() {
   return (
     <div className="profile-page page-stack compact-route-page">
       {/* Header */}
-      <div className="compact-page-intro">
-        <h1 className="compact-page-title">My Profile</h1>
-        <p className="compact-page-description">
-          Manage your account settings and preferences
-        </p>
-      </div>
+      <PageHeader
+        title="My Profile"
+        description="Manage your account settings and preferences"
+      />
 
       <div className="grid gap-6 lg:grid-cols-3">
         {/* Profile Information */}

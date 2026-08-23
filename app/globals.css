@@ -1006,6 +1006,49 @@
   }
 }
 
+.page-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem;
+  min-height: 3.25rem;
+  padding: 0 0.25rem 0.25rem;
+}
+
+.page-header-copy {
+  min-width: 0;
+}
+
+.page-header-title {
+  margin: 0;
+  overflow: hidden;
+  color: var(--foreground);
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.page-header-description {
+  max-width: 48rem;
+  margin: 0.4rem 0 0;
+  overflow: hidden;
+  color: color-mix(in oklch, var(--muted-foreground) 82%, transparent);
+  font-size: 0.625rem;
+  line-height: 1.6;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.page-header-actions {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+  gap: 0.5rem;
+}
+
 .compact-route-page {
   gap: 1rem;
 }
@@ -1285,6 +1328,26 @@
 }
 
 @media (max-width: 767px) {
+  .page-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.75rem;
+    min-height: 0;
+    padding-bottom: 0;
+  }
+
+  .page-header-description {
+    white-space: normal;
+  }
+
+  .page-header-actions {
+    width: 100%;
+  }
+
+  .page-header-actions > * {
+    width: 100%;
+  }
+
   .compact-page-title {
     font-size: 1.1rem;
   }

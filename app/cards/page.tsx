@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { CardsCashflowChart } from '@/components/dashboard/cards-cashflow-chart';
+import { PageHeader } from '@/components/page-header';
 
 const savedCards = [
   { variant: 'gold', number: '5421', holder: 'John Doe' },
@@ -42,12 +43,10 @@ function CardPreview({ variant, number, holder }: { variant: string; number: str
 export default function CardsPage() {
   return (
     <div className="cards-page page-stack">
-      <div className="cards-page-intro">
-        <h1 className="cards-page-title">Cards</h1>
-        <p className="cards-page-description">
-          Manage multiple cards effortlessly, track transactions, monitor spending patterns, and view real-<br className="cards-description-break" />time activity — all designed to simplify your financial control and transparency.
-        </p>
-      </div>
+      <PageHeader
+        title="Cards"
+        description={<>Manage multiple cards effortlessly, track transactions, monitor spending patterns, and view real-time activity — all designed to simplify your financial control and transparency.</>}
+      />
 
       <section className="cards-preview-row" aria-label="Saved cards">
         {savedCards.map((card) => <CardPreview key={card.number} {...card} />)}

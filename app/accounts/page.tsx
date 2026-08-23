@@ -16,6 +16,7 @@ import {
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Plus, Edit2, Trash2, Search } from 'lucide-react';
+import { PageHeader } from '@/components/page-header';
 
 interface Account {
   id: string;
@@ -114,18 +115,16 @@ export default function AccountsPage() {
   return (
     <div className="accounts-page page-stack compact-route-page">
       {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="compact-page-title">Accounts</h1>
-          <p className="compact-page-description">
-            Manage payment and settlement accounts
-          </p>
-        </div>
-        <Button size="sm" className="compact-primary-button gap-2 bg-primary hover:bg-primary/90">
-          <Plus className="h-4 w-4" />
-          Add Account
-        </Button>
-      </div>
+      <PageHeader
+        title="Accounts"
+        description="Manage payment and settlement accounts"
+        actions={
+          <Button size="sm" className="compact-primary-button gap-2 bg-primary hover:bg-primary/90">
+            <Plus className="h-4 w-4" />
+            Add Account
+          </Button>
+        }
+      />
 
       {/* Summary Cards */}
       <div className="accounts-summary-grid grid gap-3 md:grid-cols-3">

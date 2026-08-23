@@ -23,6 +23,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Search, Filter, Download, Eye } from 'lucide-react';
+import { PageHeader } from '@/components/page-header';
 
 interface Transaction {
   id: string;
@@ -165,18 +166,16 @@ export default function TransactionsPage() {
   return (
     <div className="transactions-page page-stack compact-route-page">
       {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="compact-page-title">Transaction History</h1>
-          <p className="compact-page-description">
-            View and manage all payment transactions
-          </p>
-        </div>
-        <Button variant="outline" size="sm" className="compact-secondary-button gap-2">
-          <Download className="h-4 w-4" />
-          Export
-        </Button>
-      </div>
+      <PageHeader
+        title="Transaction History"
+        description="View and manage all payment transactions"
+        actions={
+          <Button variant="outline" size="sm" className="compact-secondary-button gap-2">
+            <Download className="h-4 w-4" />
+            Export
+          </Button>
+        }
+      />
 
       {/* Stats Cards */}
       <div className="transactions-stats-grid grid gap-3 md:grid-cols-4">
