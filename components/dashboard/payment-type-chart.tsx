@@ -4,10 +4,10 @@ import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 const data = [
-  { label: 'USD', value: 42, fill: 'var(--color-chart-1)', colorClass: 'bg-[#7F56D9]' },
-  { label: 'Euro', value: 28, fill: 'var(--color-chart-2)', colorClass: 'bg-[#2E90FA]' },
-  { label: 'Pounds', value: 18, fill: 'var(--color-chart-3)', colorClass: 'bg-[#F79009]' },
-  { label: 'Dinar', value: 12, fill: 'var(--color-chart-4)', colorClass: 'bg-[#344054]' },
+  { label: 'USD', value: 42, fill: 'var(--color-chart-1)', colorClass: 'bg-chart-1' },
+  { label: 'Euro', value: 28, fill: 'var(--color-chart-2)', colorClass: 'bg-chart-2' },
+  { label: 'Pounds', value: 18, fill: 'var(--color-chart-3)', colorClass: 'bg-chart-3' },
+  { label: 'Dinar', value: 12, fill: 'var(--color-chart-4)', colorClass: 'bg-chart-4' },
 ];
 
 export function PaymentTypeChart() {

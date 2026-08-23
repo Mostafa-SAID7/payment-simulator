@@ -64,7 +64,7 @@ export default function PaymentsPage() {
       <section className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-4" aria-label="Balance overview">
         
         {/* My Balance Card */}
-        <Card className="rounded-[1.25rem] border border-border/30 shadow-none overflow-hidden flex flex-col justify-between relative bg-[#131317]">
+        <Card className="rounded-[1.25rem] border border-border/30 shadow-none overflow-hidden flex flex-col justify-between relative bg-card">
           {/* Subtle radial glow */}
           <div className="absolute top-0 left-0 w-[80%] h-[80%] rounded-full bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent opacity-80 pointer-events-none"></div>
           
@@ -76,10 +76,10 @@ export default function PaymentsPage() {
               My Balance 
               <span className="inline-flex items-center justify-center w-3.5 h-3.5 rounded-full border border-border/50 text-muted-foreground text-[8px] cursor-help ml-0.5">i</span>
             </CardTitle>
-            <button type="button" className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg border border-border/40 bg-[#1A1A1F] text-[11px] text-foreground/80 hover:bg-foreground/5 transition-colors">
+            <button type="button" className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg border border-border/40 bg-secondary text-[11px] text-foreground/80 hover:bg-foreground/5 transition-colors">
               <div className="flex -space-x-1">
-                <div className="w-3 h-3 rounded-full bg-[#EA001B] opacity-90 z-10 mix-blend-screen"></div>
-                <div className="w-3 h-3 rounded-full bg-[#F7A01D] opacity-90 mix-blend-screen"></div>
+                <div className="w-3 h-3 rounded-full bg-destructive opacity-90 z-10"></div>
+                <div className="w-3 h-3 rounded-full bg-warning opacity-90"></div>
               </div>
               <span className="font-medium tracking-wider">xx25</span>
               <ChevronDown className="w-3.5 h-3.5 opacity-50" />
@@ -92,10 +92,10 @@ export default function PaymentsPage() {
               <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-success/10 text-success text-[10px] font-semibold border border-success/20">+55.58%</span>
             </div>
             <div className="flex gap-3 mb-8">
-              <Button className="h-9 px-6 text-xs font-semibold bg-primary hover:bg-primary/90 rounded-lg text-white" size="sm">
+              <Button className="h-9 px-6 text-xs font-semibold bg-primary hover:bg-primary/90 rounded-lg text-primary-foreground" size="sm">
                 <ArrowUpRight className="w-3.5 h-3.5 mr-1.5" /> Transfer
               </Button>
-              <Button className="h-9 px-6 text-xs font-semibold bg-[#1A1A1F] border border-border/30 hover:bg-foreground/5 rounded-lg text-foreground/80" variant="outline" size="sm">
+              <Button className="h-9 px-6 text-xs font-semibold bg-secondary border border-border/30 hover:bg-foreground/5 rounded-lg text-foreground/80" variant="outline" size="sm">
                 Request <ArrowDownRight className="w-3.5 h-3.5 ml-1.5" />
               </Button>
             </div>
@@ -104,19 +104,19 @@ export default function PaymentsPage() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-6 border-t border-border/10">
               <div className="flex flex-col gap-1">
                 <span className="font-semibold text-foreground/90 text-sm">$525,525<span className="text-foreground/50 text-xs">.00</span></span>
-                <span className="text-[10px] text-foreground/40 font-medium tracking-wide">BTC/USD</span>
+                <span className="text-[10px] text-muted-foreground font-medium tracking-wide">BTC/USD</span>
               </div>
               <div className="flex flex-col gap-1 md:border-l md:border-border/10 md:pl-4">
                 <span className="font-semibold text-foreground/90 text-sm">$414,587<span className="text-foreground/50 text-xs">.00</span></span>
-                <span className="text-[10px] text-foreground/40 font-medium tracking-wide">EUR/USD</span>
+                <span className="text-[10px] text-muted-foreground font-medium tracking-wide">EUR/USD</span>
               </div>
               <div className="flex flex-col gap-1 md:border-l md:border-border/10 md:pl-4">
                 <span className="font-semibold text-foreground/90 text-sm">$785,58<span className="text-foreground/50 text-xs">.00</span></span>
-                <span className="text-[10px] text-foreground/40 font-medium tracking-wide">ETH/USD</span>
+                <span className="text-[10px] text-muted-foreground font-medium tracking-wide">ETH/USD</span>
               </div>
               <div className="flex flex-col gap-1 md:border-l md:border-border/10 md:pl-4">
                 <span className="font-semibold text-foreground/90 text-sm">$875,525<span className="text-foreground/50 text-xs">.00</span></span>
-                <span className="text-[10px] text-foreground/40 font-medium tracking-wide">GBP/USD</span>
+                <span className="text-[10px] text-muted-foreground font-medium tracking-wide">GBP/USD</span>
               </div>
             </div>
           </CardContent>
@@ -125,13 +125,13 @@ export default function PaymentsPage() {
         {/* 3 Stacked Cards */}
         <div className="flex flex-col gap-4">
           {metrics.map(({ label, value, icon: Icon }) => (
-            <Card key={label} className="rounded-[1.25rem] bg-[#131317] border border-border/30 shadow-none overflow-hidden flex-1 flex flex-col justify-center">
+            <Card key={label} className="rounded-[1.25rem] bg-card border border-border/30 shadow-none overflow-hidden flex-1 flex flex-col justify-center">
               <CardContent className="p-5 flex items-center gap-4">
                 <div className="w-10 h-10 rounded-xl border border-border/20 bg-foreground/5 flex items-center justify-center shrink-0">
                   <Icon className="w-4 h-4 text-foreground/70" />
                 </div>
                 <div className="flex flex-col gap-0.5">
-                  <span className="text-[10px] font-semibold text-foreground/40 tracking-widest">{label}</span>
+                  <span className="text-[10px] font-semibold text-muted-foreground tracking-widest">{label}</span>
                   <span className="text-[17px] font-bold text-foreground">
                     {value.split('.')[0]}<span className="text-foreground/50 text-sm">.{value.split('.')[1]}</span>
                   </span>
@@ -146,13 +146,13 @@ export default function PaymentsPage() {
       <section className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-4" aria-label="Payment analytics">
         
         {/* Payment Activity Chart */}
-        <Card className="rounded-[1.25rem] bg-[#131317] border border-border/30 shadow-none overflow-hidden flex flex-col">
+        <Card className="rounded-[1.25rem] bg-card border border-border/30 shadow-none overflow-hidden flex flex-col">
           <CardHeader className="flex flex-row items-center justify-between pb-2 px-6 pt-6">
             <CardTitle className="text-[13px] font-medium text-foreground/90 flex items-center gap-1.5">
               Payment Activity 
               <span className="inline-flex items-center justify-center w-3.5 h-3.5 rounded-full border border-border/50 text-muted-foreground text-[8px] cursor-help ml-1">i</span>
             </CardTitle>
-            <button type="button" className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border/40 bg-[#1A1A1F] text-[11px] text-foreground/70 hover:bg-foreground/5 transition-colors">
+            <button type="button" className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border/40 bg-secondary text-[11px] text-foreground/70 hover:bg-foreground/5 transition-colors">
               <CalendarIcon />
               This Year <ChevronDown className="w-3.5 h-3.5 opacity-50 ml-1" />
             </button>
@@ -163,7 +163,7 @@ export default function PaymentsPage() {
         </Card>
 
         {/* Balance Details Donut */}
-        <Card className="rounded-[1.25rem] bg-[#131317] border border-border/30 shadow-none overflow-hidden flex flex-col">
+        <Card className="rounded-[1.25rem] bg-card border border-border/30 shadow-none overflow-hidden flex flex-col">
           <CardHeader className="flex flex-row items-center justify-between pb-0 px-6 pt-6">
             <CardTitle className="text-[13px] font-medium text-foreground/90 flex items-center gap-1.5">
               Balance Details 
@@ -177,13 +177,13 @@ export default function PaymentsPage() {
       </section>
 
       {/* Bottom Row: Payment History Table */}
-      <Card className="rounded-[1.25rem] bg-[#131317] border border-border/30 shadow-none overflow-hidden mt-1">
+      <Card className="rounded-[1.25rem] bg-card border border-border/30 shadow-none overflow-hidden mt-1">
         <CardHeader className="flex flex-row items-center justify-between px-6 py-5 border-b border-border/10">
           <CardTitle className="text-[13px] font-medium text-foreground/90 flex items-center gap-1.5">
             Payment History
             <span className="inline-flex items-center justify-center w-3.5 h-3.5 rounded-full border border-border/50 text-muted-foreground text-[8px] cursor-help ml-1">i</span>
           </CardTitle>
-          <button type="button" className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border/40 bg-[#1A1A1F] text-[11px] text-foreground/70 hover:bg-foreground/5 transition-colors">
+          <button type="button" className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border/40 bg-secondary text-[11px] text-foreground/70 hover:bg-foreground/5 transition-colors">
             <CalendarIcon />
             This Year <ChevronDown className="w-3.5 h-3.5 opacity-50 ml-1" />
           </button>
@@ -192,7 +192,7 @@ export default function PaymentsPage() {
           <div className="overflow-x-auto">
             <table className="w-full text-[11px]">
               <thead>
-                <tr className="border-b border-border/10 [&_th]:px-6 [&_th]:py-4 [&_th]:text-left [&_th]:font-medium [&_th]:text-foreground/40">
+                <tr className="border-b border-border/10 [&_th]:px-6 [&_th]:py-4 [&_th]:text-left [&_th]:font-medium [&_th]:text-muted-foreground">
                   <th className="w-48">Members</th>
                   <th>Invoice</th>
                   <th>Payments Details</th>
@@ -211,13 +211,13 @@ export default function PaymentsPage() {
                         <img src={transaction.img} alt={transaction.name} className="w-8 h-8 rounded-full border border-border/50 object-cover" />
                         <div className="flex flex-col">
                           <span className="font-semibold text-foreground/90">{transaction.name}</span>
-                          <span className="text-foreground/40 text-[9px] mt-0.5">{transaction.subtitle}</span>
+                          <span className="text-muted-foreground text-[9px] mt-0.5">{transaction.subtitle}</span>
                         </div>
                       </div>
                     </td>
-                    <td className="text-foreground/60">{transaction.invoice}</td>
-                    <td className="text-foreground/60">{transaction.detail}</td>
-                    <td className="text-foreground/60">{transaction.date}</td>
+                    <td className="text-muted-foreground">{transaction.invoice}</td>
+                    <td className="text-muted-foreground">{transaction.detail}</td>
+                    <td className="text-muted-foreground">{transaction.date}</td>
                     <td className="font-semibold text-foreground/80">{transaction.amount}</td>
                     <td>
                       <Badge variant="outline" className={cn(
@@ -231,10 +231,10 @@ export default function PaymentsPage() {
                     </td>
                     <td>
                       <div className="flex items-center justify-end gap-1">
-                        <Button variant="ghost" size="icon" className="w-7 h-7 rounded-md text-foreground/40 hover:text-foreground hover:bg-foreground/10 border border-border/20">
+                        <Button variant="ghost" size="icon" className="w-7 h-7 rounded-md text-muted-foreground hover:text-foreground hover:bg-secondary border border-border/20">
                           <MoreVertical className="w-3.5 h-3.5" />
                         </Button>
-                        <Button variant="ghost" size="icon" className="w-7 h-7 rounded-md text-foreground/40 hover:text-destructive hover:bg-destructive/10 border border-border/20">
+                        <Button variant="ghost" size="icon" className="w-7 h-7 rounded-md text-muted-foreground hover:text-destructive hover:bg-destructive/10 border border-border/20">
                           <Trash2 className="w-3.5 h-3.5" />
                         </Button>
                       </div>
