@@ -24,13 +24,22 @@ const pageTitles: Record<string, string> = {
 
 export function Header() {
   const [isMounted, setIsMounted] = useState(false);
+  const [currentDate, setCurrentDate] = useState('');
   const pathname = usePathname();
   const { isCollapsed, setIsMobileOpen } = useSidebar();
   const { resolvedTheme, setTheme } = useTheme();
 
   useEffect(() => {
     setIsMounted(true);
+    setCurrentDate(
+      new Date().toLocaleDateString('en-US', {
+        weekday: 'long',
+        month: 'long',
+        day: 'numeric',
+      })
+    );
   }, []);
+
   const {
     notifications,
     unreadCount,
@@ -41,7 +50,6 @@ export function Header() {
     addNotification,
   } = useNotifications();
 
-  // Simulate incoming notifications
   useEffect(() => {
     const timer = setTimeout(() => {
       addNotification(
@@ -57,34 +65,50 @@ export function Header() {
   return (
     <header
       className={cn(
-        'fixed z-30 flex h-20 items-center justify-between px-4 transition-all duration-300 md:px-8 md:top-0 left-0 right-0 top-0 md:left-auto',
-        isCollapsed ? 'md:w-[calc(100%-6rem)]' : 'md:w-[calc(100%-18.5rem)]'
+        'fixed inset-x-2 top-2 z-30 isolate flex h-20 items-center justify-between overflow-hidden rounded-2xl border border-border/60 bg-background/90 px-2 shadow-[var(--shadow-lg)] backdrop-blur-2xl backdrop-saturate-150 transition-all duration-300 sm:px-4 md:inset-x-auto md:right-3 md:top-3 md:px-6 lg:px-8 md:left-auto',
+        isCollapsed ? 'md:left-[7rem] md:w-auto' : 'md:left-[19rem] md:w-auto'
       )}
     >
-      <div className="flex items-center min-w-0 gap-2.5">
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute inset-0 bg-background/80 backdrop-blur-md" />
+        <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-border/60 to-transparent" />
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-border/20 to-transparent" />
+      </div>
+
+      <div className="relative flex min-w-0 items-center gap-2 sm:gap-3">
         <Button
           type="button"
           variant="ghost"
           size="icon"
           aria-label="Open navigation menu"
           onClick={() => setIsMobileOpen(true)}
-          className="md:hidden flex border border-border/50 rounded-full shrink-0"
+          className="md:hidden flex shrink-0 rounded-full border border-border/50 bg-secondary/60 shadow-sm hover:bg-secondary max-[380px]:h-7 max-[380px]:w-7"
         >
-          <Menu className="h-5 w-5" />
+          <Menu className="h-4 w-4" />
         </Button>
-        <h1 className="text-xl font-semibold text-foreground tracking-tight">
-          {pageTitles[pathname] ?? 'FinPay'}
-        </h1>
+        <div className="flex min-w-0 flex-col">
+          <h1 className="truncate text-lg font-bold leading-tight tracking-tight text-foreground sm:text-xl max-[380px]:text-base">
+            {pageTitles[pathname] ?? 'FinPay'}
+          </h1>
+          <p className="text-[10px] text-muted-foreground hidden sm:block leading-none mt-0.5">
+            {currentDate}
+          </p>
+        </div>
       </div>
 
-      <div className="flex items-center shrink-0 gap-3 bg-secondary/40 rounded-full p-1.5 border border-border/50 backdrop-blur-sm">
-        <div className="flex items-center gap-1 bg-background/50 rounded-full p-1">
+      <div className="relative flex shrink-0 items-center gap-2 max-[380px]:gap-1">
+        <div className="flex items-center gap-0.5 rounded-full border border-border/50 bg-secondary/70 p-1 shadow-[var(--shadow-xs)] backdrop-blur-sm max-[380px]:p-0.5">
           <button
             type="button"
             aria-label="Switch to dark mode"
             disabled={!isMounted}
             onClick={() => setTheme('dark')}
-            className={cn("w-8 h-8 rounded-full flex items-center justify-center transition-colors [&_svg]:w-4 [&_svg]:h-4", resolvedTheme === 'dark' ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground")}
+            className={cn(
+              'flex h-8 w-8 items-center justify-center rounded-full transition-all duration-200 [&_svg]:h-3.5 [&_svg]:w-3.5 max-[380px]:h-7 max-[380px]:w-7',
+              (isMounted && resolvedTheme === 'dark')
+                ? 'bg-primary text-primary-foreground shadow-[0_2px_8px_color-mix(in_oklch,var(--color-primary)_40%,transparent)]'
+                : 'text-muted-foreground hover:text-foreground hover:bg-background/60'
+            )}
           >
             <Moon />
           </button>
@@ -93,16 +117,25 @@ export function Header() {
             aria-label="Switch to light mode"
             disabled={!isMounted}
             onClick={() => setTheme('light')}
-            className={cn("w-8 h-8 rounded-full flex items-center justify-center transition-colors [&_svg]:w-4 [&_svg]:h-4", resolvedTheme === 'light' ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground")}
+            className={cn(
+              'flex h-8 w-8 items-center justify-center rounded-full transition-all duration-200 [&_svg]:h-3.5 [&_svg]:w-3.5 max-[380px]:h-7 max-[380px]:w-7',
+              (isMounted && resolvedTheme === 'light')
+                ? 'bg-primary text-primary-foreground shadow-[0_2px_8px_color-mix(in_oklch,var(--color-primary)_40%,transparent)]'
+                : 'text-muted-foreground hover:text-foreground hover:bg-background/60'
+            )}
           >
             <Sun />
           </button>
         </div>
 
-        <Link href="/settings" className="w-9 h-9 rounded-full flex items-center justify-center bg-background/50 text-muted-foreground hover:text-foreground hover:bg-background/80 transition-colors [&_svg]:w-4 [&_svg]:h-4">
+        <Link
+          href="/settings"
+          aria-label="Open settings"
+          className="flex h-9 w-9 items-center justify-center rounded-full border border-border/50 bg-secondary/70 text-muted-foreground shadow-[var(--shadow-xs)] transition-all duration-150 hover:border-border hover:bg-secondary hover:text-foreground [&_svg]:h-4 [&_svg]:w-4 max-[380px]:h-8 max-[380px]:w-8"
+        >
           <Settings />
         </Link>
-        
+
         <div className="relative">
           <NotificationCenter
             notifications={notifications}
@@ -117,10 +150,9 @@ export function Header() {
         <Link
           href="/profile"
           aria-label="Open profile"
-          className="ml-1 w-9 h-9 rounded-full overflow-hidden border-2 border-border/50 hover:border-primary/50 transition-colors"
+          className="ml-0.5 h-9 w-9 shrink-0 overflow-hidden rounded-full border-2 border-border/60 shadow-[var(--shadow-sm)] transition-all duration-200 hover:border-primary/60 hover:shadow-[var(--shadow-primary)] max-[380px]:h-8 max-[380px]:w-8"
         >
-          {/* Default placeholder avatar */}
-          <div className="w-full h-full bg-gradient-to-br from-primary/80 to-accent/80 flex items-center justify-center text-primary-foreground font-semibold text-xs">
+          <div className="w-full h-full bg-gradient-to-br from-primary/90 via-primary to-accent/80 flex items-center justify-center text-primary-foreground font-bold text-xs">
             JD
           </div>
         </Link>
