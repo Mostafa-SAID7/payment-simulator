@@ -65,7 +65,7 @@ export function Header() {
   return (
     <header
       className={cn(
-        'fixed z-30 flex h-20 items-center justify-between px-4 transition-all duration-300 md:px-6 lg:px-8 md:top-0 left-0 right-0 top-0 md:left-auto',
+        'fixed inset-x-2 top-2 z-30 isolate flex h-20 items-center justify-between overflow-hidden rounded-2xl border border-border/50 bg-background/75 px-2 shadow-[var(--shadow-lg)] backdrop-blur-xl transition-all duration-300 sm:px-4 md:inset-x-auto md:right-3 md:top-3 md:px-6 lg:px-8 md:left-auto',
         isCollapsed ? 'md:w-[calc(100%-6rem)]' : 'md:w-[calc(100%-18.5rem)]'
       )}
     >
@@ -75,19 +75,19 @@ export function Header() {
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-border/20 to-transparent" />
       </div>
 
-      <div className="relative flex items-center min-w-0 gap-3">
+      <div className="relative flex min-w-0 items-center gap-2 sm:gap-3">
         <Button
           type="button"
           variant="ghost"
           size="icon"
           aria-label="Open navigation menu"
           onClick={() => setIsMobileOpen(true)}
-          className="md:hidden flex border border-border/50 rounded-full shrink-0 bg-secondary/60 hover:bg-secondary shadow-sm"
+          className="md:hidden flex shrink-0 rounded-full border border-border/50 bg-secondary/60 shadow-sm hover:bg-secondary max-[380px]:h-7 max-[380px]:w-7"
         >
           <Menu className="h-4 w-4" />
         </Button>
-        <div className="flex flex-col">
-          <h1 className="text-lg sm:text-xl font-bold text-foreground tracking-tight leading-tight">
+        <div className="flex min-w-0 flex-col">
+          <h1 className="truncate text-lg font-bold leading-tight tracking-tight text-foreground sm:text-xl max-[380px]:text-base">
             {pageTitles[pathname] ?? 'FinPay'}
           </h1>
           <p className="text-[10px] text-muted-foreground hidden sm:block leading-none mt-0.5">
@@ -96,15 +96,15 @@ export function Header() {
         </div>
       </div>
 
-      <div className="relative flex items-center shrink-0 gap-2">
-        <div className="flex items-center gap-0.5 bg-secondary/70 rounded-full p-1 border border-border/50 shadow-[var(--shadow-xs)] backdrop-blur-sm">
+      <div className="relative flex shrink-0 items-center gap-2 max-[380px]:gap-1">
+        <div className="flex items-center gap-0.5 rounded-full border border-border/50 bg-secondary/70 p-1 shadow-[var(--shadow-xs)] backdrop-blur-sm max-[380px]:p-0.5">
           <button
             type="button"
             aria-label="Switch to dark mode"
             disabled={!isMounted}
             onClick={() => setTheme('dark')}
             className={cn(
-              'w-8 h-8 rounded-full flex items-center justify-center transition-all duration-200 [&_svg]:w-3.5 [&_svg]:h-3.5',
+              'flex h-8 w-8 items-center justify-center rounded-full transition-all duration-200 [&_svg]:h-3.5 [&_svg]:w-3.5 max-[380px]:h-7 max-[380px]:w-7',
               (isMounted && resolvedTheme === 'dark')
                 ? 'bg-primary text-primary-foreground shadow-[0_2px_8px_color-mix(in_oklch,var(--color-primary)_40%,transparent)]'
                 : 'text-muted-foreground hover:text-foreground hover:bg-background/60'
@@ -118,7 +118,7 @@ export function Header() {
             disabled={!isMounted}
             onClick={() => setTheme('light')}
             className={cn(
-              'w-8 h-8 rounded-full flex items-center justify-center transition-all duration-200 [&_svg]:w-3.5 [&_svg]:h-3.5',
+              'flex h-8 w-8 items-center justify-center rounded-full transition-all duration-200 [&_svg]:h-3.5 [&_svg]:w-3.5 max-[380px]:h-7 max-[380px]:w-7',
               (isMounted && resolvedTheme === 'light')
                 ? 'bg-primary text-primary-foreground shadow-[0_2px_8px_color-mix(in_oklch,var(--color-primary)_40%,transparent)]'
                 : 'text-muted-foreground hover:text-foreground hover:bg-background/60'
@@ -131,7 +131,7 @@ export function Header() {
         <Link
           href="/settings"
           aria-label="Open settings"
-          className="w-9 h-9 rounded-full flex items-center justify-center bg-secondary/70 border border-border/50 text-muted-foreground hover:text-foreground hover:bg-secondary hover:border-border transition-all duration-150 [&_svg]:w-4 [&_svg]:h-4 shadow-[var(--shadow-xs)]"
+          className="flex h-9 w-9 items-center justify-center rounded-full border border-border/50 bg-secondary/70 text-muted-foreground shadow-[var(--shadow-xs)] transition-all duration-150 hover:border-border hover:bg-secondary hover:text-foreground [&_svg]:h-4 [&_svg]:w-4 max-[380px]:h-8 max-[380px]:w-8"
         >
           <Settings />
         </Link>
@@ -150,7 +150,7 @@ export function Header() {
         <Link
           href="/profile"
           aria-label="Open profile"
-          className="ml-0.5 w-9 h-9 rounded-full overflow-hidden border-2 border-border/60 hover:border-primary/60 transition-all duration-200 shadow-[var(--shadow-sm)] hover:shadow-[var(--shadow-primary)]"
+          className="ml-0.5 h-9 w-9 shrink-0 overflow-hidden rounded-full border-2 border-border/60 shadow-[var(--shadow-sm)] transition-all duration-200 hover:border-primary/60 hover:shadow-[var(--shadow-primary)] max-[380px]:h-8 max-[380px]:w-8"
         >
           <div className="w-full h-full bg-gradient-to-br from-primary/90 via-primary to-accent/80 flex items-center justify-center text-primary-foreground font-bold text-xs">
             JD
