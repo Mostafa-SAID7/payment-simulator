@@ -3,6 +3,7 @@
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ChevronDown } from 'lucide-react';
+import { ChartTooltip } from './chart-tooltip';
 
 const data = [
   { date: 'Jan', income: 4200, expenses: 2100 },
@@ -36,9 +37,7 @@ export function TransactionChart() {
             <CartesianGrid vertical={false} stroke="var(--color-border)" strokeDasharray="2 4" />
             <XAxis dataKey="date" axisLine={false} tickLine={false} tick={{ fill: 'var(--color-muted-foreground)', fontSize: 9 }} />
             <YAxis axisLine={false} tickLine={false} tick={{ fill: 'var(--color-muted-foreground)', fontSize: 9 }} tickFormatter={(value) => `$${value / 1000}K`} />
-            <Tooltip
-              contentStyle={{ backgroundColor: 'var(--color-card)', border: '1px solid var(--color-border)', borderRadius: '8px', fontSize: 11 }}
-            />
+            <Tooltip content={<ChartTooltip />} />
             <Bar dataKey="income" fill="var(--color-chart-1)" radius={[3, 3, 0, 0]} barSize={11} />
             <Bar dataKey="expenses" fill="var(--color-chart-2)" radius={[3, 3, 0, 0]} barSize={11} />
           </BarChart>

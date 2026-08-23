@@ -12,6 +12,7 @@ import {
   YAxis,
 } from 'recharts';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { ChartTooltip } from './chart-tooltip';
 
 const cashflowData = [
   { month: 'Jan', amount: 210 },
@@ -45,7 +46,7 @@ export function CardsCashflowChart() {
             <CartesianGrid vertical={false} stroke="var(--color-border)" strokeDasharray="2 4" />
             <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{ fill: 'var(--color-muted-foreground)', fontSize: 8 }} />
             <YAxis axisLine={false} tickLine={false} tick={{ fill: 'var(--color-muted-foreground)', fontSize: 8 }} tickFormatter={(value) => `$${value}`} />
-            <Tooltip />
+            <Tooltip content={<ChartTooltip />} />
             <Area type="monotone" dataKey="amount" stroke="var(--color-chart-1)" strokeWidth={2} fill="url(#cardsCashflowFill)" />
           </AreaChart>
         </ResponsiveContainer>

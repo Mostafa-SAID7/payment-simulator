@@ -13,6 +13,7 @@ import {
   ResponsiveContainer,
   Legend,
 } from 'recharts';
+import { ChartTooltip } from './chart-tooltip';
 
 const data = [
   { name: 'Week 1', successful: 92, failed: 8 },
@@ -33,13 +34,7 @@ export function BatchSuccessChart() {
             <CartesianGrid strokeDasharray="3 3" stroke="var(--color-border)" />
             <XAxis dataKey="name" stroke="var(--color-muted-foreground)" />
             <YAxis stroke="var(--color-muted-foreground)" />
-            <Tooltip
-              contentStyle={{
-                backgroundColor: 'var(--color-card)',
-                border: '1px solid var(--color-border)',
-                borderRadius: '0.5rem',
-              }}
-            />
+            <Tooltip content={<ChartTooltip />} />
             <Legend />
             <Bar dataKey="successful" stackId="a" fill="var(--color-chart-1)" />
             <Bar dataKey="failed" stackId="a" fill="var(--color-chart-5)" />
