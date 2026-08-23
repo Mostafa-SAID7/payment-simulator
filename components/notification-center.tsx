@@ -77,21 +77,23 @@ export function NotificationCenter({
 
   return (
     <Popover open={isOpen} onOpenChange={setIsOpen}>
-      <PopoverTrigger asChild>
-        <Button
-          variant="ghost"
-          size="icon"
-          aria-label={`Notifications${unreadCount > 0 ? `, ${unreadCount} unread` : ''}`}
-          className="header-notification-button"
-        >
-          <Bell />
-          {unreadCount > 0 && (
-            <span className="header-notification-count">
-              {unreadCount > 9 ? '9+' : unreadCount}
-            </span>
-          )}
-        </Button>
-      </PopoverTrigger>
+      <div className="header-notification-wrapper">
+        <PopoverTrigger asChild>
+          <Button
+            variant="ghost"
+            size="icon"
+            aria-label={`Notifications${unreadCount > 0 ? `, ${unreadCount} unread` : ''}`}
+            className="header-notification-button"
+          >
+            <Bell />
+          </Button>
+        </PopoverTrigger>
+        {unreadCount > 0 && (
+          <span className="header-notification-count">
+            {unreadCount > 9 ? '9+' : unreadCount}
+          </span>
+        )}
+      </div>
       <PopoverContent className="w-96 p-0" align="end">
         <div className="border-b border-border px-4 py-3">
           <div className="flex items-center justify-between">

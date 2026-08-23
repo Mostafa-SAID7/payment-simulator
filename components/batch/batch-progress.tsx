@@ -22,8 +22,8 @@ export function BatchProgress({
   const percentage = total > 0 ? (processed / total) * 100 : 0;
 
   return (
-    <Card className="border-border">
-      <CardHeader>
+    <Card className="dashboard-card compact-settings-card">
+      <CardHeader className="compact-card-header">
         <CardTitle>Processing Progress</CardTitle>
         <CardDescription>
           {status === 'completed'
@@ -31,7 +31,7 @@ export function BatchProgress({
             : 'Monitor your batch processing in real-time'}
         </CardDescription>
       </CardHeader>
-      <CardContent className="space-y-6">
+      <CardContent className="compact-card-content space-y-3">
         {/* Progress Bar */}
         <div className="space-y-2">
           <div className="flex items-center justify-between">
@@ -42,9 +42,9 @@ export function BatchProgress({
         </div>
 
         {/* Stats Grid */}
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="grid gap-3 md:grid-cols-2">
           {/* Total Transactions */}
-          <div className="rounded-lg bg-secondary/30 p-4">
+          <div className="batch-stat-tile rounded-lg bg-secondary/30 p-3">
             <div className="flex items-center justify-between">
               <span className="text-sm text-muted-foreground">Total Transactions</span>
               <Clock className="h-5 w-5 text-primary/50" />
@@ -53,7 +53,7 @@ export function BatchProgress({
           </div>
 
           {/* Processed */}
-          <div className="rounded-lg bg-secondary/30 p-4">
+          <div className="batch-stat-tile rounded-lg bg-secondary/30 p-3">
             <div className="flex items-center justify-between">
               <span className="text-sm text-muted-foreground">Processed</span>
               <Clock className="h-5 w-5 text-yellow-500" />
@@ -62,7 +62,7 @@ export function BatchProgress({
           </div>
 
           {/* Successful */}
-          <div className="rounded-lg bg-secondary/30 p-4">
+          <div className="batch-stat-tile rounded-lg bg-secondary/30 p-3">
             <div className="flex items-center justify-between">
               <span className="text-sm text-muted-foreground">Successful</span>
               <CheckCircle className="h-5 w-5 text-green-500" />
@@ -71,7 +71,7 @@ export function BatchProgress({
           </div>
 
           {/* Failed */}
-          <div className="rounded-lg bg-secondary/30 p-4">
+          <div className="batch-stat-tile rounded-lg bg-secondary/30 p-3">
             <div className="flex items-center justify-between">
               <span className="text-sm text-muted-foreground">Failed</span>
               <AlertCircle className="h-5 w-5 text-red-500" />
