@@ -23,12 +23,12 @@ const data = [
 
 export function TransactionChart() {
   return (
-    <Card className="rounded-[1.25rem] bg-card shadow-none overflow-hidden h-full border-0">
+    <Card className="card-base card-elevated h-full">
       <CardHeader className="flex flex-row items-center justify-between p-5 border-b border-transparent">
         <CardTitle className="text-sm font-medium text-foreground/90 flex items-center gap-1.5">
           Report <span className="inline-flex items-center justify-center w-3.5 h-3.5 rounded-full border border-border/50 text-muted-foreground text-[8px] cursor-help ml-1">i</span>
         </CardTitle>
-        <button type="button" className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border/40 bg-foreground/5 text-xs text-foreground/70 hover:bg-foreground/10 transition-colors">
+        <button type="button" className="filter-btn">
           <Calendar className="w-3.5 h-3.5" />
           This Year <ChevronDown className="w-3.5 h-3.5 opacity-50 ml-1" />
         </button>

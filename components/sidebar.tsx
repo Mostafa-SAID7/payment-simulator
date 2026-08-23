@@ -53,7 +53,7 @@ function SidebarNavigationLink({ item, isActive, isCollapsed, onNavigate }: Side
       onClick={onNavigate}
       className={cn(
         'flex items-center min-h-10 gap-3 px-3 py-2 border border-transparent rounded-xl text-sidebar-foreground/50 text-xs font-medium transition-colors duration-150 hover:bg-sidebar-foreground/5 hover:text-sidebar-foreground [&_svg]:shrink-0 [&_svg]:w-4 [&_svg]:h-4 [&_svg]:stroke-[1.5]',
-        isActive && 'bg-sidebar-foreground/10 text-sidebar-foreground shadow-[inset_0_1px_0_color-mix(in_oklch,var(--color-sidebar-foreground)_5%,transparent)]',
+        isActive && 'nav-item-active text-sidebar-foreground',
         isCollapsed && 'justify-center px-2'
       )}
     >

@@ -56,7 +56,7 @@ export default function Dashboard() {
       <section className="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr_1fr_1fr] gap-4" aria-label="Account overview">
         
         {/* My Balance */}
-        <Card className="rounded-[1.25rem] bg-card shadow-none overflow-hidden flex flex-col justify-between border-0">
+        <Card className="card-base card-elevated flex flex-col justify-between">
           <CardHeader className="flex flex-row items-center justify-between pb-2 px-5 pt-5">
             <CardTitle className="text-sm font-medium text-foreground/80 flex items-center gap-1.5">
               <div className="w-5 h-5 rounded bg-foreground/10 flex items-center justify-center shrink-0">
@@ -80,7 +80,7 @@ export default function Dashboard() {
               <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-success/10 text-success text-[10px] font-semibold border border-success/20">+55.58%</span>
             </div>
             <div className="flex gap-3 mt-auto">
-              <Button className="flex-1 h-10 text-xs font-semibold bg-primary hover:bg-primary/90 rounded-xl" size="sm">
+              <Button className="btn-primary-glow flex-1 h-10 rounded-xl text-xs font-semibold bg-primary hover:bg-primary/90" size="sm">
                 <ArrowUpRight className="w-4 h-4 mr-1.5" /> Transfer
               </Button>
               <Button className="flex-1 h-10 text-xs font-semibold border-border/40 hover:bg-foreground/5 rounded-xl" variant="outline" size="sm">
@@ -92,7 +92,7 @@ export default function Dashboard() {
 
         {/* Small Metric Cards */}
         {metrics.map(({ label, value, icon: Icon }) => (
-          <Card key={label} className="rounded-[1.25rem] bg-card/80 backdrop-blur-sm shadow-none overflow-hidden flex flex-col justify-center border-0">
+          <Card key={label} className="card-base card-elevated metric-card-accent relative flex flex-col justify-center bg-card/80 backdrop-blur-sm">
             <CardContent className="p-5 flex flex-col gap-3">
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 rounded-full border border-border/50 bg-foreground/5 flex items-center justify-center">
@@ -115,28 +115,32 @@ export default function Dashboard() {
       </section>
 
       {/* Transaction History Table */}
-      <Card className="rounded-[1.25rem] bg-card shadow-none overflow-hidden border-0">
+      <Card className="card-base card-elevated">
         <CardHeader className="flex flex-row items-center justify-between p-5 border-b border-border/20">
           <CardTitle className="text-sm font-medium text-foreground/90 flex items-center gap-1.5">
             Transaction History <span className="inline-flex items-center justify-center w-3.5 h-3.5 rounded-full border border-border/50 text-muted-foreground text-[8px] cursor-help ml-1">i</span>
           </CardTitle>
-          <button type="button" className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border/40 bg-foreground/5 text-xs text-foreground/70 hover:bg-foreground/10 transition-colors">
+          <button type="button" className="filter-btn">
             <CalendarIcon />
             This Month <ChevronDown className="w-3.5 h-3.5 opacity-50 ml-1" />
           </button>
         </CardHeader>
         <CardContent className="p-0">
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
+          <div className="table-container">
+            <table className="table-base">
               <thead>
-                <tr className="border-b border-border/20 [&_th]:px-6 [&_th]:py-4 [&_th]:text-left [&_th]:font-medium [&_th]:text-foreground/40 [&_th]:text-xs">
-                  <th>Transaction</th><th>Date</th><th>AApprox</th><th>Status</th><th className="text-right">Action</th>
+                <tr className="border-b border-border/20">
+                  <th className="table-th">Transaction</th>
+                  <th className="table-th">Date</th>
+                  <th className="table-th">AApprox</th>
+                  <th className="table-th">Status</th>
+                  <th className="table-th text-right">Action</th>
                 </tr>
               </thead>
               <tbody>
                 {transactions.map((transaction, index) => (
-                  <tr key={transaction.id} className={cn("hover:bg-foreground/5 transition-colors [&_td]:px-6 [&_td]:py-4", index !== transactions.length - 1 && "border-b border-border/20")}>
-                    <td>
+                  <tr key={transaction.id} className={cn("table-row-hover", index !== transactions.length - 1 && "border-b border-border/20")}>
+                    <td className="table-td">
                       <div className="flex items-center gap-3">
                         <div className="w-10 h-10 rounded-full bg-foreground/10 flex items-center justify-center shrink-0 overflow-hidden">
                           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -148,19 +152,19 @@ export default function Dashboard() {
                         </div>
                       </div>
                     </td>
-                    <td className="text-foreground/60 text-[13px]">{transaction.date}</td>
-                    <td className="font-semibold text-foreground/80 text-[13px]">{transaction.amount}</td>
-                    <td>
+                    <td className="table-td text-foreground/60 text-[13px]">{transaction.date}</td>
+                    <td className="table-td font-semibold text-foreground/80 text-[13px]">{transaction.amount}</td>
+                    <td className="table-td">
                       <Badge variant="outline" className={cn(
                         "rounded-full px-3 py-0.5 font-medium border",
-                        transaction.status === 'Successful' 
-                          ? 'border-success/40 bg-transparent text-success' 
-                          : 'border-warning/40 bg-transparent text-warning'
+                        transaction.status === 'Successful'
+                          ? 'badge-success-glow border-success/40 bg-transparent text-success'
+                          : 'badge-warning-glow border-warning/40 bg-transparent text-warning'
                       )}>
                         {transaction.status}
                       </Badge>
                     </td>
-                    <td>
+                    <td className="table-td">
                       <div className="flex items-center justify-end gap-2">
                         <Button variant="ghost" size="icon" className="w-8 h-8 rounded-lg border border-border/30 text-foreground/50 hover:text-foreground hover:bg-foreground/10" aria-label={`More actions for ${transaction.name}`}>
                           <MoreVertical className="w-4 h-4" />
