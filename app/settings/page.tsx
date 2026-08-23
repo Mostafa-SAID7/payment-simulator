@@ -10,6 +10,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { cn } from '@/lib/utils';
 
 const initialProfile = { firstName: 'John', lastName: 'Administrator', email: 'admin@finpay.com', phone: '+1 (555) 123-4567', company: 'FinPay Corp', role: 'Payment Administrator' };
@@ -139,20 +140,30 @@ export default function SettingsPage() {
         <aside className={cn("sticky top-20 overflow-hidden rounded-xl border border-border/70 bg-card p-2 shadow-sm lg:flex lg:min-h-[calc(100vh-7rem)] lg:flex-col", isSettingsNavCollapsed ? "lg:w-[4.5rem]" : "lg:w-[14rem]")} aria-label="Settings sections">
           <div className={cn("flex items-center gap-2 px-2 py-1.5", isSettingsNavCollapsed ? "justify-center" : "justify-between")}>
             {!isSettingsNavCollapsed && <div className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground/60">Workspace settings</div>}
-            <button type="button" aria-label={isSettingsNavCollapsed ? 'Expand settings navigation' : 'Collapse settings navigation'} aria-expanded={!isSettingsNavCollapsed} title={isSettingsNavCollapsed ? 'Expand settings navigation' : 'Collapse settings navigation'} onClick={() => setIsSettingsNavCollapsed((collapsed) => !collapsed)} className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50">
-              {isSettingsNavCollapsed ? <PanelLeftOpen className="h-4 w-4" /> : <PanelLeftClose className="h-4 w-4" />}
-            </button>
+            <Tooltip open={isSettingsNavCollapsed ? undefined : false}>
+              <TooltipTrigger asChild>
+                <button type="button" aria-label={isSettingsNavCollapsed ? 'Expand settings navigation' : 'Collapse settings navigation'} aria-expanded={!isSettingsNavCollapsed} onClick={() => setIsSettingsNavCollapsed((collapsed) => !collapsed)} className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50">
+                  {isSettingsNavCollapsed ? <PanelLeftOpen className="h-4 w-4" /> : <PanelLeftClose className="h-4 w-4" />}
+                </button>
+              </TooltipTrigger>
+              <TooltipContent side="right" sideOffset={8}>{isSettingsNavCollapsed ? 'Expand settings navigation' : 'Collapse settings navigation'}</TooltipContent>
+            </Tooltip>
           </div>
           <nav className="flex flex-col gap-0.5" aria-label="Settings section links">
             {settingsSections.map(({ id, label, icon: Icon }) => (
-              <a key={id} href={`#${id}`} aria-label={label} title={isSettingsNavCollapsed ? label : undefined} className={cn("flex items-center gap-2 rounded-lg px-2 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50 [&_svg]:h-4 [&_svg]:w-4 [&_svg]:shrink-0", isSettingsNavCollapsed && "justify-center px-2")}>
-                <Icon />
-                {!isSettingsNavCollapsed && <span>{label}</span>}
-              </a>
+              <Tooltip key={id} open={isSettingsNavCollapsed ? undefined : false}>
+                <TooltipTrigger asChild>
+                  <a href={`#${id}`} aria-label={label} className={cn("flex items-center gap-2 rounded-lg px-2 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50 [&_svg]:h-4 [&_svg]:w-4 [&_svg]:shrink-0", isSettingsNavCollapsed && "justify-center px-2")}>
+                    <Icon />
+                    {!isSettingsNavCollapsed && <span>{label}</span>}
+                  </a>
+                </TooltipTrigger>
+                <TooltipContent side="right" sideOffset={8}>{label}</TooltipContent>
+              </Tooltip>
             ))}
           </nav>
           <div className={cn("mt-auto flex items-center gap-2 border-t border-border/60 px-2 py-2 text-xs text-success", isSettingsNavCollapsed ? "justify-center" : "pt-2", "[&_svg]:h-4 [&_svg]:w-4 [&_svg]:shrink-0")}>
-            <CheckCircle2 aria-label="Workspace protected" title="Workspace protected" />
+            <CheckCircle2 aria-label="Workspace protected" />
             {!isSettingsNavCollapsed && <span className="flex flex-col"><span className="font-medium">Workspace protected</span><small className="text-[10px] text-muted-foreground">Last checked just now</small></span>}
           </div>
         </aside>
