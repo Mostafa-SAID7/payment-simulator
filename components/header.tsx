@@ -24,12 +24,20 @@ const pageTitles: Record<string, string> = {
 
 export function Header() {
   const [isMounted, setIsMounted] = useState(false);
+  const [currentDate, setCurrentDate] = useState('');
   const pathname = usePathname();
   const { isCollapsed, setIsMobileOpen } = useSidebar();
   const { resolvedTheme, setTheme } = useTheme();
 
   useEffect(() => {
     setIsMounted(true);
+    setCurrentDate(
+      new Date().toLocaleDateString('en-US', {
+        weekday: 'long',
+        month: 'long',
+        day: 'numeric',
+      })
+    );
   }, []);
 
   const {
@@ -83,7 +91,7 @@ export function Header() {
             {pageTitles[pathname] ?? 'FinPay'}
           </h1>
           <p className="text-[10px] text-muted-foreground hidden sm:block leading-none mt-0.5">
-            {new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
+            {currentDate}
           </p>
         </div>
       </div>
@@ -97,7 +105,7 @@ export function Header() {
             onClick={() => setTheme('dark')}
             className={cn(
               'w-8 h-8 rounded-full flex items-center justify-center transition-all duration-200 [&_svg]:w-3.5 [&_svg]:h-3.5',
-              resolvedTheme === 'dark'
+              (isMounted && resolvedTheme === 'dark')
                 ? 'bg-primary text-primary-foreground shadow-[0_2px_8px_color-mix(in_oklch,var(--color-primary)_40%,transparent)]'
                 : 'text-muted-foreground hover:text-foreground hover:bg-background/60'
             )}
@@ -111,7 +119,7 @@ export function Header() {
             onClick={() => setTheme('light')}
             className={cn(
               'w-8 h-8 rounded-full flex items-center justify-center transition-all duration-200 [&_svg]:w-3.5 [&_svg]:h-3.5',
-              resolvedTheme === 'light'
+              (isMounted && resolvedTheme === 'light')
                 ? 'bg-primary text-primary-foreground shadow-[0_2px_8px_color-mix(in_oklch,var(--color-primary)_40%,transparent)]'
                 : 'text-muted-foreground hover:text-foreground hover:bg-background/60'
             )}
