@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { AlertCircle, Bell, Check, CheckCircle2, Clipboard, CloudDownload, Code2, Copy, CreditCard, KeyRound, Laptop, Lock, LogOut, Mail, Monitor, Palette, Pencil, Plus, RefreshCw, Save, Send, ShieldCheck, Smartphone, Trash2, UserRound, Users, X, Zap } from 'lucide-react';
+import { AlertCircle, Bell, Check, CheckCircle2, Clipboard, CloudDownload, Code2, Copy, CreditCard, KeyRound, Laptop, Lock, LogOut, Mail, Monitor, Palette, PanelLeftClose, PanelLeftOpen, Pencil, Plus, RefreshCw, Save, Send, ShieldCheck, Smartphone, Trash2, UserRound, Users, X, Zap } from 'lucide-react';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -10,6 +10,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
+import { cn } from '@/lib/utils';
 
 const initialProfile = { firstName: 'John', lastName: 'Administrator', email: 'admin@finpay.com', phone: '+1 (555) 123-4567', company: 'FinPay Corp', role: 'Payment Administrator' };
 const initialNotifications = { payments: true, settlements: true, failed: true, security: true, marketing: false };
@@ -29,6 +30,17 @@ const members = [
 const initialSessions = [
   { device: 'MacBook Pro', location: 'New York, US', lastActive: 'Active now', icon: Laptop, current: true },
   { device: 'iPhone 15 Pro', location: 'New York, US', lastActive: '2 hours ago', icon: Smartphone, current: false },
+];
+
+const settingsSections = [
+  { id: 'profile', label: 'Profile', icon: UserRound },
+  { id: 'security', label: 'Security', icon: ShieldCheck },
+  { id: 'notifications', label: 'Notifications', icon: Bell },
+  { id: 'appearance', label: 'Appearance', icon: Palette },
+  { id: 'payments', label: 'Payment preferences', icon: CreditCard },
+  { id: 'integrations', label: 'Integrations', icon: Code2 },
+  { id: 'team', label: 'Team & billing', icon: Users },
+  { id: 'privacy', label: 'Privacy & data', icon: Lock },
 ];
 
 function SettingRow({ title, description, children, className = '' }: { title: string; description: string; children: React.ReactNode; className?: string }) {
@@ -56,6 +68,7 @@ export default function SettingsPage() {
   const [inviteSent, setInviteSent] = useState(false);
   const [feedback, setFeedback] = useState('');
   const [confirmAction, setConfirmAction] = useState<ConfirmAction>(null);
+  const [isSettingsNavCollapsed, setIsSettingsNavCollapsed] = useState(true);
 
   const profileDirty = useMemo(() => JSON.stringify(profile) !== JSON.stringify(savedProfile), [profile, savedProfile]);
 
@@ -122,11 +135,26 @@ export default function SettingsPage() {
   return (
     <div className="flex flex-col gap-3 pb-4">
 
-      <div className="grid grid-cols-1 lg:grid-cols-[14rem_1fr] gap-3 items-start">
-        <aside className="rounded-xl border border-border/70 bg-card shadow-sm overflow-hidden sticky top-20 p-2" aria-label="Settings sections">
-          <div className="px-2 py-1.5 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground/60">Workspace settings</div>
-          <a href="#profile" className="flex items-center gap-2 rounded-lg px-2 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground [&_svg]:h-4 [&_svg]:w-4 [&_svg]:shrink-0"><UserRound />Profile</a><a href="#security" className="flex items-center gap-2 rounded-lg px-2 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground [&_svg]:h-4 [&_svg]:w-4 [&_svg]:shrink-0"><ShieldCheck />Security</a><a href="#notifications" className="flex items-center gap-2 rounded-lg px-2 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground [&_svg]:h-4 [&_svg]:w-4 [&_svg]:shrink-0"><Bell />Notifications</a><a href="#appearance" className="flex items-center gap-2 rounded-lg px-2 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground [&_svg]:h-4 [&_svg]:w-4 [&_svg]:shrink-0"><Palette />Appearance</a><a href="#payments" className="flex items-center gap-2 rounded-lg px-2 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground [&_svg]:h-4 [&_svg]:w-4 [&_svg]:shrink-0"><CreditCard />Payment preferences</a><a href="#integrations" className="flex items-center gap-2 rounded-lg px-2 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground [&_svg]:h-4 [&_svg]:w-4 [&_svg]:shrink-0"><Code2 />Integrations</a><a href="#team" className="flex items-center gap-2 rounded-lg px-2 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground [&_svg]:h-4 [&_svg]:w-4 [&_svg]:shrink-0"><Users />Team & billing</a><a href="#privacy" className="flex items-center gap-2 rounded-lg px-2 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground [&_svg]:h-4 [&_svg]:w-4 [&_svg]:shrink-0"><Lock />Privacy & data</a>
-          <div className="flex items-center gap-2 px-2 py-1.5 text-xs text-success mt-2 border-t border-border/60 pt-2 [&_svg]:w-4 [&_svg]:h-4 [&_small]:text-[10px] [&_small]:text-muted-foreground [&_span]:flex [&_span]:flex-col"><CheckCircle2 /><span>Workspace protected<small>Last checked just now</small></span></div>
+      <div className={cn("grid grid-cols-1 gap-3 items-start", isSettingsNavCollapsed ? "lg:grid-cols-[4.5rem_1fr]" : "lg:grid-cols-[14rem_1fr]")}>
+        <aside className={cn("sticky top-20 overflow-hidden rounded-xl border border-border/70 bg-card p-2 shadow-sm lg:flex lg:min-h-[calc(100vh-7rem)] lg:flex-col", isSettingsNavCollapsed ? "lg:w-[4.5rem]" : "lg:w-[14rem]")} aria-label="Settings sections">
+          <div className={cn("flex items-center gap-2 px-2 py-1.5", isSettingsNavCollapsed ? "justify-center" : "justify-between")}>
+            {!isSettingsNavCollapsed && <div className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground/60">Workspace settings</div>}
+            <button type="button" aria-label={isSettingsNavCollapsed ? 'Expand settings navigation' : 'Collapse settings navigation'} aria-expanded={!isSettingsNavCollapsed} title={isSettingsNavCollapsed ? 'Expand settings navigation' : 'Collapse settings navigation'} onClick={() => setIsSettingsNavCollapsed((collapsed) => !collapsed)} className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50">
+              {isSettingsNavCollapsed ? <PanelLeftOpen className="h-4 w-4" /> : <PanelLeftClose className="h-4 w-4" />}
+            </button>
+          </div>
+          <nav className="flex flex-col gap-0.5" aria-label="Settings section links">
+            {settingsSections.map(({ id, label, icon: Icon }) => (
+              <a key={id} href={`#${id}`} aria-label={label} title={isSettingsNavCollapsed ? label : undefined} className={cn("flex items-center gap-2 rounded-lg px-2 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50 [&_svg]:h-4 [&_svg]:w-4 [&_svg]:shrink-0", isSettingsNavCollapsed && "justify-center px-2")}>
+                <Icon />
+                {!isSettingsNavCollapsed && <span>{label}</span>}
+              </a>
+            ))}
+          </nav>
+          <div className={cn("mt-auto flex items-center gap-2 border-t border-border/60 px-2 py-2 text-xs text-success", isSettingsNavCollapsed ? "justify-center" : "pt-2", "[&_svg]:h-4 [&_svg]:w-4 [&_svg]:shrink-0")}>
+            <CheckCircle2 aria-label="Workspace protected" title="Workspace protected" />
+            {!isSettingsNavCollapsed && <span className="flex flex-col"><span className="font-medium">Workspace protected</span><small className="text-[10px] text-muted-foreground">Last checked just now</small></span>}
+          </div>
         </aside>
 
         <div className="flex flex-col gap-3">
