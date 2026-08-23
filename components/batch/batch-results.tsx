@@ -54,8 +54,8 @@ export function BatchResults({ results, batchName }: BatchResultsProps) {
   const failedCount = results.filter((r) => r.status === 'failed').length;
 
   return (
-    <Card className="border-border">
-      <CardHeader>
+    <Card className="dashboard-card compact-table-card">
+      <CardHeader className="compact-card-header">
         <div className="flex items-center justify-between">
           <div>
             <CardTitle>Batch Results</CardTitle>
@@ -74,9 +74,9 @@ export function BatchResults({ results, batchName }: BatchResultsProps) {
           </Button>
         </div>
       </CardHeader>
-      <CardContent>
+      <CardContent className="compact-card-content p-0">
         <div className="overflow-x-auto">
-          <Table>
+          <Table className="compact-data-table">
             <TableHeader>
               <TableRow className="border-border hover:bg-transparent">
                 <TableHead>ID</TableHead>
@@ -99,14 +99,14 @@ export function BatchResults({ results, batchName }: BatchResultsProps) {
                       {result.status === 'success' ? (
                         <>
                           <CheckCircle className="h-4 w-4 text-green-500" />
-                          <Badge variant="default" className="bg-green-600 hover:bg-green-700">
+                          <Badge variant="outline" className="compact-status-success">
                             Success
                           </Badge>
                         </>
                       ) : (
                         <>
                           <XCircle className="h-4 w-4 text-red-500" />
-                          <Badge variant="destructive">Failed</Badge>
+                          <Badge variant="outline" className="compact-status-danger">Failed</Badge>
                         </>
                       )}
                     </div>

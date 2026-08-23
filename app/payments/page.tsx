@@ -16,6 +16,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { PaymentActivityChart } from '@/components/dashboard/payment-activity-chart';
 import { PaymentTypeChart } from '@/components/dashboard/payment-type-chart';
+import { PageHeader } from '@/components/page-header';
 
 const paymentHistory = [
   { recipient: 'William Hirsch', id: 'PAY-8784', detail: 'Service Fee', date: '20 July 2025', amount: '$585,658.00', status: 'Paid' },
@@ -38,12 +39,10 @@ function PaymentStatusIcon({ status }: { status: string }) {
 export default function PaymentsPage() {
   return (
     <div className="payments-page page-stack">
-      <div className="payments-page-intro">
-        <h1 className="payments-page-title">Payment</h1>
-        <p className="payments-page-description">
-          Easily manage all your payments, invoices, and transactions with real-time analytics, customer insights,<br className="payments-description-break" /> and clear reporting – ensuring accuracy and financial transparency.
-        </p>
-      </div>
+      <PageHeader
+        title="Payments"
+        description="Easily manage all your payments, invoices, and transactions with real-time analytics, customer insights, and clear reporting – ensuring accuracy and financial transparency."
+      />
 
       <section className="payments-overview-grid" aria-label="Payment overview">
         <Card className="dashboard-card payment-balance-card">
