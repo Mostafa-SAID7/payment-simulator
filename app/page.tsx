@@ -54,10 +54,10 @@ export default function Dashboard() {
     <div className="mx-auto flex w-full max-w-[1600px] flex-col gap-5 px-3 pb-6 sm:px-5 md:px-6 lg:px-8">
 
       {/* Top Cards Row */}
-      <section className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr]" aria-label="Account overview">
+      <section className="grid grid-cols-1 gap-4 md:grid-cols-2 2xl:grid-cols-[1.4fr_1fr_1fr_1fr]" aria-label="Account overview">
         
         {/* My Balance */}
-        <Card className="card-base card-elevated flex min-w-0 flex-col justify-between md:col-span-2 lg:col-span-1">
+        <Card className="card-base card-elevated flex min-w-0 flex-col justify-between md:col-span-2 2xl:col-span-1">
           <CardHeader className="flex flex-row items-center justify-between pb-2 px-5 pt-5">
             <CardTitle className="text-sm font-medium text-foreground/80 flex items-center gap-1.5">
               <div className="w-5 h-5 rounded bg-foreground/10 flex items-center justify-center shrink-0">
@@ -92,7 +92,7 @@ export default function Dashboard() {
         </Card>
 
         {/* Small Metric Cards */}
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:col-span-2 lg:contents">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:col-span-2 2xl:contents">
           {metrics.map((metric) => (
             <BalanceCard key={metric.title} {...metric} />
           ))}
@@ -100,7 +100,7 @@ export default function Dashboard() {
       </section>
 
       {/* Middle Charts Row */}
-      <section className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-[1fr_2.4fr]" aria-label="Dashboard analytics">
+      <section className="grid grid-cols-1 gap-4 2xl:grid-cols-[1fr_2.4fr]" aria-label="Dashboard analytics">
         <PaymentTypeChart />
         <TransactionChart />
       </section>
