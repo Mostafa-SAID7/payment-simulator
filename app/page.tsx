@@ -13,12 +13,13 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { TransactionChart } from '@/components/dashboard/transaction-chart';
 import { PaymentTypeChart } from '@/components/dashboard/payment-type-chart';
+import { BalanceCard } from '@/components/dashboard/balance-card';
 import { cn } from '@/lib/utils';
 
 const metrics = [
-  { label: 'Total Revenue', value: '$47,255.00', icon: CircleDollarSign },
-  { label: 'AVG. ORDER VALUE', value: '$98,747.00', icon: PieChart },
-  { label: 'New Order', value: '$47,255.00', icon: ShoppingBag },
+  { title: 'Total Revenue', amount: 47255, change: 14.2, icon: <CircleDollarSign className="h-4 w-4" /> },
+  { title: 'AVG. ORDER VALUE', amount: 98747, change: 9.8, icon: <PieChart className="h-4 w-4" /> },
+  { title: 'New Order', amount: 47255, change: 5.3, icon: <ShoppingBag className="h-4 w-4" /> },
 ];
 
 const transactions = [
@@ -91,20 +92,8 @@ export default function Dashboard() {
         </Card>
 
         {/* Small Metric Cards */}
-        {metrics.map(({ label, value, icon: Icon }) => (
-          <Card key={label} className="card-base card-elevated metric-card-accent relative flex flex-col justify-center bg-card/80 backdrop-blur-sm">
-            <CardContent className="p-5 flex flex-col gap-3">
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full border border-border/50 bg-foreground/5 flex items-center justify-center">
-                  <Icon className="w-4 h-4 text-foreground/70" />
-                </div>
-                <p className="text-[11px] font-medium text-foreground/50 uppercase tracking-wide">{label}</p>
-              </div>
-              <p className="text-2xl font-bold text-foreground mt-1">
-                {value.split('.')[0]}<span className="text-foreground/40 text-lg font-semibold">.{value.split('.')[1]}</span>
-              </p>
-            </CardContent>
-          </Card>
+        {metrics.map((metric) => (
+          <BalanceCard key={metric.title} {...metric} />
         ))}
       </section>
 
