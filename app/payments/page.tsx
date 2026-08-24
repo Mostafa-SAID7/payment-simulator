@@ -1,244 +1,163 @@
-import { ArrowDownRight, ArrowUpRight, ChevronDown, CircleDollarSign, Clock3, CreditCard, MoreVertical, Trash2 } from 'lucide-react';
+import {
+  ArrowDownRight,
+  ArrowUpRight,
+  CircleDollarSign,
+  Clock3,
+  CreditCard,
+  MoreVertical,
+  Trash2,
+  TrendingUp,
+} from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { PaymentActivityChart } from '@/components/dashboard/payment-activity-chart';
 import { PaymentTypeChart } from '@/components/dashboard/payment-type-chart';
+import { PeriodSelect } from '@/components/dashboard/period-select';
+import { AccountSelect } from '@/components/dashboard/account-select';
 import { cn } from '@/lib/utils';
 
 const paymentHistory = [
-  { 
-    name: 'William Hirsch',
-    subtitle: 'USA',
-    img: 'https://i.pravatar.cc/150?u=a042581f4e29026024d',
-    invoice: 'INV-5784', 
-    detail: 'Service Fee', 
-    date: '20 July 2025', 
-    amount: '$585,658.00', 
-    status: 'Paid' 
-  },
-  { 
-    name: 'William Hirsch',
-    subtitle: 'USA',
-    img: 'https://i.pravatar.cc/150?u=a042581f4e29026024d',
-    invoice: 'INV-5784', 
-    detail: 'Service Fee', 
-    date: '21 July 2025', 
-    amount: '$965,854.00', 
-    status: 'Pending' 
-  },
-  { 
-    name: 'William Hirsch',
-    subtitle: 'USA',
-    img: 'https://i.pravatar.cc/150?u=a042581f4e29026024d',
-    invoice: 'INV-5784', 
-    detail: 'Service Fee', 
-    date: '25 July 2025', 
-    amount: '$985,414.00', 
-    status: 'Paid' 
-  },
+  { name: 'William Hirsch', subtitle: 'USA', img: 'https://i.pravatar.cc/150?u=a042581f4e29026024d', invoice: 'INV-5784', detail: 'Service Fee', date: '20 July 2025', amount: '$585,658.00', status: 'Paid' },
+  { name: 'William Hirsch', subtitle: 'USA', img: 'https://i.pravatar.cc/150?u=a042581f4e29026024d', invoice: 'INV-5785', detail: 'Service Fee', date: '21 July 2025', amount: '$965,854.00', status: 'Pending' },
+  { name: 'William Hirsch', subtitle: 'USA', img: 'https://i.pravatar.cc/150?u=a042581f4e29026024d', invoice: 'INV-5786', detail: 'Service Fee', date: '25 July 2025', amount: '$985,414.00', status: 'Paid' },
 ];
 
 const metrics = [
-  { label: 'GROSS VOLUME', value: '$865,741.00', icon: CircleDollarSign },
-  { label: 'NET VOLUME', value: '$475,744.00', icon: Clock3 },
-  { label: 'PER CUSTOMER', value: '$747,985.00', icon: CreditCard },
+  { label: 'GROSS VOLUME', value: '$865,741.00', icon: CircleDollarSign, trend: '+14.2%' },
+  { label: 'NET VOLUME', value: '$475,744.00', icon: Clock3, trend: '+9.8%' },
+  { label: 'PER CUSTOMER', value: '$747,985.00', icon: CreditCard, trend: '+5.3%' },
 ];
+
+const subBalances = [
+  { val: '$525,525', dec: '.00', label: 'BTC/USD' },
+  { val: '$414,587', dec: '.00', label: 'EUR/USD' },
+  { val: '$785,58', dec: '.00', label: 'ETH/USD' },
+  { val: '$875,525', dec: '.00', label: 'GBP/USD' },
+];
+
+const cardShadow = 'shadow-[0_1px_4px_oklch(0_0_0/0.05),0_1px_2px_oklch(0_0_0/0.04),inset_0_1px_0_color-mix(in_oklch,white_60%,transparent)] dark:shadow-[0_2px_8px_oklch(0_0_0/0.22),inset_0_1px_0_color-mix(in_oklch,white_3%,transparent)]';
 
 function WalletIcon() {
   return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M21 12V7H5a2 2 0 0 1 0-4h14v4" />
+      <path d="M3 5v14a2 2 0 0 0 2 2h16v-5" />
+      <path d="M18 12a2 2 0 0 0 0 4h4v-4Z" />
+    </svg>
   );
 }
 
-function CalendarIcon() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
-  );
+function InfoMark() {
+  return <span className="inline-flex size-3.5 items-center justify-center rounded-full border border-border/50 text-[8px] text-muted-foreground" title="More information">i</span>;
+}
+
+function YearPicker() {
+  return <PeriodSelect defaultValue="year" />;
 }
 
 export default function PaymentsPage() {
   return (
-    <div className="flex flex-col gap-5 pb-6 mt-20 md:mt-24 px-4 md:px-8 max-w-[1600px] mx-auto w-full">
-      {/* Top Row: Balance and Metrics */}
-      <section className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-4" aria-label="Balance overview">
-        
-        {/* My Balance Card */}
-        <Card className="rounded-[1.25rem] border border-border/30 shadow-none overflow-hidden flex flex-col justify-between relative bg-card">
-          {/* Subtle radial glow */}
-          <div className="absolute top-0 left-0 w-[80%] h-[80%] rounded-full bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent opacity-80 pointer-events-none"></div>
-          
-          <CardHeader className="flex flex-row items-center justify-between pb-2 px-6 pt-6 relative z-10">
-            <CardTitle className="text-[13px] font-medium text-foreground/90 flex items-center gap-2">
-              <div className="w-6 h-6 rounded-md bg-foreground/5 border border-border/30 flex items-center justify-center shrink-0">
-                <WalletIcon />
-              </div>
-              My Balance 
-              <span className="inline-flex items-center justify-center w-3.5 h-3.5 rounded-full border border-border/50 text-muted-foreground text-[8px] cursor-help ml-0.5">i</span>
+    <div className="mx-auto flex w-full max-w-[1600px] flex-col gap-6 px-4 pb-6 md:px-8">
+      <section className="grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]" aria-label="Balance overview">
+        <Card className={cn('relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border/50 bg-card', cardShadow)}>
+          <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-2xl">
+            <div className="absolute -top-10 -left-6 size-48 rounded-full bg-primary/8 blur-3xl" />
+            <div className="absolute -right-6 -bottom-6 size-36 rounded-full bg-accent/6 blur-2xl" />
+            <div className="absolute top-0 right-0 left-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
+          </div>
+
+          <CardHeader className="relative z-10 flex flex-row items-center justify-between px-4 pt-5 pb-3 sm:px-6 sm:pt-6">
+            <CardTitle className="flex items-center gap-2 text-sm font-semibold text-foreground/85">
+              <span className="flex size-6 shrink-0 items-center justify-center rounded-md border border-primary/20 bg-primary/10"><WalletIcon /></span>
+              <span className="hidden sm:inline">My Balance</span>
+              <span className="sm:hidden">Balance</span>
+              <InfoMark />
             </CardTitle>
-            <button type="button" className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg border border-border/40 bg-secondary text-[11px] text-foreground/80 hover:bg-foreground/5 transition-colors">
-              <div className="flex -space-x-1">
-                <div className="w-3 h-3 rounded-full bg-destructive opacity-90 z-10"></div>
-                <div className="w-3 h-3 rounded-full bg-warning opacity-90"></div>
-              </div>
-              <span className="font-medium tracking-wider">xx25</span>
-              <ChevronDown className="w-3.5 h-3.5 opacity-50" />
-            </button>
+            <AccountSelect />
           </CardHeader>
-          
-          <CardContent className="px-6 pb-6 pt-2 relative z-10">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="text-4xl lg:text-[2.5rem] font-bold tracking-tight text-foreground leading-none">$875,985<span className="text-foreground/50 text-2xl lg:text-[1.75rem] font-semibold">.00</span></div>
-              <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-success/10 text-success text-[10px] font-semibold border border-success/20">+55.58%</span>
+
+          <CardContent className="relative z-10 px-4 pt-2 pb-5 sm:px-6 sm:pb-6">
+            <div className="mb-6 flex flex-wrap items-center gap-3 sm:gap-4">
+              <div className="text-3xl leading-none font-bold tracking-tight text-foreground sm:text-[2.5rem]">
+                $875,985<span className="text-xl font-semibold text-foreground/40 sm:text-2xl">.00</span>
+              </div>
+              <span className="inline-flex items-center gap-0.5 rounded-full border border-success/25 bg-success/10 px-2 py-0.5 text-[10px] font-semibold text-success shadow-[0_0_8px_color-mix(in_oklch,var(--color-success)_20%,transparent)]">
+                <TrendingUp className="size-2.5" />+55.58%
+              </span>
             </div>
-            <div className="flex gap-3 mb-8">
-              <Button className="h-9 px-6 text-xs font-semibold bg-primary hover:bg-primary/90 rounded-lg text-primary-foreground" size="sm">
-                <ArrowUpRight className="w-3.5 h-3.5 mr-1.5" /> Transfer
+            <div className="mb-7 flex flex-wrap gap-3">
+              <Button className="h-10 rounded-xl bg-primary px-5 text-xs font-semibold text-primary-foreground shadow-[0_4px_14px_-2px_color-mix(in_oklch,var(--color-primary)_40%,transparent)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-primary/90 hover:shadow-[0_6px_20px_-2px_color-mix(in_oklch,var(--color-primary)_50%,transparent)] sm:px-6" size="sm">
+                <ArrowUpRight className="mr-1.5 size-3.5" /> Transfer
               </Button>
-              <Button className="h-9 px-6 text-xs font-semibold bg-secondary border border-border/30 hover:bg-foreground/5 rounded-lg text-foreground/80" variant="outline" size="sm">
-                Request <ArrowDownRight className="w-3.5 h-3.5 ml-1.5" />
+              <Button className="h-10 rounded-xl border border-border/50 bg-secondary px-5 text-xs font-semibold text-foreground/80 shadow-[var(--shadow-xs)] transition-all duration-150 hover:border-border hover:bg-secondary/80 sm:px-6" variant="outline" size="sm">
+                Request <ArrowDownRight className="ml-1.5 size-3.5" />
               </Button>
             </div>
-            
-            {/* Sub balances */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-6 border-t border-border/10">
-              <div className="flex flex-col gap-1">
-                <span className="font-semibold text-foreground/90 text-sm">$525,525<span className="text-foreground/50 text-xs">.00</span></span>
-                <span className="text-[10px] text-muted-foreground font-medium tracking-wide">BTC/USD</span>
-              </div>
-              <div className="flex flex-col gap-1 md:border-l md:border-border/10 md:pl-4">
-                <span className="font-semibold text-foreground/90 text-sm">$414,587<span className="text-foreground/50 text-xs">.00</span></span>
-                <span className="text-[10px] text-muted-foreground font-medium tracking-wide">EUR/USD</span>
-              </div>
-              <div className="flex flex-col gap-1 md:border-l md:border-border/10 md:pl-4">
-                <span className="font-semibold text-foreground/90 text-sm">$785,58<span className="text-foreground/50 text-xs">.00</span></span>
-                <span className="text-[10px] text-muted-foreground font-medium tracking-wide">ETH/USD</span>
-              </div>
-              <div className="flex flex-col gap-1 md:border-l md:border-border/10 md:pl-4">
-                <span className="font-semibold text-foreground/90 text-sm">$875,525<span className="text-foreground/50 text-xs">.00</span></span>
-                <span className="text-[10px] text-muted-foreground font-medium tracking-wide">GBP/USD</span>
-              </div>
+            <div className="grid grid-cols-2 gap-4 border-t border-border/25 pt-5 sm:grid-cols-4">
+              {subBalances.map((item, index) => (
+                <div key={item.label} className={cn('flex flex-col gap-1.5', index > 0 && 'sm:border-l sm:border-border/20 sm:pl-4')}>
+                  <span className="text-sm leading-tight font-bold text-foreground/85">{item.val}<span className="text-xs text-foreground/40">{item.dec}</span></span>
+                  <span className="text-[10px] font-semibold tracking-widest text-muted-foreground uppercase">{item.label}</span>
+                </div>
+              ))}
             </div>
           </CardContent>
         </Card>
 
-        {/* 3 Stacked Cards */}
-        <div className="flex flex-col gap-4">
-          {metrics.map(({ label, value, icon: Icon }) => (
-            <Card key={label} className="rounded-[1.25rem] bg-card border border-border/30 shadow-none overflow-hidden flex-1 flex flex-col justify-center">
-              <CardContent className="p-5 flex items-center gap-4">
-                <div className="w-10 h-10 rounded-xl border border-border/20 bg-foreground/5 flex items-center justify-center shrink-0">
-                  <Icon className="w-4 h-4 text-foreground/70" />
-                </div>
-                <div className="flex flex-col gap-0.5">
-                  <span className="text-[10px] font-semibold text-muted-foreground tracking-widest">{label}</span>
-                  <span className="text-[17px] font-bold text-foreground">
-                    {value.split('.')[0]}<span className="text-foreground/50 text-sm">.{value.split('.')[1]}</span>
-                  </span>
-                </div>
+        <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-1">
+          {metrics.map(({ label, value, icon: Icon, trend }) => (
+            <Card key={label} className={cn('relative flex min-w-0 flex-col justify-center overflow-hidden rounded-2xl border border-border/50 bg-card transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_4px_12px_oklch(0_0_0/0.08)]', cardShadow)}>
+              <div className="absolute top-0 right-0 left-0 h-0.5 rounded-t-2xl bg-gradient-to-r from-transparent via-primary/25 to-transparent" />
+              <CardContent className="flex items-center gap-3 p-4 sm:gap-4 sm:p-5">
+                <span className="flex size-10 shrink-0 items-center justify-center rounded-xl border border-border/40 bg-primary/6 shadow-[inset_0_1px_0_color-mix(in_oklch,white_8%,transparent)] sm:size-11"><Icon className="size-4 text-primary/70 sm:size-5" /></span>
+                <span className="flex min-w-0 flex-1 flex-col gap-1">
+                  <span className="flex items-center justify-between gap-2"><span className="truncate text-[10px] font-semibold tracking-widest text-muted-foreground">{label}</span><span className="shrink-0 rounded-full border border-success/20 bg-success/8 px-1.5 py-0.5 text-[10px] font-semibold text-success">{trend}</span></span>
+                  <span className="text-base leading-tight font-bold text-foreground sm:text-lg">{value.split('.')[0]}<span className="text-sm text-foreground/40">.{value.split('.')[1]}</span></span>
+                </span>
               </CardContent>
             </Card>
           ))}
         </div>
       </section>
 
-      {/* Middle Row: Charts */}
-      <section className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-4" aria-label="Payment analytics">
-        
-        {/* Payment Activity Chart */}
-        <Card className="rounded-[1.25rem] bg-card border border-border/30 shadow-none overflow-hidden flex flex-col">
-          <CardHeader className="flex flex-row items-center justify-between pb-2 px-6 pt-6">
-            <CardTitle className="text-[13px] font-medium text-foreground/90 flex items-center gap-1.5">
-              Payment Activity 
-              <span className="inline-flex items-center justify-center w-3.5 h-3.5 rounded-full border border-border/50 text-muted-foreground text-[8px] cursor-help ml-1">i</span>
-            </CardTitle>
-            <button type="button" className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border/40 bg-secondary text-[11px] text-foreground/70 hover:bg-foreground/5 transition-colors">
-              <CalendarIcon />
-              This Year <ChevronDown className="w-3.5 h-3.5 opacity-50 ml-1" />
-            </button>
+      <section className="grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]" aria-label="Payment analytics">
+        <Card className={cn('flex flex-col overflow-hidden rounded-2xl border border-border/50 bg-card', cardShadow)}>
+          <CardHeader className="flex flex-row items-center justify-between px-4 pt-5 pb-3 sm:px-6 sm:pt-6">
+            <CardTitle className="flex items-center gap-2 text-sm font-semibold text-foreground/90">Payment Activity <InfoMark /></CardTitle>
+            <YearPicker />
           </CardHeader>
-          <CardContent className="flex-1 p-0 flex flex-col relative min-h-[280px]">
-            <PaymentActivityChart />
-          </CardContent>
+          <CardContent className="relative flex min-h-[280px] flex-1 flex-col p-0"><PaymentActivityChart /></CardContent>
         </Card>
 
-        {/* Balance Details Donut */}
-        <Card className="rounded-[1.25rem] bg-card border border-border/30 shadow-none overflow-hidden flex flex-col">
-          <CardHeader className="flex flex-row items-center justify-between pb-0 px-6 pt-6">
-            <CardTitle className="text-[13px] font-medium text-foreground/90 flex items-center gap-1.5">
-              Balance Details 
-              <span className="inline-flex items-center justify-center w-3.5 h-3.5 rounded-full border border-border/50 text-muted-foreground text-[8px] cursor-help ml-1">i</span>
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="flex-1 flex flex-col items-center justify-center p-6 relative">
-            <PaymentTypeChart />
-          </CardContent>
-        </Card>
+        <PaymentTypeChart />
       </section>
 
-      {/* Bottom Row: Payment History Table */}
-      <Card className="rounded-[1.25rem] bg-card border border-border/30 shadow-none overflow-hidden mt-1">
-        <CardHeader className="flex flex-row items-center justify-between px-6 py-5 border-b border-border/10">
-          <CardTitle className="text-[13px] font-medium text-foreground/90 flex items-center gap-1.5">
-            Payment History
-            <span className="inline-flex items-center justify-center w-3.5 h-3.5 rounded-full border border-border/50 text-muted-foreground text-[8px] cursor-help ml-1">i</span>
-          </CardTitle>
-          <button type="button" className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border/40 bg-secondary text-[11px] text-foreground/70 hover:bg-foreground/5 transition-colors">
-            <CalendarIcon />
-            This Year <ChevronDown className="w-3.5 h-3.5 opacity-50 ml-1" />
-          </button>
+      <Card className={cn('overflow-hidden rounded-2xl border border-border/50 bg-card', cardShadow)}>
+        <CardHeader className="flex flex-row items-center justify-between border-b border-border/25 px-4 py-5 sm:px-6">
+          <CardTitle className="flex items-center gap-2 text-sm font-semibold text-foreground/90">Payment History <InfoMark /></CardTitle>
+          <YearPicker />
         </CardHeader>
         <CardContent className="p-0">
-          <div className="overflow-x-auto">
-            <table className="w-full text-[11px]">
+          <div className="overflow-x-auto [scrollbar-width:thin]">
+            <table className="min-w-[640px] w-full text-xs">
               <thead>
-                <tr className="border-b border-border/10 [&_th]:px-6 [&_th]:py-4 [&_th]:text-left [&_th]:font-medium [&_th]:text-muted-foreground">
-                  <th className="w-48">Members</th>
-                  <th>Invoice</th>
-                  <th>Payments Details</th>
-                  <th>Date</th>
-                  <th>AApprox</th>
-                  <th className="w-24">Status</th>
-                  <th className="text-right w-20">Action</th>
+                <tr className="border-b border-border/25 bg-secondary/30">
+                  {['Members', 'Invoice', 'Details', 'Date', 'Amount', 'Status', ''].map((heading, index) => (
+                    <th key={`${heading}-${index}`} className={cn('px-6 py-4 text-left text-[10px] font-semibold tracking-widest text-muted-foreground uppercase', index === 6 && 'text-right')}>{heading}</th>
+                  ))}
                 </tr>
               </thead>
               <tbody>
                 {paymentHistory.map((transaction, index) => (
-                  <tr key={`${transaction.date}-${transaction.invoice}`} className={`hover:bg-foreground/5 transition-colors [&_td]:px-6 [&_td]:py-4 ${index !== paymentHistory.length - 1 ? 'border-b border-border/5' : ''}`}>
-                    <td>
-                      <div className="flex items-center gap-3">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src={transaction.img} alt={transaction.name} className="w-8 h-8 rounded-full border border-border/50 object-cover" />
-                        <div className="flex flex-col">
-                          <span className="font-semibold text-foreground/90">{transaction.name}</span>
-                          <span className="text-muted-foreground text-[9px] mt-0.5">{transaction.subtitle}</span>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="text-muted-foreground">{transaction.invoice}</td>
+                  <tr key={`${transaction.date}-${transaction.invoice}`} className={cn('transition-colors duration-100 [&_td]:px-6 [&_td]:py-4 hover:bg-primary/3', index !== paymentHistory.length - 1 && 'border-b border-border/20')}>
+                    <td><div className="flex items-center gap-3"><img src={transaction.img} alt={transaction.name} className="size-9 rounded-full border border-border/50 object-cover shadow-[var(--shadow-xs)]" /><span className="flex flex-col"><span className="text-[13px] leading-tight font-semibold text-foreground/90">{transaction.name}</span><span className="mt-0.5 text-[11px] text-muted-foreground">{transaction.subtitle}</span></span></div></td>
+                    <td className="font-medium text-muted-foreground">{transaction.invoice}</td>
                     <td className="text-muted-foreground">{transaction.detail}</td>
                     <td className="text-muted-foreground">{transaction.date}</td>
-                    <td className="font-semibold text-foreground/80">{transaction.amount}</td>
-                    <td>
-                      <Badge variant="outline" className={cn(
-                        "rounded-full px-3 py-0.5 text-[9px] font-medium border bg-transparent",
-                        transaction.status === 'Paid' 
-                          ? 'border-success/40 text-success' 
-                          : 'border-warning/40 text-warning'
-                      )}>
-                        {transaction.status}
-                      </Badge>
-                    </td>
-                    <td>
-                      <div className="flex items-center justify-end gap-1">
-                        <Button variant="ghost" size="icon" className="w-7 h-7 rounded-md text-muted-foreground hover:text-foreground hover:bg-secondary border border-border/20">
-                          <MoreVertical className="w-3.5 h-3.5" />
-                        </Button>
-                        <Button variant="ghost" size="icon" className="w-7 h-7 rounded-md text-muted-foreground hover:text-destructive hover:bg-destructive/10 border border-border/20">
-                          <Trash2 className="w-3.5 h-3.5" />
-                        </Button>
-                      </div>
-                    </td>
+                    <td className="font-bold text-foreground/85">{transaction.amount}</td>
+                    <td><Badge variant="outline" className={cn('rounded-full border px-3 py-0.5 text-[10px] font-semibold', transaction.status === 'Paid' ? 'border-success/35 bg-success/6 text-success shadow-[0_0_8px_color-mix(in_oklch,var(--color-success)_15%,transparent)]' : 'border-warning/35 bg-warning/6 text-warning shadow-[0_0_8px_color-mix(in_oklch,var(--color-warning)_15%,transparent)]')}>{transaction.status}</Badge></td>
+                    <td><div className="flex items-center justify-end gap-2"><Button variant="ghost" size="icon" className="size-8 rounded-lg border border-border/40 text-muted-foreground transition-all duration-150 hover:bg-secondary hover:text-foreground"><MoreVertical className="size-3.5" /></Button><Button variant="ghost" size="icon" className="size-8 rounded-lg border border-border/40 text-muted-foreground transition-all duration-150 hover:bg-destructive/8 hover:text-destructive"><Trash2 className="size-3.5" /></Button></div></td>
                   </tr>
                 ))}
               </tbody>
