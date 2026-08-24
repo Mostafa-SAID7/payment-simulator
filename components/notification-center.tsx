@@ -22,6 +22,9 @@ import { Notification } from '@/hooks/use-notifications';
 import { cn } from '@/lib/utils';
 import { format } from 'date-fns';
 
+const notificationButtonClass = 'inline-flex size-8 shrink-0 items-center justify-center rounded-full border border-border/50 bg-secondary/70 text-muted-foreground shadow-[var(--shadow-xs)] backdrop-blur-sm transition-all duration-200 hover:border-primary/40 hover:bg-primary/10 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 [&_svg]:size-3.5 [&_svg]:stroke-[1.7]';
+const unreadBadgeClass = 'pointer-events-none absolute -top-2 -right-2 z-20 inline-flex h-5 min-w-5 items-center justify-center rounded-full border-2 border-background bg-destructive px-1 text-[0.625rem] font-bold leading-none text-destructive-foreground shadow-[0_2px_8px_color-mix(in_oklch,var(--color-destructive)_45%,transparent)]';
+
 interface NotificationCenterProps {
   notifications: Notification[];
   unreadCount: number;
@@ -68,7 +71,7 @@ export function NotificationCenter({
         variant="ghost"
         size="icon"
         aria-label="Notifications"
-        className="w-8 h-8 rounded-full border border-border/50 bg-foreground/5 text-foreground/60 hover:border-primary/30 hover:bg-primary/10 hover:text-foreground [&_svg]:w-3.5 [&_svg]:h-3.5 [&_svg]:stroke-[1.7]"
+        className={notificationButtonClass}
       >
         <Bell />
       </Button>
@@ -77,19 +80,19 @@ export function NotificationCenter({
 
   return (
     <Popover open={isOpen} onOpenChange={setIsOpen}>
-      <div className="relative inline-flex flex-[0_0_2rem] w-8 h-8">
+      <div className="relative inline-flex size-8 shrink-0 overflow-visible">
         <PopoverTrigger asChild>
           <Button
             variant="ghost"
             size="icon"
             aria-label={`Notifications${unreadCount > 0 ? `, ${unreadCount} unread` : ''}`}
-            className="w-8 h-8 rounded-full border border-border/50 bg-foreground/5 text-foreground/60 hover:border-primary/30 hover:bg-primary/10 hover:text-foreground [&_svg]:w-3.5 [&_svg]:h-3.5 [&_svg]:stroke-[1.7]"
+            className={notificationButtonClass}
           >
             <Bell />
           </Button>
         </PopoverTrigger>
         {unreadCount > 0 && (
-          <span className="absolute -top-0.5 -right-0.5 z-10 pointer-events-none inline-flex items-center justify-center min-w-[0.75rem] h-3 px-[0.2rem] border-2 border-background rounded-full bg-destructive text-destructive-foreground text-[0.625rem] font-bold leading-none">
+          <span className={unreadBadgeClass}>
             {unreadCount > 9 ? '9+' : unreadCount}
           </span>
         )}
