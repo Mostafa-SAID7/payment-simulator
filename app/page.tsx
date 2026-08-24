@@ -51,13 +51,13 @@ const transactions = [
 
 export default function Dashboard() {
   return (
-    <div className="flex flex-col gap-5 pb-6 mt-20 md:mt-24 px-4 md:px-8 max-w-[1600px] mx-auto w-full">
+    <div className="mx-auto flex w-full max-w-[1600px] flex-col gap-5 px-3 pb-6 sm:px-5 md:px-6 lg:px-8">
 
       {/* Top Cards Row */}
-      <section className="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr_1fr_1fr] gap-4" aria-label="Account overview">
+      <section className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr]" aria-label="Account overview">
         
         {/* My Balance */}
-        <Card className="card-base card-elevated flex flex-col justify-between">
+        <Card className="card-base card-elevated flex min-w-0 flex-col justify-between md:col-span-2 lg:col-span-1">
           <CardHeader className="flex flex-row items-center justify-between pb-2 px-5 pt-5">
             <CardTitle className="text-sm font-medium text-foreground/80 flex items-center gap-1.5">
               <div className="w-5 h-5 rounded bg-foreground/10 flex items-center justify-center shrink-0">
@@ -92,19 +92,21 @@ export default function Dashboard() {
         </Card>
 
         {/* Small Metric Cards */}
-        {metrics.map((metric) => (
-          <BalanceCard key={metric.title} {...metric} />
-        ))}
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:col-span-2 lg:contents">
+          {metrics.map((metric) => (
+            <BalanceCard key={metric.title} {...metric} />
+          ))}
+        </div>
       </section>
 
       {/* Middle Charts Row */}
-      <section className="grid grid-cols-1 lg:grid-cols-[1fr_2.4fr] gap-4" aria-label="Dashboard analytics">
+      <section className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-[1fr_2.4fr]" aria-label="Dashboard analytics">
         <PaymentTypeChart />
         <TransactionChart />
       </section>
 
       {/* Transaction History Table */}
-      <Card className="card-base card-elevated">
+      <Card className="card-base card-elevated min-w-0">
         <CardHeader className="flex flex-row items-center justify-between p-5 border-b border-border/20">
           <CardTitle className="text-sm font-medium text-foreground/90 flex items-center gap-1.5">
             Transaction History <span className="inline-flex items-center justify-center w-3.5 h-3.5 rounded-full border border-border/50 text-muted-foreground text-[8px] cursor-help ml-1">i</span>
