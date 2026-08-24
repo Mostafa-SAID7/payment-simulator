@@ -22,8 +22,8 @@ const data = [
 
 export function TransactionChartRenderer() {
   return (
-    <Card className="card-base card-elevated h-full min-w-0">
-      <CardHeader className="flex flex-row items-center justify-between border-b border-transparent p-5">
+    <Card className="card-base card-elevated h-full min-w-0 py-0 gap-0">
+      <CardHeader className="flex flex-row items-center justify-between border-b border-transparent px-5 pb-3 pt-3">
         <CardTitle className="flex items-center gap-1.5 text-sm font-medium text-foreground/90">
           Report <span className="ml-1 inline-flex size-3.5 items-center justify-center rounded-full border border-border/50 text-[8px] text-muted-foreground">i</span>
         </CardTitle>

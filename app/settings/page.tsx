@@ -1,16 +1,15 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { AlertCircle, Bell, Check, CheckCircle2, Clipboard, CloudDownload, Code2, Copy, CreditCard, KeyRound, Laptop, Lock, LogOut, Mail, Monitor, Palette, PanelLeftClose, PanelLeftOpen, Pencil, Plus, RefreshCw, Save, Send, ShieldCheck, Smartphone, Trash2, UserRound, Users, X, Zap } from 'lucide-react';
+import { Bell, Check, CheckCircle2, CloudDownload, Code2, Copy, CreditCard, KeyRound, Laptop, Lock, LogOut, Monitor, Palette, Pencil, RefreshCw, Save, Send, ShieldCheck, Smartphone, Trash2, UserRound, Users, X, Zap, Settings2, Globe, Mail, Phone, Building2, ToggleLeft } from 'lucide-react';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { cn } from '@/lib/utils';
 
 const initialProfile = { firstName: 'John', lastName: 'Administrator', email: 'admin@finpay.com', phone: '+1 (555) 123-4567', company: 'FinPay Corp', role: 'Payment Administrator' };
@@ -33,23 +32,45 @@ const initialSessions = [
   { device: 'iPhone 15 Pro', location: 'New York, US', lastActive: '2 hours ago', icon: Smartphone, current: false },
 ];
 
-const settingsSections = [
-  { id: 'profile', label: 'Profile', icon: UserRound },
-  { id: 'security', label: 'Security', icon: ShieldCheck },
-  { id: 'notifications', label: 'Notifications', icon: Bell },
-  { id: 'appearance', label: 'Appearance', icon: Palette },
-  { id: 'payments', label: 'Payment preferences', icon: CreditCard },
-  { id: 'integrations', label: 'Integrations', icon: Code2 },
-  { id: 'team', label: 'Team & billing', icon: Users },
-  { id: 'privacy', label: 'Privacy & data', icon: Lock },
+const workspaceStats = [
+  { label: 'Team members', value: '3', icon: Users, color: 'text-primary' },
+  { label: 'Integrations', value: '2', icon: Code2, color: 'text-success' },
+  { label: 'Security score', value: '94%', icon: ShieldCheck, color: 'text-warning' },
+  { label: 'Active sessions', value: '2', icon: Globe, color: 'text-info' },
 ];
 
-function SettingRow({ title, description, children, className = '' }: { title: string; description: string; children: React.ReactNode; className?: string }) {
-  return <div className={`flex items-center justify-between gap-4 py-2 ${className}`}><div className="flex min-w-0 flex-1 flex-col gap-0.5"><strong className="text-xs font-medium text-foreground">{title}</strong><span className="text-[10px] leading-tight text-muted-foreground">{description}</span></div>{children}</div>;
+function SectionLabel({ children }: { children: React.ReactNode }) {
+  return (
+    <p className="text-[0.65rem] font-semibold uppercase tracking-widest text-muted-foreground/60 mb-3">
+      {children}
+    </p>
+  );
 }
 
-function SectionTitle({ icon: Icon, title, description }: { icon: typeof UserRound; title: string; description: string }) {
-  return <CardHeader className="flex items-center gap-3 px-4 pt-4 pb-3 border-b border-border/60"><div className="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-primary/10 text-primary shrink-0 [&_svg]:w-4 [&_svg]:h-4"><Icon /></div><div className="min-w-0 flex flex-col gap-0.5"><CardTitle className="text-sm font-semibold text-foreground">{title}</CardTitle><CardDescription className="text-xs text-muted-foreground">{description}</CardDescription></div></CardHeader>;
+function SettingRow({ title, description, children, className = '' }: { title: string; description: string; children: React.ReactNode; className?: string }) {
+  return (
+    <div className={cn('flex items-center justify-between gap-4 py-3 border-b border-border/40 last:border-0', className)}>
+      <div className="flex flex-col gap-0.5 min-w-0">
+        <span className="text-xs font-semibold text-foreground truncate">{title}</span>
+        <span className="text-xs text-muted-foreground">{description}</span>
+      </div>
+      <div className="shrink-0">{children}</div>
+    </div>
+  );
+}
+
+function CardSectionHeader({ icon: Icon, title, description, accent = false }: { icon: typeof UserRound; title: string; description: string; accent?: boolean }) {
+  return (
+    <div className={cn('flex items-center gap-3 px-5 pt-3 pb-4 border-b border-border/50', accent && 'bg-gradient-to-r from-primary/5 to-transparent')}>
+      <div className={cn('inline-flex items-center justify-center w-9 h-9 rounded-xl shrink-0', accent ? 'bg-primary/15 text-primary' : 'bg-muted/80 text-muted-foreground')}>
+        <Icon className="w-4 h-4" />
+      </div>
+      <div className="min-w-0 flex-1">
+        <p className="text-sm font-semibold text-foreground leading-tight">{title}</p>
+        <p className="text-[0.7rem] text-muted-foreground mt-0.5 leading-snug">{description}</p>
+      </div>
+    </div>
+  );
 }
 
 export default function SettingsPage() {
@@ -69,9 +90,9 @@ export default function SettingsPage() {
   const [inviteSent, setInviteSent] = useState(false);
   const [feedback, setFeedback] = useState('');
   const [confirmAction, setConfirmAction] = useState<ConfirmAction>(null);
-  const [isSettingsNavCollapsed, setIsSettingsNavCollapsed] = useState(true);
 
   const profileDirty = useMemo(() => JSON.stringify(profile) !== JSON.stringify(savedProfile), [profile, savedProfile]);
+  const initials = `${profile.firstName[0] ?? ''}${profile.lastName[0] ?? ''}`;
 
   function updateProfile(field: keyof Profile, value: string) {
     setProfile((current) => ({ ...current, [field]: value }));
@@ -99,7 +120,7 @@ export default function SettingsPage() {
   }
 
   function regenerateApiKey() {
-    setApiKey('pk_live_••••••••••••••••' + Math.random().toString(16).slice(2, 6));
+    setApiKey(`pk_live_••••••••••••••••${Math.random().toString(16).slice(2, 6)}`);
     setFeedback('A new API key has been generated.');
   }
 
@@ -109,9 +130,9 @@ export default function SettingsPage() {
   }
 
   function exportData() {
-    const exportPayload = JSON.stringify({ profile, notifications, paymentPreferences }, null, 2);
+    const payload = JSON.stringify({ profile, notifications, paymentPreferences }, null, 2);
     const link = document.createElement('a');
-    link.href = URL.createObjectURL(new Blob([exportPayload], { type: 'application/json' }));
+    link.href = URL.createObjectURL(new Blob([payload], { type: 'application/json' }));
     link.download = 'finpay-account-data.json';
     link.click();
     setFeedback('Your account data export is ready.');
@@ -129,81 +150,332 @@ export default function SettingsPage() {
   function sendInvite() {
     if (!inviteEmail.trim()) return;
     setInviteSent(true);
-    setInviteEmail('');
     setFeedback(`Invitation sent to ${inviteEmail}.`);
+    setInviteEmail('');
   }
 
   return (
-    <div className="flex flex-col gap-3 pb-4">
+    <div className="flex flex-col gap-4 pb-6">
+      {feedback && (
+        <div className="flex items-center gap-2.5 px-4 py-3 rounded-xl bg-success/10 border border-success/25 text-success text-xs font-medium shadow-sm" role="status">
+          <CheckCircle2 className="w-4 h-4 shrink-0" />
+          <span className="flex-1">{feedback}</span>
+          <button type="button" aria-label="Dismiss" onClick={() => setFeedback('')} className="text-success/60 hover:text-success transition-colors">
+            <X className="w-3.5 h-3.5" />
+          </button>
+        </div>
+      )}
 
-      <div className={cn("grid grid-cols-1 gap-3 items-start", isSettingsNavCollapsed ? "lg:grid-cols-[4.5rem_1fr]" : "lg:grid-cols-[14rem_1fr]")}>
-        <aside className={cn("sticky top-20 overflow-hidden rounded-xl border border-border/70 bg-card p-2 shadow-sm lg:flex lg:min-h-[calc(100vh-7rem)] lg:flex-col", isSettingsNavCollapsed ? "lg:w-[4.5rem]" : "lg:w-[14rem]")} aria-label="Settings sections">
-          <div className={cn("flex items-center gap-2 px-2 py-1.5", isSettingsNavCollapsed ? "justify-center" : "justify-between")}>
-            {!isSettingsNavCollapsed && <div className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground/60">Workspace settings</div>}
-            <Tooltip open={isSettingsNavCollapsed ? undefined : false}>
-              <TooltipTrigger asChild>
-                <button type="button" aria-label={isSettingsNavCollapsed ? 'Expand settings navigation' : 'Collapse settings navigation'} aria-expanded={!isSettingsNavCollapsed} onClick={() => setIsSettingsNavCollapsed((collapsed) => !collapsed)} className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50">
-                  {isSettingsNavCollapsed ? <PanelLeftOpen className="h-4 w-4" /> : <PanelLeftClose className="h-4 w-4" />}
-                </button>
-              </TooltipTrigger>
-              <TooltipContent side="right" sideOffset={8}>{isSettingsNavCollapsed ? 'Expand settings navigation' : 'Collapse settings navigation'}</TooltipContent>
-            </Tooltip>
-          </div>
-          <nav className="flex flex-col gap-0.5" aria-label="Settings section links">
-            {settingsSections.map(({ id, label, icon: Icon }) => (
-              <Tooltip key={id} open={isSettingsNavCollapsed ? undefined : false}>
-                <TooltipTrigger asChild>
-                  <a href={`#${id}`} aria-label={label} className={cn("flex items-center gap-2 rounded-lg px-2 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50 [&_svg]:h-4 [&_svg]:w-4 [&_svg]:shrink-0", isSettingsNavCollapsed && "justify-center px-2")}>
-                    <Icon />
-                    {!isSettingsNavCollapsed && <span>{label}</span>}
-                  </a>
-                </TooltipTrigger>
-                <TooltipContent side="right" sideOffset={8}>{label}</TooltipContent>
-              </Tooltip>
-            ))}
-          </nav>
-          <div className={cn("mt-auto flex items-center gap-2 border-t border-border/60 px-2 py-2 text-xs text-success", isSettingsNavCollapsed ? "justify-center" : "pt-2", "[&_svg]:h-4 [&_svg]:w-4 [&_svg]:shrink-0")}>
-            <CheckCircle2 aria-label="Workspace protected" />
-            {!isSettingsNavCollapsed && <span className="flex flex-col"><span className="font-medium">Workspace protected</span><small className="text-[10px] text-muted-foreground">Last checked just now</small></span>}
-          </div>
-        </aside>
+      <div className="relative overflow-hidden rounded-2xl border border-border/60 bg-card shadow-md">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/8 via-transparent to-accent/5 pointer-events-none" />
+        <div className="absolute top-0 right-0 w-72 h-72 rounded-full bg-primary/6 blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-48 h-48 rounded-full bg-accent/5 blur-2xl pointer-events-none" />
 
-        <div className="flex flex-col gap-3">
-          {feedback && <div className="flex items-center gap-2 px-4 py-3 rounded-lg bg-success/10 border border-success/30 text-success text-sm [&_svg]:w-4 [&_svg]:h-4 [&_button]:ml-auto [&_button]:text-success/70 [&_button]:hover:text-success" role="status"><CheckCircle2 /><span>{feedback}</span><button type="button" aria-label="Dismiss notification" onClick={() => setFeedback('')}><X /></button></div>}
+        <div className="relative z-10 px-5 pb-5 pt-3 sm:px-6 sm:pb-6 sm:pt-4">
+          <div className="flex flex-col sm:flex-row sm:items-start gap-5">
+            <div className="relative shrink-0">
+              <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br from-primary/25 via-primary/15 to-accent/20 border border-primary/20 flex items-center justify-center shadow-lg">
+                <Settings2 className="w-7 h-7 sm:w-9 sm:h-9 text-primary" />
+              </div>
+              <span className="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-success border-2 border-card shadow-sm" />
+            </div>
 
-          <Card id="profile" className="rounded-xl border border-border/70 bg-card shadow-sm overflow-hidden"><SectionTitle icon={UserRound} title="Profile & account" description="Keep your identity and workspace details up to date" /><CardContent className="p-4">
-            <div className="flex items-center gap-3 p-3 rounded-lg bg-secondary/50 border border-border/50 mb-4"><span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-primary/20 text-primary font-bold shrink-0">{profile.firstName[0]}{profile.lastName[0]}</span><span className="flex min-w-0 flex-1 flex-col gap-0.5"><strong className="truncate text-sm font-semibold text-foreground">{profile.firstName} {profile.lastName}</strong><small className="truncate text-xs text-muted-foreground">{profile.email}</small></span><Badge variant="outline" className="text-[10px]">Owner</Badge></div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-2"><div><Label htmlFor="settings-first-name">First name</Label><Input id="settings-first-name" value={profile.firstName} onChange={(event) => updateProfile('firstName', event.target.value)} className="h-8 text-xs" /></div><div><Label htmlFor="settings-last-name">Last name</Label><Input id="settings-last-name" value={profile.lastName} onChange={(event) => updateProfile('lastName', event.target.value)} className="h-8 text-xs" /></div><div><Label htmlFor="settings-email">Email address</Label><Input id="settings-email" type="email" value={profile.email} onChange={(event) => updateProfile('email', event.target.value)} className="h-8 text-xs" /></div><div><Label htmlFor="settings-phone">Phone number</Label><Input id="settings-phone" value={profile.phone} onChange={(event) => updateProfile('phone', event.target.value)} className="h-8 text-xs" /></div><div><Label htmlFor="settings-company">Company</Label><Input id="settings-company" value={profile.company} onChange={(event) => updateProfile('company', event.target.value)} className="h-8 text-xs" /></div><div><Label htmlFor="settings-role">Role</Label><Input id="settings-role" value={profile.role} onChange={(event) => updateProfile('role', event.target.value)} className="h-8 text-xs" /></div></div>
-            <div className="flex items-center justify-between mt-4 pt-3 border-t border-border/60 text-xs text-muted-foreground"><span>{profileDirty ? 'You have unsaved changes' : 'Your profile is up to date'}</span><div><Button variant="outline" className="h-8 text-xs" onClick={cancelProfile} disabled={!profileDirty}>Cancel</Button><Button className="h-8 text-xs gap-2" onClick={saveProfile} disabled={!profileDirty}><Save />Save changes</Button></div></div>
-          </CardContent></Card>
+            <div className="flex-1 min-w-0">
+              <div className="flex flex-wrap items-center gap-2 mb-1">
+                <h1 className="text-lg sm:text-xl font-bold text-foreground tracking-tight">Workspace Settings</h1>
+                <Badge variant="secondary" className="text-[0.6rem] px-2 py-0.5 font-semibold bg-primary/10 text-primary border-primary/20">
+                  Administrator
+                </Badge>
+              </div>
+              <p className="text-xs text-muted-foreground mb-3">
+                {profile.role} · {profile.company}
+              </p>
+              <div className="flex flex-wrap gap-3 text-xs text-muted-foreground">
+                <span className="flex items-center gap-1.5"><Mail className="w-3 h-3 text-primary/60" />{profile.email}</span>
+                <span className="flex items-center gap-1.5"><Phone className="w-3 h-3 text-primary/60" />{profile.phone}</span>
+                <span className="flex items-center gap-1.5"><Building2 className="w-3 h-3 text-primary/60" />{profile.company}</span>
+              </div>
+            </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            <Card id="security" className="rounded-xl border border-border/70 bg-card shadow-sm overflow-hidden"><SectionTitle icon={ShieldCheck} title="Security" description="Protect access to your workspace" /><CardContent className="p-4"><div className="flex items-center gap-3 p-3 rounded-lg bg-success/10 border border-success/30 mb-3"><span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-success/20 text-success shrink-0 [&_svg]:w-4 [&_svg]:h-4"><ShieldCheck /></span><span className="flex min-w-0 flex-1 flex-col gap-0.5"><strong className="text-xs font-semibold text-foreground">Strong security posture</strong><small className="text-[10px] text-muted-foreground">Two-factor authentication is enabled</small></span><Badge className="border-success/30 bg-success/10 text-[10px] text-success">Protected</Badge></div><div className="flex flex-col gap-3"><div><Label htmlFor="current-password">Current password</Label><Input id="current-password" type="password" placeholder="••••••••••" className="h-8 text-xs" /></div><div><Label htmlFor="new-password">New password</Label><Input id="new-password" type="password" placeholder="Use 8 or more characters" className="h-8 text-xs" /></div></div><Button variant="outline" className="h-8 text-xs">Update password</Button><div className="h-px bg-border/60 my-1" /><SettingRow title="Two-factor authentication" description="Require a verification code at sign in"><Switch checked={twoFactorEnabled} onCheckedChange={setTwoFactorEnabled} aria-label="Toggle two-factor authentication" /></SettingRow></CardContent></Card>
-
-            <Card className="rounded-xl border border-border/70 bg-card shadow-sm overflow-hidden"><SectionTitle icon={Laptop} title="Active sessions" description="Devices currently signed in to your account" /><CardContent className="p-4"><div className="flex flex-col gap-2 mb-3">{sessions.length ? sessions.map((session) => { const Icon = session.icon; return <div className="flex items-center gap-3" key={session.device}><span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-muted text-muted-foreground [&_svg]:h-4 [&_svg]:w-4"><Icon /></span><span className="flex min-w-0 flex-1 flex-col gap-0.5"><strong className="flex flex-wrap items-center gap-1 text-xs font-semibold text-foreground">{session.device} {session.current && <Badge variant="outline" className="text-[9px]">This device</Badge>}</strong><small className="text-[10px] text-muted-foreground">{session.location} · {session.lastActive}</small></span></div>; }) : <div className="flex items-center gap-2 text-sm text-success [&_svg]:w-4 [&_svg]:h-4"><CheckCircle2 />No other active sessions</div>}</div><Button variant="outline" className="h-8 text-xs gap-2" onClick={() => setConfirmAction('logout')} disabled={sessions.length === 0}><LogOut />Log out all other devices</Button></CardContent></Card>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            <Card id="notifications" className="rounded-xl border border-border/70 bg-card shadow-sm overflow-hidden"><SectionTitle icon={Bell} title="Notifications" description="Choose what reaches your inbox and devices" /><CardContent className="p-4 flex flex-col gap-1"><SettingRow title="Payment activity" description="Successful payment and batch updates"><Switch checked={notifications.payments} onCheckedChange={(checked) => updateNotification('payments', checked)} /></SettingRow><SettingRow title="Settlement updates" description="Know when funds are available"><Switch checked={notifications.settlements} onCheckedChange={(checked) => updateNotification('settlements', checked)} /></SettingRow><SettingRow title="Failed transactions" description="Get notified when a payment needs review"><Switch checked={notifications.failed} onCheckedChange={(checked) => updateNotification('failed', checked)} /></SettingRow><SettingRow title="Security alerts" description="Sign-ins, password, and access changes"><Switch checked={notifications.security} onCheckedChange={(checked) => updateNotification('security', checked)} /></SettingRow><SettingRow title="Product updates" description="Tips and news from FinPay"><Switch checked={notifications.marketing} onCheckedChange={(checked) => updateNotification('marketing', checked)} /></SettingRow></CardContent></Card>
-
-            <Card id="appearance" className="rounded-xl border border-border/70 bg-card shadow-sm overflow-hidden"><SectionTitle icon={Palette} title="Appearance" description="Tune how FinPay feels for your team" /><CardContent className="p-4 flex flex-col gap-3"><div><Label>Theme</Label><Select value={theme} onValueChange={setTheme}><SelectTrigger className="h-8 text-xs"><SelectValue /></SelectTrigger><SelectContent><SelectItem value="dark">Dark</SelectItem><SelectItem value="light">Light</SelectItem><SelectItem value="system">Use system setting</SelectItem></SelectContent></Select></div><div><Label>Interface density</Label><Select value={density} onValueChange={setDensity}><SelectTrigger className="h-8 text-xs"><SelectValue /></SelectTrigger><SelectContent><SelectItem value="comfortable">Comfortable</SelectItem><SelectItem value="compact">Compact</SelectItem></SelectContent></Select></div><div className="flex items-center gap-3 rounded-lg border border-border/50 bg-secondary/50 p-3 text-sm [&_svg]:h-5 [&_svg]:w-5 [&_svg]:shrink-0 [&_svg]:text-muted-foreground"><Monitor /><span className="flex min-w-0 flex-1 flex-col gap-0.5"><strong className="text-xs font-semibold text-foreground">{theme === 'dark' ? 'Dark workspace' : theme === 'light' ? 'Light workspace' : 'System workspace'}</strong><small className="text-[10px] text-muted-foreground">{density === 'compact' ? 'More information, less space' : 'Balanced spacing and readability'}</small></span></div></CardContent></Card>
-          </div>
-
-          <Card id="payments" className="rounded-xl border border-border/70 bg-card shadow-sm overflow-hidden"><SectionTitle icon={CreditCard} title="Payment preferences" description="Set safe defaults for payment creation and settlement" /><CardContent className="p-4"><div className="grid grid-cols-1 sm:grid-cols-3 gap-3"><div><Label>Default payment rail</Label><Select value={paymentPreferences.paymentType} onValueChange={(value) => updatePaymentPreference('paymentType', value)}><SelectTrigger className="h-8 text-xs"><SelectValue /></SelectTrigger><SelectContent><SelectItem value="ACH">ACH</SelectItem><SelectItem value="RTGS">RTGS</SelectItem><SelectItem value="WPS">WPS</SelectItem></SelectContent></Select></div><div><Label>Settlement timing</Label><Select value={paymentPreferences.settlement} onValueChange={(value) => updatePaymentPreference('settlement', value)}><SelectTrigger className="h-8 text-xs"><SelectValue /></SelectTrigger><SelectContent><SelectItem value="same-day">Same day</SelectItem><SelectItem value="next-day">Next business day</SelectItem><SelectItem value="scheduled">Scheduled date</SelectItem></SelectContent></Select></div><div><Label>Confirmation behavior</Label><Select value={paymentPreferences.confirmation} onValueChange={(value) => updatePaymentPreference('confirmation', value)}><SelectTrigger className="h-8 text-xs"><SelectValue /></SelectTrigger><SelectContent><SelectItem value="before-submit">Confirm before submit</SelectItem><SelectItem value="never">Skip confirmation</SelectItem></SelectContent></Select></div></div><div className="h-px bg-border/60 my-1" /><SettingRow title="Automatic retry" description="Retry recoverable payment failures once"><Switch checked={paymentPreferences.autoRetry} onCheckedChange={(checked) => updatePaymentPreference('autoRetry', checked)} /></SettingRow></CardContent></Card>
-
-          <Card id="integrations" className="rounded-xl border border-border/70 bg-card shadow-sm overflow-hidden"><SectionTitle icon={Code2} title="Connected accounts & API" description="Manage services and credentials connected to this workspace" /><CardContent className="p-4"><div className="flex flex-col gap-2"><div className="flex flex-wrap items-center gap-3 rounded-lg border border-border/50 bg-secondary/30 p-3"><span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-muted text-xs font-semibold text-muted-foreground">S</span><span className="flex min-w-0 flex-1 flex-col gap-0.5"><strong className="text-xs font-semibold text-foreground">Stripe</strong><small className="text-[10px] text-muted-foreground">Payment processing and payouts</small></span><Badge className="bg-success/10 text-success border-success/30 text-[10px]">Connected</Badge><Button variant="outline" className="h-8 text-xs" onClick={() => { setConnectedStripe(!connectedStripe); setFeedback(connectedStripe ? 'Stripe connection revoked.' : 'Stripe connection restored.'); }}>{connectedStripe ? 'Revoke' : 'Reconnect'}</Button></div><div className="flex flex-wrap items-center gap-3 rounded-lg border border-border/50 bg-secondary/30 p-3"><span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-muted text-xs font-semibold text-muted-foreground">#</span><span className="flex min-w-0 flex-1 flex-col gap-0.5"><strong className="text-xs font-semibold text-foreground">Slack</strong><small className="text-[10px] text-muted-foreground">Operational alerts in #payments</small></span><Badge className={connectedSlack ? 'bg-success/10 text-success border-success/30 text-[10px]' : ''} variant={connectedSlack ? 'default' : 'outline'}>{connectedSlack ? 'Connected' : 'Disconnected'}</Badge><Button variant="outline" className="h-8 text-xs" onClick={() => { setConnectedSlack(!connectedSlack); setFeedback(connectedSlack ? 'Slack connection revoked.' : 'Slack connection restored.'); }}>{connectedSlack ? 'Revoke' : 'Connect'}</Button></div></div><div className="h-px bg-border/60 my-1" /><div className="flex items-center gap-3 p-3 rounded-lg bg-secondary/30 border border-border/50 mt-2"><span className="inline-flex items-center justify-center w-7 h-7 rounded-lg bg-muted text-muted-foreground shrink-0 [&_svg]:w-4 [&_svg]:h-4"><KeyRound /></span><span><strong>Production API key</strong><small>Use this key for server-side requests</small></span><div className="flex items-center gap-2 ml-auto"><code>{apiKey}</code><Button variant="ghost" size="icon-sm" className="h-8 w-8 rounded-md text-muted-foreground hover:bg-secondary hover:text-foreground" aria-label="Copy API key" onClick={copyApiKey}><Copy /></Button><Button variant="outline" className="h-8 text-xs gap-2" onClick={regenerateApiKey}><RefreshCw />Regenerate</Button></div></div></CardContent></Card>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            <Card id="team" className="rounded-xl border border-border/70 bg-card shadow-sm overflow-hidden"><SectionTitle icon={Users} title="Team members" description="Manage access across your workspace" /><CardContent className="p-4"><div className="flex flex-col gap-2 mb-3">{members.map((member) => <div className="flex flex-wrap items-center gap-3" key={member.email}><span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-semibold text-primary">{member.initials}</span><span className="flex min-w-0 flex-1 flex-col gap-0.5"><strong className="truncate text-xs font-semibold text-foreground">{member.name}</strong><small className="truncate text-[10px] text-muted-foreground">{member.email}</small></span><Badge variant={member.status === 'Active' ? 'outline' : 'secondary'} className="text-[10px]">{member.role}</Badge><Button variant="ghost" size="icon-sm" className="h-8 w-8 rounded-md text-muted-foreground hover:bg-secondary hover:text-foreground" aria-label={`Edit ${member.name}`}><Pencil /></Button></div>)}</div><div className="flex gap-2 mt-3"><Input aria-label="Invite team member email" type="email" placeholder="teammate@company.com" value={inviteEmail} onChange={(event) => { setInviteEmail(event.target.value); setInviteSent(false); }} className="h-8 text-xs" /><Button className="h-8 text-xs gap-2" onClick={sendInvite}><Send />Invite</Button></div>{inviteSent && <p className="flex items-center gap-1.5 text-xs text-success mt-1 [&_svg]:w-3.5 [&_svg]:h-3.5"><Check />Invitation queued successfully</p>}</CardContent></Card>
-
-            <Card className="rounded-xl border border-border/70 bg-card shadow-sm overflow-hidden"><SectionTitle icon={Zap} title="Plan & billing" description="Unlock more capacity for your workspace" /><CardContent className="p-4"><div className="flex items-center gap-3 p-3 rounded-lg bg-secondary/50 border border-border/50 mb-3"><span className="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-accent/10 text-accent shrink-0 [&_svg]:w-4 [&_svg]:h-4"><Zap /></span><span className="flex min-w-0 flex-1 flex-col gap-0.5"><strong className="text-xs font-semibold text-foreground">{planActivated ? 'Super plan' : 'Free plan'}</strong><small className="text-[10px] text-muted-foreground">{planActivated ? 'Active until next renewal' : 'Good for getting started'}</small></span><Badge variant="outline">{planActivated ? 'Active' : 'Current'}</Badge></div><ul className="mb-4 flex list-disc flex-col gap-2 pl-5 text-xs text-muted-foreground marker:text-primary"><li>Unlimited payment workflows</li><li>Advanced approval controls</li><li>Priority support and reporting</li></ul><Button className="w-full h-8 text-xs gap-2 bg-gradient-to-r from-accent/80 to-primary/80" onClick={() => { setPlanActivated(true); setFeedback('Super plan activated for your workspace.'); }} disabled={planActivated}><Zap />{planActivated ? 'Super plan active' : 'Activate Super'}</Button></CardContent></Card>
+            <div className="flex sm:flex-col gap-3 sm:gap-2 sm:items-end shrink-0">
+              <div className="text-right hidden sm:block">
+                <p className="text-[0.65rem] text-muted-foreground/60 uppercase tracking-wider font-medium">Last updated</p>
+                <p className="text-xs font-semibold text-foreground">Just now</p>
+              </div>
+              <div className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-success/10 border border-success/20">
+                <span className="w-1.5 h-1.5 rounded-full bg-success" />
+                <span className="text-[0.65rem] font-semibold text-success">Workspace protected</span>
+              </div>
+            </div>
           </div>
 
-          <Card id="privacy" className="rounded-xl border border-border/70 bg-card shadow-sm overflow-hidden"><SectionTitle icon={Lock} title="Privacy, data & danger zone" description="Control your data and irreversible account actions" /><CardContent className="p-4"><div className="flex flex-col gap-1 mb-3"><SettingRow title="Export account data" description="Download your profile and preference data as JSON"><Button variant="outline" className="h-8 text-xs gap-2" onClick={exportData}><CloudDownload />Export data</Button></SettingRow><SettingRow title="Clear local preferences" description="Reset this browser's local display choices"><Button variant="outline" className="h-8 text-xs" onClick={() => { setTheme('dark'); setDensity('comfortable'); setFeedback('Local display preferences reset.'); }}>Reset</Button></SettingRow></div><div className="flex flex-col gap-3 p-3 rounded-lg bg-destructive/5 border border-destructive/20 mt-3"><div className="flex flex-col gap-0.5"><strong className="text-xs font-semibold text-foreground">Danger zone</strong><span className="text-[10px] leading-tight text-muted-foreground">These actions affect account access and cannot be easily undone.</span></div><div className="flex flex-wrap gap-2"><Button variant="outline" className="h-8 text-xs gap-2 text-destructive border-destructive/30 hover:bg-destructive/10" onClick={() => setConfirmAction('logout')}><LogOut />Log out all devices</Button><Button variant="destructive" className="h-8 text-xs gap-2" onClick={() => setConfirmAction('delete')}><Trash2 />Delete account</Button></div></div></CardContent></Card>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-5 pt-5 border-t border-border/50">
+            {workspaceStats.map((stat) => {
+              const Icon = stat.icon;
+              return (
+                <div key={stat.label} className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-xl bg-muted/60 flex items-center justify-center shrink-0"><Icon className={`w-3.5 h-3.5 ${stat.color}`} /></div>
+                  <div><p className="text-sm font-bold text-foreground leading-none">{stat.value}</p><p className="text-[0.65rem] text-muted-foreground mt-0.5">{stat.label}</p></div>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
 
-      <AlertDialog open={confirmAction !== null} onOpenChange={(open) => !open && setConfirmAction(null)}><AlertDialogContent className="max-w-md"><AlertDialogHeader><AlertDialogTitle>{confirmAction === 'delete' ? 'Delete your account?' : 'Log out all other devices?'}</AlertDialogTitle><AlertDialogDescription>{confirmAction === 'delete' ? 'This submits a deletion request and removes access to your FinPay workspace. This action cannot be easily undone.' : 'All other active sessions will be signed out. Your current device will remain connected.'}</AlertDialogDescription></AlertDialogHeader><AlertDialogFooter><AlertDialogCancel className="h-8 text-xs">Cancel</AlertDialogCancel><AlertDialogAction className={confirmAction === 'delete' ? 'bg-destructive hover:bg-destructive/90' : ''} onClick={confirmDestructiveAction}>{confirmAction === 'delete' ? 'Delete account' : 'Log out devices'}</AlertDialogAction></AlertDialogFooter></AlertDialogContent></AlertDialog>
+      <Card id="profile" className="rounded-2xl border border-border/60 bg-card shadow-sm overflow-hidden py-0 gap-0">
+        <CardSectionHeader icon={UserRound} title="Profile & account" description="Keep your identity and workspace details up to date" accent />
+        <CardContent className="p-5">
+          <div className="flex items-center gap-4 p-4 rounded-xl bg-gradient-to-r from-primary/5 to-transparent border border-border/50 mb-5">
+            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary/25 via-primary/15 to-accent/20 border border-primary/20 flex items-center justify-center shadow-md shrink-0">
+              <span className="text-base font-bold text-primary tracking-tight">{initials}</span>
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-semibold text-foreground truncate">{profile.firstName} {profile.lastName}</p>
+              <p className="text-xs text-muted-foreground truncate">{profile.email}</p>
+            </div>
+            <Badge variant="outline" className="text-[0.6rem] px-2 py-0.5 font-semibold shrink-0">Owner</Badge>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {[
+              { id: 'first-name', label: 'First name', field: 'firstName' as keyof Profile, value: profile.firstName },
+              { id: 'last-name', label: 'Last name', field: 'lastName' as keyof Profile, value: profile.lastName },
+              { id: 'email', label: 'Email address', field: 'email' as keyof Profile, value: profile.email, type: 'email' },
+              { id: 'phone', label: 'Phone number', field: 'phone' as keyof Profile, value: profile.phone },
+              { id: 'company', label: 'Company', field: 'company' as keyof Profile, value: profile.company },
+              { id: 'role', label: 'Role', field: 'role' as keyof Profile, value: profile.role },
+            ].map(({ id, label, field, value, type }) => (
+              <div key={id} className="flex flex-col gap-1.5">
+                <Label htmlFor={`settings-${id}`} className="text-xs font-medium text-muted-foreground">{label}</Label>
+                <Input id={`settings-${id}`} type={type ?? 'text'} value={value} onChange={(event) => updateProfile(field, event.target.value)} className="h-9 text-xs bg-muted/30 border-border/60 focus:bg-background transition-colors" />
+              </div>
+            ))}
+          </div>
+
+          <div className="flex items-center justify-between mt-5 pt-4 border-t border-border/50">
+            <span className={cn('text-xs', profileDirty ? 'text-warning font-medium' : 'text-muted-foreground')}>
+              {profileDirty ? '● Unsaved changes' : '✓ Profile is up to date'}
+            </span>
+            <div className="flex items-center gap-2">
+              <Button variant="outline" size="sm" className="h-8 text-xs" onClick={cancelProfile} disabled={!profileDirty}>Cancel</Button>
+              <Button size="sm" className="h-8 text-xs gap-1.5" onClick={saveProfile} disabled={!profileDirty}><Save className="w-3.5 h-3.5" />Save changes</Button>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <Card id="security" className="rounded-2xl border border-border/60 bg-card shadow-sm overflow-hidden py-0 gap-0">
+          <CardSectionHeader icon={ShieldCheck} title="Security" description="Protect access to your workspace" accent />
+          <CardContent className="p-5 flex flex-col gap-4">
+            <div className="flex items-center gap-3 p-3.5 rounded-xl bg-success/8 border border-success/25">
+              <div className="w-9 h-9 rounded-xl bg-success/15 flex items-center justify-center shrink-0"><ShieldCheck className="w-4 h-4 text-success" /></div>
+              <div className="flex-1 min-w-0"><p className="text-xs font-semibold text-foreground">Strong security posture</p><p className="text-[0.7rem] text-muted-foreground mt-0.5">Two-factor authentication is enabled</p></div>
+              <Badge className="bg-success/10 text-success border-success/30 text-[0.6rem] shrink-0">Protected</Badge>
+            </div>
+
+            <div className="grid grid-cols-1 gap-3">
+              <div className="flex flex-col gap-1.5"><Label className="text-xs font-medium text-muted-foreground">Current password</Label><Input type="password" placeholder="••••••••••" className="h-9 text-xs bg-muted/30 border-border/60" /></div>
+              <div className="flex flex-col gap-1.5"><Label className="text-xs font-medium text-muted-foreground">New password</Label><Input type="password" placeholder="Use 8 or more characters" className="h-9 text-xs bg-muted/30 border-border/60" /></div>
+            </div>
+
+            <Button variant="outline" size="sm" className="h-8 text-xs self-start">Update password</Button>
+
+            <div className="border-t border-border/50 pt-3">
+              <SettingRow title="Two-factor authentication" description="Require a verification code at sign in"><Switch checked={twoFactorEnabled} onCheckedChange={(checked) => { setTwoFactorEnabled(checked); setFeedback(checked ? 'Two-factor authentication enabled.' : 'Two-factor authentication disabled.'); }} aria-label="Toggle two-factor authentication" /></SettingRow>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="rounded-2xl border border-border/60 bg-card shadow-sm overflow-hidden py-0 gap-0">
+          <CardSectionHeader icon={Laptop} title="Active sessions" description="Devices currently signed in to your account" />
+          <CardContent className="p-5 flex flex-col gap-3">
+            {sessions.length ? sessions.map((session) => {
+              const Icon = session.icon;
+              return (
+                <div key={session.device} className="flex items-center gap-3 p-3.5 rounded-xl bg-muted/30 border border-border/40 hover:bg-muted/50 transition-colors">
+                  <div className="w-9 h-9 rounded-xl bg-muted flex items-center justify-center shrink-0"><Icon className="w-4 h-4 text-muted-foreground" /></div>
+                  <div className="flex-1 min-w-0"><div className="flex items-center gap-1.5 flex-wrap"><p className="text-xs font-semibold text-foreground">{session.device}</p>{session.current && <Badge variant="outline" className="text-[0.55rem] px-1.5 py-0">This device</Badge>}</div><p className="text-[0.7rem] text-muted-foreground mt-0.5">{session.location} · {session.lastActive}</p></div>
+                  {session.current && <span className="w-2 h-2 rounded-full bg-success shrink-0" />}
+                </div>
+              );
+            }) : (
+              <div className="flex items-center gap-2.5 p-3.5 rounded-xl bg-success/8 border border-success/20 text-success text-xs font-medium"><CheckCircle2 className="w-4 h-4 shrink-0" />No other active sessions</div>
+            )}
+            <Button variant="outline" size="sm" className="h-8 text-xs gap-1.5 mt-1 self-start" onClick={() => setConfirmAction('logout')} disabled={sessions.length === 0}><LogOut className="w-3.5 h-3.5" />Log out all other devices</Button>
+          </CardContent>
+        </Card>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <Card id="notifications" className="rounded-2xl border border-border/60 bg-card shadow-sm overflow-hidden py-0 gap-0">
+          <CardSectionHeader icon={Bell} title="Notifications" description="Choose what reaches your inbox and devices" accent />
+          <CardContent className="p-5">
+            <SectionLabel>Alert channels</SectionLabel>
+            <div className="flex flex-col">
+              {[
+                { key: 'payments' as keyof Notifications, title: 'Payment activity', desc: 'Successful payments and batch updates' },
+                { key: 'settlements' as keyof Notifications, title: 'Settlement updates', desc: 'Know when funds are available' },
+                { key: 'failed' as keyof Notifications, title: 'Failed transactions', desc: 'Get notified when a payment needs review' },
+                { key: 'security' as keyof Notifications, title: 'Security alerts', desc: 'Sign-ins, password, and access changes' },
+                { key: 'marketing' as keyof Notifications, title: 'Product updates', desc: 'Tips and news from FinPay' },
+              ].map(({ key, title, desc }) => (
+                <SettingRow key={key} title={title} description={desc}><Switch checked={notifications[key]} onCheckedChange={(value) => updateNotification(key, value)} /></SettingRow>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card id="appearance" className="rounded-2xl border border-border/60 bg-card shadow-sm overflow-hidden py-0 gap-0">
+          <CardSectionHeader icon={Palette} title="Appearance" description="Tune how FinPay feels for your team" />
+          <CardContent className="p-5 flex flex-col gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="flex flex-col gap-1.5"><Label className="text-xs font-medium text-muted-foreground">Theme</Label><Select value={theme} onValueChange={setTheme}><SelectTrigger className="h-9 text-xs bg-muted/30 border-border/60"><SelectValue /></SelectTrigger><SelectContent><SelectItem value="dark">Dark</SelectItem><SelectItem value="light">Light</SelectItem><SelectItem value="system">System setting</SelectItem></SelectContent></Select></div>
+              <div className="flex flex-col gap-1.5"><Label className="text-xs font-medium text-muted-foreground">Interface density</Label><Select value={density} onValueChange={setDensity}><SelectTrigger className="h-9 text-xs bg-muted/30 border-border/60"><SelectValue /></SelectTrigger><SelectContent><SelectItem value="comfortable">Comfortable</SelectItem><SelectItem value="compact">Compact</SelectItem></SelectContent></Select></div>
+            </div>
+
+            <div className="flex items-center gap-3 p-4 rounded-xl bg-gradient-to-r from-primary/5 to-transparent border border-border/50">
+              <div className="w-9 h-9 rounded-xl bg-muted/80 flex items-center justify-center shrink-0"><Monitor className="w-4 h-4 text-muted-foreground" /></div>
+              <div className="flex-1 min-w-0"><p className="text-xs font-semibold text-foreground">{theme === 'dark' ? 'Dark workspace' : theme === 'light' ? 'Light workspace' : 'System workspace'}</p><p className="text-[0.7rem] text-muted-foreground mt-0.5">{density === 'compact' ? 'More information, less space' : 'Balanced spacing and readability'}</p></div>
+              <Badge variant="outline" className="text-[0.6rem] shrink-0 capitalize">{theme}</Badge>
+            </div>
+
+            <div className="flex items-center gap-2">
+              {['dark', 'light', 'system'].map((value) => (
+                <button key={value} type="button" onClick={() => setTheme(value)} className={cn('flex-1 py-2.5 rounded-lg border text-[0.65rem] font-semibold capitalize transition-all', theme === value ? 'border-primary/50 bg-primary/10 text-primary' : 'border-border/50 bg-muted/30 text-muted-foreground hover:bg-muted/60')}>{value}</button>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      <Card id="payments" className="rounded-2xl border border-border/60 bg-card shadow-sm overflow-hidden py-0 gap-0">
+        <CardSectionHeader icon={CreditCard} title="Payment preferences" description="Set safe defaults for payment creation and settlement" accent />
+        <CardContent className="p-5">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
+            {[
+              { label: 'Default payment rail', value: paymentPreferences.paymentType, field: 'paymentType' as keyof PaymentPreferences, options: [{ value: 'ACH', label: 'ACH' }, { value: 'RTGS', label: 'RTGS' }, { value: 'WPS', label: 'WPS' }] },
+              { label: 'Settlement timing', value: paymentPreferences.settlement, field: 'settlement' as keyof PaymentPreferences, options: [{ value: 'same-day', label: 'Same day' }, { value: 'next-day', label: 'Next business day' }, { value: 'scheduled', label: 'Scheduled date' }] },
+              { label: 'Confirmation behavior', value: paymentPreferences.confirmation, field: 'confirmation' as keyof PaymentPreferences, options: [{ value: 'before-submit', label: 'Confirm before submit' }, { value: 'never', label: 'Skip confirmation' }] },
+            ].map(({ label, value, field, options }) => (
+              <div key={field} className="flex flex-col gap-1.5"><Label className="text-xs font-medium text-muted-foreground">{label}</Label><Select value={value as string} onValueChange={(nextValue) => updatePaymentPreference(field, nextValue)}><SelectTrigger className="h-9 text-xs bg-muted/30 border-border/60"><SelectValue /></SelectTrigger><SelectContent>{options.map((option) => <SelectItem key={option.value} value={option.value}>{option.label}</SelectItem>)}</SelectContent></Select></div>
+            ))}
+          </div>
+          <div className="border-t border-border/50 pt-3"><SettingRow title="Automatic retry" description="Retry recoverable payment failures once"><Switch checked={paymentPreferences.autoRetry} onCheckedChange={(value) => updatePaymentPreference('autoRetry', value)} /></SettingRow></div>
+        </CardContent>
+      </Card>
+
+      <Card id="integrations" className="rounded-2xl border border-border/60 bg-card shadow-sm overflow-hidden py-0 gap-0">
+        <CardSectionHeader icon={Code2} title="Connected accounts & API" description="Manage services and credentials connected to this workspace" accent />
+        <CardContent className="p-5 flex flex-col gap-4">
+          <SectionLabel>Connected services</SectionLabel>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {[
+              { key: 'stripe', label: 'Stripe', desc: 'Payment processing and payouts', abbr: 'S', connected: connectedStripe, toggle: () => { setConnectedStripe(!connectedStripe); setFeedback(connectedStripe ? 'Stripe connection revoked.' : 'Stripe connection restored.'); } },
+              { key: 'slack', label: 'Slack', desc: 'Operational alerts in #payments', abbr: '#', connected: connectedSlack, toggle: () => { setConnectedSlack(!connectedSlack); setFeedback(connectedSlack ? 'Slack connection revoked.' : 'Slack connection restored.'); } },
+            ].map(({ key, label, desc, abbr, connected, toggle }) => (
+              <div key={key} className="flex items-center gap-3 p-4 rounded-xl bg-muted/30 border border-border/40 hover:bg-muted/50 transition-colors">
+                <div className="w-9 h-9 rounded-xl bg-muted flex items-center justify-center shrink-0 text-xs font-bold text-muted-foreground">{abbr}</div>
+                <div className="flex-1 min-w-0"><p className="text-xs font-semibold text-foreground">{label}</p><p className="text-[0.7rem] text-muted-foreground mt-0.5">{desc}</p></div>
+                <div className="flex items-center gap-2 shrink-0"><Badge className={cn('text-[0.6rem]', connected ? 'bg-success/10 text-success border-success/30' : 'bg-muted text-muted-foreground')} variant={connected ? 'default' : 'outline'}>{connected ? 'Connected' : 'Off'}</Badge><Button variant="outline" size="sm" className="h-7 text-[0.7rem] px-2.5" onClick={toggle}>{connected ? 'Revoke' : 'Connect'}</Button></div>
+              </div>
+            ))}
+          </div>
+
+          <div className="border-t border-border/50 pt-4">
+            <SectionLabel>Production API key</SectionLabel>
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 p-4 rounded-xl bg-muted/30 border border-border/40">
+              <div className="w-9 h-9 rounded-xl bg-muted flex items-center justify-center shrink-0"><KeyRound className="w-4 h-4 text-muted-foreground" /></div>
+              <div className="flex-1 min-w-0"><p className="text-xs font-semibold text-foreground mb-1">Production API key</p><code className="text-[0.7rem] font-mono text-muted-foreground bg-muted/60 px-2 py-1 rounded-md">{apiKey}</code></div>
+              <div className="flex items-center gap-2 shrink-0"><Button variant="ghost" size="sm" className="h-8 w-8 p-0 rounded-lg text-muted-foreground hover:bg-muted hover:text-foreground" aria-label="Copy API key" onClick={copyApiKey}><Copy className="w-3.5 h-3.5" /></Button><Button variant="outline" size="sm" className="h-8 text-xs gap-1.5" onClick={regenerateApiKey}><RefreshCw className="w-3 h-3" />Regenerate</Button></div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <Card id="team" className="rounded-2xl border border-border/60 bg-card shadow-sm overflow-hidden py-0 gap-0">
+          <CardSectionHeader icon={Users} title="Team members" description="Manage access across your workspace" accent />
+          <CardContent className="p-5 flex flex-col gap-3">
+            <div className="flex flex-col gap-2">
+              {members.map((member) => (
+                <div key={member.email} className="flex items-center gap-3 p-3 rounded-xl bg-muted/30 border border-border/40 hover:bg-muted/50 transition-colors">
+                  <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center shrink-0"><span className="text-[0.65rem] font-bold text-primary">{member.initials}</span></div>
+                  <div className="flex-1 min-w-0"><p className="text-xs font-semibold text-foreground truncate">{member.name}</p><p className="text-[0.65rem] text-muted-foreground truncate">{member.email}</p></div>
+                  <Badge variant={member.status === 'Active' ? 'outline' : 'secondary'} className="text-[0.6rem] shrink-0">{member.role}</Badge>
+                  <Button variant="ghost" size="sm" className="h-7 w-7 p-0 rounded-lg text-muted-foreground hover:bg-muted hover:text-foreground shrink-0" aria-label={`Edit ${member.name}`}><Pencil className="w-3 h-3" /></Button>
+                </div>
+              ))}
+            </div>
+
+            <div className="border-t border-border/50 pt-3">
+              <p className="text-[0.65rem] font-semibold uppercase tracking-widest text-muted-foreground/60 mb-2">Invite teammate</p>
+              <div className="flex gap-2">
+                <Input type="email" placeholder="teammate@company.com" value={inviteEmail} onChange={(event) => { setInviteEmail(event.target.value); setInviteSent(false); }} className="h-9 text-xs bg-muted/30 border-border/60 flex-1" />
+                <Button size="sm" className="h-9 text-xs gap-1.5 shrink-0" onClick={sendInvite}><Send className="w-3.5 h-3.5" />Invite</Button>
+              </div>
+              {inviteSent && <p className="flex items-center gap-1.5 text-xs text-success mt-2"><Check className="w-3.5 h-3.5" />Invitation queued successfully</p>}
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="rounded-2xl border border-border/60 bg-card shadow-sm overflow-hidden py-0 gap-0">
+          <CardSectionHeader icon={Zap} title="Plan & billing" description="Unlock more capacity for your workspace" />
+          <CardContent className="p-5 flex flex-col gap-4">
+            <div className="flex items-center gap-3 p-4 rounded-xl bg-gradient-to-r from-accent/8 to-primary/5 border border-border/50">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-accent/20 to-primary/15 flex items-center justify-center shrink-0"><Zap className="w-5 h-5 text-accent" /></div>
+              <div className="flex-1 min-w-0"><p className="text-sm font-bold text-foreground">{planActivated ? 'Super plan' : 'Free plan'}</p><p className="text-[0.7rem] text-muted-foreground mt-0.5">{planActivated ? 'Active until next renewal' : 'Good for getting started'}</p></div>
+              <Badge variant="outline" className="text-[0.6rem] shrink-0">{planActivated ? 'Active' : 'Current'}</Badge>
+            </div>
+
+            <div className="flex flex-col gap-2">
+              {['Unlimited payment workflows', 'Advanced approval controls', 'Priority support and reporting'].map((feature) => <div key={feature} className="flex items-center gap-2.5 text-xs text-muted-foreground"><div className="w-4 h-4 rounded-full bg-primary/10 flex items-center justify-center shrink-0"><Check className="w-2.5 h-2.5 text-primary" /></div>{feature}</div>)}
+            </div>
+
+            <Button className="w-full h-9 text-xs gap-2 bg-gradient-to-r from-accent/80 to-primary/80 hover:from-accent hover:to-primary transition-all shadow-sm" onClick={() => { setPlanActivated(true); setFeedback('Super plan activated for your workspace.'); }} disabled={planActivated}><Zap className="w-3.5 h-3.5" />{planActivated ? 'Super plan active' : 'Activate Super plan'}</Button>
+          </CardContent>
+        </Card>
+      </div>
+
+      <Card id="privacy" className="rounded-2xl border border-border/60 bg-card shadow-sm overflow-hidden py-0 gap-0">
+        <CardSectionHeader icon={Lock} title="Privacy, data & danger zone" description="Control your data and irreversible account actions" />
+        <CardContent className="p-5 flex flex-col gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div className="flex items-center gap-3 p-4 rounded-xl bg-muted/30 border border-border/40 hover:bg-muted/50 transition-colors">
+              <div className="w-9 h-9 rounded-xl bg-muted flex items-center justify-center shrink-0"><CloudDownload className="w-4 h-4 text-muted-foreground" /></div>
+              <div className="flex-1 min-w-0"><p className="text-xs font-semibold text-foreground">Export account data</p><p className="text-[0.7rem] text-muted-foreground mt-0.5">Download profile and preferences as JSON</p></div>
+              <Button variant="outline" size="sm" className="h-8 text-xs shrink-0" onClick={exportData}>Export</Button>
+            </div>
+            <div className="flex items-center gap-3 p-4 rounded-xl bg-muted/30 border border-border/40 hover:bg-muted/50 transition-colors">
+              <div className="w-9 h-9 rounded-xl bg-muted flex items-center justify-center shrink-0"><ToggleLeft className="w-4 h-4 text-muted-foreground" /></div>
+              <div className="flex-1 min-w-0"><p className="text-xs font-semibold text-foreground">Clear local preferences</p><p className="text-[0.7rem] text-muted-foreground mt-0.5">Reset this browser&apos;s display choices</p></div>
+              <Button variant="outline" size="sm" className="h-8 text-xs shrink-0" onClick={() => { setTheme('dark'); setDensity('comfortable'); setFeedback('Local display preferences reset.'); }}>Reset</Button>
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-3 p-4 rounded-xl bg-destructive/5 border border-destructive/20">
+            <div><p className="text-xs font-semibold text-foreground">Danger zone</p><p className="text-[0.7rem] text-muted-foreground mt-0.5">These actions affect account access and cannot be easily undone.</p></div>
+            <div className="flex flex-wrap gap-2">
+              <Button variant="outline" size="sm" className="h-8 text-xs gap-1.5 text-destructive border-destructive/30 hover:bg-destructive/10" onClick={() => setConfirmAction('logout')}><LogOut className="w-3.5 h-3.5" />Log out all devices</Button>
+              <Button variant="destructive" size="sm" className="h-8 text-xs gap-1.5" onClick={() => setConfirmAction('delete')}><Trash2 className="w-3.5 h-3.5" />Delete account</Button>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      <AlertDialog open={confirmAction !== null} onOpenChange={(open) => !open && setConfirmAction(null)}>
+        <AlertDialogContent className="max-w-md rounded-2xl">
+          <AlertDialogHeader>
+            <AlertDialogTitle>{confirmAction === 'delete' ? 'Delete your account?' : 'Log out all other devices?'}</AlertDialogTitle>
+            <AlertDialogDescription>{confirmAction === 'delete' ? 'This submits a deletion request and removes access to your FinPay workspace. This action cannot be easily undone.' : 'All other active sessions will be signed out. Your current device will remain connected.'}</AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel className="h-8 text-xs">Cancel</AlertDialogCancel>
+            <AlertDialogAction className={cn('h-8 text-xs', confirmAction === 'delete' && 'bg-destructive hover:bg-destructive/90')} onClick={confirmDestructiveAction}>{confirmAction === 'delete' ? 'Delete account' : 'Log out devices'}</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }

@@ -1,10 +1,18 @@
 import {
+  Activity,
   ArrowDownRight,
   ArrowUpRight,
+  Building2,
   CircleDollarSign,
   Clock3,
+  Download,
   CreditCard,
+  Globe,
+  Mail,
   MoreVertical,
+  Phone,
+  RefreshCw,
+  ShieldCheck,
   Trash2,
   TrendingUp,
 } from 'lucide-react';
@@ -36,6 +44,13 @@ const subBalances = [
   { val: '$875,525', dec: '.00', label: 'GBP/USD' },
 ];
 
+const paymentHeroStats = [
+  { label: 'Total volume', value: '$865K', icon: CircleDollarSign, color: 'text-primary', bg: 'bg-primary/15' },
+  { label: 'Net volume', value: '$475K', icon: TrendingUp, color: 'text-success', bg: 'bg-success/15' },
+  { label: 'Active rails', value: '4', icon: CreditCard, color: 'text-warning', bg: 'bg-warning/15' },
+  { label: 'Settlement health', value: '98%', icon: ShieldCheck, color: 'text-info', bg: 'bg-info/15' },
+];
+
 const cardShadow = 'shadow-[0_1px_4px_oklch(0_0_0/0.05),0_1px_2px_oklch(0_0_0/0.04),inset_0_1px_0_color-mix(in_oklch,white_60%,transparent)] dark:shadow-[0_2px_8px_oklch(0_0_0/0.22),inset_0_1px_0_color-mix(in_oklch,white_3%,transparent)]';
 
 function WalletIcon() {
@@ -58,16 +73,37 @@ function YearPicker() {
 
 export default function PaymentsPage() {
   return (
-    <div className="mx-auto flex w-full max-w-[1600px] flex-col gap-6 px-4 pb-6 md:px-8">
+    <div className="mx-auto flex w-full max-w-[1600px] flex-col gap-4 px-4 pb-6 md:px-8">
+      <div className="relative overflow-hidden rounded-2xl border border-border/60 bg-card shadow-md">
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-primary/8 via-transparent to-success/6" />
+        <div className="pointer-events-none absolute right-0 top-0 size-72 rounded-full bg-primary/5 blur-3xl" />
+        <div className="relative px-5 pb-5 pt-3 sm:px-6 sm:pb-6 sm:pt-4">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex items-center gap-4">
+              <div className="relative shrink-0">
+                <div className="flex size-14 items-center justify-center rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/20 to-success/15 shadow-sm"><Activity className="size-7 text-primary" /></div>
+                <span className="absolute -bottom-0.5 -right-0.5 size-3.5 rounded-full border-2 border-card bg-success" />
+              </div>
+              <div>
+                <div className="flex flex-wrap items-center gap-2"><h1 className="text-xl font-bold leading-tight tracking-tight text-foreground">Payments</h1><Badge variant="secondary" className="border-primary/20 bg-primary/10 px-2 py-0.5 text-[0.6rem] font-semibold text-primary">Live workspace</Badge></div>
+                <p className="mt-0.5 text-sm text-muted-foreground">Monitor balances, transfers &amp; payment activity</p>
+              </div>
+            </div>
+            <div className="flex flex-wrap items-center gap-2"><Button variant="outline" size="sm" className="h-8 gap-1.5 border-border/60 text-xs"><Download className="size-3.5" /> Export</Button><Button variant="outline" size="sm" className="h-8 gap-1.5 border-border/60 text-xs"><RefreshCw className="size-3.5" /> Refresh</Button></div>
+          </div>
+          <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1.5"><span className="inline-flex items-center gap-1.5 text-[0.7rem] text-muted-foreground"><Building2 className="size-3" /> FinPay Corp</span><span className="inline-flex items-center gap-1.5 text-[0.7rem] text-muted-foreground"><Globe className="size-3" /> finpay.com</span><span className="inline-flex items-center gap-1.5 text-[0.7rem] text-muted-foreground"><Mail className="size-3" /> payments@finpay.com</span><span className="inline-flex items-center gap-1.5 text-[0.7rem] text-muted-foreground"><Phone className="size-3" /> +1 (555) 123-4567</span></div>
+          <div className="mt-5 grid grid-cols-2 gap-2 sm:grid-cols-4">{paymentHeroStats.map(({ label, value, icon: Icon, color, bg }) => <div key={label} className="flex items-center gap-2.5 rounded-xl border border-border/50 bg-background/60 px-3 py-2.5"><span className={cn('inline-flex size-8 shrink-0 items-center justify-center rounded-lg', bg, color)}><Icon className="size-4" /></span><div className="min-w-0"><p className="text-[0.65rem] font-medium leading-none text-muted-foreground">{label}</p><p className="mt-0.5 text-base font-bold leading-none text-foreground">{value}</p></div></div>)}</div>
+        </div>
+      </div>
       <section className="grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]" aria-label="Balance overview">
-        <Card className={cn('relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border/50 bg-card', cardShadow)}>
+        <Card className={cn('relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border/50 bg-card py-0 gap-0', cardShadow)}>
           <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-2xl">
             <div className="absolute -top-10 -left-6 size-48 rounded-full bg-primary/8 blur-3xl" />
             <div className="absolute -right-6 -bottom-6 size-36 rounded-full bg-accent/6 blur-2xl" />
             <div className="absolute top-0 right-0 left-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
           </div>
 
-          <CardHeader className="relative z-10 flex flex-row items-center justify-between px-4 pt-5 pb-3 sm:px-6 sm:pt-6">
+          <CardHeader className="relative z-10 flex flex-row items-center justify-between px-4 pt-3 pb-3 sm:px-6 sm:pt-4">
             <CardTitle className="flex items-center gap-2 text-sm font-semibold text-foreground/85">
               <span className="flex size-6 shrink-0 items-center justify-center rounded-md border border-primary/20 bg-primary/10"><WalletIcon /></span>
               <span className="hidden sm:inline">My Balance</span>
@@ -107,7 +143,7 @@ export default function PaymentsPage() {
 
         <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-1">
           {metrics.map(({ label, value, icon: Icon, trend }) => (
-            <Card key={label} className={cn('relative flex min-w-0 flex-col justify-center overflow-hidden rounded-2xl border border-border/50 bg-card transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_4px_12px_oklch(0_0_0/0.08)]', cardShadow)}>
+            <Card key={label} className={cn('relative flex min-w-0 flex-col justify-center overflow-hidden rounded-2xl border border-border/50 bg-card py-0 gap-0 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_4px_12px_oklch(0_0_0/0.08)]', cardShadow)}>
               <div className="absolute top-0 right-0 left-0 h-0.5 rounded-t-2xl bg-gradient-to-r from-transparent via-primary/25 to-transparent" />
               <CardContent className="flex items-center gap-3 p-4 sm:gap-4 sm:p-5">
                 <span className="flex size-10 shrink-0 items-center justify-center rounded-xl border border-border/40 bg-primary/6 shadow-[inset_0_1px_0_color-mix(in_oklch,white_8%,transparent)] sm:size-11"><Icon className="size-4 text-primary/70 sm:size-5" /></span>
@@ -122,8 +158,8 @@ export default function PaymentsPage() {
       </section>
 
       <section className="grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]" aria-label="Payment analytics">
-        <Card className={cn('flex flex-col overflow-hidden rounded-2xl border border-border/50 bg-card', cardShadow)}>
-          <CardHeader className="flex flex-row items-center justify-between px-4 pt-5 pb-3 sm:px-6 sm:pt-6">
+        <Card className={cn('flex flex-col overflow-hidden rounded-2xl border border-border/50 bg-card py-0 gap-0', cardShadow)}>
+          <CardHeader className="flex flex-row items-center justify-between px-4 pt-3 pb-3 sm:px-6 sm:pt-4">
             <CardTitle className="flex items-center gap-2 text-sm font-semibold text-foreground/90">Payment Activity <InfoMark /></CardTitle>
             <YearPicker />
           </CardHeader>
@@ -134,7 +170,7 @@ export default function PaymentsPage() {
       </section>
 
       <Card className={cn('overflow-hidden rounded-2xl border border-border/50 bg-card', cardShadow)}>
-        <CardHeader className="flex flex-row items-center justify-between border-b border-border/25 px-4 py-5 sm:px-6">
+        <CardHeader className="flex flex-row items-center justify-between border-b border-border/25 px-4 py-3 sm:px-6 sm:py-4">
           <CardTitle className="flex items-center gap-2 text-sm font-semibold text-foreground/90">Payment History <InfoMark /></CardTitle>
           <YearPicker />
         </CardHeader>
