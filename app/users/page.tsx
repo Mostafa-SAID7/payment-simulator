@@ -133,18 +133,29 @@ export default function UsersPage() {
     });
   }, [users, search, filterRole, filterStatus]);
 
-  const activeCount = users.filter((user) => user.status === 'Active').length;
-  const pendingCount = users.filter((user) => user.status === 'Pending').length;
-  const suspendedCount = users.filter((user) => user.status === 'Suspended').length;
-  const twoFACount = users.filter((user) => user.twoFA).length;
+  const userStats = useMemo(() => {
+    const stats = { active: 0, pending: 0, suspended: 0, twoFA: 0 };
+    const roleCounts = new Map<UserRole, number>();
+
+    for (const user of users) {
+      if (user.status === 'Active') stats.active += 1;
+      if (user.status === 'Pending') stats.pending += 1;
+      if (user.status === 'Suspended') stats.suspended += 1;
+      if (user.twoFA) stats.twoFA += 1;
+      roleCounts.set(user.role, (roleCounts.get(user.role) ?? 0) + 1);
+    }
+
+    return { stats, roleCounts };
+  }, [users]);
+  const { active: activeCount, pending: pendingCount, suspended: suspendedCount, twoFA: twoFACount } = userStats.stats;
   const twoFAPercent = users.length ? Math.round((twoFACount / users.length) * 100) : 0;
   const allSelected = filtered.length > 0 && filtered.every((user) => selectedIds.includes(user.id));
   const hasFilters = Boolean(search || filterRole !== 'All' || filterStatus !== 'All');
 
   const roleDistribution = useMemo(() => roles.map((role) => {
-    const count = users.filter((user) => user.role === role).length;
+    const count = userStats.roleCounts.get(role) ?? 0;
     return { role, count, pct: users.length ? Math.round((count / users.length) * 100) : 0 };
-  }), [users]);
+  }), [userStats.roleCounts, users.length]);
 
   const announce = (message: string) => {
     setNotice(message);

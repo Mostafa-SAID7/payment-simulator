@@ -87,15 +87,20 @@ export default function TransactionsPage() {
     });
   }, [filterStatus, filterType, searchTerm]);
 
-  const stats = {
-    total: mockTransactions.length,
-    completed: mockTransactions.filter((transaction) => transaction.status === 'completed').length,
-    pending: mockTransactions.filter((transaction) => transaction.status === 'pending').length,
-    failed: mockTransactions.filter((transaction) => transaction.status === 'failed').length,
-  };
-  const totalVolume = mockTransactions.reduce((sum, transaction) => sum + transaction.amount, 0);
-  const completedVolume = mockTransactions.filter((transaction) => transaction.status === 'completed').reduce((sum, transaction) => sum + transaction.amount, 0);
-  const completionRate = Math.round((stats.completed / stats.total) * 100);
+  const { stats, totalVolume, completedVolume } = useMemo(() => {
+    const stats = { total: mockTransactions.length, completed: 0, pending: 0, failed: 0 };
+    let totalVolume = 0;
+    let completedVolume = 0;
+
+    for (const transaction of mockTransactions) {
+      stats[transaction.status] += 1;
+      totalVolume += transaction.amount;
+      if (transaction.status === 'completed') completedVolume += transaction.amount;
+    }
+
+    return { stats, totalVolume, completedVolume };
+  }, []);
+  const completionRate = stats.total ? Math.round((stats.completed / stats.total) * 100) : 0;
   const hasFilters = Boolean(searchTerm || filterType !== 'all' || filterStatus !== 'all');
 
   function clearFilters() { setSearchTerm(''); setFilterType('all'); setFilterStatus('all'); }
