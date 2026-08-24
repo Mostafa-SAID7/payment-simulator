@@ -77,7 +77,7 @@ export default function PaymentsPage() {
       <div className="relative overflow-hidden rounded-2xl border border-border/60 bg-card shadow-md">
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-primary/8 via-transparent to-success/6" />
         <div className="pointer-events-none absolute right-0 top-0 size-72 rounded-full bg-primary/5 blur-3xl" />
-        <div className="relative p-5 sm:p-6">
+        <div className="relative px-5 pb-5 pt-3 sm:px-6 sm:pb-6 sm:pt-4">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex items-center gap-4">
               <div className="relative shrink-0">
@@ -96,14 +96,14 @@ export default function PaymentsPage() {
         </div>
       </div>
       <section className="grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]" aria-label="Balance overview">
-        <Card className={cn('relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border/50 bg-card', cardShadow)}>
+        <Card className={cn('relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border/50 bg-card py-0 gap-0', cardShadow)}>
           <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-2xl">
             <div className="absolute -top-10 -left-6 size-48 rounded-full bg-primary/8 blur-3xl" />
             <div className="absolute -right-6 -bottom-6 size-36 rounded-full bg-accent/6 blur-2xl" />
             <div className="absolute top-0 right-0 left-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
           </div>
 
-          <CardHeader className="relative z-10 flex flex-row items-center justify-between px-4 pt-5 pb-3 sm:px-6 sm:pt-6">
+          <CardHeader className="relative z-10 flex flex-row items-center justify-between px-4 pt-3 pb-3 sm:px-6 sm:pt-4">
             <CardTitle className="flex items-center gap-2 text-sm font-semibold text-foreground/85">
               <span className="flex size-6 shrink-0 items-center justify-center rounded-md border border-primary/20 bg-primary/10"><WalletIcon /></span>
               <span className="hidden sm:inline">My Balance</span>
@@ -143,7 +143,7 @@ export default function PaymentsPage() {
 
         <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-1">
           {metrics.map(({ label, value, icon: Icon, trend }) => (
-            <Card key={label} className={cn('relative flex min-w-0 flex-col justify-center overflow-hidden rounded-2xl border border-border/50 bg-card transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_4px_12px_oklch(0_0_0/0.08)]', cardShadow)}>
+            <Card key={label} className={cn('relative flex min-w-0 flex-col justify-center overflow-hidden rounded-2xl border border-border/50 bg-card py-0 gap-0 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_4px_12px_oklch(0_0_0/0.08)]', cardShadow)}>
               <div className="absolute top-0 right-0 left-0 h-0.5 rounded-t-2xl bg-gradient-to-r from-transparent via-primary/25 to-transparent" />
               <CardContent className="flex items-center gap-3 p-4 sm:gap-4 sm:p-5">
                 <span className="flex size-10 shrink-0 items-center justify-center rounded-xl border border-border/40 bg-primary/6 shadow-[inset_0_1px_0_color-mix(in_oklch,white_8%,transparent)] sm:size-11"><Icon className="size-4 text-primary/70 sm:size-5" /></span>
@@ -158,8 +158,8 @@ export default function PaymentsPage() {
       </section>
 
       <section className="grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]" aria-label="Payment analytics">
-        <Card className={cn('flex flex-col overflow-hidden rounded-2xl border border-border/50 bg-card', cardShadow)}>
-          <CardHeader className="flex flex-row items-center justify-between px-4 pt-5 pb-3 sm:px-6 sm:pt-6">
+        <Card className={cn('flex flex-col overflow-hidden rounded-2xl border border-border/50 bg-card py-0 gap-0', cardShadow)}>
+          <CardHeader className="flex flex-row items-center justify-between px-4 pt-3 pb-3 sm:px-6 sm:pt-4">
             <CardTitle className="flex items-center gap-2 text-sm font-semibold text-foreground/90">Payment Activity <InfoMark /></CardTitle>
             <YearPicker />
           </CardHeader>
@@ -170,7 +170,7 @@ export default function PaymentsPage() {
       </section>
 
       <Card className={cn('overflow-hidden rounded-2xl border border-border/50 bg-card', cardShadow)}>
-        <CardHeader className="flex flex-row items-center justify-between border-b border-border/25 px-4 py-5 sm:px-6">
+        <CardHeader className="flex flex-row items-center justify-between border-b border-border/25 px-4 py-3 sm:px-6 sm:py-4">
           <CardTitle className="flex items-center gap-2 text-sm font-semibold text-foreground/90">Payment History <InfoMark /></CardTitle>
           <YearPicker />
         </CardHeader>

@@ -159,7 +159,7 @@ export default function ProfilePage() {
         <div className="absolute top-0 right-0 w-72 h-72 rounded-full bg-primary/6 blur-3xl pointer-events-none" />
         <div className="absolute bottom-0 left-0 w-48 h-48 rounded-full bg-accent/5 blur-2xl pointer-events-none" />
 
-        <div className="relative z-10 p-5 sm:p-6">
+        <div className="relative z-10 px-5 pb-5 pt-3 sm:px-6 sm:pb-6 sm:pt-4">
           <div className="flex flex-col sm:flex-row sm:items-start gap-5">
             <div className="relative shrink-0">
               <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br from-primary/25 via-primary/15 to-accent/20 border border-primary/20 flex items-center justify-center shadow-lg">
@@ -229,8 +229,8 @@ export default function ProfilePage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         <div className="lg:col-span-2">
-          <Card className="rounded-2xl border border-border/60 bg-card shadow-sm h-full">
-            <CardHeader className="px-5 pt-5 pb-4 border-b border-border/50">
+          <Card className="rounded-2xl border border-border/60 bg-card shadow-sm h-full py-0 gap-0">
+            <CardHeader className="px-5 pt-3 pb-4 border-b border-border/50">
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
                   <UserRound className="w-4 h-4 text-primary" />
@@ -296,8 +296,8 @@ export default function ProfilePage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Card className="rounded-2xl border border-border/60 bg-card shadow-sm">
-            <CardHeader className="px-5 pt-5 pb-4 border-b border-border/50">
+          <Card className="rounded-2xl border border-border/60 bg-card shadow-sm py-0 gap-0">
+            <CardHeader className="px-5 pt-3 pb-4 border-b border-border/50">
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 rounded-xl bg-success/10 flex items-center justify-center shrink-0">
                   <ShieldCheck className="w-4 h-4 text-success" />
@@ -367,8 +367,8 @@ export default function ProfilePage() {
       </div>
 
       <div id="security-section" className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <Card className="rounded-2xl border border-border/60 bg-card shadow-sm">
-          <CardHeader className="px-5 pt-5 pb-4 border-b border-border/50">
+        <Card className="rounded-2xl border border-border/60 bg-card shadow-sm py-0 gap-0">
+          <CardHeader className="px-5 pt-3 pb-4 border-b border-border/50">
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
                 <Lock className="w-4 h-4 text-primary" />
@@ -413,8 +413,8 @@ export default function ProfilePage() {
           </CardContent>
         </Card>
 
-        <Card className="rounded-2xl border border-border/60 bg-card shadow-sm">
-          <CardHeader className="px-5 pt-5 pb-4 border-b border-border/50">
+        <Card className="rounded-2xl border border-border/60 bg-card shadow-sm py-0 gap-0">
+          <CardHeader className="px-5 pt-3 pb-4 border-b border-border/50">
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 rounded-xl bg-warning/10 flex items-center justify-center shrink-0">
                 <Bell className="w-4 h-4 text-warning" />
@@ -442,8 +442,8 @@ export default function ProfilePage() {
         </Card>
       </div>
 
-      <Card className="rounded-2xl border border-border/60 bg-card shadow-sm">
-        <CardHeader className="px-5 pt-5 pb-4 border-b border-border/50">
+      <Card className="rounded-2xl border border-border/60 bg-card shadow-sm py-0 gap-0">
+        <CardHeader className="px-5 pt-3 pb-4 border-b border-border/50">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 rounded-xl bg-info/10 flex items-center justify-center shrink-0">
               <Activity className="w-4 h-4 text-info" />

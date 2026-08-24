@@ -69,7 +69,7 @@ export default function Dashboard() {
       <div className="relative overflow-hidden rounded-2xl border border-border/60 bg-card shadow-md">
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-primary/8 via-transparent to-success/6" />
         <div className="pointer-events-none absolute right-0 top-0 size-72 rounded-full bg-primary/5 blur-3xl" />
-        <div className="relative p-5 sm:p-6">
+        <div className="relative px-5 pb-5 pt-3 sm:px-6 sm:pb-6 sm:pt-4">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex items-center gap-4"><div className="relative shrink-0"><div className="flex size-14 items-center justify-center rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/20 to-success/15 shadow-sm"><Activity className="size-7 text-primary" /></div><span className="absolute -bottom-0.5 -right-0.5 size-3.5 rounded-full border-2 border-card bg-success" /></div><div><div className="flex flex-wrap items-center gap-2"><h1 className="text-xl font-bold leading-tight tracking-tight text-foreground">Dashboard</h1><Badge variant="secondary" className="border-primary/20 bg-primary/10 px-2 py-0.5 text-[0.6rem] font-semibold text-primary">Live overview</Badge></div><p className="mt-0.5 text-sm text-muted-foreground">Track revenue, customers &amp; payment performance</p></div></div>
             <div className="flex flex-wrap items-center gap-2"><Button variant="outline" size="sm" className="h-8 gap-1.5 border-border/60 text-xs"><RefreshCw className="size-3.5" /> Refresh</Button><Button size="sm" className="h-8 gap-1.5 text-xs bg-primary hover:bg-primary/90"><ArrowUpRight className="size-3.5" /> New payment</Button></div>
@@ -83,8 +83,8 @@ export default function Dashboard() {
       <section className="grid grid-cols-1 gap-5 xl:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]" aria-label="Account overview">
         
         {/* My Balance */}
-        <Card className="card-base card-elevated flex min-w-0 flex-col justify-between xl:col-span-1">
-          <CardHeader className="flex flex-row items-center justify-between pb-2 px-5 pt-5">
+        <Card className="card-base card-elevated flex min-w-0 flex-col justify-between py-0 gap-0 xl:col-span-1">
+          <CardHeader className="flex flex-row items-center justify-between pb-2 px-5 pt-3">
             <CardTitle className="text-sm font-medium text-foreground/80 flex items-center gap-1.5">
               <div className="w-5 h-5 rounded bg-foreground/10 flex items-center justify-center shrink-0">
                 <WalletIcon />
@@ -125,8 +125,8 @@ export default function Dashboard() {
       </section>
 
       {/* Transaction History Table */}
-      <Card className="card-base card-elevated min-w-0">
-        <CardHeader className="flex flex-row items-center justify-between p-5 border-b border-border/20">
+      <Card className="card-base card-elevated min-w-0 py-0 gap-0">
+        <CardHeader className="flex flex-row items-center justify-between px-5 py-3 border-b border-border/20">
           <CardTitle className="text-sm font-medium text-foreground/90 flex items-center gap-1.5">
             Transaction History <span className="inline-flex items-center justify-center w-3.5 h-3.5 rounded-full border border-border/50 text-muted-foreground text-[8px] cursor-help ml-1">i</span>
           </CardTitle>

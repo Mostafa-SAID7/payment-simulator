@@ -61,7 +61,7 @@ function SettingRow({ title, description, children, className = '' }: { title: s
 
 function CardSectionHeader({ icon: Icon, title, description, accent = false }: { icon: typeof UserRound; title: string; description: string; accent?: boolean }) {
   return (
-    <div className={cn('flex items-center gap-3 px-5 pt-5 pb-4 border-b border-border/50', accent && 'bg-gradient-to-r from-primary/5 to-transparent')}>
+    <div className={cn('flex items-center gap-3 px-5 pt-3 pb-4 border-b border-border/50', accent && 'bg-gradient-to-r from-primary/5 to-transparent')}>
       <div className={cn('inline-flex items-center justify-center w-9 h-9 rounded-xl shrink-0', accent ? 'bg-primary/15 text-primary' : 'bg-muted/80 text-muted-foreground')}>
         <Icon className="w-4 h-4" />
       </div>
@@ -171,7 +171,7 @@ export default function SettingsPage() {
         <div className="absolute top-0 right-0 w-72 h-72 rounded-full bg-primary/6 blur-3xl pointer-events-none" />
         <div className="absolute bottom-0 left-0 w-48 h-48 rounded-full bg-accent/5 blur-2xl pointer-events-none" />
 
-        <div className="relative z-10 p-5 sm:p-6">
+        <div className="relative z-10 px-5 pb-5 pt-3 sm:px-6 sm:pb-6 sm:pt-4">
           <div className="flex flex-col sm:flex-row sm:items-start gap-5">
             <div className="relative shrink-0">
               <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br from-primary/25 via-primary/15 to-accent/20 border border-primary/20 flex items-center justify-center shadow-lg">
@@ -223,7 +223,7 @@ export default function SettingsPage() {
         </div>
       </div>
 
-      <Card id="profile" className="rounded-2xl border border-border/60 bg-card shadow-sm overflow-hidden">
+      <Card id="profile" className="rounded-2xl border border-border/60 bg-card shadow-sm overflow-hidden py-0 gap-0">
         <CardSectionHeader icon={UserRound} title="Profile & account" description="Keep your identity and workspace details up to date" accent />
         <CardContent className="p-5">
           <div className="flex items-center gap-4 p-4 rounded-xl bg-gradient-to-r from-primary/5 to-transparent border border-border/50 mb-5">
@@ -266,7 +266,7 @@ export default function SettingsPage() {
       </Card>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <Card id="security" className="rounded-2xl border border-border/60 bg-card shadow-sm overflow-hidden">
+        <Card id="security" className="rounded-2xl border border-border/60 bg-card shadow-sm overflow-hidden py-0 gap-0">
           <CardSectionHeader icon={ShieldCheck} title="Security" description="Protect access to your workspace" accent />
           <CardContent className="p-5 flex flex-col gap-4">
             <div className="flex items-center gap-3 p-3.5 rounded-xl bg-success/8 border border-success/25">
@@ -288,7 +288,7 @@ export default function SettingsPage() {
           </CardContent>
         </Card>
 
-        <Card className="rounded-2xl border border-border/60 bg-card shadow-sm overflow-hidden">
+        <Card className="rounded-2xl border border-border/60 bg-card shadow-sm overflow-hidden py-0 gap-0">
           <CardSectionHeader icon={Laptop} title="Active sessions" description="Devices currently signed in to your account" />
           <CardContent className="p-5 flex flex-col gap-3">
             {sessions.length ? sessions.map((session) => {
@@ -309,7 +309,7 @@ export default function SettingsPage() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <Card id="notifications" className="rounded-2xl border border-border/60 bg-card shadow-sm overflow-hidden">
+        <Card id="notifications" className="rounded-2xl border border-border/60 bg-card shadow-sm overflow-hidden py-0 gap-0">
           <CardSectionHeader icon={Bell} title="Notifications" description="Choose what reaches your inbox and devices" accent />
           <CardContent className="p-5">
             <SectionLabel>Alert channels</SectionLabel>
@@ -327,7 +327,7 @@ export default function SettingsPage() {
           </CardContent>
         </Card>
 
-        <Card id="appearance" className="rounded-2xl border border-border/60 bg-card shadow-sm overflow-hidden">
+        <Card id="appearance" className="rounded-2xl border border-border/60 bg-card shadow-sm overflow-hidden py-0 gap-0">
           <CardSectionHeader icon={Palette} title="Appearance" description="Tune how FinPay feels for your team" />
           <CardContent className="p-5 flex flex-col gap-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -350,7 +350,7 @@ export default function SettingsPage() {
         </Card>
       </div>
 
-      <Card id="payments" className="rounded-2xl border border-border/60 bg-card shadow-sm overflow-hidden">
+      <Card id="payments" className="rounded-2xl border border-border/60 bg-card shadow-sm overflow-hidden py-0 gap-0">
         <CardSectionHeader icon={CreditCard} title="Payment preferences" description="Set safe defaults for payment creation and settlement" accent />
         <CardContent className="p-5">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
@@ -366,7 +366,7 @@ export default function SettingsPage() {
         </CardContent>
       </Card>
 
-      <Card id="integrations" className="rounded-2xl border border-border/60 bg-card shadow-sm overflow-hidden">
+      <Card id="integrations" className="rounded-2xl border border-border/60 bg-card shadow-sm overflow-hidden py-0 gap-0">
         <CardSectionHeader icon={Code2} title="Connected accounts & API" description="Manage services and credentials connected to this workspace" accent />
         <CardContent className="p-5 flex flex-col gap-4">
           <SectionLabel>Connected services</SectionLabel>
@@ -395,7 +395,7 @@ export default function SettingsPage() {
       </Card>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <Card id="team" className="rounded-2xl border border-border/60 bg-card shadow-sm overflow-hidden">
+        <Card id="team" className="rounded-2xl border border-border/60 bg-card shadow-sm overflow-hidden py-0 gap-0">
           <CardSectionHeader icon={Users} title="Team members" description="Manage access across your workspace" accent />
           <CardContent className="p-5 flex flex-col gap-3">
             <div className="flex flex-col gap-2">
@@ -420,7 +420,7 @@ export default function SettingsPage() {
           </CardContent>
         </Card>
 
-        <Card className="rounded-2xl border border-border/60 bg-card shadow-sm overflow-hidden">
+        <Card className="rounded-2xl border border-border/60 bg-card shadow-sm overflow-hidden py-0 gap-0">
           <CardSectionHeader icon={Zap} title="Plan & billing" description="Unlock more capacity for your workspace" />
           <CardContent className="p-5 flex flex-col gap-4">
             <div className="flex items-center gap-3 p-4 rounded-xl bg-gradient-to-r from-accent/8 to-primary/5 border border-border/50">
@@ -438,7 +438,7 @@ export default function SettingsPage() {
         </Card>
       </div>
 
-      <Card id="privacy" className="rounded-2xl border border-border/60 bg-card shadow-sm overflow-hidden">
+      <Card id="privacy" className="rounded-2xl border border-border/60 bg-card shadow-sm overflow-hidden py-0 gap-0">
         <CardSectionHeader icon={Lock} title="Privacy, data & danger zone" description="Control your data and irreversible account actions" />
         <CardContent className="p-5 flex flex-col gap-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">

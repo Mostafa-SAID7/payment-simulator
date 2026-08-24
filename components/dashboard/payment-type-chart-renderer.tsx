@@ -13,8 +13,8 @@ const data = [
 
 export function PaymentTypeChartRenderer() {
   return (
-    <Card className="h-full min-w-0 overflow-hidden rounded-[1.25rem] border-0 bg-card shadow-none">
-      <CardHeader className="flex flex-row items-center justify-between px-5 pt-5 pb-0">
+    <Card className="h-full min-w-0 overflow-hidden rounded-[1.25rem] border-0 bg-card py-0 gap-0 shadow-none">
+      <CardHeader className="flex flex-row items-center justify-between px-5 pt-3 pb-0">
         <CardTitle className="flex items-center gap-1.5 text-sm font-medium text-foreground/90">
           Balance Details <span className="ml-1 inline-flex size-3.5 items-center justify-center rounded-full border border-border/50 text-[8px] text-muted-foreground" title="More information">i</span>
         </CardTitle>
