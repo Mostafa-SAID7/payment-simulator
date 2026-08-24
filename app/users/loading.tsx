@@ -4,8 +4,27 @@ export default function UsersLoading() {
   return (
     <div className="flex flex-col gap-4 pb-6" role="status" aria-label="Loading users">
       <span className="sr-only">Loading users</span>
-      <div className="overflow-hidden rounded-2xl border border-border/60 bg-card p-5"><div className="flex items-center justify-between gap-4"><div className="flex items-center gap-3"><Skeleton className="size-12 rounded-2xl" /><div className="space-y-2"><Skeleton className="h-5 w-40" /><Skeleton className="h-3 w-56" /></div></div><div className="flex gap-2"><Skeleton className="h-8 w-20 rounded-lg" /><Skeleton className="h-8 w-24 rounded-lg" /></div></div><Skeleton className="mt-4 h-3 w-80" /><div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4">{[0, 1, 2, 3].map((item) => <div key={item} className="flex items-center gap-2.5 rounded-xl border border-border/50 bg-background/60 px-3 py-2.5"><Skeleton className="size-8 rounded-lg" /><div className="space-y-2"><Skeleton className="h-2.5 w-20" /><Skeleton className="h-4 w-12" /></div></div>)}</div></div>
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-3"><div className="flex flex-col gap-4 lg:col-span-2"><div className="rounded-2xl border border-border/60 bg-card p-4"><div className="flex gap-2"><Skeleton className="h-8 flex-1 rounded-lg" /><Skeleton className="h-8 w-24 rounded-lg" /><Skeleton className="h-8 w-24 rounded-lg" /></div></div><div className="overflow-hidden rounded-2xl border border-border/60 bg-card"><div className="overflow-x-auto px-4">{[0, 1, 2, 3, 4].map((item) => <div key={item} className="flex min-w-[700px] items-center gap-5 border-b border-border/40 py-4 last:border-0"><Skeleton className="size-4 rounded" /><div className="flex w-52 items-center gap-2"><Skeleton className="size-9 rounded-full" /><div className="space-y-2"><Skeleton className="h-3 w-28" /><Skeleton className="h-2.5 w-36" /></div></div><Skeleton className="h-5 w-14 rounded-full" /><Skeleton className="h-5 w-16 rounded-full" /><Skeleton className="h-3 w-16" /><Skeleton className="ml-auto size-7 rounded-md" /></div>)}</div></div><div className="rounded-2xl border border-border/60 bg-card p-5"><Skeleton className="h-4 w-36" /><div className="mt-5 space-y-3">{[0, 1, 2, 3].map((item) => <div key={item} className="flex items-center justify-between"><Skeleton className="h-3 w-32" /><Skeleton className="h-5 w-12 rounded-full" /></div>)}</div></div></div><div className="flex flex-col gap-4"><Skeleton className="h-52 rounded-2xl" /><Skeleton className="h-56 rounded-2xl" /><Skeleton className="h-48 rounded-2xl" /></div></div>
+
+      <div className="overflow-hidden rounded-2xl border border-border/60 bg-card p-4 sm:p-5">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex items-center gap-3"><Skeleton className="size-12 rounded-2xl" /><div className="space-y-2"><Skeleton className="h-5 w-40" /><Skeleton className="h-3 w-56" /></div></div>
+          <div className="flex gap-2"><Skeleton className="h-8 w-20 rounded-lg" /><Skeleton className="h-8 w-20 rounded-lg" /><Skeleton className="h-8 w-24 rounded-lg" /></div>
+        </div>
+        <Skeleton className="mt-4 h-3 w-full max-w-[22rem]" />
+        <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4">{[0, 1, 2, 3].map((item) => <div key={item} className="flex items-center gap-2.5 rounded-xl border border-border/50 bg-background/60 px-3 py-2.5"><Skeleton className="size-8 rounded-lg" /><div className="space-y-2"><Skeleton className="h-2.5 w-20" /><Skeleton className="h-4 w-12" /></div></div>)}</div>
+      </div>
+
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+        <div className="flex min-w-0 flex-col gap-4 lg:col-span-2">
+          <div className="overflow-hidden rounded-2xl border border-border/60 bg-card">
+            <div className="flex flex-col gap-2 p-4 sm:flex-row"><Skeleton className="h-8 flex-1 rounded-lg" /><Skeleton className="h-8 w-24 rounded-lg" /><Skeleton className="h-8 w-24 rounded-lg" /><Skeleton className="h-8 w-8 rounded-lg" /></div>
+            <div className="overflow-x-auto px-4"><div className="flex min-w-[690px] items-center gap-5 border-y border-border/40 bg-muted/20 py-3"><Skeleton className="size-4 rounded" /><Skeleton className="h-3 w-28" /><Skeleton className="h-3 w-24" /><Skeleton className="h-3 w-16" /><Skeleton className="h-3 w-16" /></div>{[0, 1, 2, 3, 4].map((item) => <div key={item} className="flex min-w-[690px] items-center gap-5 border-b border-border/40 py-4 last:border-0"><Skeleton className="size-4 rounded" /><div className="flex w-52 items-center gap-2"><Skeleton className="size-9 rounded-full" /><div className="space-y-2"><Skeleton className="h-3 w-28" /><Skeleton className="h-2.5 w-36" /></div></div><Skeleton className="h-5 w-14 rounded-full" /><Skeleton className="h-5 w-16 rounded-full" /><Skeleton className="h-3 w-16" /><Skeleton className="ml-auto size-7 rounded-md" /></div>)}</div>
+            <div className="flex items-center justify-between border-t border-border/40 px-4 py-3"><Skeleton className="h-3 w-32" /><Skeleton className="h-3 w-16" /></div>
+          </div>
+          <div className="overflow-hidden rounded-2xl border border-border/60 bg-card"><Skeleton className="h-20 w-full rounded-none" /><div className="space-y-3 p-5">{[0, 1, 2, 3, 4].map((item) => <Skeleton key={item} className="h-8 w-full" />)}</div></div>
+        </div>
+        <div className="flex flex-col gap-4"><Skeleton className="h-52 rounded-2xl" /><Skeleton className="h-56 rounded-2xl" /><Skeleton className="h-52 rounded-2xl" /><Skeleton className="h-14 rounded-xl" /></div>
+      </div>
     </div>
   );
 }
