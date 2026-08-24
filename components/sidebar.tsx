@@ -18,7 +18,6 @@ import {
   Users,
   type LucideIcon,
 } from 'lucide-react';
-import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 import { useSidebar } from '@/contexts/sidebar-context';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
@@ -73,12 +72,7 @@ function SidebarNavigationLink({ item, isActive, isCollapsed, onNavigate }: Side
 
 export function Sidebar() {
   const pathname = usePathname();
-  const [hydratedPathname, setHydratedPathname] = useState<string | null>(null);
   const { isCollapsed, setIsCollapsed, isMobileOpen, setIsMobileOpen } = useSidebar();
-
-  useEffect(() => {
-    setHydratedPathname(pathname);
-  }, [pathname]);
 
   const closeMobileSidebar = () => setIsMobileOpen(false);
 
@@ -145,7 +139,7 @@ export function Sidebar() {
             <SidebarNavigationLink
               key={item.href}
               item={item}
-              isActive={hydratedPathname === item.href}
+              isActive={pathname === item.href}
               isCollapsed={isCollapsed}
               onNavigate={closeMobileSidebar}
             />
@@ -167,7 +161,7 @@ export function Sidebar() {
             <SidebarNavigationLink
               key={item.href}
               item={item}
-              isActive={hydratedPathname === item.href}
+              isActive={pathname === item.href}
               isCollapsed={isCollapsed}
               onNavigate={closeMobileSidebar}
             />

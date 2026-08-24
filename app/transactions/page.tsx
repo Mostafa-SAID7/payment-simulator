@@ -108,7 +108,7 @@ export default function TransactionsPage() {
   }
 
   return (
-    <div className="flex flex-col gap-5 pb-6 mt-20 md:mt-24 px-4 md:px-8 max-w-[1600px] mx-auto w-full">
+    <div className="mx-auto flex w-full max-w-[1600px] flex-col gap-5 px-4 pb-6 md:px-8">
 
       {/* Top Stats Row */}
       <section className="grid grid-cols-2 lg:grid-cols-4 gap-4" aria-label="Transaction overview">

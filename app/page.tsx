@@ -1,6 +1,5 @@
 import {
   ArrowUpRight,
-  ChevronDown,
   CircleDollarSign,
   MoreVertical,
   Trash2,
@@ -13,12 +12,15 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { TransactionChart } from '@/components/dashboard/transaction-chart';
 import { PaymentTypeChart } from '@/components/dashboard/payment-type-chart';
+import { BalanceCard } from '@/components/dashboard/balance-card';
+import { PeriodSelect } from '@/components/dashboard/period-select';
+import { AccountSelect } from '@/components/dashboard/account-select';
 import { cn } from '@/lib/utils';
 
 const metrics = [
-  { label: 'Total Revenue', value: '$47,255.00', icon: CircleDollarSign },
-  { label: 'AVG. ORDER VALUE', value: '$98,747.00', icon: PieChart },
-  { label: 'New Order', value: '$47,255.00', icon: ShoppingBag },
+  { title: 'Total Revenue', amount: 47255, change: 14.2, icon: <CircleDollarSign className="h-4 w-4" /> },
+  { title: 'AVG. ORDER VALUE', amount: 98747, change: 9.8, icon: <PieChart className="h-4 w-4" /> },
+  { title: 'New Order', amount: 47255, change: 5.3, icon: <ShoppingBag className="h-4 w-4" /> },
 ];
 
 const transactions = [
@@ -50,13 +52,13 @@ const transactions = [
 
 export default function Dashboard() {
   return (
-    <div className="flex flex-col gap-5 pb-6 mt-20 md:mt-24 px-4 md:px-8 max-w-[1600px] mx-auto w-full">
+    <div className="mx-auto flex w-full max-w-[1600px] flex-col gap-5 px-3 pb-6 sm:px-5 md:px-6 lg:px-8">
 
       {/* Top Cards Row */}
-      <section className="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr_1fr_1fr] gap-4" aria-label="Account overview">
+      <section className="grid grid-cols-1 gap-5 xl:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]" aria-label="Account overview">
         
         {/* My Balance */}
-        <Card className="card-base card-elevated flex flex-col justify-between">
+        <Card className="card-base card-elevated flex min-w-0 flex-col justify-between xl:col-span-1">
           <CardHeader className="flex flex-row items-center justify-between pb-2 px-5 pt-5">
             <CardTitle className="text-sm font-medium text-foreground/80 flex items-center gap-1.5">
               <div className="w-5 h-5 rounded bg-foreground/10 flex items-center justify-center shrink-0">
@@ -65,14 +67,7 @@ export default function Dashboard() {
               My Balance 
               <span className="inline-flex items-center justify-center w-3.5 h-3.5 rounded-full border border-border/50 text-muted-foreground text-[8px] cursor-help ml-1">i</span>
             </CardTitle>
-            <button type="button" className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg border border-border/40 bg-foreground/5 text-xs text-foreground/80 hover:bg-foreground/10 transition-colors">
-              <div className="flex -space-x-1">
-                <div className="w-3 h-3 rounded-full bg-[#EB001B] opacity-90 z-10"></div>
-                <div className="w-3 h-3 rounded-full bg-[#F79E1B] opacity-90"></div>
-              </div>
-              <span className="font-medium">xx25</span>
-              <ChevronDown className="w-3.5 h-3.5 opacity-50" />
-            </button>
+            <AccountSelect />
           </CardHeader>
           <CardContent className="px-5 pb-5 pt-3">
             <div className="flex items-baseline gap-3 mb-5">
@@ -91,39 +86,26 @@ export default function Dashboard() {
         </Card>
 
         {/* Small Metric Cards */}
-        {metrics.map(({ label, value, icon: Icon }) => (
-          <Card key={label} className="card-base card-elevated metric-card-accent relative flex flex-col justify-center bg-card/80 backdrop-blur-sm">
-            <CardContent className="p-5 flex flex-col gap-3">
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full border border-border/50 bg-foreground/5 flex items-center justify-center">
-                  <Icon className="w-4 h-4 text-foreground/70" />
-                </div>
-                <p className="text-[11px] font-medium text-foreground/50 uppercase tracking-wide">{label}</p>
-              </div>
-              <p className="text-2xl font-bold text-foreground mt-1">
-                {value.split('.')[0]}<span className="text-foreground/40 text-lg font-semibold">.{value.split('.')[1]}</span>
-              </p>
-            </CardContent>
-          </Card>
-        ))}
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:col-span-1 xl:grid-cols-1">
+          {metrics.map((metric) => (
+            <BalanceCard key={metric.title} {...metric} />
+          ))}
+        </div>
       </section>
 
       {/* Middle Charts Row */}
-      <section className="grid grid-cols-1 lg:grid-cols-[1fr_2.4fr] gap-4" aria-label="Dashboard analytics">
+      <section className="grid grid-cols-1 gap-5 xl:grid-cols-[minmax(0,1fr)_minmax(0,2.4fr)]" aria-label="Dashboard analytics">
         <PaymentTypeChart />
         <TransactionChart />
       </section>
 
       {/* Transaction History Table */}
-      <Card className="card-base card-elevated">
+      <Card className="card-base card-elevated min-w-0">
         <CardHeader className="flex flex-row items-center justify-between p-5 border-b border-border/20">
           <CardTitle className="text-sm font-medium text-foreground/90 flex items-center gap-1.5">
             Transaction History <span className="inline-flex items-center justify-center w-3.5 h-3.5 rounded-full border border-border/50 text-muted-foreground text-[8px] cursor-help ml-1">i</span>
           </CardTitle>
-          <button type="button" className="filter-btn">
-            <CalendarIcon />
-            This Month <ChevronDown className="w-3.5 h-3.5 opacity-50 ml-1" />
-          </button>
+          <PeriodSelect defaultValue="month" />
         </CardHeader>
         <CardContent className="p-0">
           <div className="table-container">
