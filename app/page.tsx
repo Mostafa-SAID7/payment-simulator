@@ -14,7 +14,6 @@ import { Badge } from '@/components/ui/badge';
 import { TransactionChart } from '@/components/dashboard/transaction-chart';
 import { PaymentTypeChart } from '@/components/dashboard/payment-type-chart';
 import { BalanceCard } from '@/components/dashboard/balance-card';
-import { BatchSuccessChart } from '@/components/dashboard/batch-success-chart';
 import { cn } from '@/lib/utils';
 
 const metrics = [
@@ -102,10 +101,6 @@ export default function Dashboard() {
       <section className="grid grid-cols-1 lg:grid-cols-[1fr_2.4fr] gap-4" aria-label="Dashboard analytics">
         <PaymentTypeChart />
         <TransactionChart />
-      </section>
-
-      <section className="grid grid-cols-1 gap-4 md:grid-cols-2" aria-label="Batch processing analytics">
-        <BatchSuccessChart />
       </section>
 
       {/* Transaction History Table */}
