@@ -1,11 +1,17 @@
 import {
+  Activity,
+  ArrowDownRight,
   ArrowUpRight,
+  Building2,
   CircleDollarSign,
+  Globe,
+  Mail,
   MoreVertical,
-  Trash2,
+  Phone,
   PieChart,
+  RefreshCw,
   ShoppingBag,
-  ArrowDownRight
+  Trash2,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -21,6 +27,13 @@ const metrics = [
   { title: 'Total Revenue', amount: 47255, change: 14.2, icon: <CircleDollarSign className="h-4 w-4" /> },
   { title: 'AVG. ORDER VALUE', amount: 98747, change: 9.8, icon: <PieChart className="h-4 w-4" /> },
   { title: 'New Order', amount: 47255, change: 5.3, icon: <ShoppingBag className="h-4 w-4" /> },
+];
+
+const dashboardSummary = [
+  { label: 'Total revenue', value: '$47.3K', icon: CircleDollarSign, color: 'text-primary', bg: 'bg-primary/15' },
+  { label: 'Successful payments', value: '1,284', icon: Activity, color: 'text-success', bg: 'bg-success/15' },
+  { label: 'Active customers', value: '842', icon: ShoppingBag, color: 'text-warning', bg: 'bg-warning/15' },
+  { label: 'Settlement health', value: '98%', icon: CircleDollarSign, color: 'text-info', bg: 'bg-info/15' },
 ];
 
 const transactions = [
@@ -52,7 +65,19 @@ const transactions = [
 
 export default function Dashboard() {
   return (
-    <div className="mx-auto flex w-full max-w-[1600px] flex-col gap-5 px-3 pb-6 sm:px-5 md:px-6 lg:px-8">
+    <div className="mx-auto flex w-full max-w-[1600px] flex-col gap-4 px-3 pb-6 sm:px-5 md:px-6 lg:px-8">
+      <div className="relative overflow-hidden rounded-2xl border border-border/60 bg-card shadow-md">
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-primary/8 via-transparent to-success/6" />
+        <div className="pointer-events-none absolute right-0 top-0 size-72 rounded-full bg-primary/5 blur-3xl" />
+        <div className="relative p-5 sm:p-6">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex items-center gap-4"><div className="relative shrink-0"><div className="flex size-14 items-center justify-center rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/20 to-success/15 shadow-sm"><Activity className="size-7 text-primary" /></div><span className="absolute -bottom-0.5 -right-0.5 size-3.5 rounded-full border-2 border-card bg-success" /></div><div><div className="flex flex-wrap items-center gap-2"><h1 className="text-xl font-bold leading-tight tracking-tight text-foreground">Dashboard</h1><Badge variant="secondary" className="border-primary/20 bg-primary/10 px-2 py-0.5 text-[0.6rem] font-semibold text-primary">Live overview</Badge></div><p className="mt-0.5 text-sm text-muted-foreground">Track revenue, customers &amp; payment performance</p></div></div>
+            <div className="flex flex-wrap items-center gap-2"><Button variant="outline" size="sm" className="h-8 gap-1.5 border-border/60 text-xs"><RefreshCw className="size-3.5" /> Refresh</Button><Button size="sm" className="h-8 gap-1.5 text-xs bg-primary hover:bg-primary/90"><ArrowUpRight className="size-3.5" /> New payment</Button></div>
+          </div>
+          <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1.5"><span className="inline-flex items-center gap-1.5 text-[0.7rem] text-muted-foreground"><Building2 className="size-3" /> FinPay Corp</span><span className="inline-flex items-center gap-1.5 text-[0.7rem] text-muted-foreground"><Globe className="size-3" /> finpay.com</span><span className="inline-flex items-center gap-1.5 text-[0.7rem] text-muted-foreground"><Mail className="size-3" /> admin@finpay.com</span><span className="inline-flex items-center gap-1.5 text-[0.7rem] text-muted-foreground"><Phone className="size-3" /> +1 (555) 123-4567</span></div>
+          <div className="mt-5 grid grid-cols-2 gap-2 sm:grid-cols-4">{dashboardSummary.map(({ label, value, icon: Icon, color, bg }) => <div key={label} className="flex items-center gap-2.5 rounded-xl border border-border/50 bg-background/60 px-3 py-2.5"><span className={cn('inline-flex size-8 shrink-0 items-center justify-center rounded-lg', bg, color)}><Icon className="size-4" /></span><div className="min-w-0"><p className="text-[0.65rem] font-medium leading-none text-muted-foreground">{label}</p><p className="mt-0.5 text-base font-bold leading-none text-foreground">{value}</p></div></div>)}</div>
+        </div>
+      </div>
 
       {/* Top Cards Row */}
       <section className="grid grid-cols-1 gap-5 xl:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]" aria-label="Account overview">
