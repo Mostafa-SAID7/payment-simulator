@@ -33,36 +33,35 @@ const metrics = [
 
 export default function TaxesPage() {
   return (
-    <div className="flex flex-col gap-3 pb-4">
-
-      <section className="grid grid-cols-1 md:grid-cols-3 gap-3" aria-label="Tax metrics">
+    <div className="flex min-w-0 flex-col gap-5 pb-6">
+      <section className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3" aria-label="Tax metrics">
         {metrics.map(({ label, value, icon: Icon, color, bg }) => (
-          <Card key={label} className="rounded-xl border border-border/70 bg-card shadow-sm overflow-hidden">
-            <CardContent className="flex items-center gap-4 py-4 px-5">
-              <span className={cn("inline-flex items-center justify-center w-10 h-10 rounded-xl shrink-0", bg, color)}>
-                <Icon className="w-5 h-5" />
+          <Card key={label} className="min-w-0 overflow-hidden rounded-xl border border-border/70 bg-card shadow-sm transition-shadow hover:shadow-md">
+            <CardContent className="flex min-w-0 items-center gap-3 px-4 py-4 sm:gap-4 sm:px-5">
+              <span className={cn('inline-flex size-10 shrink-0 items-center justify-center rounded-xl', bg, color)}>
+                <Icon className="size-5" />
               </span>
-              <div className="flex flex-col min-w-0">
-                <span className="text-sm text-muted-foreground font-medium">{label}</span>
-                <strong className="text-2xl font-bold text-foreground">{value}</strong>
+              <div className="flex min-w-0 flex-col">
+                <span className="truncate text-sm font-medium text-muted-foreground">{label}</span>
+                <strong className="text-xl font-bold text-foreground sm:text-2xl">{value}</strong>
               </div>
             </CardContent>
           </Card>
         ))}
       </section>
 
-      <Card className="rounded-xl border border-border/70 bg-card shadow-sm overflow-hidden">
-        <CardHeader className="flex flex-row items-center justify-between pb-3">
+      <Card className="min-w-0 overflow-hidden rounded-xl border border-border/70 bg-card shadow-sm">
+        <CardHeader className="flex flex-wrap items-center justify-between gap-3 pb-3">
           <CardTitle className="text-xs font-semibold text-foreground/80">
             Tax Documents
           </CardTitle>
-          <Button size="sm" variant="outline" className="h-8 text-xs">
-            <Download className="w-3.5 h-3.5 mr-1" /> Download All
+          <Button size="sm" variant="outline" className="h-8 shrink-0 text-xs">
+            <Download className="mr-1 size-3.5" /> Download All
           </Button>
         </CardHeader>
         <CardContent className="p-0">
-          <div className="overflow-x-auto">
-            <table className="w-full text-xs">
+          <div className="overflow-x-auto [scrollbar-width:thin]">
+            <table className="min-w-[640px] w-full text-xs">
               <thead>
                 <tr className="border-b border-border/60 [&_th]:px-4 [&_th]:py-2 [&_th]:text-left [&_th]:font-semibold [&_th]:text-muted-foreground">
                   <th>Document</th><th>Type</th><th>Date</th><th>Size</th><th>Status</th><th>Action</th>
@@ -73,8 +72,8 @@ export default function TaxesPage() {
                   <tr key={`${doc.name}-${index}`} className="border-b border-border/40 hover:bg-secondary/30 transition-colors [&_td]:px-4 [&_td]:py-3">
                     <td>
                       <div className="flex items-center gap-3">
-                        <div className="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-secondary/50 text-muted-foreground shrink-0">
-                          <FileText className="w-4 h-4" />
+                        <div className="inline-flex size-8 shrink-0 items-center justify-center rounded-lg bg-secondary/50 text-muted-foreground">
+                          <FileText className="size-4" />
                         </div>
                         <div className="flex flex-col min-w-0">
                           <strong className="font-semibold text-foreground truncate">{doc.name}</strong>
