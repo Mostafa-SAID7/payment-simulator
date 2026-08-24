@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { cn } from '@/lib/utils';
 
 interface Transaction {
@@ -87,15 +88,20 @@ export default function TransactionsPage() {
     });
   }, [filterStatus, filterType, searchTerm]);
 
-  const stats = {
-    total: mockTransactions.length,
-    completed: mockTransactions.filter((transaction) => transaction.status === 'completed').length,
-    pending: mockTransactions.filter((transaction) => transaction.status === 'pending').length,
-    failed: mockTransactions.filter((transaction) => transaction.status === 'failed').length,
-  };
-  const totalVolume = mockTransactions.reduce((sum, transaction) => sum + transaction.amount, 0);
-  const completedVolume = mockTransactions.filter((transaction) => transaction.status === 'completed').reduce((sum, transaction) => sum + transaction.amount, 0);
-  const completionRate = Math.round((stats.completed / stats.total) * 100);
+  const { stats, totalVolume, completedVolume } = useMemo(() => {
+    const stats = { total: mockTransactions.length, completed: 0, pending: 0, failed: 0 };
+    let totalVolume = 0;
+    let completedVolume = 0;
+
+    for (const transaction of mockTransactions) {
+      stats[transaction.status] += 1;
+      totalVolume += transaction.amount;
+      if (transaction.status === 'completed') completedVolume += transaction.amount;
+    }
+
+    return { stats, totalVolume, completedVolume };
+  }, []);
+  const completionRate = stats.total ? Math.round((stats.completed / stats.total) * 100) : 0;
   const hasFilters = Boolean(searchTerm || filterType !== 'all' || filterStatus !== 'all');
 
   function clearFilters() { setSearchTerm(''); setFilterType('all'); setFilterStatus('all'); }
@@ -129,7 +135,7 @@ export default function TransactionsPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         <div className="lg:col-span-2 flex flex-col gap-4">
-          <Card className="rounded-2xl border border-border/60 bg-card shadow-sm overflow-hidden py-0 gap-0"><div className="px-4 py-3 flex flex-col sm:flex-row gap-2"><div className="relative flex-1"><Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground" /><Input placeholder="Search recipient, ID, or reference…" value={searchTerm} onChange={(event) => setSearchTerm(event.target.value)} className="pl-8 h-8 text-xs bg-background/60 border-border/50" /></div><div className="flex gap-2 flex-wrap"><div className="relative"><select value={filterType} onChange={(event) => setFilterType(event.target.value)} className="h-8 pl-3 pr-7 text-xs rounded-md border border-border/50 bg-background/60 text-foreground appearance-none focus:outline-none focus:ring-1 focus:ring-primary/40"><option value="all">All types</option><option value="ACH">ACH</option><option value="RTGS">RTGS</option><option value="WPS">WPS</option></select><Filter className="absolute right-2 top-1/2 -translate-y-1/2 w-3 h-3 text-muted-foreground pointer-events-none" /></div><div className="relative"><select value={filterStatus} onChange={(event) => setFilterStatus(event.target.value)} className="h-8 pl-3 pr-7 text-xs rounded-md border border-border/50 bg-background/60 text-foreground appearance-none focus:outline-none focus:ring-1 focus:ring-primary/40"><option value="all">All statuses</option><option value="completed">Completed</option><option value="pending">Pending</option><option value="failed">Failed</option></select><Filter className="absolute right-2 top-1/2 -translate-y-1/2 w-3 h-3 text-muted-foreground pointer-events-none" /></div>{hasFilters && <Button variant="ghost" size="sm" className="h-8 text-xs px-2.5 text-muted-foreground hover:text-foreground" onClick={clearFilters}><X className="w-3.5 h-3.5 mr-1" /> Clear</Button>}</div></div></Card>
+          <Card className="rounded-2xl border border-border/60 bg-card shadow-sm overflow-hidden py-0 gap-0"><div className="px-4 py-3 flex flex-col sm:flex-row gap-2"><div className="relative flex-1"><Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground" /><Input placeholder="Search recipient, ID, or reference…" value={searchTerm} onChange={(event) => setSearchTerm(event.target.value)} className="pl-8 h-8 text-xs bg-background/60 border-border/50" /></div><div className="flex gap-2 flex-wrap"><Select value={filterType} onValueChange={setFilterType}><SelectTrigger aria-label="Filter by transaction type" size="sm" className="h-8 min-w-[108px] border-border/50 bg-background/60 text-xs"><SelectValue placeholder="All types" /></SelectTrigger><SelectContent><SelectItem value="all">All types</SelectItem><SelectItem value="ACH">ACH</SelectItem><SelectItem value="RTGS">RTGS</SelectItem><SelectItem value="WPS">WPS</SelectItem></SelectContent></Select><Select value={filterStatus} onValueChange={setFilterStatus}><SelectTrigger aria-label="Filter by transaction status" size="sm" className="h-8 min-w-[120px] border-border/50 bg-background/60 text-xs"><SelectValue placeholder="All statuses" /></SelectTrigger><SelectContent><SelectItem value="all">All statuses</SelectItem><SelectItem value="completed">Completed</SelectItem><SelectItem value="pending">Pending</SelectItem><SelectItem value="failed">Failed</SelectItem></SelectContent></Select>{hasFilters && <Button variant="ghost" size="sm" className="h-8 text-xs px-2.5 text-muted-foreground hover:text-foreground" onClick={clearFilters}><X className="w-3.5 h-3.5 mr-1" /> Clear</Button>}</div></div></Card>
 
           <Card className="rounded-2xl border border-border/60 bg-card shadow-sm overflow-hidden py-0 gap-0"><SectionHeader icon={FileText} title="All Transactions" description={`${filteredTransactions.length} result${filteredTransactions.length !== 1 ? 's' : ''} · sorted by date`} accent /><div className="overflow-x-auto"><table className="w-full text-[11px]"><thead><tr className="border-b border-border/50 bg-muted/20 [&_th]:px-5 [&_th]:py-3 [&_th]:text-left [&_th]:font-semibold [&_th]:text-muted-foreground [&_th]:text-[10px] [&_th]:uppercase [&_th]:tracking-wider"><th>Transaction</th><th>Date &amp; Time</th><th>Recipient</th><th>Type</th><th>Amount</th><th>Status</th><th className="text-right">View</th></tr></thead><tbody>{filteredTransactions.map((transaction, index) => <tr key={transaction.id} className={cn('hover:bg-foreground/[0.03] transition-colors [&_td]:px-5 [&_td]:py-3.5', index !== filteredTransactions.length - 1 && 'border-b border-border/30')}><td><div className="flex flex-col gap-0.5"><span className="font-semibold text-foreground">{transaction.id}</span><span className="text-muted-foreground text-[9px] font-medium">{transaction.reference}</span></div></td><td><div className="flex flex-col gap-0.5"><span className="font-medium text-foreground">{transaction.date}</span><span className="text-muted-foreground text-[9px] flex items-center gap-1"><Clock3 className="w-2.5 h-2.5" />{transaction.time}</span></div></td><td><div className="flex items-center gap-2.5"><div className="w-7 h-7 rounded-lg bg-primary/10 flex items-center justify-center shrink-0"><Building2 className="w-3.5 h-3.5 text-primary" /></div><div className="flex flex-col gap-0.5"><span className="font-semibold text-foreground leading-tight">{transaction.recipient}</span><span className="text-muted-foreground text-[9px]">{transaction.description}</span></div></div></td><td>{getTypeBadge(transaction.type)}</td><td><span className="font-bold text-foreground">{formatCurrency(transaction.amount)}</span></td><td>{getStatusBadge(transaction.status)}</td><td className="text-right"><Button variant="ghost" size="icon" className="w-7 h-7 rounded-lg text-muted-foreground hover:text-foreground hover:bg-foreground/10 border border-border/40" aria-label={`View ${transaction.id}`} onClick={() => setSelectedTransaction(transaction)}><Eye className="w-3.5 h-3.5" /></Button></td></tr>)}{filteredTransactions.length === 0 && <tr><td colSpan={7} className="py-14"><div className="flex flex-col items-center gap-3 text-center"><div className="w-12 h-12 rounded-full bg-foreground/5 flex items-center justify-center"><Search className="w-5 h-5 text-muted-foreground" /></div><p className="text-sm font-medium text-muted-foreground">No transactions found</p><p className="text-xs text-muted-foreground/70">Try adjusting your filters or search term.</p>{hasFilters && <Button variant="outline" size="sm" className="mt-1 h-8 text-xs border-border/50" onClick={clearFilters}>Clear filters</Button>}</div></td></tr>}</tbody></table></div></Card>
         </div>

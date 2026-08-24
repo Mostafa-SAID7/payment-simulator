@@ -139,7 +139,7 @@ export default function Dashboard() {
                 <tr className="border-b border-border/20">
                   <th className="table-th">Transaction</th>
                   <th className="table-th">Date</th>
-                  <th className="table-th">AApprox</th>
+                  <th className="table-th">Amount</th>
                   <th className="table-th">Status</th>
                   <th className="table-th text-right">Action</th>
                 </tr>
