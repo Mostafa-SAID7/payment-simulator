@@ -1,10 +1,18 @@
 import {
+  Activity,
   ArrowDownRight,
   ArrowUpRight,
+  Building2,
   CircleDollarSign,
   Clock3,
+  Download,
   CreditCard,
+  Globe,
+  Mail,
   MoreVertical,
+  Phone,
+  RefreshCw,
+  ShieldCheck,
   Trash2,
   TrendingUp,
 } from 'lucide-react';
@@ -36,6 +44,13 @@ const subBalances = [
   { val: '$875,525', dec: '.00', label: 'GBP/USD' },
 ];
 
+const paymentHeroStats = [
+  { label: 'Total volume', value: '$865K', icon: CircleDollarSign, color: 'text-primary', bg: 'bg-primary/15' },
+  { label: 'Net volume', value: '$475K', icon: TrendingUp, color: 'text-success', bg: 'bg-success/15' },
+  { label: 'Active rails', value: '4', icon: CreditCard, color: 'text-warning', bg: 'bg-warning/15' },
+  { label: 'Settlement health', value: '98%', icon: ShieldCheck, color: 'text-info', bg: 'bg-info/15' },
+];
+
 const cardShadow = 'shadow-[0_1px_4px_oklch(0_0_0/0.05),0_1px_2px_oklch(0_0_0/0.04),inset_0_1px_0_color-mix(in_oklch,white_60%,transparent)] dark:shadow-[0_2px_8px_oklch(0_0_0/0.22),inset_0_1px_0_color-mix(in_oklch,white_3%,transparent)]';
 
 function WalletIcon() {
@@ -58,7 +73,28 @@ function YearPicker() {
 
 export default function PaymentsPage() {
   return (
-    <div className="mx-auto flex w-full max-w-[1600px] flex-col gap-6 px-4 pb-6 md:px-8">
+    <div className="mx-auto flex w-full max-w-[1600px] flex-col gap-4 px-4 pb-6 md:px-8">
+      <div className="relative overflow-hidden rounded-2xl border border-border/60 bg-card shadow-md">
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-primary/8 via-transparent to-success/6" />
+        <div className="pointer-events-none absolute right-0 top-0 size-72 rounded-full bg-primary/5 blur-3xl" />
+        <div className="relative p-5 sm:p-6">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex items-center gap-4">
+              <div className="relative shrink-0">
+                <div className="flex size-14 items-center justify-center rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/20 to-success/15 shadow-sm"><Activity className="size-7 text-primary" /></div>
+                <span className="absolute -bottom-0.5 -right-0.5 size-3.5 rounded-full border-2 border-card bg-success" />
+              </div>
+              <div>
+                <div className="flex flex-wrap items-center gap-2"><h1 className="text-xl font-bold leading-tight tracking-tight text-foreground">Payments</h1><Badge variant="secondary" className="border-primary/20 bg-primary/10 px-2 py-0.5 text-[0.6rem] font-semibold text-primary">Live workspace</Badge></div>
+                <p className="mt-0.5 text-sm text-muted-foreground">Monitor balances, transfers &amp; payment activity</p>
+              </div>
+            </div>
+            <div className="flex flex-wrap items-center gap-2"><Button variant="outline" size="sm" className="h-8 gap-1.5 border-border/60 text-xs"><Download className="size-3.5" /> Export</Button><Button variant="outline" size="sm" className="h-8 gap-1.5 border-border/60 text-xs"><RefreshCw className="size-3.5" /> Refresh</Button></div>
+          </div>
+          <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1.5"><span className="inline-flex items-center gap-1.5 text-[0.7rem] text-muted-foreground"><Building2 className="size-3" /> FinPay Corp</span><span className="inline-flex items-center gap-1.5 text-[0.7rem] text-muted-foreground"><Globe className="size-3" /> finpay.com</span><span className="inline-flex items-center gap-1.5 text-[0.7rem] text-muted-foreground"><Mail className="size-3" /> payments@finpay.com</span><span className="inline-flex items-center gap-1.5 text-[0.7rem] text-muted-foreground"><Phone className="size-3" /> +1 (555) 123-4567</span></div>
+          <div className="mt-5 grid grid-cols-2 gap-2 sm:grid-cols-4">{paymentHeroStats.map(({ label, value, icon: Icon, color, bg }) => <div key={label} className="flex items-center gap-2.5 rounded-xl border border-border/50 bg-background/60 px-3 py-2.5"><span className={cn('inline-flex size-8 shrink-0 items-center justify-center rounded-lg', bg, color)}><Icon className="size-4" /></span><div className="min-w-0"><p className="text-[0.65rem] font-medium leading-none text-muted-foreground">{label}</p><p className="mt-0.5 text-base font-bold leading-none text-foreground">{value}</p></div></div>)}</div>
+        </div>
+      </div>
       <section className="grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]" aria-label="Balance overview">
         <Card className={cn('relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border/50 bg-card', cardShadow)}>
           <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-2xl">

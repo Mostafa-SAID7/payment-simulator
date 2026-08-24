@@ -6,8 +6,9 @@ function CardShell({ children, className = '' }: { children: React.ReactNode; cl
 
 export default function PaymentsLoading() {
   return (
-    <div className="mx-auto flex w-full max-w-[1600px] flex-col gap-6 px-4 pb-6 md:px-8" role="status" aria-label="Loading payments">
+    <div className="mx-auto flex w-full max-w-[1600px] flex-col gap-4 px-4 pb-6 md:px-8" role="status" aria-label="Loading payments">
       <span className="sr-only">Loading payments</span>
+      <div className="overflow-hidden rounded-2xl border border-border/60 bg-card p-5 sm:p-6"><div className="flex items-center gap-4"><Skeleton className="size-14 rounded-2xl" /><div className="flex-1 space-y-2"><Skeleton className="h-5 w-32" /><Skeleton className="h-3 w-64" /><Skeleton className="h-2.5 w-80" /></div><div className="flex gap-2"><Skeleton className="h-8 w-20 rounded-lg" /><Skeleton className="h-8 w-20 rounded-lg" /></div></div><div className="mt-5 grid grid-cols-2 gap-2 border-t border-border/50 pt-5 sm:grid-cols-4">{[0, 1, 2, 3].map((item) => <div key={item} className="flex items-center gap-2.5 rounded-xl border border-border/50 bg-background/60 px-3 py-2.5"><Skeleton className="size-8 rounded-lg" /><div className="space-y-2"><Skeleton className="h-2.5 w-20" /><Skeleton className="h-4 w-12" /></div></div>)}</div></div>
       <section className="grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]" aria-label="Loading balance overview">
         <CardShell className="p-4 sm:p-6">
           <div className="flex items-center justify-between gap-4">
