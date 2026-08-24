@@ -36,6 +36,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Switch } from '@/components/ui/switch';
+import { ActionMenu } from '@/components/dashboard/action-menu';
 import { cn } from '@/lib/utils';
 
 type UserRole = 'Admin' | 'Manager' | 'Editor' | 'Viewer';
@@ -278,7 +279,7 @@ export default function UsersPage() {
                       <td><span className={cn('inline-flex items-center gap-1.5 rounded-full border px-2 py-0.5 text-[10px] font-semibold', status.color)}><span className={cn('size-1.5 rounded-full', status.dot)} />{user.status}<StatusIcon className="hidden size-2.5 sm:block" /></span></td>
                       <td className="hidden text-muted-foreground md:table-cell">{user.lastActive}</td>
                       <td className="hidden lg:table-cell"><span className={cn('inline-flex items-center gap-1 text-[10px] font-medium', user.twoFA ? 'text-success' : 'text-muted-foreground/60')}><ShieldCheck className="size-3" />{user.twoFA ? 'On' : 'Off'}</span></td>
-                      <td><div className="flex items-center gap-0.5"><Button variant="ghost" size="icon" className="size-7 rounded-md text-muted-foreground hover:text-foreground" onClick={() => announce(`${user.name} joined ${user.department} and has ${user.role} access.`)} aria-label={`View ${user.name}`}><Eye className="size-3" /></Button><Button variant="ghost" size="icon" className="size-7 rounded-md text-muted-foreground hover:text-foreground" onClick={() => announce(`Editing access for ${user.name}.`)} aria-label={`Edit ${user.name}`}><Pencil className="size-3" /></Button><Button variant="ghost" size="icon" className="size-7 rounded-md text-muted-foreground hover:text-foreground" onClick={() => toggleSelect(user.id)} aria-label={`Select actions for ${user.name}`}><MoreHorizontal className="size-3" /></Button></div></td>
+                      <td><ActionMenu label={user.name} onView={() => announce(`${user.name} joined ${user.department} and has ${user.role} access.`)} onEdit={() => announce(`Editing access for ${user.name}.`)} onDelete={() => announce(`Removal review opened for ${user.name}.`)} /></td>
                     </tr>;
                   })}
                 </tbody>

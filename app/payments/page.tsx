@@ -23,6 +23,7 @@ import { PaymentActivityChart } from '@/components/dashboard/payment-activity-ch
 import { PaymentTypeChart } from '@/components/dashboard/payment-type-chart';
 import { PeriodSelect } from '@/components/dashboard/period-select';
 import { AccountSelect } from '@/components/dashboard/account-select';
+import { PaymentActionMenu } from '@/components/dashboard/payment-action-menu';
 import { cn } from '@/lib/utils';
 
 const paymentHistory = [
@@ -193,7 +194,7 @@ export default function PaymentsPage() {
                     <td className="text-muted-foreground">{transaction.date}</td>
                     <td className="font-bold text-foreground/85">{transaction.amount}</td>
                     <td><Badge variant="outline" className={cn('rounded-full border px-3 py-0.5 text-[10px] font-semibold', transaction.status === 'Paid' ? 'border-success/35 bg-success/6 text-success shadow-[0_0_8px_color-mix(in_oklch,var(--color-success)_15%,transparent)]' : 'border-warning/35 bg-warning/6 text-warning shadow-[0_0_8px_color-mix(in_oklch,var(--color-warning)_15%,transparent)]')}>{transaction.status}</Badge></td>
-                    <td><div className="flex items-center justify-end gap-2"><Button variant="ghost" size="icon" className="size-8 rounded-lg border border-border/40 text-muted-foreground transition-all duration-150 hover:bg-secondary hover:text-foreground"><MoreVertical className="size-3.5" /></Button><Button variant="ghost" size="icon" className="size-8 rounded-lg border border-border/40 text-muted-foreground transition-all duration-150 hover:bg-destructive/8 hover:text-destructive"><Trash2 className="size-3.5" /></Button></div></td>
+                    <td><div className="flex items-center justify-end"><PaymentActionMenu label={transaction.invoice} /></div></td>
                   </tr>
                 ))}
               </tbody>
