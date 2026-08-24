@@ -36,6 +36,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Switch } from '@/components/ui/switch';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { ActionMenu } from '@/components/dashboard/action-menu';
 import { cn } from '@/lib/utils';
 
@@ -255,8 +256,8 @@ export default function UsersPage() {
             <div className="flex flex-col gap-2 px-4 py-3 sm:flex-row">
               <div className="relative min-w-0 flex-1"><Search className="absolute left-2.5 top-1/2 size-3.5 -translate-y-1/2 text-muted-foreground" /><Input aria-label="Search users" placeholder="Search by name, email or department…" value={search} onChange={(event) => setSearch(event.target.value)} className="h-8 border-border/50 bg-background/60 pl-8 text-xs" /></div>
               <div className="flex gap-2">
-                <div className="relative min-w-0 flex-1 sm:flex-none"><label htmlFor="role-filter" className="sr-only">Filter by role</label><select id="role-filter" value={filterRole} onChange={(event) => setFilterRole(event.target.value as 'All' | UserRole)} className="h-8 w-full appearance-none rounded-md border border-border/50 bg-background/60 pl-3 pr-7 text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-primary/40"><option value="All">All roles</option>{roles.map((role) => <option key={role} value={role}>{role}</option>)}</select><ChevronDown className="pointer-events-none absolute right-2 top-1/2 size-3 -translate-y-1/2 text-muted-foreground" /></div>
-                <div className="relative min-w-0 flex-1 sm:flex-none"><label htmlFor="status-filter" className="sr-only">Filter by status</label><select id="status-filter" value={filterStatus} onChange={(event) => setFilterStatus(event.target.value as 'All' | UserStatus)} className="h-8 w-full appearance-none rounded-md border border-border/50 bg-background/60 pl-3 pr-7 text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-primary/40"><option value="All">All status</option>{statuses.map((status) => <option key={status} value={status}>{status}</option>)}</select><ChevronDown className="pointer-events-none absolute right-2 top-1/2 size-3 -translate-y-1/2 text-muted-foreground" /></div>
+                <Select value={filterRole} onValueChange={(value) => setFilterRole(value as 'All' | UserRole)}><SelectTrigger aria-label="Filter by role" size="sm" className="h-8 w-full min-w-[108px] border-border/50 bg-background/60 text-xs sm:w-auto"><SelectValue placeholder="All roles" /></SelectTrigger><SelectContent><SelectItem value="All">All roles</SelectItem>{roles.map((role) => <SelectItem key={role} value={role}>{role}</SelectItem>)}</SelectContent></Select>
+                <Select value={filterStatus} onValueChange={(value) => setFilterStatus(value as 'All' | UserStatus)}><SelectTrigger aria-label="Filter by status" size="sm" className="h-8 w-full min-w-[112px] border-border/50 bg-background/60 text-xs sm:w-auto"><SelectValue placeholder="All status" /></SelectTrigger><SelectContent><SelectItem value="All">All status</SelectItem>{statuses.map((status) => <SelectItem key={status} value={status}>{status}</SelectItem>)}</SelectContent></Select>
                 <Button variant="outline" size="sm" onClick={clearFilters} disabled={!hasFilters} className="h-8 shrink-0 border-border/50 text-xs"><Filter className="size-3.5" /><span className="hidden sm:inline">{hasFilters ? 'Clear' : 'Filter'}</span></Button>
               </div>
             </div>
