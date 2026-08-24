@@ -1,8 +1,9 @@
-import { MoreVertical, Plus, CreditCard, ChevronDown, Trash2, Clock3 } from 'lucide-react';
+import { MoreVertical, Plus, CreditCard, Trash2, Clock3 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { CardsCashflowChart } from '@/components/dashboard/cards-cashflow-chart';
+import { PeriodSelect } from '@/components/dashboard/period-select';
 import { cn } from '@/lib/utils';
 
 const savedCards = [
@@ -128,11 +129,7 @@ export default function CardsPage() {
               Cashflow
               <span className="inline-flex items-center justify-center w-3.5 h-3.5 rounded-full border border-border/50 text-muted-foreground text-[8px] cursor-help">i</span>
             </CardTitle>
-            <button type="button" className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border/50 bg-secondary/80 text-[11px] text-foreground/60 hover:bg-secondary hover:border-border transition-all duration-150 shadow-[var(--shadow-xs)]">
-              <CreditCard className="w-3.5 h-3.5 opacity-70" />
-              <span className="hidden sm:inline">Last Month</span>
-              <ChevronDown className="w-3 h-3 opacity-50 ml-0.5" />
-            </button>
+            <PeriodSelect defaultValue="last-month" />
           </CardHeader>
           <CardContent className="flex-1 p-0 flex flex-col relative min-h-[300px]">
             <CardsCashflowChart />
@@ -189,11 +186,7 @@ export default function CardsPage() {
             All Transactions
             <span className="inline-flex items-center justify-center w-3.5 h-3.5 rounded-full border border-border/50 text-muted-foreground text-[8px] cursor-help">i</span>
           </CardTitle>
-          <button type="button" className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border/50 bg-secondary/80 text-[11px] text-foreground/60 hover:bg-secondary hover:border-border transition-all duration-150 shadow-[var(--shadow-xs)]">
-            <CreditCard className="w-3.5 h-3.5 opacity-70" />
-            <span className="hidden sm:inline">This Year</span>
-            <ChevronDown className="w-3 h-3 opacity-50 ml-0.5" />
-          </button>
+          <PeriodSelect defaultValue="year" />
         </CardHeader>
         <CardContent className="p-0">
           <div className="table-container">

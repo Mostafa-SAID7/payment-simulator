@@ -10,6 +10,7 @@ import {
   YAxis,
 } from 'recharts';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { PeriodSelect } from './period-select';
 import { ChartTooltip } from './chart-tooltip';
 
 const cashflowData = [
@@ -32,9 +33,7 @@ export function CardsCashflowChartRenderer() {
         <CardTitle className="text-xs font-semibold text-foreground/80">
           Cashflow <span className="inline-flex size-4 items-center justify-center rounded-full border border-border/50 text-[10px] text-muted-foreground" title="More information">ⓘ</span>
         </CardTitle>
-        <button type="button" className="flex items-center gap-1 rounded-md border border-border/50 px-2 py-1 text-xs text-muted-foreground transition-colors hover:bg-secondary/50">
-          Last Month⌄
-        </button>
+        <PeriodSelect defaultValue="last-month" />
       </CardHeader>
       <CardContent className="h-[220px] min-w-0 p-0">
         <ResponsiveContainer width="100%" height="100%">

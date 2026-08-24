@@ -1,6 +1,5 @@
 import {
   ArrowUpRight,
-  ChevronDown,
   CircleDollarSign,
   MoreVertical,
   Trash2,
@@ -14,6 +13,8 @@ import { Badge } from '@/components/ui/badge';
 import { TransactionChart } from '@/components/dashboard/transaction-chart';
 import { PaymentTypeChart } from '@/components/dashboard/payment-type-chart';
 import { BalanceCard } from '@/components/dashboard/balance-card';
+import { PeriodSelect } from '@/components/dashboard/period-select';
+import { AccountSelect } from '@/components/dashboard/account-select';
 import { cn } from '@/lib/utils';
 
 const metrics = [
@@ -66,14 +67,7 @@ export default function Dashboard() {
               My Balance 
               <span className="inline-flex items-center justify-center w-3.5 h-3.5 rounded-full border border-border/50 text-muted-foreground text-[8px] cursor-help ml-1">i</span>
             </CardTitle>
-            <button type="button" className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg border border-border/40 bg-foreground/5 text-xs text-foreground/80 hover:bg-foreground/10 transition-colors">
-              <div className="flex -space-x-1">
-                <div className="w-3 h-3 rounded-full bg-[#EB001B] opacity-90 z-10"></div>
-                <div className="w-3 h-3 rounded-full bg-[#F79E1B] opacity-90"></div>
-              </div>
-              <span className="font-medium">xx25</span>
-              <ChevronDown className="w-3.5 h-3.5 opacity-50" />
-            </button>
+            <AccountSelect />
           </CardHeader>
           <CardContent className="px-5 pb-5 pt-3">
             <div className="flex items-baseline gap-3 mb-5">
@@ -111,10 +105,7 @@ export default function Dashboard() {
           <CardTitle className="text-sm font-medium text-foreground/90 flex items-center gap-1.5">
             Transaction History <span className="inline-flex items-center justify-center w-3.5 h-3.5 rounded-full border border-border/50 text-muted-foreground text-[8px] cursor-help ml-1">i</span>
           </CardTitle>
-          <button type="button" className="filter-btn">
-            <CalendarIcon />
-            This Month <ChevronDown className="w-3.5 h-3.5 opacity-50 ml-1" />
-          </button>
+          <PeriodSelect defaultValue="month" />
         </CardHeader>
         <CardContent className="p-0">
           <div className="table-container">

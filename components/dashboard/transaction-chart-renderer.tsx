@@ -2,7 +2,7 @@
 
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ChevronDown, Calendar } from 'lucide-react';
+import { PeriodSelect } from './period-select';
 import { ChartTooltip } from './chart-tooltip';
 
 const data = [
@@ -27,10 +27,7 @@ export function TransactionChartRenderer() {
         <CardTitle className="flex items-center gap-1.5 text-sm font-medium text-foreground/90">
           Report <span className="ml-1 inline-flex size-3.5 items-center justify-center rounded-full border border-border/50 text-[8px] text-muted-foreground">i</span>
         </CardTitle>
-        <button type="button" className="filter-btn">
-          <Calendar className="size-3.5" />
-          This Year <ChevronDown className="ml-1 size-3.5 opacity-50" />
-        </button>
+        <PeriodSelect defaultValue="year" />
       </CardHeader>
       <CardContent className="h-[calc(100%-4rem)] p-0 pt-4 pr-6 pb-6 pl-2">
         <ResponsiveContainer width="100%" height={260}>

@@ -1,7 +1,6 @@
 import {
   ArrowDownRight,
   ArrowUpRight,
-  ChevronDown,
   CircleDollarSign,
   Clock3,
   CreditCard,
@@ -14,6 +13,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { PaymentActivityChart } from '@/components/dashboard/payment-activity-chart';
 import { PaymentTypeChart } from '@/components/dashboard/payment-type-chart';
+import { PeriodSelect } from '@/components/dashboard/period-select';
+import { AccountSelect } from '@/components/dashboard/account-select';
 import { cn } from '@/lib/utils';
 
 const paymentHistory = [
@@ -47,29 +48,12 @@ function WalletIcon() {
   );
 }
 
-function CalendarIcon() {
-  return (
-    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <rect width="18" height="18" x="3" y="4" rx="2" ry="2" />
-      <line x1="16" x2="16" y1="2" y2="6" />
-      <line x1="8" x2="8" y1="2" y2="6" />
-      <line x1="3" x2="21" y1="10" y2="10" />
-    </svg>
-  );
-}
-
 function InfoMark() {
   return <span className="inline-flex size-3.5 items-center justify-center rounded-full border border-border/50 text-[8px] text-muted-foreground" title="More information">i</span>;
 }
 
 function YearPicker() {
-  return (
-    <button type="button" className="flex items-center gap-1.5 rounded-lg border border-border/50 bg-secondary/80 px-3 py-1.5 text-[11px] text-foreground/60 shadow-[var(--shadow-xs)] transition-all duration-150 hover:border-border hover:bg-secondary">
-      <CalendarIcon />
-      <span className="hidden sm:inline">This Year</span>
-      <ChevronDown className="ml-0.5 size-3 opacity-50" />
-    </button>
-  );
+  return <PeriodSelect defaultValue="year" />;
 }
 
 export default function PaymentsPage() {
@@ -90,11 +74,7 @@ export default function PaymentsPage() {
               <span className="sm:hidden">Balance</span>
               <InfoMark />
             </CardTitle>
-            <button type="button" className="flex items-center gap-2 rounded-lg border border-border/50 bg-secondary/80 px-3 py-1.5 text-[11px] text-foreground/70 shadow-[var(--shadow-xs)] transition-all duration-150 hover:border-border hover:bg-secondary">
-              <span className="flex -space-x-1"><span className="z-10 size-3 rounded-full bg-destructive shadow-sm" /><span className="size-3 rounded-full bg-warning shadow-sm" /></span>
-              <span className="font-semibold tracking-wider">xx25</span>
-              <ChevronDown className="size-3 opacity-50" />
-            </button>
+            <AccountSelect />
           </CardHeader>
 
           <CardContent className="relative z-10 px-4 pt-2 pb-5 sm:px-6 sm:pb-6">
