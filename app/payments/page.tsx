@@ -150,12 +150,7 @@ export default function PaymentsPage() {
           <CardContent className="relative flex min-h-[280px] flex-1 flex-col p-0"><PaymentActivityChart /></CardContent>
         </Card>
 
-        <Card className={cn('flex flex-col overflow-hidden rounded-2xl border border-border/50 bg-card', cardShadow)}>
-          <CardHeader className="flex flex-row items-center justify-between px-4 pt-5 pb-0 sm:px-6 sm:pt-6">
-            <CardTitle className="flex items-center gap-2 text-sm font-semibold text-foreground/90">Balance Details <InfoMark /></CardTitle>
-          </CardHeader>
-          <CardContent className="flex flex-1 flex-col items-center justify-center p-4 sm:p-6"><PaymentTypeChart /></CardContent>
-        </Card>
+        <PaymentTypeChart />
       </section>
 
       <Card className={cn('overflow-hidden rounded-2xl border border-border/50 bg-card', cardShadow)}>
