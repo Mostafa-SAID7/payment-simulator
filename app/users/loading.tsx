@@ -5,7 +5,7 @@ export default function UsersLoading() {
     <div className="flex flex-col gap-4 pb-6" role="status" aria-label="Loading users">
       <span className="sr-only">Loading users</span>
 
-      <div className="overflow-hidden rounded-2xl border border-border/60 bg-card p-4 sm:p-5">
+      <div className="overflow-hidden rounded-2xl border border-border/60 bg-card px-4 pb-4 pt-3 sm:px-5">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-3"><Skeleton className="size-12 rounded-2xl" /><div className="space-y-2"><Skeleton className="h-5 w-40" /><Skeleton className="h-3 w-56" /></div></div>
           <div className="flex gap-2"><Skeleton className="h-8 w-20 rounded-lg" /><Skeleton className="h-8 w-20 rounded-lg" /><Skeleton className="h-8 w-24 rounded-lg" /></div>
