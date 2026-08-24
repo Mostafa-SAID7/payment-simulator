@@ -74,7 +74,7 @@ function YearPicker() {
 
 export default function PaymentsPage() {
   return (
-    <div className="mx-auto mt-20 flex w-full max-w-[1600px] flex-col gap-6 px-4 pb-6 md:mt-24 md:px-8">
+    <div className="mx-auto flex w-full max-w-[1600px] flex-col gap-6 px-4 pb-6 md:px-8">
       <section className="grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]" aria-label="Balance overview">
         <Card className={cn('relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border/50 bg-card', cardShadow)}>
           <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-2xl">
